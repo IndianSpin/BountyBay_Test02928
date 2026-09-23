@@ -1,7 +1,9 @@
 /**
- * Slice checkpoint tool (DEC-029, docs/21 §4): captures the live-match
- * screen next to the Claude Design boards and asserts the structural
- * contract (objects present, positions from the .lm-* composition).
+ * Slice checkpoint tool (BB-216, DEC-029, docs/21 §4): captures the
+ * live-match screen next to the Claude Design boards and asserts the
+ * structural contract of the D-24/D-26 composition — four protected
+ * zones, one display plaque, a compact chat composer, the opponent as
+ * the largest element.
  *
  * Only runs when CAPTURE_CANVAS=1 — it writes screenshots, it is not part
  * of the CI-critical path. Usage:
@@ -89,25 +91,42 @@ test('canvas checkpoint: live-match screen vs design boards', async ({ browser }
     await readyA.click();
     await expect(pageA.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
 
-    // Structural contract (board LMR-D-01): diegetic objects present.
+    // Structural contract (BB-216, D-24/D-26): four protected zones and
+    // the ~five objects inside them.
     const structural = [
+      { name: 'opponent zone', locator: '.lm-opponent-zone' },
+      { name: 'state zone', locator: '.lm-state-zone' },
+      { name: 'action zone', locator: '.lm-action-zone' },
+      { name: 'quiet row', locator: '.lm-quiet-row' },
       { name: 'opponent sprite', locator: '.lm-opponent__sprite' },
       { name: 'name plaque', locator: '.lm-plaque' },
       { name: 'their ask plaque', locator: '.lm-offer--theirs' },
-      { name: 'my offer plaque', locator: '.lm-offer--mine' },
+      { name: 'my offer readout', locator: '.lm-offer--mine' },
       { name: 'my limit card', locator: '.lm-limit' },
       { name: 'price rail', locator: '.lm-rail' },
-      { name: 'composer slip', locator: '.lm-composer' },
-      { name: 'seal offer blob', locator: '.lm-seal' },
-      { name: 'clock medallion', locator: '.lm-clock' },
-      { name: 'coin pile', locator: '.lm-coins' },
+      { name: 'composer', locator: '.lm-composer' },
+      { name: 'seal action', locator: '.lm-seal' },
+      { name: 'clock chip', locator: '.lm-clock' },
+      { name: 'chips count', locator: '.lm-coins' },
       { name: 'asset on table', locator: '.lm-asset' },
       { name: 'menu round button', locator: '.lm-round-btn--menu' },
       { name: 'chat round button', locator: '.lm-round-btn--chat' },
+      { name: 'compact chat composer (visible on desktop)', locator: '.lm-chat-sheet' },
     ];
     for (const item of structural) {
       await expect(pageA.locator(item.locator), `${item.name} should exist`).toBeAttached({ timeout: 10_000 });
     }
+    // D-24 #1: the opponent is the largest meaningful element on screen.
+    const otterBox = await pageA.locator('.lm-opponent').boundingBox();
+    const plaqueBox = await pageA.locator('.lm-offer--theirs').boundingBox();
+    expect(otterBox).not.toBeNull();
+    expect(plaqueBox).not.toBeNull();
+    expect(otterBox!.height).toBeGreaterThan(plaqueBox!.height * 3);
+    // D-26 #2: the composer is a compact sheet, not a horizontal slab.
+    const sheetBox = await pageA.locator('.lm-chat-sheet').boundingBox();
+    expect(sheetBox).not.toBeNull();
+    expect(sheetBox!.width).toBeLessThanOrEqual(440);
+    expect(sheetBox!.height).toBeLessThanOrEqual(220);
     // Canvas type contract: world face + numerals actually loaded.
     // only RENDERED weights load (font-display swap): the screen uses
     // Baloo 2 700/800 and Space Grotesk 700 — probe exactly those
@@ -157,6 +176,13 @@ test('canvas checkpoint: live-match screen vs design boards', async ({ browser }
       return body.activeMatch?.matchId ?? null;
     }, apiUrl);
     expect(matchId).not.toBeNull();
+    // D-26 #3: the conversation lives with the character — the latest
+    // message appears as a bubble next to the opponent.
+    await activePage.locator('.chat-row input').fill('Make it worth my while.');
+    await activePage.locator('.chat-send').click();
+    await expect(waitingPage.locator('.lm-chat-bubble')).toContainText('Make it worth my while.', { timeout: 15_000 });
+    await activePage.screenshot({ path: path.join(OUT_DIR, 'live-match-desktop-chat.png') });
+
     const mobileCtx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     await mobileCtx.addInitScript(
       (arg: { key: string; value: string }) => localStorage.setItem(arg.key, arg.value),
@@ -166,7 +192,15 @@ test('canvas checkpoint: live-match screen vs design boards', async ({ browser }
     await mobilePage.goto(`/play?resume=${matchId}`);
     await expect(mobilePage.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
     await expect(mobilePage.locator('.lm-composer')).toBeVisible();
+    // D-24 #6: no horizontal scroll at 390 px.
+    const hasHScroll = await mobilePage.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
+    expect(hasHScroll).toBe(false);
+    // D-26 #4: chat is ambient on mobile until Talk opens the bottom sheet.
+    await expect(mobilePage.locator('.lm-chat-sheet')).toBeHidden();
+    await mobilePage.getByRole('button', { name: 'Open chat' }).click();
+    await expect(mobilePage.locator('.lm-chat-sheet')).toBeVisible();
     await mobilePage.screenshot({ path: path.join(OUT_DIR, 'live-match-mobile.png') });
+    await mobilePage.screenshot({ path: path.join(OUT_DIR, 'live-match-mobile-chat-sheet.png') });
     await mobileCtx.close();
 
     // ACCEPTANCE slice (sequence E, LMD-06): mid-hold capture; early release

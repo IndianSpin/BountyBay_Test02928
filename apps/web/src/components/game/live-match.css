@@ -1,6 +1,26 @@
 /* ---------------------------------------------------------------------------
- * Live match — first-person composition (boards LMR-D-01/03, LMR-M-01)
+ * Live match — first-person composition (BB-216, founder D-24 + D-26)
+ *
+ * Read order: Opponent → their offer → my position/limit → action.
+ * Five visual objects, four protected zones, three type levels, one
+ * semantic color budget. All rules: design-sandbox/DESIGN_ACCEPTANCE.md
+ * §Live-match composition + §Chat & communication (binding).
+ *
+ * TYPE SYSTEM (3 levels, no more):
+ *   Display — deal numbers            .lm-offer--theirs__v, .lm-composer__input
+ *   UI      — action/status labels    plaque names, seal, myband values
+ *   Body    — dialogue/explanation    cost line, chat text, quiet row
+ *
+ * COLOR BUDGET (semantic only):
+ *   normal   — gold/parchment/ink     rail, round buttons, composer
+ *   positive — green (var(--positive))  accept, crossed, deal states ONLY
+ *   danger   — crimson                time warning + walk away ONLY
+ *   private  — ember (var(--player))    my seal, my limit, my pin
+ *   opponent — violet (var(--opponent)) their plaque, their pin
+ * Red means time danger and nothing else.
  * ------------------------------------------------------------------------- */
+
+/* ---- world + scene ------------------------------------------------------ */
 
 .lm-world {
   position: relative;
@@ -22,16 +42,19 @@
 
 /* seat lighting: turn state is read from light before any label */
 .lm-light { position: absolute; inset: 0; pointer-events: none; transition: opacity 400ms ease-in-out; }
-.lm-light--player { background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255,122,80,.38), rgba(255,122,80,0) 70%); }
-.lm-light--opponent { background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(139,107,209,.32), rgba(139,107,209,0) 70%); }
+.lm-light--player { background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(255,122,80,.30), rgba(255,122,80,0) 70%); }
+.lm-light--opponent { background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(139,107,209,.24), rgba(139,107,209,0) 70%); }
 .lm-dim { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(20,14,40,.18), rgba(20,14,40,0) 40%); }
 
-/* opponent seat: sprite character behind the table */
+/* ---- ZONE 1 · the opponent (protected: 0%–56% of height, dominant) ------ */
+
+.lm-opponent-zone { position: static; } /* children anchor to .lm-world */
+
 .lm-opponent {
   position: absolute;
   left: 50%;
-  top: 6%;
-  width: min(34vw, 506px);
+  top: 34px;
+  width: min(34vw, 480px);
   aspect-ratio: 600 / 900;
   transform: translateX(-50%);
   pointer-events: none;
@@ -41,53 +64,92 @@
   height: 100%;
   background-image: url('/game/ch-goldenotter.svg');
   background-size: auto 100%;
-  background-position-x: 0;
+  background-position-x: -1200px; /* cell 2: engaged at the table (LMR-D-01) */
   background-repeat: no-repeat;
   transition: background-position-x 240ms ease;
 }
+/* FaceKit pose cells (600px each): 0 idle · 1 thinking · 2 engaged ·
+   4 speaking/presenting · 6 surprised · 7 pleased · 8 smug ·
+   9 frustrated · 14 deal-possible lean-in */
+.lm-opponent__sprite[data-pose='idle'] { background-position-x: 0; }
 .lm-opponent__sprite[data-pose='thinking'] { background-position-x: -600px; }
-.lm-opponent__sprite[data-pose='offer'] { background-position-x: -2400px; }
-.lm-opponent__sprite[data-pose='smug'] { background-position-x: -4800px; }
+.lm-opponent__sprite[data-pose='engaged'] { background-position-x: -1200px; }
+.lm-opponent__sprite[data-pose='speaking'] { background-position-x: -2400px; }
 .lm-opponent__sprite[data-pose='surprised'] { background-position-x: -3600px; }
-.lm-opponent--ai .lm-opponent__sprite {
-  background-image: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.lm-opponent__sprite[data-pose='pleased'] { background-position-x: -4200px; }
+.lm-opponent__sprite[data-pose='smug'] { background-position-x: -4800px; }
+.lm-opponent__sprite[data-pose='frustrated'] { background-position-x: -5400px; }
+.lm-opponent__sprite[data-pose='deal'] { background-position-x: -8400px; }
+
+/* AI opponents: the persona portrait, large and diegetically framed */
+.lm-opponent--ai .lm-opponent__sprite { background-image: none; }
 .lm-opponent--ai .lm-opponent__portrait {
-  width: min(26vw, 340px);
+  position: absolute;
+  left: 50%;
+  top: 26%;
+  transform: translateX(-50%);
+  width: min(24vw, 320px);
   aspect-ratio: 1;
-  border-radius: 50%;
+  border-radius: 14px;
   border: 4px solid var(--outline-ink);
   background: radial-gradient(circle at 35% 28%, #3A3570, #1E1B3D 70%);
   box-shadow: 0 10px 0 rgba(42,26,46,.3);
   overflow: hidden;
 }
-.lm-opponent--ai .lm-opponent__portrait img { width: 100%; height: 100%; object-fit: cover; }
+.lm-opponent--ai .lm-opponent__portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* wooden name plaque (board: GOLDENOTTER) */
+/* wooden name plaque — quiet, above the character */
 .lm-plaque {
   position: absolute;
   left: 50%;
-  top: 0;
+  top: 6px;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
-  padding: 6px 22px 7px;
+  gap: 1px;
+  padding: 4px 18px 5px;
   background: linear-gradient(180deg, #9A5A30, #6E3A20);
   border: 3px solid var(--outline-ink);
   border-radius: 8px;
-  box-shadow: 0 5px 0 rgba(42,26,46,.3);
+  box-shadow: 0 4px 0 rgba(42,26,46,.3);
   text-align: center;
   z-index: 3;
+  max-width: min(420px, 92vw);
 }
-.lm-plaque__name { font-family: var(--font-world); font-weight: 800; font-size: 20px; line-height: 24px; color: #FFE7A6; letter-spacing: .5px; }
-.lm-plaque__sub { font-size: 11px; font-weight: 700; color: #F3D9B8; letter-spacing: .5px; }
+.lm-plaque__name { font-family: var(--font-world); font-weight: 800; font-size: 16px; line-height: 20px; color: #FFE7A6; letter-spacing: .5px; }
+.lm-plaque__sub { font-size: 10px; font-weight: 700; color: #F3D9B8; letter-spacing: .5px; }
+.lm-plaque__ai { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 999px; background: var(--surface-overlay); border: 1px solid var(--mist-400); font-size: 9px; letter-spacing: .6px; text-transform: uppercase; color: var(--ink-on-dark); }
 
-/* hanging offer plaques (board: THEY ASK / YOUR OFFER) */
+/* the conversation lives WITH the character: speech bubble + fade */
+.lm-chat-bubble {
+  position: absolute;
+  left: calc(50% + min(15vw, 200px));
+  top: 20%;
+  z-index: 3;
+  max-width: 250px;
+  background: #FFF9EC;
+  color: var(--ink-on-parchment);
+  border: 3px solid var(--outline-ink);
+  border-radius: 20px 20px 20px 6px;
+  padding: 9px 13px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19px;
+  box-shadow: 0 6px 0 rgba(42,26,46,.2);
+  animation: lm-bubble-in 260ms cubic-bezier(.34,1.56,.64,1) both;
+}
+.lm-chat-bubble::after { content: ''; position: absolute; left: 22px; bottom: -14px; width: 18px; height: 18px; background: #FFF9EC; border-right: 3px solid var(--outline-ink); border-bottom: 3px solid var(--outline-ink); transform: rotate(45deg); }
+.lm-chat-bubble--mine { background: #FBE3D7; }
+.lm-chat-bubble--mine::after { background: #FBE3D7; }
+/* D-26: the bubble fades into history after ~6 s (timer in chat-panel) */
+.lm-chat-bubble--fade { opacity: 0; transform: translateY(-8px); transition: opacity 700ms ease, transform 700ms ease; }
+
+/* ---- ZONE 2 · negotiation state (protected: plaque → rail → my band) ---- */
+
+.lm-state-zone { position: static; }
+
+/* THE offer plaque — the only display-size number on the screen */
 .lm-offer {
   position: absolute;
   padding: 7px;
@@ -97,88 +159,165 @@
   box-shadow: 0 10px 0 rgba(42,26,46,.28);
   z-index: 2;
 }
-.lm-offer::before { content: ''; position: absolute; left: 50%; bottom: -19px; width: 40%; height: 14px; transform: translateX(-50%); background: #A8701E; border: 3px solid var(--outline-ink); border-top: 0; border-radius: 0 0 8px 8px; }
+.lm-offer--theirs {
+  left: 50%;
+  top: 43%;
+  transform: translateX(-50%);
+  width: 210px;
+  animation: lm-plaque-land 420ms cubic-bezier(.34,1.4,.64,1) both;
+}
+.lm-offer--theirs::before { content: ''; position: absolute; left: 50%; bottom: -19px; width: 40%; height: 14px; transform: translateX(-50%); background: #A8701E; border: 3px solid var(--outline-ink); border-top: 0; border-radius: 0 0 8px 8px; }
 .lm-offer__face {
   border: 2.5px solid var(--outline-ink);
   border-radius: 8px 8px 4px 4px;
-  padding: 6px 10px 4px;
+  padding: 5px 10px 4px;
   text-align: center;
   background: linear-gradient(180deg, #9A7BE0, #5B3AA8);
 }
-.lm-offer--mine .lm-offer__face { background: linear-gradient(180deg, #FF9E7E, #B84B2E); }
 .lm-offer__k { font-size: 10px; letter-spacing: 1.2px; font-weight: 800; color: #E9DEFF; text-transform: uppercase; }
-.lm-offer--mine .lm-offer__k { color: #FFE4D6; }
-.lm-offer__v { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 42px; line-height: 1.05; color: #FFFFFF; text-shadow: 0 3px 0 rgba(0,0,0,.35); }
+.lm-offer__v { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 56px; line-height: 1.05; color: #FFFFFF; text-shadow: 0 3px 0 rgba(0,0,0,.35); }
 .lm-offer--crossed { border-color: var(--positive); box-shadow: 0 10px 0 rgba(42,26,46,.28), 0 0 0 4px rgba(63,190,107,.35); }
-.lm-offer--superseded .lm-offer__v { text-decoration: line-through; text-decoration-thickness: 3px; text-decoration-color: rgba(255,255,255,.5); }
 
-/* my limit card (board: MY LIMIT · ONLY YOU) */
-.lm-limit {
-  position: absolute;
+/* my standing offer — a quiet readout, NOT a second plaque (D-24: one plaque) */
+.lm-offer--mine {
+  position: static;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 8px 14px;
-  transform: rotate(-9deg);
-  transform-origin: 0 0;
-  border: 3px solid var(--outline-ink);
-  border-radius: 6px;
-  background: linear-gradient(160deg, #FF8A5E, #C2452A);
-  color: #FFF4E8;
-  box-shadow: 0 8px 0 rgba(42,26,46,.3);
-  z-index: 2;
+  align-items: center;
+  gap: 1px;
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+  color: var(--ink-on-dark);
+  animation: lm-settle 300ms ease both;
 }
-.lm-limit__k { display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 1.2px; font-weight: 800; text-transform: uppercase; }
-.lm-limit__v { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 40px; line-height: 1.05; }
-.lm-limit--pulse { animation: bb-breathe 1.2s ease-in-out infinite; box-shadow: 0 8px 0 rgba(42,26,46,.3), 0 0 18px rgba(63,190,107,.55); }
+.lm-offer--mine .lm-offer__face { border: none; background: none; padding: 0; }
+.lm-offer--mine .lm-offer__k { color: var(--ink-muted-on-dark); font-size: 10px; }
+.lm-offer--mine .lm-offer__v { font-size: 26px; color: var(--ink-on-dark); text-shadow: none; }
+.lm-offer--mine .lm-offer__tag { font-size: 11px; color: var(--ink-muted-on-dark); }
+.lm-offer--mine.lm-offer--crossed .lm-offer__v { color: var(--positive); }
 
-/* price rail (board: pins + gap glow) */
-.lm-rail { position: absolute; left: 50%; transform: translateX(-50%); width: min(52vw, 640px); height: 74px; z-index: 2; }
-.lm-rail__track { position: absolute; left: 0; right: 0; top: 24px; height: 12px; border-radius: 7px; border: 2.5px solid var(--outline-ink); background: linear-gradient(180deg, #FFE7A6, #A8701E); }
-.lm-rail__gap { position: absolute; top: 20px; height: 20px; border-radius: 999px; background: repeating-linear-gradient(135deg, rgba(243,238,221,.35) 0 6px, rgba(243,238,221,.1) 6px 12px); box-shadow: 0 0 14px rgba(255,245,200,.9); }
-.lm-rail__overlap { position: absolute; top: 18px; height: 24px; border-radius: 999px; background: repeating-linear-gradient(135deg, rgba(63,190,107,.85) 0 6px, rgba(63,190,107,.4) 6px 12px); box-shadow: 0 0 0 2px var(--positive); animation: bb-breathe 1.2s ease-in-out infinite; }
-.lm-rail__pin { position: absolute; top: 18px; transform: translateX(-50%); width: 20px; height: 28px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; border: 2.5px solid var(--outline-ink); transition: left 320ms cubic-bezier(.34,1.56,.64,1); }
+/* the schematic price rail — the counter across which plaques slide */
+.lm-rail { position: absolute; left: 50%; top: 60%; transform: translateX(-50%); width: min(52vw, 640px); height: 44px; z-index: 2; }
+.lm-rail__track { position: absolute; left: 0; right: 0; top: 14px; height: 10px; border-radius: 6px; border: 2.5px solid var(--outline-ink); background: linear-gradient(180deg, #FFE7A6, #A8701E); }
+.lm-rail__gap { position: absolute; top: 12px; height: 14px; border-radius: 999px; background: repeating-linear-gradient(135deg, rgba(243,238,221,.35) 0 6px, rgba(243,238,221,.1) 6px 12px); box-shadow: 0 0 12px rgba(255,245,200,.8); }
+.lm-rail__overlap { position: absolute; top: 12px; height: 14px; border-radius: 999px; background: repeating-linear-gradient(135deg, rgba(63,190,107,.85) 0 6px, rgba(63,190,107,.4) 6px 12px); box-shadow: 0 0 0 2px var(--positive); animation: bb-breathe 1.2s ease-in-out infinite; }
+.lm-rail__pin { position: absolute; top: 10px; transform: translateX(-50%); width: 18px; height: 24px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; border: 2.5px solid var(--outline-ink); transition: left 320ms cubic-bezier(.34,1.56,.64,1); }
 .lm-rail__pin--player { background: var(--player); }
 .lm-rail__pin--opponent { background: var(--opponent); }
 .lm-rail__pin--ghost { background: var(--surface-parchment-deep); opacity: .55; border-style: dashed; transition: left 80ms linear; }
 .lm-rail__pin--old { opacity: .45; }
 
+/* my position: one private limit card + my offer, one quiet band */
+.lm-myband {
+  position: absolute;
+  left: 50%;
+  top: 68%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-start;
+  gap: 44px;
+  z-index: 2;
+}
+
+/* my limit card — quiet, no rotation, still private (details toggle) */
+.lm-limit {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 12px;
+  border: 2.5px solid var(--outline-ink);
+  border-radius: 6px;
+  background: linear-gradient(160deg, #FF8A5E, #C2452A);
+  color: #FFF4E8;
+  box-shadow: 0 6px 0 rgba(42,26,46,.3);
+}
+.lm-limit__k { display: flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 1.1px; font-weight: 800; text-transform: uppercase; }
+.lm-limit__v { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 24px; line-height: 1.1; }
+.lm-limit--pulse { animation: bb-breathe 1.2s ease-in-out infinite; box-shadow: 0 6px 0 rgba(42,26,46,.3), 0 0 14px rgba(63,190,107,.5); }
+.lm-limit summary { list-style: none; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
+.lm-limit summary::-webkit-details-marker { display: none; }
+.lm-limit__body { max-width: 220px; font-size: 12px; line-height: 17px; opacity: .9; }
+.lm-limit__body p { margin: 4px 0 0; }
+.lm-limit__line { font-weight: 700; }
+
+/* the negotiated object — world decoration on the velvet, not an interface object */
+.lm-asset { position: absolute; left: 26%; top: 52%; width: 150px; z-index: 1; pointer-events: none; opacity: .92; }
+.lm-asset img { width: 100%; display: block; filter: drop-shadow(0 10px 18px rgba(10,8,4,.5)); }
+
+/* crossed ribbon: quiet deal signal under the plaque */
+.lm-ribbon {
+  position: absolute;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-family: var(--font-world);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  background: var(--surface-overlay);
+  color: var(--ink-on-dark);
+  box-shadow: 0 3px 10px rgba(6,8,10,.4);
+}
+.lm-crossed-ribbon { left: 50%; top: 64px; transform: translateX(-50%); background: var(--positive); color: var(--ink-on-positive); box-shadow: 0 3px 0 var(--positive-deep), 0 3px 10px rgba(6,8,10,.4); animation: bb-breathe 1.2s ease-in-out infinite; }
+/* turn chip (quiet row) keeps the E2E-exact innerText */
+.lm-ribbon--player { background: var(--player); color: var(--ink-on-ember); box-shadow: 0 2px 0 var(--player-deep); }
+.lm-ribbon--opponent { background: var(--opponent); color: var(--ink-on-violet); box-shadow: 0 2px 0 var(--opponent-deep); }
+.lm-ribbon--warn { background: var(--surface-overlay); box-shadow: inset 0 0 0 2px var(--brand-gold); }
+.lm-ribbon--danger { background: var(--crimson); color: var(--ink-on-crimson); box-shadow: 0 2px 0 var(--crimson-deep); }
+
+/* ---- ZONE 3 · action (composer + seal = one action surface) ------------- */
+
+.lm-action-zone { position: static; }
+
 /* composer (board: YOUR OFFER · NOT SENT) */
 .lm-composer {
   position: absolute;
+  left: 50%;
+  bottom: 84px;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 12px 16px 14px;
-  transform: rotate(-2deg);
+  gap: 7px;
+  padding: 11px 16px 13px;
   background: linear-gradient(180deg, #FFF9EC, #F3E2BE);
   border: 3px solid var(--outline-ink);
   border-radius: 6px;
-  box-shadow: 0 12px 0 rgba(42,26,46,.3);
+  box-shadow: 0 8px 0 rgba(42,26,46,.3);
   color: var(--ink-on-parchment);
-  z-index: 3;
 }
 .lm-composer__k { font-size: 10.5px; letter-spacing: 1.3px; font-weight: 800; color: #C2452A; text-transform: uppercase; }
-.lm-composer__row { display: flex; align-items: center; gap: 14px; }
-.lm-composer__value { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 44px; line-height: 1; color: var(--ink-on-parchment); min-width: 2.2ch; text-align: center; }
-.lm-composer__input { font: inherit; font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 44px; line-height: 1; width: 5ch; text-align: center; color: var(--ink-on-parchment); background: transparent; border: none; border-bottom: 2px dashed var(--stone-400); outline: none; }
+.lm-composer__row { display: flex; align-items: center; gap: 12px; }
+.lm-composer__input { font: inherit; font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 42px; line-height: 1; width: 5ch; text-align: center; color: var(--ink-on-parchment); background: transparent; border: none; border-bottom: 2px dashed var(--stone-400); outline: none; }
 .lm-composer__input:focus { border-bottom-color: var(--player); }
-.lm-stepper { width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--outline-ink); background: linear-gradient(160deg, #FFE7A6, #C9913E); color: var(--ink-on-parchment); font-family: var(--font-world); font-weight: 800; font-size: 26px; line-height: 1; cursor: pointer; box-shadow: 0 4px 0 rgba(42,26,46,.3); padding: 0; }
-.lm-stepper:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(42,26,46,.3); }
-.lm-composer__delta { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 22px; color: #C2452A; }
-.lm-composer__cost { display: flex; gap: 14px; align-items: center; font-size: 12px; font-weight: 700; color: #6B5A48; white-space: nowrap; }
-.lm-composer__cost b { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-size: 17px; color: #1F8A7A; }
-.lm-composer__no-back { color: #B8323F; }
+.lm-stepper { width: 42px; height: 42px; border-radius: 50%; border: 3px solid var(--outline-ink); background: linear-gradient(160deg, #FFE7A6, #C9913E); color: var(--ink-on-parchment); font-family: var(--font-world); font-weight: 800; font-size: 24px; line-height: 1; cursor: pointer; box-shadow: 0 3px 0 rgba(42,26,46,.3); padding: 0; }
+.lm-stepper:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(42,26,46,.3); }
+.lm-stepper:disabled { opacity: .5; }
+.lm-composer__delta { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 18px; color: #C2452A; }
+.lm-composer__cost { display: flex; gap: 12px; align-items: center; font-size: 11.5px; font-weight: 700; color: #6B5A48; white-space: nowrap; max-width: 520px; overflow: hidden; }
+.lm-composer__cost b { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-size: 15px; color: #1F8A7A; }
+.lm-composer__no-back, .lm-composer__cost .too-expensive, .lm-composer__cost .invalid-amount { color: #B8323F; font-style: normal; }
+.lm-composer__cost .preview-free { color: #1F8A7A; }
+.lm-composer__cost .move-up, .lm-composer__cost .move-down { color: #C2452A; }
 
-/* SEAL OFFER blob */
+/* SEAL OFFER — the ONE primary action. Ember = my move (red is time-only).
+   When the composed value is outside my mandate the board hides the
+   amount (visual neutralization, D-24 #8/#10; canOffer stays BB-217's). */
 .lm-seal {
   position: absolute;
-  width: 126px;
-  height: 126px;
+  left: calc(50% + min(320px, 23vw));
+  bottom: 84px;
+  width: 118px;
+  height: 118px;
   border-radius: 47% 53% 50% 48%;
   border: 3px solid var(--outline-ink);
   cursor: pointer;
-  background: radial-gradient(circle at 36% 30%, #F0304A, #8A0A22 75%);
+  background: radial-gradient(circle at 36% 30%, #FF9E7E, #C2452A 75%);
   color: #FFF6E2;
   box-shadow: 0 8px 0 rgba(42,26,46,.35), inset 0 0 0 7px rgba(0,0,0,.14);
   display: flex;
@@ -190,120 +329,89 @@
 }
 .lm-seal:active { transform: scale(.92); box-shadow: 0 3px 0 rgba(42,26,46,.35), inset 0 0 0 7px rgba(0,0,0,.14); }
 .lm-seal:disabled { opacity: .5; cursor: default; }
-.lm-seal__k { font-weight: 800; font-size: 18px; line-height: 1; letter-spacing: .5px; }
-.lm-seal__v { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 38px; line-height: 1; }
+.lm-seal__k { font-weight: 800; font-size: 16px; line-height: 1; letter-spacing: .5px; }
+.lm-seal__v { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 32px; line-height: 1.1; }
 
-/* ACCEPT pill → green seal on crossing */
-.lm-accept {
-  position: absolute;
-  z-index: 3;
-  height: 46px;
-  padding: 0 18px;
-  border-radius: 23px;
-  border: 3px solid var(--outline-ink);
-  background: linear-gradient(180deg, #3FD88A, #1F9A5A);
-  color: #FFF;
-  font-family: var(--font-world);
-  font-weight: 800;
-  font-size: 18px;
-  box-shadow: 0 5px 0 rgba(42,26,46,.35);
-  cursor: pointer;
-}
-.lm-accept:active { transform: translateY(2px); box-shadow: 0 3px 0 rgba(42,26,46,.35); }
-.lm-accept--crossed {
-  height: auto;
-  min-height: 96px;
-  min-width: 120px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 36% 30%, #4FE38F, #1F9A5A 72%);
-  box-shadow: 0 8px 0 rgba(42,26,46,.35), 0 0 0 7px rgba(63,190,107,.28), 0 0 34px rgba(63,190,107,.55);
-  animation: bb-breathe 1.2s ease-in-out infinite;
-}
+/* crossed: ACCEPT is the hero; the seal sits down (D-24: one action) */
+.lm-world--crossed .lm-seal { opacity: .4; transform: scale(.88); pointer-events: none; }
 
-/* turn ribbon + crossed ribbon */
-.lm-ribbon {
+/* ACCEPT pill → green seal on crossing (placement only — worker-1 owns
+   the component + .lm-accept sections in globals.css) */
+.lm-accept { position: absolute; right: 7%; bottom: 96px; z-index: 3; }
+.lm-accept--crossed { right: 5%; bottom: 84px; }
+
+/* ---- quiet row: turn chip · time · chips (body size, sits down) --------- */
+
+.lm-quiet-row {
   position: absolute;
-  z-index: 4;
-  display: inline-flex;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 18px;
-  border-radius: 999px;
-  font-family: var(--font-world);
-  font-weight: 800;
-  font-size: 18px;
-  letter-spacing: .5px;
-  text-transform: uppercase;
-  background: var(--surface-overlay);
-  color: var(--ink-on-dark);
-  box-shadow: 0 4px 12px rgba(6,8,10,.4);
+  z-index: 3;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.lm-ribbon--player { background: var(--player); color: var(--ink-on-ember); box-shadow: 0 3px 0 var(--player-deep), 0 4px 12px rgba(6,8,10,.4); }
-.lm-ribbon--opponent { background: var(--opponent); color: var(--ink-on-violet); box-shadow: 0 3px 0 var(--opponent-deep), 0 4px 12px rgba(6,8,10,.4); }
-.lm-ribbon--deal { background: var(--positive); color: var(--ink-on-positive); box-shadow: 0 3px 0 var(--positive-deep), 0 4px 12px rgba(6,8,10,.4); animation: bb-breathe 1.2s ease-in-out infinite; }
-.lm-ribbon--warn { background: var(--surface-overlay); box-shadow: inset 0 0 0 2px var(--brand-gold), 0 4px 12px rgba(6,8,10,.4); }
-.lm-ribbon--danger { background: var(--crimson); color: var(--ink-on-crimson); box-shadow: 0 3px 0 var(--crimson-deep), 0 4px 12px rgba(6,8,10,.4); }
 
-/* clock medallion */
+/* compact clock chip (was the 150 px medallion — D-24 scale discipline) */
 .lm-clock {
-  position: absolute;
-  z-index: 3;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 3px solid var(--outline-ink);
-  background: linear-gradient(160deg, #FFE7A6, #C9913E 55%, #8A5A18);
-  box-shadow: 0 10px 0 rgba(42,26,46,.3);
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 2px solid var(--outline-ink);
+  background: linear-gradient(160deg, #FFE7A6, #C9913E);
+  color: var(--ink-on-parchment);
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 3px 0 rgba(42,26,46,.3);
 }
-.lm-clock__face {
-  width: 124px;
-  height: 124px;
-  border-radius: 50%;
-  border: 3px solid var(--outline-ink);
-  background: radial-gradient(circle at 40% 30%, #FF8A5E, #C2452A);
-  color: #FFF6E2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-}
-.lm-clock--opponent .lm-clock__face { background: radial-gradient(circle at 40% 30%, #A48FE0, #5B3AA8); }
-.lm-clock__k { font-family: var(--font-world); font-weight: 800; font-size: 15px; letter-spacing: .8px; line-height: 1; }
-.lm-clock__v { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 38px; line-height: 1; }
-.lm-clock__mult { position: absolute; right: -14px; bottom: -4px; width: 63px; height: 63px; border-radius: 50%; border: 3px solid var(--outline-ink); background: #FFC23D; display: flex; align-items: center; justify-content: center; font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 15px; color: var(--ink-on-gold); }
-.lm-clock__mult--floor { background: var(--stone-400); color: var(--ink-on-parchment); }
+.lm-clock__face { display: contents; }
+.lm-clock__k { font-family: var(--font-world); font-weight: 800; font-size: 11px; letter-spacing: .6px; }
+.lm-clock__v { font-size: 13px; }
+.lm-clock--opponent { background: linear-gradient(160deg, #C9B8F0, #7A62C4); }
+.lm-clock__mult { font-size: 12px; color: var(--ink-on-gold); }
+.lm-clock__mult--floor { color: var(--ink-on-parchment); opacity: .8; }
 
-/* coin piles */
-.lm-coins { position: absolute; z-index: 1; display: flex; flex-wrap: wrap; gap: 0 8px; justify-content: flex-end; align-content: flex-end; width: 150px; }
-.lm-coins__coin { width: 30px; height: 13px; border-radius: 50%; background: var(--resource-chip); border: 2.5px solid var(--outline-ink); box-shadow: inset 0 -3px 0 rgba(0,0,0,.25), inset 0 2px 0 rgba(255,255,255,.35); }
+/* coins — a real number, quietly (was the 150 px pile) */
+.lm-coins { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 999px; border: 2px solid var(--outline-ink); background: var(--surface-overlay); color: var(--ink-on-dark); font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 12px; box-shadow: 0 3px 0 rgba(42,26,46,.3); }
+.lm-coins__coin { width: 16px; height: 7px; border-radius: 50%; background: var(--resource-chip); border: 2px solid var(--outline-ink); box-shadow: inset 0 -2px 0 rgba(0,0,0,.25); }
 .lm-coins__coin--spent { opacity: .45; }
+.lm-coins__count { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 12px; }
 
-/* chat bubble + buttons */
-.lm-chat-bubble {
-  position: absolute;
-  z-index: 3;
-  max-width: 240px;
-  background: #FFFFFF;
-  color: #2A1A2E;
-  border: 3px solid var(--outline-ink);
-  border-radius: 20px 20px 20px 6px;
-  padding: 10px 14px;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 20px;
-  box-shadow: 0 6px 0 rgba(42,26,46,.2);
+/* quiet-row children are static flex items (the base rules above
+   position the crossed ribbon / time warning for other contexts) */
+.lm-quiet-row .lm-ribbon { position: static; }
+.lm-quiet-row [data-testid="time-warning"] {
+  position: static;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
 }
-.lm-chat-bubble::after { content: ''; position: absolute; left: 22px; bottom: -14px; width: 18px; height: 18px; background: #FFF; border-right: 3px solid var(--outline-ink); border-bottom: 3px solid var(--outline-ink); transform: rotate(45deg); }
+
+/* time warning (worker-1's component — position only, red = time only) */
+.lm-world [data-testid="time-warning"] { position: absolute; right: 24px; bottom: 44px; z-index: 3; max-width: 320px; }
+
+/* opponent HUD (their multiplier + chips) — quiet, top-left */
+.lm-opponent-hud { position: absolute; left: 24px; top: 84px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; z-index: 3; }
+.lm-opponent-hud .lm-opponent__clock-mult { position: static; padding: 3px 10px; border-radius: 999px; border: 2px solid var(--outline-ink); background: var(--surface-overlay); color: var(--ink-on-dark); font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 12px; }
+.lm-opponent__coins { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 12px; color: var(--ink-on-dark); background: var(--surface-overlay); padding: 3px 10px; border-radius: 999px; border: 2px solid var(--outline-ink); }
+.lm-my-mult { padding: 3px 10px; border-radius: 999px; border: 2px solid var(--outline-ink); background: #FFC23D; color: var(--ink-on-gold); font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 12px; }
+.lm-my-mult--floor { background: var(--stone-400); color: var(--ink-on-parchment); }
+
+/* ---- ZONE 4 · communication (5–10% of attention; conversation is big,
+        the box is small) -------------------------------------------------- */
 
 .lm-round-btn {
   position: absolute;
   z-index: 4;
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   border: 3px solid var(--outline-ink);
   background: linear-gradient(160deg, #FFE7A6, #C9913E);
@@ -315,32 +423,55 @@
   padding: 0;
   color: var(--ink-on-parchment);
 }
+.lm-round-btn--menu { left: 24px; top: 24px; }
+.lm-round-btn--chat { left: 24px; bottom: 24px; }
+.lm-chat-unread { position: absolute; left: 78px; bottom: 34px; padding: 4px 10px; border-radius: var(--radius-full); border: none; background: var(--player); color: var(--ink-on-ember); font-weight: 800; font-size: 12px; cursor: pointer; z-index: 4; }
 
-/* chat sheet */
+/* level 2 · compose — compact (≈48–56 px core), anchored to the Talk button */
 .lm-chat-sheet {
   position: absolute;
-  right: 16px;
-  top: 84px;
-  width: min(320px, 88vw);
+  left: 24px;
+  bottom: 80px;
+  width: min(420px, 90vw);
   z-index: 5;
-  background: var(--surface-elevated);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card-elevated);
-  padding: 12px;
+  background: var(--surface-parchment);
+  border: 3px solid var(--outline-ink);
+  border-radius: 10px;
+  box-shadow: 0 10px 0 rgba(42,26,46,.3);
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  color: var(--ink-on-parchment);
 }
-.lm-chat-sheet__row { display: flex; gap: 8px; }
-.lm-chat-sheet__row input { flex: 1; min-width: 0; padding: 8px 12px; border-radius: var(--radius-full); border: none; background: var(--surface-interactive); color: var(--ink-on-dark); font: inherit; }
-.lm-chat-sheet__send { padding: 8px 14px; border-radius: var(--radius-full); border: none; background: var(--player); color: var(--ink-on-ember); font-weight: 700; cursor: pointer; }
-.lm-chat-sheet__log { padding: 8px 14px; border-radius: var(--radius-full); border: none; background: var(--surface-overlay); color: var(--ink-on-dark); font-weight: 700; cursor: pointer; }
+.lm-chat-sheet__prompts { display: flex; flex-wrap: wrap; gap: 6px; }
+.lm-chat-sheet__prompt {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 2px solid var(--outline-ink);
+  background: linear-gradient(160deg, #FFE7A6, #E2AE52);
+  color: var(--ink-on-parchment);
+  font-family: var(--font-world);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: .3px;
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgba(42,26,46,.25);
+}
+.lm-chat-sheet__prompt:active { transform: translateY(1px); box-shadow: 0 1px 0 rgba(42,26,46,.25); }
+.lm-chat-sheet__row { display: flex; gap: 6px; align-items: center; }
+.lm-chat-sheet__row input { flex: 1; min-width: 0; padding: 8px 12px; border-radius: 999px; border: 2px solid var(--outline-ink); background: #FFF9EC; color: var(--ink-on-parchment); font: inherit; font-size: 13px; }
+.lm-chat-sheet__row input:disabled { opacity: .6; }
+.lm-chat-sheet__send { padding: 8px 14px; border-radius: 999px; border: 2px solid var(--outline-ink); background: var(--player); color: var(--ink-on-ember); font-family: var(--font-world); font-weight: 800; font-size: 13px; cursor: pointer; box-shadow: 0 3px 0 rgba(42,26,46,.3); }
+.lm-chat-sheet__send:disabled { opacity: .5; }
+.lm-chat-sheet__log { padding: 8px 12px; border-radius: 999px; border: 2px solid var(--outline-ink); background: var(--surface-overlay); color: var(--ink-on-dark); font-family: var(--font-world); font-weight: 800; font-size: 12px; cursor: pointer; }
+.lm-chat-sheet .timeline { margin: 0; padding: 8px 10px; list-style: none; max-height: 180px; overflow-y: auto; background: #FFF9EC; border: 2px solid var(--outline-ink); border-radius: 8px; font-size: 12px; color: var(--ink-on-parchment); display: flex; flex-direction: column; gap: 4px; }
 
-/* menu sheet (walk away lives here — board LMD-07) */
+/* menu sheet (walk away lives here — worker-1 owns the interaction) */
 .lm-menu-sheet {
   position: absolute;
   left: 16px;
-  top: 84px;
+  top: 78px;
   z-index: 5;
   min-width: 220px;
   background: var(--surface-elevated);
@@ -354,125 +485,108 @@
 .lm-menu-sheet button { padding: 10px 14px; border: none; border-radius: var(--radius-md); background: var(--surface-interactive); color: var(--ink-on-dark); font: inherit; font-weight: 700; text-align: left; cursor: pointer; }
 .lm-menu-sheet button.lm-walk { background: var(--crimson); color: var(--ink-on-crimson); }
 
-/* velvet table asset */
-.lm-asset { position: absolute; z-index: 1; pointer-events: none; }
-.lm-asset img { width: 100%; display: block; filter: drop-shadow(0 10px 18px rgba(10,8,4,.5)); }
+/* world error (match-screen's error toast) — bottom center, above action */
+.lm-world + .world-error {
+  position: fixed;
+  left: 50%;
+  bottom: 148px;
+  transform: translateX(-50%);
+  z-index: 8;
+  margin: 0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--crimson);
+  color: var(--ink-on-crimson);
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 4px 12px rgba(6,8,10,.5);
+}
 
-/* world error */
-.lm-error { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); z-index: 6; padding: 8px 16px; border-radius: var(--radius-full); background: var(--crimson); color: var(--ink-on-crimson); font-weight: 700; }
+/* ---- motion + accessibility -------------------------------------------- */
 
-/* GR-016 (DD): both players see both multipliers. The medallion badge shows
-   the active player's; this badge shows mine while the opponent's clock runs. */
-.lm-my-mult { position: absolute; z-index: 3; right: -14px; bottom: -4px; width: 54px; height: 54px; border-radius: 50%; border: 3px solid var(--outline-ink); background: #FFC23D; display: flex; align-items: center; justify-content: center; font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 13px; color: var(--ink-on-gold); }
-.lm-my-mult--floor { background: var(--stone-400); color: var(--ink-on-parchment); }
+@keyframes lm-plaque-land {
+  0% { transform: translate(-50%, -22px) rotate(-2deg); opacity: 0; }
+  60% { transform: translate(-50%, 4px) rotate(.4deg); opacity: 1; }
+  100% { transform: translate(-50%, 0) rotate(0deg); opacity: 1; }
+}
+@keyframes lm-settle {
+  0% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+@keyframes lm-bubble-in {
+  0% { transform: translateY(10px) scale(.9); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
 
-/* AI label inside the name plaque sub-line (PA-M-InMatch: AI on every frame) */
-.lm-plaque__ai { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 999px; background: var(--surface-overlay); border: 1px solid var(--mist-400); font-size: 10px; letter-spacing: .6px; text-transform: uppercase; color: var(--ink-on-dark); }
+/* keyboard focus is always visible (docs/09) */
+.lm-world button:focus-visible,
+.lm-world input:focus-visible,
+.lm-world summary:focus-visible {
+  outline: 3px solid var(--brand-gold);
+  outline-offset: 2px;
+}
 
-/* ---- positions (desktop, 1440 × 900 reference; % of viewport) ------- */
-.lm-ribbon { left: 50%; top: 64px; transform: translateX(-50%); }
-.lm-crossed-ribbon { left: 50%; top: 120px; transform: translateX(-50%); }
-.lm-clock { right: 48px; top: 14%; }
-.lm-opponent__clock-mult { position: absolute; right: -14px; bottom: -4px; width: 54px; height: 54px; border-radius: 50%; border: 3px solid var(--outline-ink); background: var(--stone-400); display: flex; align-items: center; justify-content: center; font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 13px; color: var(--ink-on-parchment); }
-.lm-offer--theirs { right: 9%; top: 44%; width: 176px; }
-.lm-offer--mine { left: 8%; top: 56%; width: 150px; }
-.lm-limit { left: 96px; bottom: 216px; }
-.lm-rail { left: 50%; bottom: 148px; }
-.lm-composer { left: 34%; bottom: 36px; }
-.lm-seal { left: 63%; bottom: 36px; }
-.lm-accept { right: 9%; bottom: 96px; }
-.lm-accept--crossed { right: 7%; bottom: 64px; }
-.lm-coins { left: 26%; bottom: 24px; }
-.lm-asset { left: 27%; top: 40%; width: 200px; }
-.lm-chat-bubble { right: 5%; top: 20%; }
-.lm-round-btn--menu { left: 24px; top: 24px; }
-.lm-round-btn--chat { right: 24px; top: 24px; }
+/* ---- mobile (≤780 px): zone rows, no absolute scatter, no clipping ------ */
 
 @media (max-width: 780px) {
-  /* mobile composition (LMR-M-01): stacked, persistent bottom interaction zone */
-  .lm-opponent { top: 4%; width: 60vw; }
-  .lm-plaque { padding: 4px 14px 5px; }
-  .lm-plaque__name { font-size: 16px; line-height: 20px; }
-  .lm-ribbon { top: 44px; font-size: 14px; padding: 6px 14px; }
-  .lm-crossed-ribbon { top: 88px; font-size: 13px; padding: 5px 12px; }
-  .lm-offer--theirs { right: 6%; top: 22%; width: 116px; }
-  .lm-offer--theirs .lm-offer__v { font-size: 30px; }
-  .lm-offer--mine { left: 6%; top: 34%; width: 108px; }
-  .lm-offer--mine .lm-offer__v { font-size: 26px; }
-  .lm-chat-bubble { right: 4%; top: 15%; max-width: 44vw; font-size: 13px; padding: 8px 10px; }
-  .lm-clock { right: 16px; top: auto; bottom: 168px; width: 108px; height: 108px; }
-  .lm-clock__face { width: 88px; height: 88px; }
-  .lm-clock__v { font-size: 26px; }
-  .lm-clock__mult { width: 48px; height: 48px; font-size: 12px; right: -8px; bottom: -2px; }
-  .lm-limit { left: 12px; bottom: 190px; }
-  .lm-limit__v { font-size: 28px; }
-  .lm-rail { width: 86vw; bottom: 236px; }
-  .lm-composer { left: 50%; bottom: 96px; transform: translateX(-50%) rotate(-2deg); padding: 10px 12px; }
-  .lm-composer__value, .lm-composer__input { font-size: 34px; }
-  .lm-composer__cost { flex-wrap: wrap; gap: 6px 12px; font-size: 11px; }
-  .lm-seal { left: auto; right: 6%; bottom: 96px; width: 100px; height: 100px; }
-  .lm-seal__v { font-size: 30px; }
-  .lm-seal__k { font-size: 15px; }
-  .lm-accept { right: 6%; bottom: 210px; }
-  .lm-accept--crossed { right: 4%; bottom: 200px; min-width: 96px; min-height: 76px; }
-  .lm-coins { left: 12px; bottom: 104px; width: 100px; }
-  .lm-asset { left: 30%; top: 42%; width: 130px; }
+  .lm-world { display: flex; flex-direction: column; }
+
+  /* zone 1 · opponent dominates the top ~45% */
+  .lm-opponent-zone { position: relative; z-index: 1; flex: none; }
+  .lm-opponent { position: relative; left: auto; top: auto; transform: none; width: 62vw; max-width: 320px; margin: 8px auto 0; }
+  .lm-opponent--ai .lm-opponent__portrait { position: relative; left: auto; top: auto; transform: none; width: 44vw; max-width: 200px; margin: 10px auto 0; }
+  .lm-plaque { position: relative; left: auto; top: auto; transform: none; margin: 6px auto 0; max-width: 88vw; }
+  .lm-plaque__name { font-size: 14px; line-height: 18px; }
+  .lm-crossed-ribbon { position: relative; left: auto; top: auto; transform: none; margin: 6px auto 0; font-size: 11px; padding: 4px 10px; }
+  .lm-chat-bubble { position: absolute; left: auto; right: 8px; top: 34%; max-width: 46vw; font-size: 12.5px; padding: 8px 10px; }
+
+  /* zone 2 · negotiation state stacked */
+  .lm-state-zone { position: relative; z-index: 2; flex: none; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 16px; }
+  .lm-offer--theirs { position: relative; left: auto; top: auto; transform: none; width: 168px; margin-top: 2px; animation: none; }
+  .lm-offer--theirs .lm-offer__v { font-size: 38px; }
+  .lm-rail { position: relative; left: auto; top: auto; transform: none; width: 92vw; max-width: 640px; }
+  .lm-myband { position: relative; left: auto; top: auto; transform: none; flex-direction: row; justify-content: space-between; width: 92vw; max-width: 640px; gap: 12px; }
+  .lm-limit__v { font-size: 20px; }
+  .lm-offer--mine .lm-offer__v { font-size: 20px; }
+  .lm-asset { display: none; } /* world decoration yields the stage on mobile */
+
+  /* zone 3 · action band, persistent bottom interaction */
+  .lm-action-zone { position: relative; z-index: 3; flex: none; display: flex; align-items: flex-end; gap: 10px; padding: 0 16px; justify-content: center; }
+  .lm-composer { position: relative; left: auto; bottom: auto; transform: none; padding: 9px 12px 11px; }
+  .lm-composer__input { font-size: 34px; width: 4.5ch; }
+  .lm-composer__cost { flex-wrap: wrap; gap: 5px 10px; font-size: 10.5px; max-width: 62vw; }
+  .lm-seal { position: relative; left: auto; bottom: auto; width: 92px; height: 92px; flex: none; }
+  .lm-seal__k { font-size: 14px; }
+  .lm-seal__v { font-size: 26px; }
+  .lm-accept { position: relative; right: auto; bottom: auto; }
+  .lm-accept--crossed { position: relative; right: auto; bottom: auto; }
+
+  /* quiet row */
+  .lm-quiet-row { position: relative; left: auto; bottom: auto; transform: none; padding: 10px 16px calc(env(safe-area-inset-bottom, 0px) + 10px); gap: 8px; }
+  .lm-world [data-testid="time-warning"] { position: relative; right: auto; bottom: auto; order: 10; }
+
+  /* communication: Talk stays bottom-left; compose is a bottom sheet */
+  .lm-round-btn--menu { left: 12px; top: 12px; }
+  .lm-round-btn--chat { position: fixed; left: 12px; bottom: 12px; z-index: 7; }
+  .lm-chat-unread { position: fixed; left: 64px; bottom: 24px; z-index: 7; }
+  .lm-chat-sheet {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+    height: 42dvh;
+    max-height: 340px;
+    z-index: 7;
+  }
+  .lm-chat-sheet .timeline { flex: 1; max-height: none; overflow-y: auto; }
+  .lm-opponent-hud { left: 12px; top: 66px; }
+  .lm-opponent-hud .lm-opponent__clock-mult, .lm-opponent__coins { font-size: 11px; }
+  .lm-world + .world-error { bottom: 132px; }
 }
 
-/* canvas v1 — remaining live-match pieces */
-.lm-limit summary { list-style: none; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
-.lm-limit summary::-webkit-details-marker { display: none; }
-.lm-limit__body { max-width: 220px; font-size: 12px; line-height: 17px; opacity: .9; }
-.lm-limit__body p { margin: 4px 0 0; }
-.lm-limit__line { font-weight: 700; }
-
-.lm-chat-panel {
-  position: absolute;
-  right: 24px;
-  top: 96px;
-  width: min(300px, 80vw);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 4;
-}
-.lm-chat-panel .lm-chat-bubble { position: static; max-width: none; }
-.lm-chat-bubble--mine { background: #FBE3D7; }
-.lm-chat-empty { margin: 0; font-size: 12px; color: var(--ink-muted-on-dark); }
-.lm-chat-unread { align-self: flex-start; padding: 4px 10px; border-radius: var(--radius-full); border: none; background: var(--player); color: var(--ink-on-ember); font-weight: 800; font-size: 12px; cursor: pointer; }
-.lm-chat-panel .chat-row { display: flex; gap: 6px; }
-.lm-chat-panel .chat-row input { flex: 1; min-width: 0; padding: 8px 12px; border-radius: var(--radius-full); border: none; background: var(--surface-interactive); color: var(--ink-on-dark); font: inherit; font-size: 13px; }
-.lm-chat-panel .chat-row input:disabled { background: var(--surface-disabled); }
-.lm-chat-panel .chat-send, .lm-chat-panel .chat-history { padding: 8px 12px; border-radius: var(--radius-full); border: none; font-weight: 700; font-size: 12px; cursor: pointer; }
-.lm-chat-panel .chat-send { background: var(--player); color: var(--ink-on-ember); }
-.lm-chat-panel .chat-history { background: var(--surface-overlay); color: var(--ink-on-dark); }
-.lm-chat-panel .chat-send:disabled { opacity: .5; }
-.lm-chat-panel .timeline { margin: 0; padding: 8px 10px; list-style: none; max-height: 180px; overflow-y: auto; background: var(--surface-world-deep); border-radius: var(--radius-md); font-size: 12px; color: var(--ink-muted-on-dark); display: flex; flex-direction: column; gap: 4px; }
-
-.lm-accept__face { display: flex; flex-direction: column; align-items: center; line-height: 1.15; }
-.lm-accept__k { font-size: 14px; letter-spacing: .8px; text-transform: uppercase; }
-
-.lm-opponent-hud { position: absolute; left: 24px; top: 96px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; z-index: 3; }
-.lm-opponent-hud .lm-opponent__clock-mult { position: static; }
-.lm-opponent__coins { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 13px; color: var(--ink-on-dark); background: var(--surface-overlay); padding: 4px 10px; border-radius: var(--radius-full); }
-
-.lm-coins__count { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 13px; color: var(--ink-on-dark); width: 100%; }
-
-/* time warning (DD Phase 1) hangs under the clock medallion */
-.lm-world .time-warning, .lm-world [data-testid="time-warning"] { position: absolute; right: 48px; top: calc(14% + 162px); z-index: 3; }
-
-@media (max-width: 780px) {
-  .lm-chat-panel { right: 12px; top: 132px; width: min(260px, 78vw); }
-  .lm-opponent-hud { left: 12px; top: 132px; }
-  .lm-world [data-testid="time-warning"] { right: 12px; top: auto; bottom: 60px; }
-}
-
-/* ---------------------------------------------------------------------------
- * Acceptance interactions (canvas v1, sequence E): press squash → shockwave.
- * Loaded with the board so the pressed state styles apply during the hold,
- * before the result reveal mounts. (.lm-accept placement/fill/stamp and
- * .lm-walk__hold / .lm-confirm-sheet live in globals.css — worker-1 owns them.)
- * ------------------------------------------------------------------------- */
+/* ---- acceptance interactions (sequence E; worker-1 owns the component,
+        these styles load with the board so the hold renders correctly) ---- */
 
 .lm-accept--pressed { transform: scale(.82); }
 
@@ -496,4 +610,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .lm-shockwave { animation: none; }
+  .lm-offer--theirs, .lm-offer--mine, .lm-chat-bubble { animation: none; }
+  .lm-chat-bubble--fade { transition: none; }
+  .lm-opponent__sprite { transition: none; }
 }

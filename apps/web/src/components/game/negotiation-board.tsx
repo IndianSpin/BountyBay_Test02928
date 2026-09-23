@@ -1,11 +1,14 @@
 'use client';
 
+import { parseAmountTenths } from '@bounty-bay/domain';
+
 /**
- * NegotiationBoard (canvas v1, DEC-029): the first-person live match.
- * The environment carries the screen; every interface object is a diegetic
- * table object (plaques, rail, parchment composer, seals, medallion,
- * coins). Pure presentation — all state and game logic live in the
- * container. Turn state is read from the light before any label.
+ * NegotiationBoard (BB-216, founder D-24 + D-26): the first-person live
+ * match, readable in exactly this order — Opponent → their offer → my
+ * position/limit → action. Four protected zones carry ~five objects; the
+ * opponent dominates and physically reacts (sprite poses + plaque
+ * landing); numbers are physical events on the rail. Pure presentation —
+ * all state and game logic live in the container.
  */
 
 import ChatPanel from './chat-panel';
@@ -46,7 +49,7 @@ export default function NegotiationBoard(props: {
   chat: {
     value: string;
     onChange: (value: string) => void;
-    onSend: () => void;
+    onSend: (text?: string) => void;
     disabled: boolean;
   };
   children?: React.ReactNode;
@@ -83,109 +86,147 @@ export default function NegotiationBoard(props: {
   const activeClockSide: 'mine' | 'theirs' = view.myTurn ? 'mine' : 'theirs';
   const atFloor = (view.myTurn ? me : opponent).clockMultiplier <= 0.3005;
 
+  // Character reactions (FaceKit cells; D-24 #2, D-26 #3): conversation
+  // first — while the opponent's latest message bubbles beside them they
+  // hold the speaking pose; then the negotiation state speaks.
+  const lastMessage = props.messages.length > 0 ? props.messages[props.messages.length - 1]! : null;
   const opponentPose =
-    view.status !== 'ACTIVE' ? 'idle' : !view.myTurn ? 'thinking' : crossed ? 'smug' : opponent.latestOfferTenths !== null ? 'offer' : 'idle';
+    view.status !== 'ACTIVE'
+      ? 'idle'
+      : !view.myTurn
+        ? 'thinking'
+        : lastMessage !== null && lastMessage.actor === 'opponent'
+          ? 'speaking'
+          : crossed
+            ? 'smug'
+            : inReach
+              ? 'deal'
+              : 'engaged';
 
   const proposed = props.composer.value.trim() !== '' ? props.composer.value : undefined;
 
+  // D-24 #8/#10 (visual half; the canOffer predicate is BB-217's): the
+  // seal never advertises an amount outside my mandate as the hero CTA.
+  const parsedProposed = parseAmountTenths(props.composer.value);
+  const sealLegal =
+    parsedProposed.ok &&
+    (view.myReservationValueTenths === undefined ||
+      (view.myRole === 'BUYER'
+        ? parsedProposed.tenths <= view.myReservationValueTenths
+        : parsedProposed.tenths >= view.myReservationValueTenths));
+  const sealAmount = sealLegal ? proposed : undefined;
+
+  const theirKey = `their-${opponent.latestOfferTenths ?? 'none'}`;
+  const mineKey = `mine-${me.latestOfferTenths ?? 'none'}`;
+
   return (
-    <div className="lm-world" data-testid="market-world">
+    <div className={`lm-world ${crossed ? 'lm-world--crossed' : ''} ${ai ? 'lm-world--ai' : ''}`} data-testid="market-world">
       <FirstPersonScene spotOn={view.myTurn ? 'mine' : 'theirs'} crossed={crossed} />
 
-      {/* the opponent at the table */}
-      <div className={`lm-opponent ${ai ? 'lm-opponent--ai' : ''}`} aria-hidden="true">
-        {ai ? (
-          <div className="lm-opponent__portrait">
-            <img src={`/game/ai-${ai.personaKey}.svg`} alt="" />
-          </div>
-        ) : (
-          <div className="lm-opponent__sprite" data-pose={opponentPose} />
-        )}
-      </div>
-      <PlayerIdentity handle={ai ? ai.displayName : opponentHandle} role={opponent.role} stats={props.opponentStats} side="theirs" />
+      {/* the negotiated object — world decoration, not an interface object */}
+      <ScenarioDisplay title={scenario?.title ?? 'The Deal'} description={scenario?.description ?? ''} />
 
-      {/* turn ribbon (exact strings — E2E contract) + crossed ribbon.
-          crossed maps back to the turn label; the crossed ribbon is its own
-          element so the E2E exact-match on the turn text never breaks. */}
-      <TurnBanner
-        state={
-          props.turnState === 'crossed' ? (view.myTurn ? 'yours' : 'theirs') : props.turnState === 'done' ? 'terminal' : props.turnState
-        }
-      />
-      {crossed && (
-        <span className="lm-ribbon lm-ribbon--deal lm-crossed-ribbon" data-testid="crossed-ribbon">
-          OFFERS CROSSED · ACCEPT TO CLOSE
-        </span>
-      )}
+      {/* ZONE 1 · the opponent — the emotional heart, largest element */}
+      <section className="lm-opponent-zone">
+        <PlayerIdentity
+          handle={ai ? ai.displayName : opponentHandle}
+          role={opponent.role}
+          stats={props.opponentStats}
+          side="theirs"
+        />
+        <div className={`lm-opponent ${ai ? 'lm-opponent--ai' : ''}`} aria-hidden="true">
+          {ai ? (
+            <div className="lm-opponent__portrait">
+              <img src={`/game/ai-${ai.personaKey}.svg`} alt="" />
+            </div>
+          ) : (
+            <div className="lm-opponent__sprite" data-pose={opponentPose} />
+          )}
+        </div>
+        <ChatPanel
+          timeline={props.timeline}
+          messages={props.messages}
+          unread={props.unread}
+          onSend={props.chat.onSend}
+          onSeen={props.onChatSeen}
+          disabled={props.chat.disabled}
+          inputValue={props.chat.value}
+          onInputChange={props.chat.onChange}
+          opponentName={ai ? ai.displayName : opponentHandle}
+        />
+      </section>
+
+      {/* ZONE 2 · negotiation state: one plaque, one rail, my band */}
+      <section className="lm-state-zone">
+        {crossed && (
+          <span className="lm-ribbon lm-ribbon--deal lm-crossed-ribbon" data-testid="crossed-ribbon">
+            OFFERS CROSSED · ACCEPT TO CLOSE
+          </span>
+        )}
+        {/* key remounts replay the plaque-landing event on every change */}
+        <OfferPlate
+          key={theirKey}
+          kind="theirs"
+          who={`${(ai ? ai.displayName : opponentHandle).toUpperCase()} ASKS`}
+          amountTenths={opponent.latestOfferTenths}
+          tag={opponent.latestOfferTenths === null ? 'has not moved yet' : 'standing'}
+          active={!view.myTurn && view.status === 'ACTIVE'}
+          crossed={crossed}
+          testId="opponent-standing"
+        />
+        <GapMeter
+          mineTenths={me.latestOfferTenths}
+          theirsTenths={opponent.latestOfferTenths}
+          crossed={crossed}
+          proposedTenths={proposed}
+        />
+        <div className="lm-myband">
+          {/* my private limit card */}
+          <ConfidentialPosition limitTenths={view.myReservationValueTenths} mandate={scenario?.myNarrative} pulse={inReach} />
+          {/* my standing offer — a quiet readout, not a second plaque */}
+          <OfferPlate
+            key={mineKey}
+            kind="mine"
+            who="YOUR OFFER"
+            amountTenths={me.latestOfferTenths}
+            tag={me.latestOfferTenths === null ? 'you have not moved yet' : 'committed · cannot move back'}
+            active={view.myTurn && view.status === 'ACTIVE'}
+            crossed={crossed}
+            testId="my-standing"
+          />
+        </div>
+      </section>
+
+      {/* ZONE 3 · action: the composer and the ONE seal */}
+      <section className="lm-action-zone">
+        <OfferComposer model={props.composer} />
+        <MatchActions {...props.actions} sealAmount={sealAmount} crossed={crossed} />
+      </section>
+
+      {/* quiet row: turn chip · clock · chips · time warning (body size) */}
+      <section className="lm-quiet-row">
+        <TurnBanner
+          state={
+            props.turnState === 'crossed' ? (view.myTurn ? 'yours' : 'theirs') : props.turnState === 'done' ? 'terminal' : props.turnState
+          }
+        />
+        <ClockMultiplier
+          multiplier={(view.myTurn ? me : opponent).clockMultiplier}
+          thinkingMs={view.myTurn && view.status === 'ACTIVE' ? props.thinkingMs : undefined}
+          side={activeClockSide}
+          atFloor={atFloor}
+        />
+        <ChipMeter remaining={me.remainingChips} total={me.remainingChips + me.chipsSpent} />
+        <TimeWarning
+          tier={activeParticipant?.timeTier ?? null}
+          remainingMs={activeParticipant?.decisionTimeRemainingMs ?? null}
+          who={activeParticipant !== null ? (activeParticipant.playerId === view.myPlayerId ? 'YOUR TIME' : 'OPPONENT TIME') : undefined}
+        />
+      </section>
+
       <h2 className="sr-only" data-testid="match-status">
         {view.myRole} vs {opponent.role} · {view.status}
       </h2>
-
-      {/* hanging offer plaques */}
-      <OfferPlate
-        kind="theirs"
-        who={`${(ai ? ai.displayName : opponentHandle).toUpperCase()} ASKS`}
-        amountTenths={opponent.latestOfferTenths}
-        tag={opponent.latestOfferTenths === null ? 'has not moved yet' : 'standing'}
-        active={!view.myTurn && view.status === 'ACTIVE'}
-        crossed={crossed}
-        testId="opponent-standing"
-      />
-      <OfferPlate
-        kind="mine"
-        who="YOUR OFFER"
-        amountTenths={me.latestOfferTenths}
-        tag={me.latestOfferTenths === null ? 'you have not moved yet' : 'committed · cannot move back'}
-        active={view.myTurn && view.status === 'ACTIVE'}
-        crossed={crossed}
-        testId="my-standing"
-      />
-
-      {/* my private limit card */}
-      <ConfidentialPosition limitTenths={view.myReservationValueTenths} mandate={scenario?.myNarrative} pulse={inReach} />
-
-      {/* the negotiated object */}
-      <ScenarioDisplay title={scenario?.title ?? 'The Deal'} description={scenario?.description ?? ''} />
-
-      {/* the schematic price rail */}
-      <GapMeter
-        mineTenths={me.latestOfferTenths}
-        theirsTenths={opponent.latestOfferTenths}
-        crossed={crossed}
-        proposedTenths={proposed}
-      />
-
-      {/* the active player's clock medallion + time warning */}
-      <ClockMultiplier
-        multiplier={(view.myTurn ? me : opponent).clockMultiplier}
-        thinkingMs={view.myTurn && view.status === 'ACTIVE' ? props.thinkingMs : undefined}
-        side={activeClockSide}
-        atFloor={atFloor}
-      />
-      <TimeWarning
-        tier={activeParticipant?.timeTier ?? null}
-        remainingMs={activeParticipant?.decisionTimeRemainingMs ?? null}
-        who={activeParticipant !== null ? (activeParticipant.playerId === view.myPlayerId ? 'YOUR TIME' : 'OPPONENT TIME') : undefined}
-      />
-
-      {/* my coin pile */}
-      <ChipMeter remaining={me.remainingChips} total={me.remainingChips + me.chipsSpent} />
-
-      {/* market talk */}
-      <ChatPanel
-        timeline={props.timeline}
-        messages={props.messages}
-        unread={props.unread}
-        onSend={props.chat.onSend}
-        onSeen={props.onChatSeen}
-        disabled={props.chat.disabled}
-        inputValue={props.chat.value}
-        onInputChange={props.chat.onChange}
-      />
-
-      {/* the parchment composer + seal + accept + menu */}
-      <OfferComposer model={props.composer} />
-      <MatchActions {...props.actions} sealAmount={proposed} crossed={crossed} />
 
       {props.children}
     </div>

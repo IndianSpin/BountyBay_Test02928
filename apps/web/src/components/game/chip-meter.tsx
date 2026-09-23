@@ -1,11 +1,11 @@
 'use client';
 
 /**
- * Concession chips as the table coin pile (canvas v1). Spent coins stay
- * as ghost outlines; the count is a real number, always.
+ * Concession chips (BB-216, D-24): a quiet count with a few coin glyphs
+ * — was the 150 px table pile. The count is a real number, always.
  */
 export default function ChipMeter({ remaining, total }: { remaining: number; total: number }) {
-  const show = Math.max(0, Math.min(remaining, 12));
+  const show = Math.max(0, Math.min(remaining, 3));
   return (
     <div className="lm-coins" data-testid="chip-meter" aria-label={`${remaining} concession chips remaining of ${total}`}>
       {Array.from({ length: show }).map((_, i) => (

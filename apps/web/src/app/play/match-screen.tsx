@@ -255,8 +255,11 @@ export default function MatchScreen({ matchId, token, userId, opponentJoined, on
     }
   }
 
-  async function sendChat(): Promise<void> {
-    const body = chatInput.trim();
+  async function sendChat(override?: string): Promise<void> {
+    // `override` is the quick-prompt path (chat-panel): a prompt sends as
+    // a normal chat message — COMM stays mechanically separate from
+    // FORMAL OFFER, and chat never changes turn state (GR-013).
+    const body = (override ?? chatInput).trim();
     if (!body) return;
     setChatInput('');
     try {

@@ -3,8 +3,11 @@
 import { formatTenthsGrouped } from '../../lib/format';
 
 /**
- * Hanging offer plaque (canvas v1: gold frame, violet face for their ask,
- * ember face for my offer). Crossed offers gain the green ring.
+ * Offer plaque (BB-216, D-24): THE one hanging plaque for their ask
+ * (gold frame, violet face, display-size number — the only display
+ * number on screen). My standing offer renders through the same
+ * component but is styled as a quiet readout (no frame, UI size) —
+ * one plaque, not two. Crossed offers gain the green ring.
  */
 export default function OfferPlate({
   kind,
@@ -32,7 +35,7 @@ export default function OfferPlate({
         <div className="lm-offer__k">{who}</div>
         <div className="lm-offer__v">{amountTenths === null ? '—' : formatTenthsGrouped(amountTenths)}</div>
       </div>
-      {tag && <span className="sr-only">{tag}</span>}
+      {tag && (kind === 'mine' ? <span className="lm-offer__tag">{tag}</span> : <span className="sr-only">{tag}</span>)}
       {active && <span className="sr-only">standing</span>}
     </div>
   );
