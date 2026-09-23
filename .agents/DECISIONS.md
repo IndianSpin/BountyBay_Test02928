@@ -323,6 +323,19 @@ stays ahead of IN-3"): IN-3's core behavioral profile has no rating
 dependency (docs/18 §9 fields); rating-dependent comparisons and cohorts
 stay deferred until P1-M2 — recorded, not silently dropped.
 
+## D-24 — Live-match composition redesign (founder feedback 2026-09-23)
+
+Founder critique (routed via sixth, verbatim in
+`bounty-control/FOUNDER_FEEDBACK_2026-09-23_live-match.md`) supersedes
+the canvas v1 live-match composition. Ruling: **BB-201 (CSS split of the
+old composition) is PAUSED** — W2's next task is **BB-216** (composition
+redesign around ~5 objects; rules added to DESIGN_ACCEPTANCE.md). W2's
+uncommitted BB-201 work is checkpointed on its branch (salvageable, not
+discarded). BB-213 (dossier wiring) and BB-215 (joiner refresh) re-queue
+after BB-216. Acceptance/reveal screens remain approved as-is.
+Item 10 (possible illegal state + formatting) split: BB-217 (W1 domain
+answer) then BB-218 (QA re-verify).
+
 ## D-22 — BB-201 proceeds against canvas v1
 
 Founder did not answer whether to hold BB-201 for a v2 export; default:

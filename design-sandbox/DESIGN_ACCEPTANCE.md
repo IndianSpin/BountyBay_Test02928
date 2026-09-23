@@ -34,6 +34,39 @@ accessibility bindings.
 10. **No rules changed for visuals:** domain authority is absolute
     (AGENTS.md).
 
+## Live-match composition (founder feedback 2026-09-23 — binding)
+
+The live match screen must be readable in this order: **Opponent → their
+offer → my position/limit → action.** Everything else sits down.
+Concrete rules:
+
+1. **~5 visual objects, not 15:** opponent (largest meaningful element,
+   physically reactive) · one offer plaque · one negotiation surface ·
+   one private-limit card · one action. No ornament farms.
+2. **One integrated design language:** the illustrated world, the game
+   HUD, and any utility copy must feel authored together — never
+   "background + components on top". No visible SaaS-form fragments.
+3. **Strict scale hierarchy** (≈3 levels): deal numbers (display) >
+   action/status (UI) > dialogue/explanation (body). Every number being
+   enormous = visual inflation.
+4. **Protected zones:** opponent / negotiation state / private info /
+   action / communication each have strict areas; nothing collides,
+   overlaps, or clips ("can't go back dow..." must be impossible).
+5. **Strict type system:** Display (deal numbers) / UI (action/status) /
+   Body (dialogue/explanation). ~3 treatments, no more.
+6. **Semantic color budget:** normal / positive-deal / danger-time /
+   private. Red means danger+time only. Everything else sits down.
+7. **Physical world carried through:** the opponent slides the plaque
+   across the counter; your plaque is physically opposite; concessions
+   move it; sealing = stamp → plaque locks. Numbers cause physical
+   events — never "number + plus/minus + button" (a form dressed as a
+   game).
+8. **Never review or ship with broken-looking data** — invalid actions
+   are prevented or visually neutralized, never presented as the hero
+   CTA with an explanation in microscopic copy.
+
 ## Recurring-failure log (add here, then promote to the rules above)
-- (none yet beyond the rules themselves — first entry expected from the
-  QA matrix or the next founder review)
+- 2026-09-23 founder critique: component improvement instead of
+  composition redesign → the rules above. Prior canvas v1 composition is
+  superseded for the live match; acceptance/reveal slices remain as
+  approved until further feedback.

@@ -14,12 +14,15 @@ evidence. Only ACCEPTed work merges to main.
 |---|---|---|---|---|---|---|
 | W1-01 | worker-1 | Acceptance slice follow-ups | w1-dd-mechanics | `use-hold.ts`, `match-actions.tsx`, `time-warning.tsx`, `layout.tsx`, `hold-accept.spec.ts`, `timeout.spec.ts`, `friend-match.spec.ts`, `canvas-checkpoint.spec.ts` | — | ACCEPTED + merged (bbf318e): manager-verified unit green, 6/6 changed E2E specs; deterministic first-actor fix, no sleeps |
 | W2-02 | worker-2 | IN handoff checkpoint (no code) | w2-frontend-design | statement + testing instructions in worker-2.md | — | CLOSED: ACCEPTed (782e1d8), W3 CONFIRMED no rejections (c70a448, merged 430b302) |
-| W2-03 (BB-201) | worker-2 | Structural CSS split | w2-frontend-design | `globals.css` → per-area modules; canvas verdict APPROVED (D-18) | — | IN PROGRESS (4 files uncommitted in bay-w2) |
+| W2-03 (BB-201) | worker-2 | CSS structural split — PAUSED (D-24) | w2-frontend-design | checkpoint uncommitted work; superseded by BB-216 | — | Fold into BB-216's structural discipline |
+| BB-216 | worker-2 | Live-match composition redesign | w2-frontend-design | founder feedback file + DESIGN_ACCEPTANCE §live-match; ~5 objects, character-first, one language | none | Founder review gates this one (D-24) |
 | W1-03 | worker-1 | API timeline wiring (D-11) | w1-dd-mechanics | serve IN-2 timeline via `apps/api/src/match-routes.ts` | IN-2 ACCEPTed | ACCEPTED + merged (0c45f0c): manager-verified 4/4 API tests on isolated DB; docs/08 updated by manager |
 | W3-01 | worker-3 | IN takeover + IN-2 Game Review V1 | w3-intelligence | inspect + verify IN-1 (baseline), implement timeline + review envelope, checkpoint report | W2-02 (interim D-10) | ACCEPTED and merged — 44/44 tests, typecheck clean, no contract changes |
 | BB-206 | qa | QA-01 adversarial baseline + re-verify | qa-adversarial | full matrix + interruption matrix on main `92a5e61` | — | ACCEPTED (merged acf86c0): baseline clean; findings QA-001/002/004 triaged below |
 | BB-214 | worker-1 | Typecheck hotfix (QA-002 HIGH) | w1-dd-mechanics | `friend-match.spec.ts:249` union narrowing | none | `pnpm -r run typecheck` exit 0; E2E unchanged |
-| BB-215 | worker-2 | Joiner refresh recovery (QA-001 MEDIUM) | w2-frontend-design | join route → match URL / redirect participants to resume | BB-213 | QA-001 acceptance test: reload on share URL → live board, no alert, no dup events |
+| BB-217 | worker-1 | Item-10 domain answer (after BB-214) | w1-dd-mechanics | legality of offer 110 vs RV 78.9; "does not allow" message; 116,500 formatting path | BB-214 | Written answer with rule refs in worker-1.md |
+| BB-218 | qa | Item-10 state re-verify (after BB-217) | qa-adversarial | reproduce screenshot state; API-level probe of offer 110; tenths-formatting check | BB-217 | Findings in .agents/qa/BUGS.md; REPORTED TO MANAGER |
+| BB-215 | worker-2 | Joiner refresh recovery (QA-001 MEDIUM) | w2-frontend-design | join route → match URL / redirect participants to resume | BB-216 | QA-001 acceptance test: reload on share URL → live board, no alert, no dup events |
 | DATA-01 | data | Measurement-gap + release checklist (D-15) | data-analytics | read-only inspection; docs/11 vs north-star metrics; emit `.agents/data/MEASUREMENT_GAP.md` + `RELEASE_CHECKLIST.md` | — | Gap table (metric → measured → smallest sufficient addition); release gate draft; REPORTED TO MANAGER; no code/instrumentation changes |
 
 ## READY FOR REVIEW
