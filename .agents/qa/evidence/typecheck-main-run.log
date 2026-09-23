@@ -1,0 +1,27 @@
+
+> bounty-bay@0.1.0 typecheck /Users/jeremydommnich/projects/bay-qa
+> pnpm -r run typecheck
+
+Scope: 9 of 10 workspace projects
+packages/config typecheck$ tsc --noEmit
+packages/config typecheck: Done
+packages/contracts typecheck$ tsc --noEmit
+packages/domain typecheck$ tsc --noEmit
+packages/contracts typecheck: Done
+packages/domain typecheck: Done
+packages/ai typecheck$ tsc --noEmit
+packages/intelligence typecheck$ tsc --noEmit
+packages/testing typecheck$ tsc --noEmit
+packages/testing typecheck: Done
+packages/ai typecheck: Done
+packages/intelligence typecheck: Done
+packages/db typecheck$ tsc --noEmit
+apps/web typecheck$ tsc --noEmit
+packages/db typecheck: Done
+apps/web typecheck: e2e/friend-match.spec.ts(249,25): error TS2339: Property 'code' does not exist on type '{ code?: string | undefined; } | { activeStatus: number; active: { activeMatch?: { matchId?: string | undefined; } | null | undefined; }; hasToken: boolean; }'.
+apps/web typecheck:   Property 'code' does not exist on type '{ activeStatus: number; active: { activeMatch?: { matchId?: string | undefined; } | null | undefined; }; hasToken: boolean; }'.
+apps/web typecheck: Failed
+/Users/jeremydommnich/projects/bay-qa/apps/web:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  web@0.1.0 typecheck: `tsc --noEmit`
+Exit status 2
+ ELIFECYCLE  Command failed with exit code 2.

@@ -1,7 +1,6 @@
 # QA — adversarial testing & product red team
 
-Session: founder-launched Claude session in `~/projects/bay-qa` (not yet
-named — update this line when launched) · Branch: `qa-adversarial` ·
+Session: `jeremydommnich-95` (QA agent 5), worktree `~/projects/bay-qa` · Branch: `qa-adversarial` ·
 Worktree: `~/projects/bay-qa` (deps installed 2026-09-23; work there —
 the original `~/projects/bay` checkout is manager-only).
 
@@ -74,7 +73,18 @@ game-integrity invariants and hidden-information leakage; keep the
 regression matrix current; notify manager of CRITICAL/HIGH immediately.
 
 ## STATUS
-QA-01 assigned by manager 2026-09-23 (D-14). Not started.
+QA-01 (BB-206) COMPLETE — REPORTED TO MANAGER 2026-09-23, commit on
+`qa-adversarial` (see `.agents/qa/CURRENT_QA_REPORT.md`, base `92a5e61`).
+
+Verified clean on current main: unit 226/47sk, DB+API 56/56, E2E 9/9,
+adversarial battery 27/27 P0 PASS, browser-surface leak scan clean,
+GR-015 freeze/resume correct, interruption matrix + mobile 390 run.
+Findings: QA-001 joiner-refresh error (MEDIUM), QA-002 typecheck gate
+broken by W1-01 spec union (HIGH), QA-004 friend-rematch dead-end
+(PRODUCT); PDR-2 walk-away (report only). BB-206 key question resolved:
+accept-seal transient does NOT reproduce on `92a5e61` (old-spec race,
+fixed by W1-01). Tooling + evidence in `.agents/qa/tools/` and
+`.agents/qa/evidence/`. Stopped per BB-206 — no further campaigns.
 
 ## BLOCKERS
 - None. If the app cannot boot on 3200/4200 with the QA DB, report to

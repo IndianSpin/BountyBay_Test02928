@@ -1,0 +1,25 @@
+
+> bounty-bay@0.1.0 test:e2e /Users/jeremydommnich/projects/bay-qa
+> pnpm --filter web exec playwright test
+
+[WebServer] npm warn Unknown env config "npm-globalconfig". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+[WebServer] npm warn Unknown env config "verify-deps-before-run". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+[WebServer] npm warn Unknown env config "_jsr-registry". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+[WebServer] npm warn Unknown env config "only-built-dependencies". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+[WebServer] npm warn Unknown global config "only-built-dependencies". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+Running 10 tests using 5 workers
+
+  -   1 e2e/canvas-checkpoint.spec.ts:62:5 › canvas checkpoint: live-match screen vs design boards
+  ✓   6 e2e/stale-auth-recovery.spec.ts:13:5 › stale dev token self-heals into a working identity (2.5s)
+  ✓   2 e2e/hold-accept.spec.ts:61:5 › hold-to-accept: early release cancels, full hold settles the deal (6.8s)
+  ✓   5 e2e/practice-vs-ai.spec.ts:12:5 › a full practice match vs the Closer ends in a labeled deal (8.6s)
+  ✓   4 e2e/review-flow.spec.ts:9:5 › a completed match reviews into deterministic moments and a linked timeline (9.2s)
+  ✓   8 e2e/hold-accept.spec.ts:117:5 › walk away lives in the ⋯ menu behind a confirm hold (LMD-07) (3.8s)
+  ✓   3 e2e/friend-match.spec.ts:82:5 › two browsers complete a friend match (deal, reveal, rematch CTA) (13.2s)
+  ✓   9 e2e/friend-match.spec.ts:151:5 › chat does not transfer the turn (GR-013) (3.1s)
+  ✓  10 e2e/friend-match.spec.ts:181:5 › repeating the same formal offer is rejected and never switches the turn (GR-007) (3.1s)
+  ✓   7 e2e/timeout.spec.ts:31:5 › a stalled match warns through LOW TIME and CRITICAL, then times out distinctly (52.4s)
+
+  1 skipped
+  9 passed (57.7s)

@@ -1,0 +1,31 @@
+{
+  "opponentRvDecimal": "25.8",
+  "opponentRvTenths": "258",
+  "resultText": "DEAL\nMY LIMIT\n99.7\nTHEIR LIMIT\n25.8\n\nTap to see everything at once",
+  "fieldHits": {
+    "html": [],
+    "nextData": [],
+    "storage": [],
+    "responses": [],
+    "wsFrames": []
+  },
+  "decimalObservations": {
+    "html": [
+      "e-announcer><main><span aria-live=\"polite\" class=\"sr-only\" role=\"status\">Opponent offered 25.8</span><div class=\"lm-world\" data-te"
+    ],
+    "nextData": [],
+    "storage": [],
+    "responses": [],
+    "wsFrames": []
+  },
+  "postCutFieldHits": [
+    "post-completion reveal (GR-018 legal)"
+  ],
+  "surfaceSizes": {
+    "html": 24450,
+    "nextData": 0,
+    "storage": 158,
+    "responses": 3522,
+    "wsFrames": 7916
+  }
+}
