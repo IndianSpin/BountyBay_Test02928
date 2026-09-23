@@ -111,7 +111,22 @@ was lost) because W2-02 was not yet recorded. Ruling: acceptable interim
 `782e1d8`: complete/partial/temporary/untested statement + testing
 instructions; scope-compliant, coordination file only). Manager ACCEPTed
 the record; worker-3's confirmation-or-rejection review is in progress.
-No duplicate IN-1 implementation has occurred.
+No duplicate IN-1 implementation has occurred. W3's D-10 review
+(commit `c70a448`): **CONFIRMED, no rejections** — one record-accuracy
+flag (statement says 28 baseline intelligence tests; W3 verified 34 on
+the same commit — green either way). Handoff chain closed.
+
+## D-13 — IN-2 wrap-up rulings (2026-09-23)
+
+- **docs/18 pointer applied:** timeline event kinds (OFFER/MESSAGE/
+  ACCEPT/WALK_AWAY/TIMEOUT/ABORTED — negotiation steps only) are defined
+  in docs/20 with `buildTimeline` as the implementation; docs/18 §3 now
+  points there (manager-applied per D-6, resolving W3's spec-ambiguity
+  flag).
+- **Migration retro-review:** `20260922222625_intelligence_analysis`
+  (shipped in baseline `f1e8c99`, pre-protocol) reviewed — purely
+  additive (CREATE TABLE match_features / match_observations, one index,
+  CASCADE FKs). No destructive operations. PASS.
 
 ## D-11 — Timeline API wiring deferred
 

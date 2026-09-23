@@ -49,7 +49,10 @@ UI, API, and data model must preserve enough metadata to distinguish these.
 
 - **Game Review** answers "What happened?" — mostly deterministic, 1–5
   meaningful moments per match, references actual events, timeline
-  step-through. Works fully when the coaching service is unavailable.
+  step-through (the timeline event kinds — OFFER/MESSAGE/ACCEPT/
+  WALK_AWAY/TIMEOUT/ABORTED, negotiation steps only — are defined in
+  docs/20 and implemented by `buildTimeline` in packages/intelligence).
+  Works fully when the coaching service is unavailable.
 - **Coach** answers "What might this mean, and what should I practice?" —
   research + longitudinal + interpretive. Concise by default
   (RESULT → ONE IMPORTANT OBSERVATION → WHY IT MATTERS → PRINCIPLE →
