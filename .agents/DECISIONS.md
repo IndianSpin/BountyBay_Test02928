@@ -101,3 +101,21 @@ work runs (cron in the manager session): new commits, worker status,
 changed-file overlap, stale design version, dependency conflicts, test
 failures, scope drift. Healthy work is not interrupted for activity's
 sake.
+
+## D-10 — IN takeover vs handoff statement (correction 1 ruling)
+
+Worker-3 verified IN-1 directly against baseline `f1e8c99` (which is
+worker-2's committed IN work — the tree was clean at baseline, so no work
+was lost) because W2-02 was not yet recorded. Ruling: acceptable interim
+— NOT a license to skip the handoff. W2-02 must still land (handoff
+statement: complete/partial/temporary/untested + files + tests + commit
+hash); worker-3 must then review the statement and confirm or explicitly
+reject specifics. No duplicate IN-1 implementation has occurred.
+
+## D-11 — Timeline API wiring deferred
+
+Worker-3 (correctly) scoped apps/api out of IN-2: the timeline/review
+engine ships pure in packages/intelligence; serving the timeline via
+apps/api is deferred to W1-03 (worker-1 owns apps/api), scheduled only
+after IN-2 is ACCEPTed and W1-01/W1-02 are done. Single-owner rule for
+apps/api holds.

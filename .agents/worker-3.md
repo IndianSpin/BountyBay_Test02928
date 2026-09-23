@@ -44,11 +44,42 @@ IN-3 longitudinal profile. Note: DEC-030's "persistent adaptation"
 reuses your longitudinal profile — but DEC-030 implementation is
 unscheduled; do not build toward it (direction only).
 
-## STATUS
-Idle; waiting on worker-2's handoff hash (as of 2026-09-23 02:55).
+## STATUS (manager-merged from worker-3's own report, 2026-09-23)
+- W3-01 takeover VERIFIED GREEN: pnpm install done; intelligence
+  unit/property tests 34/34 pass; typecheck clean for intelligence +
+  domain + config + contracts. No broken wiring at baseline. 6 eslint
+  errors found in packages/intelligence (unused imports/params — 3
+  src/test imports, 3 unused callback args) — fixing as in-ownership
+  lint.
+- IN-2 STARTED: baseline already ships IN-1 complete (versioned engines,
+  persisted per match via command-service, review route serves moments).
+  Gaps vs docs/18 §3: no timeline step-through, no self-contained review
+  envelope.
+- IN-2 plan (docs/18 §3; DEC-028; AGENTS.md testing rule):
+  - NEW `timeline.ts` — buildTimeline(state, events): OFFER/MESSAGE/
+    ACCEPT/WALK_AWAY/TIMEOUT/ABORTED entries, seq-ordered, no message
+    content (privacy, no NLP), actor per terminal-action semantics.
+  - NEW `review.ts` — buildGameReview(state, events, config, playerId,
+    thresholds?): envelope game-review-0.1.0 { matchId, playerId,
+    outcome, moments (curateReview), timeline }; throws on non-terminal
+    state / non-participant; pure — no coaching/LLM dependency.
+  - index.ts exports; lint fixes in types.ts + tests.
+  - NEW tests: timeline.test.ts, review.test.ts (valid x4 outcomes,
+    invalid non-terminal + non-participant, boundary cap/min, determinism
+    property, moment eventRefs ⊆ timeline seqs).
+  - docs/20: add Timeline + Game Review envelope spec (mine; feature
+    formulas unchanged → docs/19 untouched).
+- OUT OF SCOPE (correct): serving the timeline via apps/api
+  match-routes.ts (worker-1 owns apps/api); any schema change (review is
+  derived, not persisted — no migration); IN-3+; PDR-1/DEC-030.
 
 ## BLOCKERS
-- W2-02 handoff commit not yet recorded.
+- W2-02 handoff statement not yet received — takeover was verified against
+  the baseline commit (which IS worker-2's committed work, tree clean);
+  acceptable interim per manager (D-10), but you must review W2's
+  statement when it lands and confirm or reject specifics here.
+- API timeline wiring: manager ruling — deferred to W1-03 (worker-1 owns
+  apps/api), scheduled only after IN-2 is ACCEPTed. Not yours.
 
 ## PRODUCT ASSUMPTIONS
 None yet. Record any here before building on them.
