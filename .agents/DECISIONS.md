@@ -503,3 +503,26 @@ DATABASE_URL; replay test requires default-seeded e2e). Remaining: E2E
 strict leg (blocked on W2's dev servers releasing 3000/4000). Recipe +
 lesson in LEARNINGS (L-010). Golden baseline commit cut after the E2E
 leg.
+
+## D-35 — Cast v3 export integrated (2026-09-24)
+
+Founder shipped: all 7 remaining cast characters (GREYLOT heron,
+HOGSHEAD walrus, PIP QUILL hedgehog, VESPERINE moth, OLD MOSSBACK
+tortoise, MARIGOLD FENN patron, ZIPPA RATCHET inventor) at
+GoldenOtter-standard 10-board sets + a new opening/title screen
+(desktop/mobile, Lantern Wharf scene continuity, 8-character teaser
+strip, single PLAY NOW action, rationale board). Committed `ef0ef7f`
+(73 files, canvas.json update; canvas now 277 boards/41 pages).
+Tasking: BB-224 opening/title screen → W2 (assigned); BB-225 cast pose
+system extension (7 characters into the live-match character
+presentation) → W2 queue after BB-224. Stale GO-CastPlan.dc.html note
+(Black Parrot→heron swap "open") → backlog note, non-canonical.
+
+## PDR-4 — PRODUCT DECISION REQUIRED: title-screen routing
+
+The founder's rationale board flags it: should returning signed-in
+players see the opening/title screen, or skip straight to the Bay?
+Ruling: implement the screen with a named routing switch
+(show title for new visitors; returning-signed-in behavior defaults to
+SHOW, one-flag change pending the founder's answer). No behavior is
+fixed until the founder rules.
