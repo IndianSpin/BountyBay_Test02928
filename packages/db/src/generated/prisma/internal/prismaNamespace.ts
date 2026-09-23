@@ -1515,6 +1515,8 @@ export const MatchScalarFieldEnum = {
   settlementTenths: 'settlementTenths',
   completionReason: 'completionReason',
   timeoutPlayerId: 'timeoutPlayerId',
+  rematchFromMatchId: 'rematchFromMatchId',
+  rematchOpponentUserId: 'rematchOpponentUserId',
   eventSequence: 'eventSequence',
   domainState: 'domainState',
   createdAt: 'createdAt',

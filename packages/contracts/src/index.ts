@@ -71,6 +71,12 @@ export const API_ERROR_CODES = [
   'TIMED_OUT',
   'TIMEOUT_NOT_DUE',
   'COMMAND_ALREADY_PROCESSED',
+  // PDR-3 (QA-004): friend-rematch lifecycle codes.
+  'REMATCH_NOT_FOUND',
+  'REMATCH_NOT_OPEN',
+  'REMATCH_FORBIDDEN',
+  'REMATCH_ALREADY_PROPOSED',
+  'REMATCH_NOT_AVAILABLE',
 ] as const;
 export type ApiErrorCode = (typeof API_ERROR_CODES)[number];
 

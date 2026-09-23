@@ -32,6 +32,7 @@ import {
 } from '@bounty-bay/domain';
 import { Prisma, type PrismaClient } from './generated/prisma/client';
 import { decodeSnapshot, encodeSnapshot, type StoredSnapshot } from './snapshot';
+import { randomUUID } from 'node:crypto';
 
 export type CommandOutcome = DomainResult;
 
@@ -54,6 +55,41 @@ export interface ChallengeJoinInput {
   joiner: { userId: string; role: 'BUYER' | 'SELLER'; reservationValueTenths: number };
   firstPlayerId: string;
 }
+
+/** PDR-3 (QA-004): rematch proposal lifecycle error codes (API-layer). */
+export type RematchErrorCode =
+  | 'REMATCH_NOT_FOUND'
+  | 'REMATCH_NOT_OPEN'
+  | 'REMATCH_FORBIDDEN'
+  | 'REMATCH_ALREADY_PROPOSED';
+
+export interface RematchProposalInput {
+  matchId: string;
+  sourceMatchId: string;
+  scenarioId: string;
+  scenarioVersion: number;
+  gameRulesVersion: string;
+  economyConfigVersion: string;
+  proposer: { userId: string; role: 'BUYER' | 'SELLER'; reservationValueTenths: number };
+  opponentUserId: string;
+  createdAt: number;
+}
+
+export interface RematchAcceptInput {
+  matchId: string;
+  joiner: { userId: string; role: 'BUYER' | 'SELLER'; reservationValueTenths: number };
+  firstPlayerId: string;
+  now: number;
+}
+
+export interface RematchResolveInput {
+  matchId: string;
+  userId: string;
+  role: 'OPPONENT' | 'PROPOSER';
+}
+
+/** Rematch method results share the domain error union for config/scenario failures. */
+export type RematchFailure = { ok: false; code: RematchErrorCode | DomainErrorCode; message: string };
 
 export interface CommandBase {
   matchId: string;
@@ -254,6 +290,182 @@ export class MatchCommandService {
         },
       });
       return { ok: true as const, state: created.state, events: [] };
+    });
+  }
+
+  // -- rematch lifecycle (PDR-3 / QA-004) -------------------------------------
+
+  /**
+   * Creates a rematch proposal: a Match row in CREATED status with exactly
+   * one participant (the proposer), no invite token, and a fixed opponent.
+   * The domain match materializes only when that opponent accepts — the
+   * proposal itself never has domain state. One open proposal per source
+   * match, enforced under the source-row lock.
+   */
+  async createRematchProposal(input: RematchProposalInput): Promise<{ ok: true; matchId: string } | RematchFailure> {
+    return this.prisma.$transaction(async (tx) => {
+      const lockedSource = await tx.$queryRaw<{ id: string }[]>`SELECT id FROM matches WHERE id = ${input.sourceMatchId}::uuid FOR UPDATE`;
+      if (lockedSource.length === 0) {
+        return { ok: false as const, code: 'REMATCH_NOT_FOUND' as const, message: 'source match not found' };
+      }
+      const open = await tx.match.findFirst({ where: { rematchFromMatchId: input.sourceMatchId, status: 'CREATED' } });
+      if (open) {
+        return { ok: false as const, code: 'REMATCH_ALREADY_PROPOSED' as const, message: 'an open rematch proposal already exists for this match' };
+      }
+      const configRow = await tx.gameBalanceConfig.findUnique({ where: { version: input.economyConfigVersion } });
+      if (!configRow) {
+        return { ok: false as const, code: 'REMATCH_NOT_OPEN' as const, message: `unknown economy config version: ${input.economyConfigVersion}` };
+      }
+      const scenario = await tx.scenario.findFirst({ where: { id: input.scenarioId, version: input.scenarioVersion } });
+      if (!scenario) {
+        return { ok: false as const, code: 'REMATCH_NOT_OPEN' as const, message: 'unknown scenario' };
+      }
+
+      await tx.match.create({
+        data: {
+          id: input.matchId,
+          mode: 'FRIEND_LIVE',
+          status: 'CREATED',
+          scenarioId: input.scenarioId,
+          scenarioVersion: input.scenarioVersion,
+          gameRulesVersion: input.gameRulesVersion,
+          economyConfigVersion: input.economyConfigVersion,
+          ratingVersion: null, // rematches are unrated (PDR-3, GR-019)
+          rematchFromMatchId: input.sourceMatchId,
+          rematchOpponentUserId: input.opponentUserId,
+          createdAt: new Date(input.createdAt),
+          participants: {
+            create: {
+              user: { connect: { id: input.proposer.userId } },
+              role: input.proposer.role,
+              reservationValueTenths: BigInt(input.proposer.reservationValueTenths),
+              initialChipBudget: configRow.concessionBudgetChips,
+            },
+          },
+        },
+      });
+      return { ok: true as const, matchId: input.matchId };
+    });
+  }
+
+  /**
+   * Accepts a rematch proposal: materializes the domain match with the
+   * roles carried from the previous match (fixed — the joiner takes the
+   * opposite of the proposer's role), then auto-readies both players in
+   * the same transaction so the new match is ACTIVE immediately (PDR-3:
+   * "on acceptance a new match starts"). The caller must be the fixed
+   * opponent; validation runs under the proposal-row lock.
+   */
+  async acceptRematch(input: RematchAcceptInput): Promise<{ ok: true; state: MatchState } | RematchFailure> {
+    return this.prisma.$transaction(async (tx) => {
+      const locked = await tx.$queryRaw<{ id: string }[]>`SELECT id FROM matches WHERE id = ${input.matchId}::uuid FOR UPDATE`;
+      if (locked.length === 0) {
+        return { ok: false as const, code: 'REMATCH_NOT_FOUND' as const, message: 'rematch proposal not found' };
+      }
+      const row = await tx.match.findUniqueOrThrow({ where: { id: input.matchId }, include: { participants: true } });
+      if (row.rematchFromMatchId === null || row.rematchOpponentUserId === null) {
+        return { ok: false as const, code: 'REMATCH_NOT_FOUND' as const, message: 'not a rematch proposal' };
+      }
+      if (row.status !== 'CREATED' || row.participants.length !== 1) {
+        return { ok: false as const, code: 'REMATCH_NOT_OPEN' as const, message: 'rematch proposal is no longer open' };
+      }
+      if (row.rematchOpponentUserId !== input.joiner.userId) {
+        return { ok: false as const, code: 'REMATCH_FORBIDDEN' as const, message: 'only the fixed opponent may accept this rematch' };
+      }
+      const proposer = row.participants[0]!;
+
+      const configRow = await tx.gameBalanceConfig.findUniqueOrThrow({ where: { version: row.economyConfigVersion } });
+      const config = economyConfigFromRow(configRow);
+
+      const createInput: CreateMatchInput = {
+        matchId: row.id,
+        mode: 'FRIEND_LIVE',
+        scenarioId: row.scenarioId,
+        scenarioVersion: row.scenarioVersion,
+        gameRulesVersion: row.gameRulesVersion,
+        economyConfigVersion: row.economyConfigVersion,
+        ratingVersion: null,
+        buyer:
+          proposer.role === 'BUYER'
+            ? { playerId: proposer.userId, role: 'BUYER', reservationValueTenths: Number(proposer.reservationValueTenths) }
+            : { playerId: input.joiner.userId, role: 'BUYER', reservationValueTenths: input.joiner.reservationValueTenths },
+        seller:
+          proposer.role === 'SELLER'
+            ? { playerId: proposer.userId, role: 'SELLER', reservationValueTenths: Number(proposer.reservationValueTenths) }
+            : { playerId: input.joiner.userId, role: 'SELLER', reservationValueTenths: input.joiner.reservationValueTenths },
+        firstPlayerId: input.firstPlayerId,
+        createdAt: row.createdAt.getTime(),
+      };
+
+      const created = createMatchDomain(createInput, config);
+      if (!created.ok) return created;
+
+      await tx.match.update({
+        where: { id: row.id },
+        data: {
+          domainState: encodeSnapshot({ state: created.state, config }),
+          firstPlayerId: input.firstPlayerId,
+        },
+      });
+      await tx.matchParticipant.create({
+        data: {
+          match: { connect: { id: row.id } },
+          user: { connect: { id: input.joiner.userId } },
+          role: input.joiner.role,
+          reservationValueTenths: BigInt(input.joiner.reservationValueTenths),
+          initialChipBudget: configRow.concessionBudgetChips,
+        },
+      });
+
+      // Auto-ready both players (PDR-3): the domain match is CREATED after
+      // materialization; two READY commands take it to ACTIVE. Committed
+      // through the same persistence path as every other command, so the
+      // new match's event stream opens with PLAYER_READY / MATCH_STARTED.
+      let state = created.state;
+      for (const playerId of [proposer.userId, input.joiner.userId]) {
+        const readied = applyCommand(state, { kind: 'READY', playerId, now: input.now }, config);
+        if (!readied.ok) {
+          return { ok: false as const, code: 'REMATCH_NOT_OPEN' as const, message: `rematch could not start: ${readied.code}` };
+        }
+        await persistCommand(tx, {
+          matchId: row.id,
+          commandId: randomUUID(),
+          prevState: state,
+          state: readied.state,
+          events: readied.events,
+          config,
+        });
+        state = readied.state;
+      }
+      return { ok: true as const, state };
+    });
+  }
+
+  /**
+   * Resolves an open rematch proposal by deleting it (decline by the
+   * opponent, or cancel by the proposer). The proposal has no domain state
+   * and exactly one participant, so the delete cascades cleanly and leaves
+   * no playable history behind; either side may then propose again.
+   */
+  async deleteRematchProposal(input: RematchResolveInput): Promise<{ ok: true } | RematchFailure> {
+    return this.prisma.$transaction(async (tx) => {
+      const locked = await tx.$queryRaw<{ id: string }[]>`SELECT id FROM matches WHERE id = ${input.matchId}::uuid FOR UPDATE`;
+      if (locked.length === 0) {
+        return { ok: false as const, code: 'REMATCH_NOT_FOUND' as const, message: 'rematch proposal not found' };
+      }
+      const row = await tx.match.findUniqueOrThrow({ where: { id: input.matchId }, include: { participants: true } });
+      if (row.rematchFromMatchId === null || row.rematchOpponentUserId === null) {
+        return { ok: false as const, code: 'REMATCH_NOT_FOUND' as const, message: 'not a rematch proposal' };
+      }
+      if (row.status !== 'CREATED' || row.participants.length !== 1) {
+        return { ok: false as const, code: 'REMATCH_NOT_OPEN' as const, message: 'rematch proposal is no longer open' };
+      }
+      const allowed = input.role === 'OPPONENT' ? row.rematchOpponentUserId : row.participants[0]!.userId;
+      if (allowed !== input.userId) {
+        return { ok: false as const, code: 'REMATCH_FORBIDDEN' as const, message: 'only a rematch participant may resolve this proposal' };
+      }
+      await tx.match.delete({ where: { id: input.matchId } });
+      return { ok: true as const };
     });
   }
 

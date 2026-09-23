@@ -55,6 +55,8 @@ export type MatchMinAggregateOutputType = {
   settlementTenths: bigint | null
   completionReason: $Enums.CompletionReason | null
   timeoutPlayerId: string | null
+  rematchFromMatchId: string | null
+  rematchOpponentUserId: string | null
   eventSequence: bigint | null
   createdAt: Date | null
   startedAt: Date | null
@@ -78,6 +80,8 @@ export type MatchMaxAggregateOutputType = {
   settlementTenths: bigint | null
   completionReason: $Enums.CompletionReason | null
   timeoutPlayerId: string | null
+  rematchFromMatchId: string | null
+  rematchOpponentUserId: string | null
   eventSequence: bigint | null
   createdAt: Date | null
   startedAt: Date | null
@@ -101,6 +105,8 @@ export type MatchCountAggregateOutputType = {
   settlementTenths: number
   completionReason: number
   timeoutPlayerId: number
+  rematchFromMatchId: number
+  rematchOpponentUserId: number
   eventSequence: number
   domainState: number
   createdAt: number
@@ -139,6 +145,8 @@ export type MatchMinAggregateInputType = {
   settlementTenths?: true
   completionReason?: true
   timeoutPlayerId?: true
+  rematchFromMatchId?: true
+  rematchOpponentUserId?: true
   eventSequence?: true
   createdAt?: true
   startedAt?: true
@@ -162,6 +170,8 @@ export type MatchMaxAggregateInputType = {
   settlementTenths?: true
   completionReason?: true
   timeoutPlayerId?: true
+  rematchFromMatchId?: true
+  rematchOpponentUserId?: true
   eventSequence?: true
   createdAt?: true
   startedAt?: true
@@ -185,6 +195,8 @@ export type MatchCountAggregateInputType = {
   settlementTenths?: true
   completionReason?: true
   timeoutPlayerId?: true
+  rematchFromMatchId?: true
+  rematchOpponentUserId?: true
   eventSequence?: true
   domainState?: true
   createdAt?: true
@@ -296,6 +308,8 @@ export type MatchGroupByOutputType = {
   settlementTenths: bigint | null
   completionReason: $Enums.CompletionReason | null
   timeoutPlayerId: string | null
+  rematchFromMatchId: string | null
+  rematchOpponentUserId: string | null
   eventSequence: bigint
   domainState: runtime.JsonValue | null
   createdAt: Date
@@ -343,6 +357,8 @@ export type MatchWhereInput = {
   settlementTenths?: Prisma.BigIntNullableFilter<"Match"> | bigint | number | null
   completionReason?: Prisma.EnumCompletionReasonNullableFilter<"Match"> | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.UuidNullableFilter<"Match"> | string | null
+  rematchFromMatchId?: Prisma.UuidNullableFilter<"Match"> | string | null
+  rematchOpponentUserId?: Prisma.UuidNullableFilter<"Match"> | string | null
   eventSequence?: Prisma.BigIntFilter<"Match"> | bigint | number
   domainState?: Prisma.JsonNullableFilter<"Match">
   createdAt?: Prisma.DateTimeFilter<"Match"> | Date | string
@@ -375,6 +391,8 @@ export type MatchOrderByWithRelationInput = {
   settlementTenths?: Prisma.SortOrderInput | Prisma.SortOrder
   completionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   timeoutPlayerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rematchFromMatchId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rematchOpponentUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   eventSequence?: Prisma.SortOrder
   domainState?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -410,6 +428,8 @@ export type MatchWhereUniqueInput = Prisma.AtLeast<{
   settlementTenths?: Prisma.BigIntNullableFilter<"Match"> | bigint | number | null
   completionReason?: Prisma.EnumCompletionReasonNullableFilter<"Match"> | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.UuidNullableFilter<"Match"> | string | null
+  rematchFromMatchId?: Prisma.UuidNullableFilter<"Match"> | string | null
+  rematchOpponentUserId?: Prisma.UuidNullableFilter<"Match"> | string | null
   eventSequence?: Prisma.BigIntFilter<"Match"> | bigint | number
   domainState?: Prisma.JsonNullableFilter<"Match">
   createdAt?: Prisma.DateTimeFilter<"Match"> | Date | string
@@ -442,6 +462,8 @@ export type MatchOrderByWithAggregationInput = {
   settlementTenths?: Prisma.SortOrderInput | Prisma.SortOrder
   completionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   timeoutPlayerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rematchFromMatchId?: Prisma.SortOrderInput | Prisma.SortOrder
+  rematchOpponentUserId?: Prisma.SortOrderInput | Prisma.SortOrder
   eventSequence?: Prisma.SortOrder
   domainState?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -474,6 +496,8 @@ export type MatchScalarWhereWithAggregatesInput = {
   settlementTenths?: Prisma.BigIntNullableWithAggregatesFilter<"Match"> | bigint | number | null
   completionReason?: Prisma.EnumCompletionReasonNullableWithAggregatesFilter<"Match"> | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.UuidNullableWithAggregatesFilter<"Match"> | string | null
+  rematchFromMatchId?: Prisma.UuidNullableWithAggregatesFilter<"Match"> | string | null
+  rematchOpponentUserId?: Prisma.UuidNullableWithAggregatesFilter<"Match"> | string | null
   eventSequence?: Prisma.BigIntWithAggregatesFilter<"Match"> | bigint | number
   domainState?: Prisma.JsonNullableWithAggregatesFilter<"Match">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Match"> | Date | string
@@ -498,6 +522,8 @@ export type MatchCreateInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -530,6 +556,8 @@ export type MatchUncheckedCreateInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -562,6 +590,8 @@ export type MatchUpdateInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -594,6 +624,8 @@ export type MatchUncheckedUpdateInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -626,6 +658,8 @@ export type MatchCreateManyInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -650,6 +684,8 @@ export type MatchUpdateManyMutationInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -674,6 +710,8 @@ export type MatchUncheckedUpdateManyInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -698,6 +736,8 @@ export type MatchCountOrderByAggregateInput = {
   settlementTenths?: Prisma.SortOrder
   completionReason?: Prisma.SortOrder
   timeoutPlayerId?: Prisma.SortOrder
+  rematchFromMatchId?: Prisma.SortOrder
+  rematchOpponentUserId?: Prisma.SortOrder
   eventSequence?: Prisma.SortOrder
   domainState?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -728,6 +768,8 @@ export type MatchMaxOrderByAggregateInput = {
   settlementTenths?: Prisma.SortOrder
   completionReason?: Prisma.SortOrder
   timeoutPlayerId?: Prisma.SortOrder
+  rematchFromMatchId?: Prisma.SortOrder
+  rematchOpponentUserId?: Prisma.SortOrder
   eventSequence?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
@@ -751,6 +793,8 @@ export type MatchMinOrderByAggregateInput = {
   settlementTenths?: Prisma.SortOrder
   completionReason?: Prisma.SortOrder
   timeoutPlayerId?: Prisma.SortOrder
+  rematchFromMatchId?: Prisma.SortOrder
+  rematchOpponentUserId?: Prisma.SortOrder
   eventSequence?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
@@ -913,6 +957,8 @@ export type MatchCreateWithoutFeaturesInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -944,6 +990,8 @@ export type MatchUncheckedCreateWithoutFeaturesInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -991,6 +1039,8 @@ export type MatchUpdateWithoutFeaturesInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1022,6 +1072,8 @@ export type MatchUncheckedUpdateWithoutFeaturesInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1053,6 +1105,8 @@ export type MatchCreateWithoutObservationsInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1084,6 +1138,8 @@ export type MatchUncheckedCreateWithoutObservationsInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1131,6 +1187,8 @@ export type MatchUpdateWithoutObservationsInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1162,6 +1220,8 @@ export type MatchUncheckedUpdateWithoutObservationsInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1193,6 +1253,8 @@ export type MatchCreateWithoutParticipantsInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1224,6 +1286,8 @@ export type MatchUncheckedCreateWithoutParticipantsInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1271,6 +1335,8 @@ export type MatchUpdateWithoutParticipantsInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1302,6 +1368,8 @@ export type MatchUncheckedUpdateWithoutParticipantsInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1333,6 +1401,8 @@ export type MatchCreateWithoutOffersInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1364,6 +1434,8 @@ export type MatchUncheckedCreateWithoutOffersInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1411,6 +1483,8 @@ export type MatchUpdateWithoutOffersInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1442,6 +1516,8 @@ export type MatchUncheckedUpdateWithoutOffersInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1473,6 +1549,8 @@ export type MatchCreateWithoutMessagesInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1504,6 +1582,8 @@ export type MatchUncheckedCreateWithoutMessagesInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1551,6 +1631,8 @@ export type MatchUpdateWithoutMessagesInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1582,6 +1664,8 @@ export type MatchUncheckedUpdateWithoutMessagesInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1613,6 +1697,8 @@ export type MatchCreateWithoutEventsInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1644,6 +1730,8 @@ export type MatchUncheckedCreateWithoutEventsInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1691,6 +1779,8 @@ export type MatchUpdateWithoutEventsInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1722,6 +1812,8 @@ export type MatchUncheckedUpdateWithoutEventsInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1753,6 +1845,8 @@ export type MatchCreateWithoutResultInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1784,6 +1878,8 @@ export type MatchUncheckedCreateWithoutResultInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1831,6 +1927,8 @@ export type MatchUpdateWithoutResultInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1862,6 +1960,8 @@ export type MatchUncheckedUpdateWithoutResultInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1893,6 +1993,8 @@ export type MatchCreateWithoutRatingEventsInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1924,6 +2026,8 @@ export type MatchUncheckedCreateWithoutRatingEventsInput = {
   settlementTenths?: bigint | number | null
   completionReason?: $Enums.CompletionReason | null
   timeoutPlayerId?: string | null
+  rematchFromMatchId?: string | null
+  rematchOpponentUserId?: string | null
   eventSequence?: bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -1971,6 +2075,8 @@ export type MatchUpdateWithoutRatingEventsInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2002,6 +2108,8 @@ export type MatchUncheckedUpdateWithoutRatingEventsInput = {
   settlementTenths?: Prisma.NullableBigIntFieldUpdateOperationsInput | bigint | number | null
   completionReason?: Prisma.NullableEnumCompletionReasonFieldUpdateOperationsInput | $Enums.CompletionReason | null
   timeoutPlayerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchFromMatchId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rematchOpponentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   eventSequence?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
   domainState?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2118,6 +2226,8 @@ export type MatchSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   settlementTenths?: boolean
   completionReason?: boolean
   timeoutPlayerId?: boolean
+  rematchFromMatchId?: boolean
+  rematchOpponentUserId?: boolean
   eventSequence?: boolean
   domainState?: boolean
   createdAt?: boolean
@@ -2151,6 +2261,8 @@ export type MatchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   settlementTenths?: boolean
   completionReason?: boolean
   timeoutPlayerId?: boolean
+  rematchFromMatchId?: boolean
+  rematchOpponentUserId?: boolean
   eventSequence?: boolean
   domainState?: boolean
   createdAt?: boolean
@@ -2175,6 +2287,8 @@ export type MatchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   settlementTenths?: boolean
   completionReason?: boolean
   timeoutPlayerId?: boolean
+  rematchFromMatchId?: boolean
+  rematchOpponentUserId?: boolean
   eventSequence?: boolean
   domainState?: boolean
   createdAt?: boolean
@@ -2199,6 +2313,8 @@ export type MatchSelectScalar = {
   settlementTenths?: boolean
   completionReason?: boolean
   timeoutPlayerId?: boolean
+  rematchFromMatchId?: boolean
+  rematchOpponentUserId?: boolean
   eventSequence?: boolean
   domainState?: boolean
   createdAt?: boolean
@@ -2206,7 +2322,7 @@ export type MatchSelectScalar = {
   completedAt?: boolean
 }
 
-export type MatchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "mode" | "status" | "scenarioId" | "scenarioVersion" | "gameRulesVersion" | "economyConfigVersion" | "ratingVersion" | "inviteToken" | "aiPersonaKey" | "aiPersonaVersion" | "firstPlayerId" | "activePlayerId" | "settlementTenths" | "completionReason" | "timeoutPlayerId" | "eventSequence" | "domainState" | "createdAt" | "startedAt" | "completedAt", ExtArgs["result"]["match"]>
+export type MatchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "mode" | "status" | "scenarioId" | "scenarioVersion" | "gameRulesVersion" | "economyConfigVersion" | "ratingVersion" | "inviteToken" | "aiPersonaKey" | "aiPersonaVersion" | "firstPlayerId" | "activePlayerId" | "settlementTenths" | "completionReason" | "timeoutPlayerId" | "rematchFromMatchId" | "rematchOpponentUserId" | "eventSequence" | "domainState" | "createdAt" | "startedAt" | "completedAt", ExtArgs["result"]["match"]>
 export type MatchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   participants?: boolean | Prisma.Match$participantsArgs<ExtArgs>
   events?: boolean | Prisma.Match$eventsArgs<ExtArgs>
@@ -2262,6 +2378,18 @@ export type $MatchPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
      * authoritative.
      */
     timeoutPlayerId: string | null
+    /**
+     * PDR-3 (QA-004): set ⟺ this row is a rematch proposal — a CREATED match
+     * with exactly one participant (the proposer) and no invite token. The
+     * scenario, roles, and opponent are carried from the source match; the
+     * domain match materializes when the fixed opponent accepts.
+     */
+    rematchFromMatchId: string | null
+    /**
+     * PDR-3: the only user allowed to accept the rematch proposal. No share
+     * link exists (inviteToken stays null); consent is in-session.
+     */
+    rematchOpponentUserId: string | null
     eventSequence: bigint
     /**
      * Authoritative domain snapshot { state, config } (06 §6). Gameplay reads
@@ -2718,6 +2846,8 @@ export interface MatchFieldRefs {
   readonly settlementTenths: Prisma.FieldRef<"Match", 'BigInt'>
   readonly completionReason: Prisma.FieldRef<"Match", 'CompletionReason'>
   readonly timeoutPlayerId: Prisma.FieldRef<"Match", 'String'>
+  readonly rematchFromMatchId: Prisma.FieldRef<"Match", 'String'>
+  readonly rematchOpponentUserId: Prisma.FieldRef<"Match", 'String'>
   readonly eventSequence: Prisma.FieldRef<"Match", 'BigInt'>
   readonly domainState: Prisma.FieldRef<"Match", 'Json'>
   readonly createdAt: Prisma.FieldRef<"Match", 'DateTime'>

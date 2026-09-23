@@ -170,6 +170,14 @@ model Match {
   /// TIMED_OUT. Analytics convenience column; the domain snapshot is
   /// authoritative.
   timeoutPlayerId      String?          @db.Uuid @map("timeout_player_id")
+  /// PDR-3 (QA-004): set ⟺ this row is a rematch proposal — a CREATED match
+  /// with exactly one participant (the proposer) and no invite token. The
+  /// scenario, roles, and opponent are carried from the source match; the
+  /// domain match materializes when the fixed opponent accepts.
+  rematchFromMatchId   String?          @db.Uuid @map("rematch_from_match_id")
+  /// PDR-3: the only user allowed to accept the rematch proposal. No share
+  /// link exists (inviteToken stays null); consent is in-session.
+  rematchOpponentUserId String?         @db.Uuid @map("rematch_opponent_user_id")
   eventSequence        BigInt           @default(0) @map("event_sequence")
   /// Authoritative domain snapshot { state, config } (06 §6). Gameplay reads
   /// come from here; normalized columns are derived for analytics.

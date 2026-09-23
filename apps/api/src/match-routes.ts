@@ -246,15 +246,18 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
     const scenario = scenarioRow ? scenarioForRole(scenarioRow, me.role) : null;
 
     if (!snapshot) {
-      // Pre-join challenge: the domain match does not exist yet.
+      // Pre-join challenge: the domain match does not exist yet. PDR-3:
+      // rematch proposal rows must never render as a shareable challenge —
+      // they have a fixed opponent and no invite token.
       return {
         matchId,
-        status: 'WAITING_FOR_OPPONENT',
+        status: row.rematchFromMatchId !== null ? 'REMATCH_PENDING' : 'WAITING_FOR_OPPONENT',
         mode: row.mode,
         role: me.role,
         reservationValueTenths: Number(me.reservationValueTenths),
         inviteToken: row.inviteToken,
         timeoutPlayerId: null,
+        rematch: row.rematchFromMatchId !== null ? { fromMatchId: row.rematchFromMatchId, opponentUserId: row.rematchOpponentUserId } : null,
         scenario,
       };
     }
