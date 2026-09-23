@@ -197,6 +197,12 @@ test('canvas checkpoint: live-match screen vs design boards', async ({ browser }
     expect(hasHScroll).toBe(false);
     // D-26 #4: chat is ambient on mobile until Talk opens the bottom sheet.
     await expect(mobilePage.locator('.lm-chat-sheet')).toBeHidden();
+    // The Next dev-overlay portal sits in the bottom-left corner in dev
+    // builds and intercepts pointer events; production has no portal.
+    // Remove it so the Talk button receives real clicks, exactly as in prod.
+    await mobilePage.evaluate(() => {
+      for (const portal of Array.from(document.querySelectorAll('nextjs-portal'))) portal.remove();
+    });
     await mobilePage.getByRole('button', { name: 'Open chat' }).click();
     await expect(mobilePage.locator('.lm-chat-sheet')).toBeVisible();
     await mobilePage.screenshot({ path: path.join(OUT_DIR, 'live-match-mobile.png') });

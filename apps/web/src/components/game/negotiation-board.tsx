@@ -2,6 +2,8 @@
 
 import { parseAmountTenths } from '@bounty-bay/domain';
 
+import { formatTenthsGrouped } from '../../lib/format';
+
 /**
  * NegotiationBoard (BB-216, founder D-24 + D-26): the first-person live
  * match, readable in exactly this order — Opponent → their offer → my
@@ -118,7 +120,7 @@ export default function NegotiationBoard(props: {
       (view.myRole === 'BUYER'
         ? parsedProposed.tenths <= view.myReservationValueTenths
         : parsedProposed.tenths >= view.myReservationValueTenths));
-  const sealAmount = sealLegal ? proposed : undefined;
+  const sealAmount = sealLegal && parsedProposed.ok ? formatTenthsGrouped(parsedProposed.tenths) : undefined;
 
   const theirKey = `their-${opponent.latestOfferTenths ?? 'none'}`;
   const mineKey = `mine-${me.latestOfferTenths ?? 'none'}`;

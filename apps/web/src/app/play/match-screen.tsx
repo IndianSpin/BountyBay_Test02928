@@ -374,6 +374,13 @@ export default function MatchScreen({ matchId, token, userId, opponentJoined, on
           canOffer:
             view.myTurn &&
             parsedAmount.ok &&
+            // D-28 (QA-005): a beyond-mandate amount DISABLES the seal —
+            // the CTA is never an enabled hero for an illegal offer
+            // (the composer strip explains why; GR-007-style precedent).
+            (view.myReservationValueTenths === undefined ||
+              (view.myRole === 'BUYER'
+                ? parsedAmount.tenths <= view.myReservationValueTenths
+                : parsedAmount.tenths >= view.myReservationValueTenths)) &&
             (myPrevious === null || (preview !== null && preview.movingToward && preview.affordable)),
           canAccept:
             view.myTurn &&
