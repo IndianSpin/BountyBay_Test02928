@@ -72,7 +72,10 @@ Need test distributions that create varied ZOPA widths and absolute scales witho
 
 ## OQ-008 — AI opponent strategy
 
-**Status:** Resolved by DEC-025.
+**Status:** Resolved by DEC-025 (five personas, provisional). Long-term
+direction: DEC-030 — the five personas are the provisional early
+implementation; the deeper negotiation agent (docs/22) replaces them as
+design direction. Not scheduled.
 
 Resolved:
 

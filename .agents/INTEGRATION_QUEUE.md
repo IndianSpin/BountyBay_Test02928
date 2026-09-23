@@ -1,54 +1,63 @@
 # INTEGRATION QUEUE — Bounty Bay
 
-Every candidate merge: task, branch, commit, dependencies, test status,
+Every candidate merge: task, branch, commit, **depends on**, **depended on
+by**, **contract changes** (schema/API/domain — none/which), test status,
 conflict risk, doc changes, migration, recommended order. Order follows
-dependencies, never completion time.
+dependencies, never completion time. **Merge order is a proposal and is
+re-evaluated whenever contracts/dependencies change (D-5).** Only
+ACCEPTed work merges (D-8).
 
 ## Standing rules
-- Main receives reviewed changes only. Manager verifies (does not take a
-  worker's word for green tests).
+- Main receives reviewed changes only. Manager verifies with actual
+  diff/tests/design evidence.
 - DB migrations: manager review before merge; no destructive actions
   against non-disposable DBs (D-4).
 - Canonical doc changes ride with their code or via manager (D-6).
 
-## IQ-1 — Baseline `f1e8c99` (already on main)
-- **Status:** accepted provisionally (D-1); audit done; verification =
-  EM-01 (in progress).
-- **Known issue:** `apps/web/debug-reveal.tmp.mjs` committed → TD-1,
-  removed in the first reviewed cleanup commit.
+## Current candidates
 
-## IQ-2 — W1 acceptance fixes (branch `w1-dd-mechanics`)
-- Depends on: EM-01 (worktree ready).
-- Tests: full web E2E suite incl. `hold-accept` (flake-free re-run) and
-  `timeout` (time-warning visible, GR-023).
-- Conflict risk: `globals.css` shared with W2 (W1 limited to its own
-  `.lm-*` sections); `match-actions.tsx` — if W2 touches it, flag
+### IQ-1 — W2 IN handoff commit (branch `w2-frontend-design`, hash TBD)
+- **Depends on:** nothing (pure checkpoint of existing work).
+- **Depended on by:** W3-01 (takeover), IQ-3.
+- **Contract changes:** none intended (no schema/API/domain edits in a
+  checkpoint commit — manager verifies in diff).
+- **Acceptance:** commit hash recorded in worker-2.md; complete/partial/
+  temporary/untested documented; W3 inspects.
+
+### IQ-2 — W1 acceptance fixes (branch `w1-dd-mechanics`, commit TBD)
+- **Depends on:** IQ-1 only for timing (W1 does not touch intelligence).
+- **Depended on by:** W1-02 (DD Phase 1 founder checkpoint); E2E
+  stability for everything else.
+- **Contract changes:** none expected (UI + E2E only; GR-023/GR-024
+  already canonical — any rule change = manager BLOCK pending DEC).
+- **Conflict risk:** `globals.css` shared with W2 (W1 limited to its own
+  `.lm-*` sections); `match-actions.tsx` — if W2 edits it, flag
   immediately.
-- Doc changes: none expected (GR-023/GR-024 already canonical).
-- Migration: none.
-- **Recommended merge order: 1** (smallest, stabilizes E2E).
+- **Migration:** none.
+- **Proposed order: 1** (smallest, stabilizes E2E).
 
-## IQ-3 — W3 IN-2 Game Review V1 (branch `w3-intelligence`)
-- Depends on: W2-02 handoff, EM-01, founder checkpoint after IN-2.
-- Tests: packages/intelligence unit + property tests; db+api suite if
-  touched; typecheck of consumers.
-- Conflict risk: packages/db prisma models if IN-2 persists review data
-  (schema change → manager review).
-- Doc changes: docs/18 already canonical for IN-2; deviations recorded.
-- Migration: possible (review data) — manager review required.
-- **Recommended merge order: 2.**
+### IQ-3 — W3 IN-2 Game Review V1 (branch `w3-intelligence`, commit TBD)
+- **Depends on:** IQ-1 (taken-over IN-1).
+- **Depended on by:** founder IN-2 checkpoint; future IN-3.
+- **Contract changes:** possibly packages/db Prisma additions for review
+  data → manager migration review required; API/domain untouched by
+  design (docs/18: deterministic engine only).
+- **Conflict risk:** packages/db schema shared with W1 — any schema
+  change must be coordinated before either edits.
+- **Migration:** possible (review data).
+- **Proposed order: 2.**
 
-## IQ-4 — W2 RESULT REVEAL slice (branch `w2-frontend-design`)
-- Depends on: EM-01, W2-01 done.
-- Tests: slice E2E + screenshots + deviation list per DEC-029; existing
-  E2E must stay green (testids preserved).
-- Conflict risk: `globals.css` (W2 owns; W1 sections untouched);
-  result-reveal components vs W1 acceptance components — separate files.
-- Doc changes: docs/21 implementation map update (manager applies).
-- Migration: none.
-- **Recommended merge order: 3.**
+### IQ-4 — W2 canvas regression fixes / cleanup (branch
+`w2-frontend-design`, commit TBD)
+- **Depends on:** founder canvas verdict.
+- **Depended on by:** W2-03 CSS split.
+- **Contract changes:** none (UI only; testids preserved).
+- **Migration:** none.
+- **Proposed order: 3.**
 
-## Later (unsequenced)
+## Sequenced later
+- W2-03 CSS structural split — after founder approves slices; must land
+  before multi-agent UI work resumes.
 - DD-M2 dossiers (W1) — after founder checkpoint (W1-02).
 - P1-M2 rating — after IN checkpoint.
-- PDR-1 negotiation agent — pending founder decision.
+- DEC-030 negotiation agent — unscheduled.

@@ -375,3 +375,51 @@ redesigned until the slices complete.
 specific visual authority than prose guidance; implementing it
 slice-by-slice preserves the working game (testids, flows, E2E) while the
 visual layer converges on the target.
+
+## DEC-030 — Negotiation agent architecture adopted as future direction (deferred)
+
+**Decision:** The founder directive "Bounty Negotiation Agent"
+(2026-09-23) is adopted as canonical design direction, recorded in
+docs/22. The AI opponent architecture evolves from five fixed personas to
+a seven-layer negotiation agent: (1) private mandate & utility model, (2)
+belief state, (3) strategy, (4) tactic selection, (5) economic action, (6)
+communication, (7) personality. The strategic engine (layers 1–5) is
+deterministic and measurable; the LLM is an actor producing language,
+persuasion, personality and conversational continuity — never the
+decision-maker. Difficulty = depth of reasoning (Beginner/Intermediate/
+Expert), not concession sizes; Expert never sees hidden information — it
+is only better at inference. The same engine powers casual AI opponents,
+practice partners, targeted coaching drills, Real World Mode, and expert
+simulations.
+
+**Status:** DESIGN DIRECTION ONLY — DO NOT IMPLEMENT until it is
+scheduled (not before the IN-2 checkpoint and DD Phase 1 sign-off).
+DEC-025's five personas (Anchor, Grinder, Closer, Wall, Mirror) remain the
+provisional early implementation and stay in place; no persona code is
+deleted until the deeper agent work is actually scheduled.
+
+**Supersedes (as long-term direction only):** DEC-025's resolution of
+OQ-008 — the five personas are reclassified from "the AI opponent
+strategy" to "provisional early implementation". DEC-025's surviving
+constraints remain in force: AI economic actions pass the same domain
+validation as human commands; AI matches stay mode AI, unrated, bot-scoped
+(GR-019, DEC-004); no LLM in the decision path.
+
+**Interactions:** the agent consumes DD-M2/M3 dossier and verified-fact
+data (GR-028; price remains the only negotiated issue); adversarial
+coaching hooks IN-6 (practice personas); persistent adaptation reuses
+IN-3's longitudinal profile and confidence bands — never the opponent's
+current-match hidden information; DD-M7 (AI/spectator/replay) implements
+the agent's information boundaries. Versioning seam: the existing
+`ai-personas-0.1.0` config row already records per-match behavior; a
+future `ai-agent-<version>` row will do the same. Replay requires
+LLM-generated text persisted as match events (retention permitting).
+AGENTS.md guardrails hold: opponents never appear human; LLM output is
+data, never executable/system instructions.
+
+**Reason:** Solo play is the strategic entry point (DEC-025), and fixed
+concession-curve bots are too shallow for a sticky negotiation-practice
+product. The deeper agent — deterministic strategic engine + opponent
+modelling + tactical repertoire + LLM actor — is core IP, and keeping the
+decision layer deterministic keeps strategy measurable, testable, and
+domain-validated.

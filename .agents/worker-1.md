@@ -8,7 +8,8 @@ Update this file BEFORE starting a substantial task and AFTER each
 checkpoint (CURRENT TASK / STATUS / LATEST COMMIT / FILES / TESTS /
 BLOCKERS / PRODUCT ASSUMPTIONS / NEXT STEP). Do not edit canonical
 `docs/*` directly — propose doc changes here and the manager applies them
-(D-6).
+(D-6). **You never self-certify "done" — your terminal state is READY
+FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 
 ## Ownership
 - `packages/domain`, `apps/api` (esp. `timeout-scheduler.ts`), `packages/db`
@@ -34,7 +35,8 @@ BLOCKERS / PRODUCT ASSUMPTIONS / NEXT STEP). Do not edit canonical
 3. Remove debug artifacts you find in your files (W2 left debug logs in
    `use-hold.ts`/`match-actions.tsx` — if they're still there, remove
    them and note it).
-Then update this file with results.
+Then update this file with results. Terminal state: **READY FOR REVIEW**
+(never "done") — manager verdicts ACCEPT / REWORK / BLOCK with evidence.
 
 ## NEXT STEP — W1-02: DD Phase 1 founder checkpoint
 After W1-01 green: write the §39-style completion report (files, behavior,

@@ -4,41 +4,17 @@ Product decisions requiring the founder are marked **PRODUCT DECISION
 REQUIRED**. Canonical records of adopted decisions live in
 `docs/12_DECISION_LOG.md`; this file is the manager's working record.
 
-## PDR-1 — PRODUCT DECISION REQUIRED: Negotiation-agent architecture
+## PDR-1 — RESOLVED: Negotiation-agent architecture approved as direction (DEC-030)
 
-**Issue.** Founder directive (2026-09-23): replace the five DEC-025 personas
-(Anchor/Grinder/Closer/Wall/Mirror, deterministic numeric strategies, no LLM
-in decision path) with a 7-layer Bounty Negotiation Agent: mandate/belief
-state/strategy/tactic selection/economic action (deterministic) +
-communication/personality (LLM as actor, not decision-maker), opponent
-modelling, tactical repertoire, difficulty = reasoning depth, adversarial
-coaching, persistent adaptation, Real World Mode.
-
-**Why it matters.** Solo play is the strategic product entry (DEC-025);
-the directive claims the current personas are too shallow for a sticky
-practice product and makes the agent core IP.
-
-**Options.**
-1. **Adopt + defer (recommended):** DEC-030 records the directive; new
-   canonical doc (docs/22) with the 7-layer architecture; supersedes
-   DEC-025's persona resolution (OQ-008 re-opened → re-resolved); AI
-   economic actions still pass domain validation; implementation deferred
-   until after IN-2 checkpoint and DD Phase 1 sign-off. No code changes now.
-2. Adopt + implement immediately (collides with W2/W3 mid-flight IN work;
-   not recommended).
-3. Hold as draft; decide later.
-
-**Affected work.** `packages/ai` (personas), DD-M7 (AI/spectator/replay,
-deferred), IN-6 (practice personas), IN-3 (longitudinal profile —
-"persistent adaptation" reuses its confidence bands), DEC-025 difficulty
-ladder.
-
-**Can work continue safely?** Yes. IN-1/2, canvas slices, and DD Phase 1
-are unaffected; `ai-personas-0.1.0` is already config-driven and versioned
-per match, which is the seam the agent engine would replace later.
-
-**Status:** awaiting founder decision. Manager drafts DEC-030 + docs/22
-outline on confirmation (EM-02).
+**Founder decision (2026-09-23, correction 6):** the deeper negotiation
+agent is approved as future product direction. Recorded as **DEC-030**
+(canonical, docs/12) + **docs/22** (canonical design direction). DO NOT
+IMPLEMENT until scheduled (not before IN-2 checkpoint + DD Phase 1
+sign-off). The five DEC-025 personas are the provisional early
+implementation and are treated as such; no persona code is deleted until
+the agent work is actually scheduled. OQ-008 note updated in docs/14.
+Nothing was changed in code; docs/12, docs/14, docs/22 updated by the
+manager (D-6).
 
 ## D-1 — Baseline commit accepted provisionally
 
@@ -83,8 +59,14 @@ Per worker protocol: one branch + worktree per worker. Branches
 `w1-dd-mechanics`, `w2-frontend-design`, `w3-intelligence` cut off
 `f1e8c99`; worktrees at `~/projects/bay-w1`, `~/projects/bay-w2`,
 `~/projects/bay-w3` (each needs its own `pnpm install`). Main receives
-reviewed changes only, in merge order W1 → W3 → W2. The original checkout
-(`~/projects/bay`) stays on main as the manager/integration checkout.
+reviewed changes only. The original checkout (`~/projects/bay`) stays on
+main as the manager/integration checkout.
+
+**Merge order is a proposal, not a permanent rule** (correction 5):
+currently W1 → W3 → W2. Re-evaluate whenever contracts/dependencies
+change. Every candidate integration in INTEGRATION_QUEUE.md states: what
+it depends on; what depends on it; whether it changes schema/API/domain
+contracts.
 
 ## D-6 — Canonical docs are manager-reviewed
 
@@ -93,3 +75,29 @@ worker file (PRODUCT ASSUMPTIONS / doc-change notes). Manager applies
 canonical doc changes and records conflicts in this file. Exceptions:
 docs/19–20 are W3's working specification documents — W3 edits them, but
 flags any change to a canonical rule in its worker file.
+
+## D-7 — Worktree migration record (correction 4)
+
+Migration executed 2026-09-23 ~02:45. Evidence checked before/after:
+main checkout tree was clean (all workers' work committed: W1 acceptance
+slice + DD Phase 1 inside baseline `f1e8c99`; W2 slices + IN inside
+`f1e8c99`); worktrees cut at `f1e8c99`, then fast-forwarded to `1bb81bf`
+(control plane). `git status` clean in main and all three worktrees;
+branch logs identical through `1bb81bf`. Nothing lost. Workers were
+instructed to run `git status` in both locations before starting work.
+
+## D-8 — Quality authority (correction 8)
+
+Workers' terminal state is READY FOR REVIEW, never "done". Manager
+returns exactly ACCEPT / REWORK / BLOCK based on actual diff/tests/design
+evidence — never on a worker's self-report. Only ACCEPTed work merges.
+
+## D-9 — Management cadence (correction 7)
+
+Coordination cycle triggers: worker READY FOR REVIEW; worker BLOCKED;
+design/current changes; schema/API/domain contract changes; worker scope
+expansion proposals. Lightweight status sweep every ~25 min while active
+work runs (cron in the manager session): new commits, worker status,
+changed-file overlap, stale design version, dependency conflicts, test
+failures, scope drift. Healthy work is not interrupted for activity's
+sake.
