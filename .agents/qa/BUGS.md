@@ -84,6 +84,73 @@ the diagnostic shape).
 
 ---
 
+## QA-005 (BB-218) — Illegal amount is presented as the ENABLED hero CTA; refusal only after tap
+
+- **REAL:** yes (founder-reported; reproduced on current main). **REPRODUCIBLE:**
+  yes — deterministic (buyer composes any amount above their RV).
+  **MATERIAL:** yes — the primary action presents a guaranteed-to-fail offer.
+- **SEVERITY:** MEDIUM (P1-adjacent UX; no integrity risk — the server is
+  authoritative and refuses correctly; the turn never switches).
+- **AREA:** live-match composer/actions (BB-216 redesign scope).
+- **OWNER-CANDIDATE:** worker-2 (BB-216). The neutralization (disable or
+  auto-correct the CTA when the typed amount is beyond the viewer's own
+  mandate, mirroring the existing duplicate handling) belongs in the
+  redesign scope per the manager.
+
+**STEPS TO REPRODUCE (current main, base `903119e`):**
+1. Friend match → ACTIVE; bring the turn to the buyer (RV e.g. 92.1).
+2. Buyer types 123.2 (above their RV).
+3. The cost strip shows the advisory "Your mandate does not allow you to
+   offer more than 92.1." — but the seal CTA stays **enabled** and reads
+   **SEAL OFFER 123.2**.
+4. Tap SEAL → server returns `400 OUTSIDE_RESERVATION_VALUE`; the UI shows
+   the generic alert "Your mandate does not allow you to offer that much.";
+   turn unchanged, match ACTIVE, the illegal amount stays in the input.
+
+**EXPECTED:** the hero CTA must never present an action the player's own
+mandate forbids — disable it (like duplicate amounts) or refuse at the
+composer with the advisory elevated, so the player cannot "seal" a
+guaranteed failure.
+
+**EVIDENCE:** `.agents/qa/tools/specs/qa-bb218.spec.ts` (test 1 — asserts
+the enabled CTA, the advisory, the refusal alert, state integrity, and the
+direct-API `400 OUTSIDE_RESERVATION_VALUE`); screenshots
+`illegal-composed-cta-enabled.png`, `after-refusal-alert.png`.
+Code path: `match-screen.tsx` `canOffer` checks turn/parse/direction/chips
+but never the RV boundary; the composer's `beyondLimit` warning is
+advisory-only.
+
+**WHAT IS CORRECT (per BB-217, verified live):** the advisory names the
+viewer's OWN limit (self-information, no opponent data); the refusal alert
+copy is generic; nothing commits server-side; `116,500` in the founder's
+screenshot is the CORRECT grouped rendering of a true 116,500.0 ask (see
+INFO below).
+
+**RECOMMENDED ACCEPTANCE TEST:** with a buyer beyond-limit amount typed,
+`SEAL OFFER` is disabled (or the composer rejects the amount); no fetch is
+possible; the advisory remains visible. Seller mirror: below-limit amounts.
+
+## INFO — BB-218 rendering observations (not defects)
+
+- Opponent ask `116,500` (from a 116,500.0 offer) is correct grouped
+  formatting (`formatTenthsGrouped`), verified live on the ask plaque; a
+  116.5 offer renders `116.5` — no tenths bug exists on current main.
+  Evidence: `render-116500-plaque.png`, `render-116-5-plaque.png`.
+- The seal CTA echoes the RAW input string ungrouped (`SEAL OFFER 116500`
+  vs the plaque's `116,500`) — minor display inconsistency; fold into the
+  BB-216 composer pass if convenient.
+
+---
+
+## RESOLVED — QA-002 (typecheck gate) fixed by BB-214, verified by QA
+
+`pnpm typecheck` exits 0 on current main (`903119e`). The W1-01 diagnostic
+union in `friend-match.spec.ts` was narrowed by the BB-214 hotfix (merged
+in `787aa86`). Verified 2026-09-23 by QA on the BB-218 run. L-007 keeps
+typecheck in the manager gate.
+
+---
+
 ## (Resolved, not product bugs — for the record)
 
 - **hold-accept "accept seal vanishes after early release"** on baseline

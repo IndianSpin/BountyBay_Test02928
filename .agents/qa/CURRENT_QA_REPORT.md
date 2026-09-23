@@ -54,6 +54,27 @@ W1-01 (`0aec467`), merged in `bbf318e`.
 - Two-tabs-same-user and spectator/third-party UI surfaces were probed at API level only (403s correct); UI-level double-tab behavior NOT TESTED.
 - Pixel-level visual comparison could not be performed by this agent (no image rendering); the structural contract passed and screenshots are attached for an image-capable reviewer.
 
+## BB-218 (founder live-match critique) — verified on current main `903119e`
+
+Reproduced the founder's state and pinned the full chain (spec:
+`.agents/qa/tools/specs/qa-bb218.spec.ts`, 2/2 PASS):
+
+1. **The hero CTA presents illegal amounts as tappable** — buyer typed
+   RV+31.1; `SEAL OFFER <illegal>` stayed ENABLED with only a strip
+   advisory; tap → `400 OUTSIDE_RESERVATION_VALUE` → generic alert
+   "Your mandate does not allow you to offer that much."; turn unchanged,
+   match ACTIVE. → **QA-005** (MEDIUM, W2 BB-216 scope) in `BUGS.md`.
+2. **No tenths-formatting bug** — "116,500" is the correct grouped
+   rendering of a true 116,500.0 ask (verified live on the plaque); a
+   116.5 ask renders "116.5". INFO notes in `BUGS.md` (seal echoes the
+   raw input ungrouped — minor).
+3. **QA-002 RESOLVED** — BB-214 hotfix verified: `pnpm typecheck` exits 0
+   on current main.
+
+Environment note: the QA DB was migrated with the DD-M2 additive migration
++ reseeded before this run.
+
 ## Terminal state
 
-REPORTED TO MANAGER. Stop per BB-206; no further test campaigns started.
+BB-218 REPORTED TO MANAGER. Stopping per contract; no further campaigns
+started.
