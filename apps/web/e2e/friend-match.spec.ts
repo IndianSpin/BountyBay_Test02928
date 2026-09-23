@@ -193,11 +193,15 @@ test('repeating the same formal offer is rejected and never switches the turn (G
   await expectActive(pageB);
 
   // Deterministic play: each player opens at their own RV (legal GR-003
-  // boundary), which hands the turn to the opponent.
+  // boundary), which hands the turn to the opponent. Record the first
+  // mover: after both openings the turn returns to them, and the UI
+  // assertions below target their page (avoids the transient stale-turn
+  // window on the second mover's page).
   const pages = [pageA, pageB];
   const rvs = [await ownRv(pageA), await ownRv(pageB)];
   const offered = [false, false];
-  for (let round = 0; round < 4; round++) {
+  let firstActor: Page | null = null;
+  for (let round = 0; round < 6; round++) {
     for (const i of [0, 1]) {
       if (offered[i]) continue;
       const page = pages[i]!;
@@ -205,23 +209,21 @@ test('repeating the same formal offer is rejected and never switches the turn (G
       await page.getByTestId('offer-input').fill(rvs[i]!);
       await page.getByTestId('make-offer').click({ timeout: 5000 });
       offered[i] = true;
+      if (firstActor === null) firstActor = page;
       await expect(page.getByTestId('turn-banner')).toHaveText('OPPONENT THINKING', { timeout: 15_000 });
     }
     if (offered.every(Boolean)) break;
     await pageA.waitForTimeout(400);
   }
   expect(offered.every(Boolean)).toBe(true);
+  expect(firstActor).not.toBeNull();
 
   // Back on the first mover's turn, re-entering the same amount is blocked:
   // the UI disables Make Offer (client mirrors the server rule) and the
-  // turn never moves. Poll until the turn has settled on exactly one page.
-  await expect(async () => {
-    const a = await pageA.getByTestId('turn-banner').innerText();
-    const b = await pageB.getByTestId('turn-banner').innerText();
-    expect((a === 'YOUR MOVE') !== (b === 'YOUR MOVE')).toBe(true);
-  }).toPass({ timeout: 15_000 });
-  const firstMover = (await pageA.getByTestId('turn-banner').innerText()) === 'YOUR MOVE' ? pageA : pageB;
+  // turn never moves.
+  const firstMover = firstActor!;
   const firstMoverIndex = pages.indexOf(firstMover);
+  await expect(firstMover.getByTestId('turn-banner')).toHaveText('YOUR MOVE', { timeout: 15_000 });
   await firstMover.getByTestId('offer-input').fill(rvs[firstMoverIndex]!);
   await expect(firstMover.getByTestId('make-offer')).toBeDisabled();
   await expect(firstMover.getByTestId('turn-banner')).toHaveText('YOUR MOVE');
@@ -232,11 +234,10 @@ test('repeating the same formal offer is rejected and never switches the turn (G
   const duplicate = await firstMover.evaluate(async (arg: { apiUrl: string; amount: string }) => {
     const stored = JSON.parse(localStorage.getItem('bb-dev-auth') ?? '{}') as { token?: string };
     const headers = { authorization: `Bearer ${stored.token ?? ''}` };
-    const active = await fetch(`${arg.apiUrl}/v1/me/active-match`, { headers }).then((r) => r.json()) as {
-      activeMatch?: { matchId?: string } | null;
-    };
+    const activeRes = await fetch(`${arg.apiUrl}/v1/me/active-match`, { headers });
+    const active = (await activeRes.json()) as { activeMatch?: { matchId?: string } | null };
     const matchId = active.activeMatch?.matchId;
-    if (!matchId) return { status: 0, body: {} };
+    if (!matchId) return { status: 0, body: { activeStatus: activeRes.status, active, hasToken: Boolean(stored.token) } };
     const res = await fetch(`${arg.apiUrl}/v1/matches/${matchId}/offers`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', ...headers },

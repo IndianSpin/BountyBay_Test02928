@@ -71,10 +71,15 @@ test('hold-to-accept: early release cancels, full hold settles the deal', async 
   await expect(pageA.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
 
   // Both open at their own RV → offers cross → the crossed seal appears.
+  // Record the first mover: after both openings the turn returns to them,
+  // and the accept seal exists ONLY on their page (D7/GR-014). Asserting on
+  // the first mover avoids the transient stale-accept window on the second
+  // mover's page (their pre-broadcast view briefly shows their own turn).
   const pages = [pageA, pageB];
   const rvs = [await ownRv(pageA), await ownRv(pageB)];
   const offered = [false, false];
-  for (let round = 0; round < 4; round++) {
+  let firstActor: Page | null = null;
+  for (let round = 0; round < 6; round++) {
     for (const i of [0, 1]) {
       if (offered[i]) continue;
       const page = pages[i]!;
@@ -82,24 +87,18 @@ test('hold-to-accept: early release cancels, full hold settles the deal', async 
       await page.getByTestId('offer-input').fill(rvs[i]!);
       await page.getByTestId('make-offer').click({ timeout: 5000 });
       offered[i] = true;
+      if (firstActor === null) firstActor = page;
     }
     if (offered.every(Boolean)) break;
     await pageA.waitForTimeout(400);
   }
   expect(offered.every(Boolean)).toBe(true);
+  expect(firstActor).not.toBeNull();
 
-  // The first mover owns the accept; wait for it to render on exactly one
-  // page (the accept exists only on the active player's page — D7/GR-014).
-  const acceptA = pageA.getByTestId('accept-button');
-  const acceptB = pageB.getByTestId('accept-button');
-  await expect(async () => {
-    const a = await acceptA.isVisible().catch(() => false);
-    const b = await acceptB.isVisible().catch(() => false);
-    expect(a !== b).toBe(true);
-  }).toPass({ timeout: 15_000 });
-  const active = (await acceptA.isVisible().catch(() => false)) ? pageA : pageB;
-  const accept = active === pageA ? acceptA : acceptB;
-  await expect(accept).toBeVisible();
+  // The first mover owns the accept after the second opening lands.
+  const active = firstActor!;
+  const accept = active.getByTestId('accept-button');
+  await expect(accept).toBeVisible({ timeout: 15_000 });
 
   // Early release (300 ms < 600 ms) cancels: the match stays live.
   await hold(active, accept, 300);
