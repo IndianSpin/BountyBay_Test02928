@@ -54,8 +54,9 @@ describe.skipIf(!RUN)('Dossier serialization isolation (PostgreSQL)', () => {
     const scenarioRow = await prisma.scenario.findFirstOrThrow({
       where: { id: '00000000-0000-4000-8000-000000000001', version: 1 },
     });
-    const buyerFacts = scenarioRow.buyerPrivateFacts as { text: string }[];
-    const sellerFacts = scenarioRow.sellerPrivateFacts as { text: string }[];
+    type RowFact = { id: string; text: string; category: string; verifiable: boolean; optionalRevealLabel?: string };
+    const buyerFacts = scenarioRow.buyerPrivateFacts as RowFact[];
+    const sellerFacts = scenarioRow.sellerPrivateFacts as RowFact[];
     const buyerContext = scenarioRow.buyerPrivateContext ?? '';
     const sellerContext = scenarioRow.sellerPrivateContext ?? '';
     expect(buyerFacts.length).toBeGreaterThan(0);
