@@ -1,0 +1,94 @@
+/* DD-M2 dossier panel — self-contained module (W1 file boundary).
+   Canvas tokens from globals.css (--vault-ink, --brand-gold, --outline-ink,
+   --surface-parchment, --font-*) are consumed, never redefined. */
+
+.dossier {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  background: var(--vault-ink);
+  color: var(--ink-on-vault);
+  border: 2px solid var(--brand-gold);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card-elevated);
+  font-family: var(--font-ui);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kicker {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--brand-gold);
+}
+
+.shared {
+  margin: 0;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--ink-on-vault);
+  border-bottom: 1px dashed rgba(217, 166, 83, 0.45);
+  padding-bottom: 8px;
+}
+
+.context {
+  margin: 0;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--ink-on-vault);
+}
+
+.facts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fact {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.tag {
+  flex: none;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--brand-gold);
+  border: 1px solid rgba(217, 166, 83, 0.55);
+  border-radius: 999px;
+  padding: 1px 7px;
+  margin-top: 1px;
+}
+
+.text {
+  flex: 1;
+}
+
+.verifiable {
+  flex: none;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: var(--ink-on-vault);
+  background: rgba(63, 216, 196, 0.18);
+  border: 1px solid rgba(63, 216, 196, 0.6);
+  border-radius: 999px;
+  padding: 1px 7px;
+  margin-top: 1px;
+}

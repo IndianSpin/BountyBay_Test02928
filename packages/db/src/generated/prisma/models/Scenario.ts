@@ -41,6 +41,9 @@ export type ScenarioMinAggregateOutputType = {
   description: string | null
   buyerBatnaNarrative: string | null
   sellerBatnaNarrative: string | null
+  sharedContext: string | null
+  buyerPrivateContext: string | null
+  sellerPrivateContext: string | null
   status: $Enums.ScenarioStatus | null
   createdAt: Date | null
 }
@@ -52,6 +55,9 @@ export type ScenarioMaxAggregateOutputType = {
   description: string | null
   buyerBatnaNarrative: string | null
   sellerBatnaNarrative: string | null
+  sharedContext: string | null
+  buyerPrivateContext: string | null
+  sellerPrivateContext: string | null
   status: $Enums.ScenarioStatus | null
   createdAt: Date | null
 }
@@ -63,6 +69,11 @@ export type ScenarioCountAggregateOutputType = {
   description: number
   buyerBatnaNarrative: number
   sellerBatnaNarrative: number
+  sharedContext: number
+  buyerPrivateContext: number
+  sellerPrivateContext: number
+  buyerPrivateFacts: number
+  sellerPrivateFacts: number
   status: number
   createdAt: number
   _all: number
@@ -84,6 +95,9 @@ export type ScenarioMinAggregateInputType = {
   description?: true
   buyerBatnaNarrative?: true
   sellerBatnaNarrative?: true
+  sharedContext?: true
+  buyerPrivateContext?: true
+  sellerPrivateContext?: true
   status?: true
   createdAt?: true
 }
@@ -95,6 +109,9 @@ export type ScenarioMaxAggregateInputType = {
   description?: true
   buyerBatnaNarrative?: true
   sellerBatnaNarrative?: true
+  sharedContext?: true
+  buyerPrivateContext?: true
+  sellerPrivateContext?: true
   status?: true
   createdAt?: true
 }
@@ -106,6 +123,11 @@ export type ScenarioCountAggregateInputType = {
   description?: true
   buyerBatnaNarrative?: true
   sellerBatnaNarrative?: true
+  sharedContext?: true
+  buyerPrivateContext?: true
+  sellerPrivateContext?: true
+  buyerPrivateFacts?: true
+  sellerPrivateFacts?: true
   status?: true
   createdAt?: true
   _all?: true
@@ -204,6 +226,11 @@ export type ScenarioGroupByOutputType = {
   description: string
   buyerBatnaNarrative: string
   sellerBatnaNarrative: string
+  sharedContext: string | null
+  buyerPrivateContext: string | null
+  sellerPrivateContext: string | null
+  buyerPrivateFacts: runtime.JsonValue | null
+  sellerPrivateFacts: runtime.JsonValue | null
   status: $Enums.ScenarioStatus
   createdAt: Date
   _count: ScenarioCountAggregateOutputType | null
@@ -238,6 +265,11 @@ export type ScenarioWhereInput = {
   description?: Prisma.StringFilter<"Scenario"> | string
   buyerBatnaNarrative?: Prisma.StringFilter<"Scenario"> | string
   sellerBatnaNarrative?: Prisma.StringFilter<"Scenario"> | string
+  sharedContext?: Prisma.StringNullableFilter<"Scenario"> | string | null
+  buyerPrivateContext?: Prisma.StringNullableFilter<"Scenario"> | string | null
+  sellerPrivateContext?: Prisma.StringNullableFilter<"Scenario"> | string | null
+  buyerPrivateFacts?: Prisma.JsonNullableFilter<"Scenario">
+  sellerPrivateFacts?: Prisma.JsonNullableFilter<"Scenario">
   status?: Prisma.EnumScenarioStatusFilter<"Scenario"> | $Enums.ScenarioStatus
   createdAt?: Prisma.DateTimeFilter<"Scenario"> | Date | string
 }
@@ -249,6 +281,11 @@ export type ScenarioOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   buyerBatnaNarrative?: Prisma.SortOrder
   sellerBatnaNarrative?: Prisma.SortOrder
+  sharedContext?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyerPrivateContext?: Prisma.SortOrderInput | Prisma.SortOrder
+  sellerPrivateContext?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyerPrivateFacts?: Prisma.SortOrderInput | Prisma.SortOrder
+  sellerPrivateFacts?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -264,6 +301,11 @@ export type ScenarioWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Scenario"> | string
   buyerBatnaNarrative?: Prisma.StringFilter<"Scenario"> | string
   sellerBatnaNarrative?: Prisma.StringFilter<"Scenario"> | string
+  sharedContext?: Prisma.StringNullableFilter<"Scenario"> | string | null
+  buyerPrivateContext?: Prisma.StringNullableFilter<"Scenario"> | string | null
+  sellerPrivateContext?: Prisma.StringNullableFilter<"Scenario"> | string | null
+  buyerPrivateFacts?: Prisma.JsonNullableFilter<"Scenario">
+  sellerPrivateFacts?: Prisma.JsonNullableFilter<"Scenario">
   status?: Prisma.EnumScenarioStatusFilter<"Scenario"> | $Enums.ScenarioStatus
   createdAt?: Prisma.DateTimeFilter<"Scenario"> | Date | string
 }, "id" | "id_version">
@@ -275,6 +317,11 @@ export type ScenarioOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   buyerBatnaNarrative?: Prisma.SortOrder
   sellerBatnaNarrative?: Prisma.SortOrder
+  sharedContext?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyerPrivateContext?: Prisma.SortOrderInput | Prisma.SortOrder
+  sellerPrivateContext?: Prisma.SortOrderInput | Prisma.SortOrder
+  buyerPrivateFacts?: Prisma.SortOrderInput | Prisma.SortOrder
+  sellerPrivateFacts?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.ScenarioCountOrderByAggregateInput
@@ -294,6 +341,11 @@ export type ScenarioScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"Scenario"> | string
   buyerBatnaNarrative?: Prisma.StringWithAggregatesFilter<"Scenario"> | string
   sellerBatnaNarrative?: Prisma.StringWithAggregatesFilter<"Scenario"> | string
+  sharedContext?: Prisma.StringNullableWithAggregatesFilter<"Scenario"> | string | null
+  buyerPrivateContext?: Prisma.StringNullableWithAggregatesFilter<"Scenario"> | string | null
+  sellerPrivateContext?: Prisma.StringNullableWithAggregatesFilter<"Scenario"> | string | null
+  buyerPrivateFacts?: Prisma.JsonNullableWithAggregatesFilter<"Scenario">
+  sellerPrivateFacts?: Prisma.JsonNullableWithAggregatesFilter<"Scenario">
   status?: Prisma.EnumScenarioStatusWithAggregatesFilter<"Scenario"> | $Enums.ScenarioStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Scenario"> | Date | string
 }
@@ -305,6 +357,11 @@ export type ScenarioCreateInput = {
   description: string
   buyerBatnaNarrative: string
   sellerBatnaNarrative: string
+  sharedContext?: string | null
+  buyerPrivateContext?: string | null
+  sellerPrivateContext?: string | null
+  buyerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sellerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ScenarioStatus
   createdAt?: Date | string
 }
@@ -316,6 +373,11 @@ export type ScenarioUncheckedCreateInput = {
   description: string
   buyerBatnaNarrative: string
   sellerBatnaNarrative: string
+  sharedContext?: string | null
+  buyerPrivateContext?: string | null
+  sellerPrivateContext?: string | null
+  buyerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sellerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ScenarioStatus
   createdAt?: Date | string
 }
@@ -327,6 +389,11 @@ export type ScenarioUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   buyerBatnaNarrative?: Prisma.StringFieldUpdateOperationsInput | string
   sellerBatnaNarrative?: Prisma.StringFieldUpdateOperationsInput | string
+  sharedContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buyerPrivateContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sellerPrivateContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buyerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sellerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumScenarioStatusFieldUpdateOperationsInput | $Enums.ScenarioStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -338,6 +405,11 @@ export type ScenarioUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   buyerBatnaNarrative?: Prisma.StringFieldUpdateOperationsInput | string
   sellerBatnaNarrative?: Prisma.StringFieldUpdateOperationsInput | string
+  sharedContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buyerPrivateContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sellerPrivateContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buyerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sellerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumScenarioStatusFieldUpdateOperationsInput | $Enums.ScenarioStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -349,6 +421,11 @@ export type ScenarioCreateManyInput = {
   description: string
   buyerBatnaNarrative: string
   sellerBatnaNarrative: string
+  sharedContext?: string | null
+  buyerPrivateContext?: string | null
+  sellerPrivateContext?: string | null
+  buyerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sellerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ScenarioStatus
   createdAt?: Date | string
 }
@@ -360,6 +437,11 @@ export type ScenarioUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   buyerBatnaNarrative?: Prisma.StringFieldUpdateOperationsInput | string
   sellerBatnaNarrative?: Prisma.StringFieldUpdateOperationsInput | string
+  sharedContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buyerPrivateContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sellerPrivateContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buyerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sellerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumScenarioStatusFieldUpdateOperationsInput | $Enums.ScenarioStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -371,6 +453,11 @@ export type ScenarioUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   buyerBatnaNarrative?: Prisma.StringFieldUpdateOperationsInput | string
   sellerBatnaNarrative?: Prisma.StringFieldUpdateOperationsInput | string
+  sharedContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buyerPrivateContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sellerPrivateContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  buyerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  sellerPrivateFacts?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumScenarioStatusFieldUpdateOperationsInput | $Enums.ScenarioStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -387,6 +474,11 @@ export type ScenarioCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   buyerBatnaNarrative?: Prisma.SortOrder
   sellerBatnaNarrative?: Prisma.SortOrder
+  sharedContext?: Prisma.SortOrder
+  buyerPrivateContext?: Prisma.SortOrder
+  sellerPrivateContext?: Prisma.SortOrder
+  buyerPrivateFacts?: Prisma.SortOrder
+  sellerPrivateFacts?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -402,6 +494,9 @@ export type ScenarioMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   buyerBatnaNarrative?: Prisma.SortOrder
   sellerBatnaNarrative?: Prisma.SortOrder
+  sharedContext?: Prisma.SortOrder
+  buyerPrivateContext?: Prisma.SortOrder
+  sellerPrivateContext?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -413,6 +508,9 @@ export type ScenarioMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   buyerBatnaNarrative?: Prisma.SortOrder
   sellerBatnaNarrative?: Prisma.SortOrder
+  sharedContext?: Prisma.SortOrder
+  buyerPrivateContext?: Prisma.SortOrder
+  sellerPrivateContext?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -434,6 +532,11 @@ export type ScenarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   description?: boolean
   buyerBatnaNarrative?: boolean
   sellerBatnaNarrative?: boolean
+  sharedContext?: boolean
+  buyerPrivateContext?: boolean
+  sellerPrivateContext?: boolean
+  buyerPrivateFacts?: boolean
+  sellerPrivateFacts?: boolean
   status?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["scenario"]>
@@ -445,6 +548,11 @@ export type ScenarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   description?: boolean
   buyerBatnaNarrative?: boolean
   sellerBatnaNarrative?: boolean
+  sharedContext?: boolean
+  buyerPrivateContext?: boolean
+  sellerPrivateContext?: boolean
+  buyerPrivateFacts?: boolean
+  sellerPrivateFacts?: boolean
   status?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["scenario"]>
@@ -456,6 +564,11 @@ export type ScenarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   description?: boolean
   buyerBatnaNarrative?: boolean
   sellerBatnaNarrative?: boolean
+  sharedContext?: boolean
+  buyerPrivateContext?: boolean
+  sellerPrivateContext?: boolean
+  buyerPrivateFacts?: boolean
+  sellerPrivateFacts?: boolean
   status?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["scenario"]>
@@ -467,11 +580,16 @@ export type ScenarioSelectScalar = {
   description?: boolean
   buyerBatnaNarrative?: boolean
   sellerBatnaNarrative?: boolean
+  sharedContext?: boolean
+  buyerPrivateContext?: boolean
+  sellerPrivateContext?: boolean
+  buyerPrivateFacts?: boolean
+  sellerPrivateFacts?: boolean
   status?: boolean
   createdAt?: boolean
 }
 
-export type ScenarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "version" | "title" | "description" | "buyerBatnaNarrative" | "sellerBatnaNarrative" | "status" | "createdAt", ExtArgs["result"]["scenario"]>
+export type ScenarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "version" | "title" | "description" | "buyerBatnaNarrative" | "sellerBatnaNarrative" | "sharedContext" | "buyerPrivateContext" | "sellerPrivateContext" | "buyerPrivateFacts" | "sellerPrivateFacts" | "status" | "createdAt", ExtArgs["result"]["scenario"]>
 
 export type $ScenarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Scenario"
@@ -483,6 +601,22 @@ export type $ScenarioPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     description: string
     buyerBatnaNarrative: string
     sellerBatnaNarrative: string
+    /**
+     * DD-M2 (GR-028): shared negotiation context, visible to both roles.
+     */
+    sharedContext: string | null
+    /**
+     * DD-M2: private role context — served to that role only (SI-001-grade).
+     */
+    buyerPrivateContext: string | null
+    sellerPrivateContext: string | null
+    /**
+     * DD-M2: JSON array of DossierFact {id,text,category,verifiable,optionalRevealLabel}.
+     * Never serialized to the opposite role; content discipline enforced by
+     * packages/domain validateDossierFacts (number-free, GR-028).
+     */
+    buyerPrivateFacts: runtime.JsonValue | null
+    sellerPrivateFacts: runtime.JsonValue | null
     status: $Enums.ScenarioStatus
     createdAt: Date
   }, ExtArgs["result"]["scenario"]>
@@ -914,6 +1048,11 @@ export interface ScenarioFieldRefs {
   readonly description: Prisma.FieldRef<"Scenario", 'String'>
   readonly buyerBatnaNarrative: Prisma.FieldRef<"Scenario", 'String'>
   readonly sellerBatnaNarrative: Prisma.FieldRef<"Scenario", 'String'>
+  readonly sharedContext: Prisma.FieldRef<"Scenario", 'String'>
+  readonly buyerPrivateContext: Prisma.FieldRef<"Scenario", 'String'>
+  readonly sellerPrivateContext: Prisma.FieldRef<"Scenario", 'String'>
+  readonly buyerPrivateFacts: Prisma.FieldRef<"Scenario", 'Json'>
+  readonly sellerPrivateFacts: Prisma.FieldRef<"Scenario", 'Json'>
   readonly status: Prisma.FieldRef<"Scenario", 'ScenarioStatus'>
   readonly createdAt: Prisma.FieldRef<"Scenario", 'DateTime'>
 }

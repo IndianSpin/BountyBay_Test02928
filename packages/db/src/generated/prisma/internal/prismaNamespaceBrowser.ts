@@ -117,6 +117,11 @@ export const ScenarioScalarFieldEnum = {
   description: 'description',
   buyerBatnaNarrative: 'buyerBatnaNarrative',
   sellerBatnaNarrative: 'sellerBatnaNarrative',
+  sharedContext: 'sharedContext',
+  buyerPrivateContext: 'buyerPrivateContext',
+  sellerPrivateContext: 'sellerPrivateContext',
+  buyerPrivateFacts: 'buyerPrivateFacts',
+  sellerPrivateFacts: 'sellerPrivateFacts',
   status: 'status',
   createdAt: 'createdAt'
 } as const

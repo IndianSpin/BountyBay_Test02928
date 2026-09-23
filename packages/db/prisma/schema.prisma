@@ -107,6 +107,16 @@ model Scenario {
   description          String
   buyerBatnaNarrative  String         @map("buyer_batna_narrative")
   sellerBatnaNarrative String         @map("seller_batna_narrative")
+  /// DD-M2 (GR-028): shared negotiation context, visible to both roles.
+  sharedContext        String?        @map("shared_context")
+  /// DD-M2: private role context — served to that role only (SI-001-grade).
+  buyerPrivateContext  String?        @map("buyer_private_context")
+  sellerPrivateContext String?        @map("seller_private_context")
+  /// DD-M2: JSON array of DossierFact {id,text,category,verifiable,optionalRevealLabel}.
+  /// Never serialized to the opposite role; content discipline enforced by
+  /// packages/domain validateDossierFacts (number-free, GR-028).
+  buyerPrivateFacts    Json?          @map("buyer_private_facts")
+  sellerPrivateFacts   Json?          @map("seller_private_facts")
   status               ScenarioStatus @default(DRAFT)
   createdAt            DateTime       @default(now()) @map("created_at")
 
