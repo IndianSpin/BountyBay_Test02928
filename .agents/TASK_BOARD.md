@@ -15,7 +15,8 @@ evidence. Only ACCEPTed work merges to main.
 | W1-01 | worker-1 | Acceptance slice follow-ups | w1-dd-mechanics | `use-hold.ts`, `match-actions.tsx`, `time-warning.tsx`, `layout.tsx`, `hold-accept.spec.ts`, `timeout.spec.ts`, `friend-match.spec.ts`, `canvas-checkpoint.spec.ts` | — | READY FOR REVIEW: 10/10 E2E incl. time-warning; flake root-caused (no sleep fixes); GR-023 tiers visible; debug logs removed |
 | W2-02 | worker-2 | IN handoff checkpoint (no code) | w2-frontend-design | commit current `packages/intelligence` work; document complete / partial / temporary / untested; list files + tests; record exact commit hash in worker-2.md | — | Handoff commit hash recorded; statement complete; W2 stops touching the package |
 | W2-03 | worker-2 | Structural CSS split (planned, NOT started) | w2-frontend-design | split `globals.css` into per-area modules at next safe checkpoint | Founder approves canvas slices | Selector-level shared ownership eliminated before multi-agent UI work resumes |
-| W3-01 | worker-3 | IN takeover: inspect → cherry-pick → IN-2 | w3-intelligence | inspect W2's handoff commit; branch from / cherry-pick it, or explicitly reject parts with reasons; never recreate IN-1 from baseline; then IN-2 Game Review V1 per docs/18 §3 | W2-02 | IN-1 green on taken-over work; IN-2 READY FOR REVIEW with founder checkpoint report |
+| W1-03 | worker-1 | API timeline wiring (D-11) | w1-dd-mechanics | serve IN-2 timeline via `apps/api/src/match-routes.ts` | W1-01, W1-02, IN-2 ACCEPTed (done) | Timeline reachable from the review route; tests per AGENTS.md rule |
+| W3-01 | worker-3 | IN takeover + IN-2 Game Review V1 | w3-intelligence | inspect + verify IN-1 (baseline), implement timeline + review envelope, checkpoint report | W2-02 (interim D-10) | ACCEPTED and merged — 44/44 tests, typecheck clean, no contract changes |
 
 ## READY FOR REVIEW
 
@@ -37,6 +38,8 @@ evidence. Only ACCEPTed work merges to main.
 - Control plane commits (`1bb81bf`, `f0d8b7e`).
 - DEC-030 + docs/22 + docs/14 OQ-008 note (canonical direction record,
   no implementation).
+- **W3-01 IN-2 Game Review V1** — ACCEPT, merged to main (IN-2 review
+  pending founder checkpoint; timeline API wiring deferred to W1-03).
 
 ## DONE (manager-verified, pre-protocol)
 - P1-M1 AI practice (DEC-025).

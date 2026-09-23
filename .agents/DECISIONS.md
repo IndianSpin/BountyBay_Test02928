@@ -119,3 +119,13 @@ engine ships pure in packages/intelligence; serving the timeline via
 apps/api is deferred to W1-03 (worker-1 owns apps/api), scheduled only
 after IN-2 is ACCEPTed and W1-01/W1-02 are done. Single-owner rule for
 apps/api holds.
+
+## D-12 — W3-01 ACCEPTED and merged (2026-09-23)
+
+Manager verdict ACCEPT with evidence: 44/44 intelligence tests
+(manager-run), typecheck clean across all packages (manager-run), diff
+in-scope (11 files, +493/−11, packages/intelligence + docs/20 + worker
+file only), no schema/API/domain changes. Merged `w3-intelligence` →
+main. Merge order re-evaluated: W3 first (no dependencies on W1;
+proposal order updated in INTEGRATION_QUEUE). Founder checkpoint for
+IN-2 remains open. W2-02 handoff statement still owed (D-10).

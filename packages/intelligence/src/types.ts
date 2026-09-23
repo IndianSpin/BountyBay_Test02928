@@ -9,7 +9,7 @@
  * classes.
  */
 
-import type { DomainEvent, MatchState, PlayerId } from '@bounty-bay/domain';
+import type { MatchState, PlayerId } from '@bounty-bay/domain';
 
 export const FEATURE_ENGINE_VERSION = 'feature-engine-0.1.0';
 export const OBSERVATION_ENGINE_VERSION = 'observation-engine-0.1.0';

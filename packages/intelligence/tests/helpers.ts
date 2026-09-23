@@ -83,7 +83,7 @@ export function play(
     state = result.state;
     events.push(...result.events);
   };
-  script(commit, { offer: (n) => `offer-${String(++counter).padStart(4, '0')}` });
+  script(commit, { offer: () => `offer-${String(++counter).padStart(4, '0')}` });
   const replayed = replayMatch(input, config, events);
   expect(replayed.state).toEqual(state);
   expect(replayed.replayedEvents).toEqual(events);

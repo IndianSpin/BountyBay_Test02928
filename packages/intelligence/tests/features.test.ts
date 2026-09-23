@@ -229,7 +229,7 @@ describe('feature engine: communication raw features', () => {
 
 describe('feature engine: versioning + determinism', () => {
   it('records the match config versions', () => {
-    const match = play((commit, api) => {
+    const match = play((commit) => {
       readyBoth(commit);
       commit({ kind: 'WALK_AWAY', playerId: BUYER_ID, now: START_NOW + 1000 });
     });
@@ -256,7 +256,7 @@ describe('feature engine: versioning + determinism', () => {
   });
 
   it('handles a zero-move match (walk at the first opportunity)', () => {
-    const match = play((commit, api) => {
+    const match = play((commit) => {
       readyBoth(commit);
       commit({ kind: 'WALK_AWAY', playerId: BUYER_ID, now: START_NOW + 1000 });
     });

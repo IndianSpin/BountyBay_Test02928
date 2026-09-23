@@ -36,16 +36,15 @@ ACCEPTed work merges (D-8).
 - **Migration:** none.
 - **Proposed order: 1** (smallest, stabilizes E2E).
 
-### IQ-3 — W3 IN-2 Game Review V1 (branch `w3-intelligence`, commit TBD)
-- **Depends on:** IQ-1 (taken-over IN-1).
-- **Depended on by:** founder IN-2 checkpoint; future IN-3.
-- **Contract changes:** possibly packages/db Prisma additions for review
-  data → manager migration review required; API/domain untouched by
-  design (docs/18: deterministic engine only).
-- **Conflict risk:** packages/db schema shared with W1 — any schema
-  change must be coordinated before either edits.
-- **Migration:** possible (review data).
-- **Proposed order: 2.**
+### IQ-3 — W3 IN-2 Game Review V1 (branch `w3-intelligence`) — **MERGED**
+- Merged to main (2026-09-23): commits `77bb629` + `9f16b9c`. Manager
+  verdict ACCEPT with evidence (44/44 intelligence tests, full typecheck
+  clean, diff in-scope, zero schema/API/domain changes). Only conflict:
+  `.agents/worker-3.md` (resolved by manager, keeping the merged status).
+- **Order re-evaluated (D-5):** W3 merged before W1 because it has no
+  dependency on W1's fixes and changed no contracts. Current order: W3
+  (done) → W1 → W2.
+- Follow-ups: W1-03 API timeline wiring (D-11); founder IN-2 checkpoint.
 
 ### IQ-4 — W2 canvas regression fixes / cleanup (branch
 `w2-frontend-design`, commit TBD)
