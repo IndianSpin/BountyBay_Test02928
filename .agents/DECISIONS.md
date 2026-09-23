@@ -97,6 +97,10 @@ instructed to run `git status` in both locations before starting work.
 Workers' terminal state is READY FOR REVIEW, never "done". Manager
 returns exactly ACCEPT / REWORK / BLOCK based on actual diff/tests/design
 evidence — never on a worker's self-report. Only ACCEPTed work merges.
+**Verification list (L-007, after QA-002):** every manager ACCEPT
+verification runs `pnpm -r run typecheck` on the merged result plus the
+affected test suites (vitest transpiles and Playwright runs the built
+app — neither typechecks spec files).
 
 ## D-9 — Management cadence (correction 7)
 
@@ -289,6 +293,25 @@ exception events; biggest gap = technical observability (logger off, no
 error handler, no env/release tags). Implementation (DA-P1-*) NOT
 scheduled — backlog with ownership rulings pending. `data-analytics`
 branch + `~/projects/bay-data` worktree cut for future work.
+
+## PDR-3 — PRODUCT DECISION REQUIRED: friend-mode rematch (QA-004)
+
+QA-004: in friend mode, Rematch exits to home and the opponent gets
+nothing. **Status:** awaiting founder ruling on the intended friend-mode
+rematch flow (both sides re-challenge? mutual confirmation? or rematch is
+ranked-only for V1?). No changes until ruled.
+
+## D-23 — QA-01 (BB-206) ACCEPTED; findings triaged (2026-09-23)
+
+Verdict ACCEPT (merged `acf86c0`): the accept-seal question is resolved
+(test-side stale window, fixed by W1-01 — app behavior clean); unit
+226, DB+API 56/56, E2E 9/9, adversarial battery 27/27, leak scan clean,
+GR-015 + matrix + mobile pass. Triage: QA-002 (HIGH, typecheck gate
+broken by W1-01 diagnostics) → BB-214 hotfix, W1, now — and L-007 makes
+typecheck mandatory in every manager verification. QA-001 (MEDIUM,
+joiner refresh) → BB-215, W2, after BB-213. QA-004 (PRODUCT) → PDR-3.
+INFO items (null envelope fields, empty RESULT eventRefs) → noted for
+W3 during IN-3.
 
 ## D-21 — Founder sign-offs (2026-09-23): DD Phase 1 + IN-2
 
