@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DS v1.1 amendment</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="doc plain" style="width: 1600px; height: 900px; ">
+<div style="position: absolute; inset: 0; padding: 56px; display: flex; flex-direction: column; gap: 22px;">
+<span class="kicker">Documented amendment to Design System v1</span><h1>Playful world, hard numbers — v1.1</h1>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px;">
+<div class="spec-card" style="display: flex; flex-direction: column; gap: 10px;"><h3>What changed and why</h3>
+<p><strong>1 · Environment palette added.</strong> v1 had only chrome surfaces (world/elevated/overlay). Scenes now use a dusk palette (below) so the product is lit at golden hour, not midnight. Seat semantics are untouched: ember = you, violet = them, gold = value, teal = chips, green = deal.</p>
+<p><strong>2 · Parchment reserved for physical objects.</strong> Offer plaques, the offer slip, the result scroll, share cards. Received chat bubbles move from parchment to violet-ink; sent to ember-ink.</p>
+<p><strong>3 · Silhouettes by meaning.</strong> Rounded rectangles are for utility chrome only. Game objects get their own shapes: chamfered plaques, notched wax-seal cards, forked banners, coin tokens, chip stacks, scroll certificates, hex name-signs.</p>
+<p><strong>4 · Display type used sparingly.</strong> Baloo 2 for banners, names and one headline per screen; never for anything a player must compare. Numbers stay Space Grotesk.</p>
+<p><strong>5 · Glow still means reward.</strong> Additional allowed glows: the green crossing line and the gold “close” line on the rail — both are state, not decoration.</p></div>
+<div class="spec-card" style="display: flex; flex-direction: column; gap: 14px;"><h3>Environment tokens (new)</h3>
+<div style="display: flex; gap: 14px; flex-wrap: wrap;"><div style="display: flex; flex-direction: column; gap: 6px;"><span style="width: 120px; height: 64px; border-radius: 14px; background: #2B2366; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);"></span><code>env-sky</code><span class="caption muted">#2B2366 · sky top</span></div><div style="display: flex; flex-direction: column; gap: 6px;"><span style="width: 120px; height: 64px; border-radius: 14px; background: #7A3C8C; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);"></span><code>env-dusk</code><span class="caption muted">#7A3C8C · sky mid</span></div><div style="display: flex; flex-direction: column; gap: 6px;"><span style="width: 120px; height: 64px; border-radius: 14px; background: #E0608A; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);"></span><code>env-rose</code><span class="caption muted">#E0608A · horizon</span></div><div style="display: flex; flex-direction: column; gap: 6px;"><span style="width: 120px; height: 64px; border-radius: 14px; background: #FF9E5E; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);"></span><code>env-sun</code><span class="caption muted">#FF9E5E · sunset</span></div><div style="display: flex; flex-direction: column; gap: 6px;"><span style="width: 120px; height: 64px; border-radius: 14px; background: #FFC23D; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);"></span><code>env-lantern</code><span class="caption muted">#FFC23D · objectives, Daily</span></div><div style="display: flex; flex-direction: column; gap: 6px;"><span style="width: 120px; height: 64px; border-radius: 14px; background: #2FA6A0; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);"></span><code>env-sea</code><span class="caption muted">#2FA6A0 · water</span></div><div style="display: flex; flex-direction: column; gap: 6px;"><span style="width: 120px; height: 64px; border-radius: 14px; background: #E8434F; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);"></span><code>env-awning</code><span class="caption muted">#E8434F · stalls</span></div><div style="display: flex; flex-direction: column; gap: 6px;"><span style="width: 120px; height: 64px; border-radius: 14px; background: #8A4E2A; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);"></span><code>env-wood</code><span class="caption muted">#8A4E2A · counter</span></div><div style="display: flex; flex-direction: column; gap: 6px;"><span style="width: 120px; height: 64px; border-radius: 14px; background: #5B3AA8; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2);"></span><code>env-cloth</code><span class="caption muted">#5B3AA8 · table cloth</span></div></div>
+<p>Environment colours never carry game meaning. A lantern is never “you”; a violet cloth is never “them”. Seat colours stay reserved for seats.</p></div></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1600, "height": 900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

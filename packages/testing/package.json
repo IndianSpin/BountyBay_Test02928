@@ -1,0 +1,21 @@
+{
+  "name": "@bounty-bay/testing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "simulate": "tsx scripts/simulate.ts"
+  },
+  "dependencies": {
+    "@bounty-bay/config": "workspace:*",
+    "@bounty-bay/domain": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0"
+  }
+}

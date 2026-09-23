@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Match lifecycle</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="doc plain" style="width: 1600px; height: 1000px; ">
+
+<div style="position: absolute; inset: 0; padding: 64px; display: flex; flex-direction: column; gap: 22px;">
+  <span class="kicker">A · Match lifecycle (UI states the server must be able to report)</span><h1>One match, start to rematch.</h1>
+  <div class="flow-row"><div class="fnode"><span class="fnode__k">STATE</span><span class="fnode__t">QUEUED</span><span class="fnode__d">Searching → widening → long wait</span></div><div class="farrow"></div><div class="fnode"><span class="fnode__k">STATE</span><span class="fnode__t">MATCHED</span><span class="fnode__d">Opponent revealed; both confirm</span></div><div class="farrow"></div><div class="fnode"><span class="fnode__k">STATE</span><span class="fnode__t">DEAL REVEAL</span><span class="fnode__d">Asset, role, private brief, limit</span></div><div class="farrow farrow--gold"></div><div class="fnode fnode--primary"><span class="fnode__k">STATE</span><span class="fnode__t">NEGOTIATING</span><span class="fnode__d">Turn A / Turn B · crossed flag</span></div><div class="farrow farrow--gold"></div><div class="fnode fnode--game"><span class="fnode__k">STATE</span><span class="fnode__t">CLOSED</span><span class="fnode__d">DEAL · NO DEAL · ABORTED</span></div><div class="farrow"></div><div class="fnode"><span class="fnode__k">STATE</span><span class="fnode__t">RESULT</span><span class="fnode__d">Staged reveal → rematch window</span></div></div>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;">
+    <div class="spec-card" style="display: flex; flex-direction: column; gap: 10px;"><h3>Inside NEGOTIATING</h3>
+      <table><tr><th>Sub-state</th><th>Whose clock</th><th>Who can act</th></tr>
+      <tr><td>YOUR TURN</td><td class="m">Yours</td><td class="m">You: offer / accept* / walk · both: chat</td></tr>
+      <tr><td>OPPONENT THINKING</td><td class="m">Theirs</td><td class="m">You: chat / walk</td></tr>
+      <tr><td>DEAL POSSIBLE (crossed)</td><td class="m">Active player’s</td><td class="m">Same as turn — acceptance still explicit</td></tr>
+      <tr><td>OPPONENT DISCONNECTED</td><td class="m">D6</td><td class="m">You: chat queued / walk</td></tr>
+      <tr><td>PAUSED</td><td class="m">None</td><td class="m">Nobody — overlay</td></tr></table>
+      <p>* Accept availability on the opponent’s turn is decision D7.</p></div>
+    <div class="spec-card" style="display: flex; flex-direction: column; gap: 10px;"><h3>Ways a match ends</h3>
+      <table><tr><th>End</th><th>Bounty</th><th>Screen</th></tr>
+      <tr><td>Accepted offer</td><td class="m">Surplus × multiplier (D2)</td><td class="m">DEAL CLOSED reveal</td></tr>
+      <tr><td>Walk away</td><td class="m">0 for both</td><td class="m">NO DEAL reveal</td></tr>
+      <tr><td>Disconnect beyond grace</td><td class="m">D6</td><td class="m">NO DEAL or ABORTED</td></tr>
+      <tr><td>Technical abort</td><td class="m">Void, unrated</td><td class="m">MATCH VOID card</td></tr>
+      <tr><td>Hard time limit?</td><td class="m">D8</td><td class="m">—</td></tr></table></div>
+    <div class="spec-card" style="display: flex; flex-direction: column; gap: 10px;"><h3>Always true</h3>
+      <p><strong>Opponent limit:</strong> absent from every payload the client receives until CLOSED. Not hidden by CSS — absent.</p>
+      <p><strong>Chat:</strong> never changes turn, never creates an offer, never parsed into one.</p>
+      <p><strong>Offers:</strong> buyer only up, seller only down after opening. Server rejects violations; the UI makes them impossible to compose.</p>
+      <p><strong>Crossing:</strong> sets <code>dealPossible=true</code> and nothing else.</p>
+      <p><strong>AI:</strong> <code>opponent.isAI</code> drives the dashed ring + AI pill everywhere the opponent appears.</p></div>
+  </div>
+  <div class="pdr-box" style="display: flex; gap: 14px; align-items: center;"><span class="pdr">D6 · D7 · D8</span><p style="color: var(--ink-on-dark);">D6 disconnect grace + whose clock runs while someone is offline · D7 can a player accept the standing offer while it is the opponent’s turn · D8 is there a hard per-match time limit beyond the 30% multiplier floor. Screens use: D6 = 60 s grace, both clocks frozen; D7 = accept only on your turn; D8 = no hard limit.</p></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1600, "height": 1000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

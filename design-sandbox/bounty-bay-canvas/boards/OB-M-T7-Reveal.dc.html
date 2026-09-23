@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tutorial 7 — reveal</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="world world--deep phone" style="width: 390px; height: 844px; ">
+<div style="position: absolute; left: 70px; right: 70px; top: 32px; display: flex; gap: 4px; z-index: 30;"><span style="flex: 1; height: 5px; border-radius: 3px; background: var(--brand-gold);"></span><span style="flex: 1; height: 5px; border-radius: 3px; background: var(--brand-gold);"></span><span style="flex: 1; height: 5px; border-radius: 3px; background: var(--brand-gold);"></span><span style="flex: 1; height: 5px; border-radius: 3px; background: var(--brand-gold);"></span><span style="flex: 1; height: 5px; border-radius: 3px; background: var(--brand-gold);"></span><span style="flex: 1; height: 5px; border-radius: 3px; background: var(--brand-gold);"></span><span style="flex: 1; height: 5px; border-radius: 3px; background: var(--brand-gold);"></span></div><div style="position: absolute; left: 16px; right: 16px; top: 70px; display: flex; flex-direction: column; align-items: center; gap: 14px;">
+<span class="display-title">Deal at <span class="num">78</span></span>
+<div style="display: flex; gap: 10px;"><div class="confidential-card confidential-card--opp anim-unseal" style="width: 170px; box-shadow: var(--shadow-card-elevated), var(--shadow-glow-reward);"><div class="confidential-card__seal"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4c6 0 9.7 4.5 11 8-1.3 3.5-5 8-11 8S2.3 15.5 1 12c1.3-3.5 5-8 11-8zm0 3.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 2.5a2 2 0 110 4 2 2 0 010-4z"/></svg></div><div class="confidential-card__label caption caps" style="font-weight: 800; letter-spacing: 1px;">THEIR SECRET LIMIT</div><div class="confidential-card__value numeral-offer">60</div></div><div class="confidential-card" style="width: 170px; "><div class="confidential-card__seal"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4c6 0 9.7 4.5 11 8-1.3 3.5-5 8-11 8S2.3 15.5 1 12c1.3-3.5 5-8 11-8zm0 3.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 2.5a2 2 0 110 4 2 2 0 010-4z"/></svg></div><div class="confidential-card__label caption caps" style="font-weight: 800; letter-spacing: 1px;">YOUR SECRET LIMIT</div><div class="confidential-card__value numeral-offer">100</div></div></div>
+<div class="panel" style="padding: 12px 8px 0; width: 100%;"><div class="zopa" style="width: 342px; height: 150px;"><div class="zopa__track" style="top: 62px;"></div><div class="zopa__range anim-grow" style="left: 57.0px; width: 228.0px; top: 56px;"><div class="zopa__opp" style="width: 102.6px;"></div><div class="zopa__me" style="flex-grow: 1;"></div></div><div class="zopa__settle" style="left: 159.6px; top: 44px; height: 54px;"></div><div class="zopa__marker" style="left: 159.6px; top: 0;"><span class="rail__pin-flag" style="background: var(--ink-on-dark); color: var(--surface-world); font-size: 18px; padding: 4px 10px;">78</span></div><div class="zopa__marker" style="left: 159.6px; top: 104px;"><span class="caption muted caps" style="font-weight: 800; letter-spacing: .8px;">Settled</span></div><div class="zopa__marker" style="left: 57.0px; top: 90px;"><span style="width: 3px; height: 14px; background: var(--opponent);"></span><span class="numeral-label violet" style="font-size: 18px;">60</span><span class="caption caps" style="color: #C9B8F0; font-weight: 800; letter-spacing: .6px; white-space: nowrap;">Their limit</span></div><div class="zopa__marker" style="left: 285.0px; top: 90px;"><span style="width: 3px; height: 14px; background: var(--brand-gold);"></span><span class="numeral-label gold" style="font-size: 18px;">100</span><span class="caption caps gold" style="font-weight: 800; letter-spacing: .6px; white-space: nowrap;">Your limit</span></div></div></div>
+<span class="label caps gold" style="letter-spacing: 1.4px; font-weight: 800;">You captured</span>
+<span class="numeral-hero" style="font-size: 96px; line-height: 90px; color: var(--player);">55%</span><span class="display-subtitle">of the deal</span>
+<span class="body muted" style="text-align: center;">Any price from 60 to 100 worked for both of you. You kept 22 of those 40 points.</span></div>
+<div style="position: absolute; left: 16px; right: 16px; bottom: 30px;"><a class="gbtn gbtn--primary gbtn--xl gbtn--block" href="OB-M-ReadyReal.dc.html"><span class="button-label">CONTINUE</span></a></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# build output
+.next/
+dist/
+coverage/
+*.tsbuildinfo
+
+# env — names only in .env.example, per SI secrets policy
+.env
+.env.local
+.env.*.local
+
+# OS / editor
+.DS_Store
+
+# playwright
+test-results/
+playwright-report/

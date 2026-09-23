@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Handle and avatar</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="world world--deep phone" style="width: 390px; height: 844px; ">
+<div style="position: absolute; left: 20px; right: 20px; top: 60px; display: flex; flex-direction: column; gap: 18px;">
+<span class="kicker">Join the Bay</span><span class="display-title">Who’s at the table?</span>
+<div style="display: flex; justify-content: center;"><span class="turn-ring turn-ring--player"><span class="avatar avatar--xxl avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span></span></div>
+<label class="label muted" for="handle">Your public handle</label>
+<div style="display: flex; gap: 8px;"><div style="flex-grow: 1; position: relative;"><input id="handle" type="text" value="BLACKPARROT" style="width: 100%; height: 56px; border-radius: 14px; border: none; padding: 0 16px; background: var(--surface-interactive); color: var(--ink-on-dark); font-family: var(--font-world); font-weight: 800; font-size: 22px; letter-spacing: .5px; box-shadow: inset 0 0 0 2px var(--positive);"><span style="position: absolute; right: 14px; top: 18px; color: var(--positive);"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2L4.8 11.5l-2 2 6.7 6.7L21.2 8.5l-2-2z"/></svg></span></div>
+<button class="gbtn gbtn--secondary" type="button" aria-label="Suggest another handle" style="min-height: 56px; width: 56px; padding: 0;"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 11-8.5 12h2.2A7 7 0 1012 5a7 7 0 00-5 2.1L9.9 10H2V2.1l3.5 3.5A9 9 0 0112 3zm-2 5.5l6 3.5-6 3.5z"/></svg></button></div>
+<span class="caption" style="color: var(--positive); margin-top: -10px;">Available · letters and numbers, 3–16 characters</span>
+<span class="label muted">Pick a trader</span>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px;"><button type="button" aria-label="Choose blackparrot" aria-pressed="true" style="all: unset; cursor: pointer; position: relative; display: flex; justify-content: center;"><span class="avatar avatar--lg avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span><span class="corner-badge" style="background: var(--player); color: var(--ink-on-ember); right: 4px;"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2L4.8 11.5l-2 2 6.7 6.7L21.2 8.5l-2-2z"/></svg></span></button><button type="button" aria-label="Choose saltfox" aria-pressed="false" style="all: unset; cursor: pointer; position: relative; display: flex; justify-content: center;"><span class="avatar avatar--lg"><img src="../assets/saltfox.svg" alt="saltfox avatar"></span></button><button type="button" aria-label="Choose ironheron" aria-pressed="false" style="all: unset; cursor: pointer; position: relative; display: flex; justify-content: center;"><span class="avatar avatar--lg"><img src="../assets/ironheron.svg" alt="ironheron avatar"></span></button><button type="button" aria-label="Choose redcrab" aria-pressed="false" style="all: unset; cursor: pointer; position: relative; display: flex; justify-content: center;"><span class="avatar avatar--lg"><img src="../assets/redcrab.svg" alt="redcrab avatar"></span></button><button type="button" aria-label="Choose oldtortoise" aria-pressed="false" style="all: unset; cursor: pointer; position: relative; display: flex; justify-content: center;"><span class="avatar avatar--lg"><img src="../assets/oldtortoise.svg" alt="oldtortoise avatar"></span></button><button type="button" aria-label="Choose nightowl" aria-pressed="false" style="all: unset; cursor: pointer; position: relative; display: flex; justify-content: center;"><span class="avatar avatar--lg"><img src="../assets/nightowl.svg" alt="nightowl avatar"></span></button><button type="button" aria-label="Choose tidecat" aria-pressed="false" style="all: unset; cursor: pointer; position: relative; display: flex; justify-content: center;"><span class="avatar avatar--lg"><img src="../assets/tidecat.svg" alt="tidecat avatar"></span></button><button type="button" aria-label="Choose goldenotter" aria-pressed="false" style="all: unset; cursor: pointer; position: relative; display: flex; justify-content: center;"><span class="avatar avatar--lg"><img src="../assets/goldenotter.svg" alt="goldenotter avatar"></span></button></div>
+<span class="caption muted">More looks unlock by playing. None of them change the game.</span></div>
+<div style="position: absolute; left: 20px; right: 20px; bottom: 30px;"><a class="gbtn gbtn--primary gbtn--xl gbtn--block" href="OB-M-T1-Limit.dc.html"><span class="button-label">TAKE A SEAT</span></a></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

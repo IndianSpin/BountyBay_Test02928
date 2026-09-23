@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Copy system</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="doc plain" style="width: 1600px; height: 1200px; ">
+<div style="position: absolute; inset: 0; padding: 56px; display: flex; flex-direction: column; gap: 18px;"><span class="kicker">H · Copy system</span><h1>Clarity first, world second</h1><div class="spec-card"><h3>Voice & tone</h3><p>Short, confident, a little cheeky from characters (speech bubbles); plain and exact from the system (numbers, rules, errors). The world can joke; a number never does. Uppercase only for banners, buttons and labels ≤ 3 words. No exclamation marks except DEAL!.</p></div><table><tr><th>Moment</th><th>Say</th><th>Never say</th></tr><tr><td class="">Turn — yours</td><td class="m"><b>YOUR MOVE</b> · 0:04</td><td class="m">It is your turn to submit a proposal</td></tr><tr><td class="">Turn — theirs</td><td class="m"><b>THEY’RE THINKING</b></td><td class="m">Awaiting counterparty response</td></tr><tr><td class="">Offers</td><td class="m"><b>THEIR OFFER</b> 78 · <b>YOUR OFFER</b> 67 · <b>WAS</b> 78</td><td class="m">Current bid / ask</td></tr><tr><td class="">Your limit</td><td class="m"><b>YOUR SECRET LIMIT</b> 100 · only you can see this</td><td class="m">Reservation value / BATNA</td></tr><tr><td class="">Compose</td><td class="m"><b>MAKE OFFER</b> 72 · New offer · can’t be taken back · Costs 4 chips · Left after 68</td><td class="m">Submit negotiation proposal</td></tr><tr><td class="">Accept</td><td class="m"><b>ACCEPT 74</b> · Hold to accept</td><td class="m">Confirm transaction</td></tr><tr><td class="">Crossed</td><td class="m"><b>DEAL POSSIBLE</b> — accept to settle</td><td class="m">Agreement detected</td></tr><tr><td class="">Walk away</td><td class="m"><b>Walk away?</b> No deal means zero bounty for both players.</td><td class="m">Terminate session</td></tr><tr><td class="">Chat hint</td><td class="m">Chat isn’t binding. Only plaques are offers.</td><td class="m">Messages are non-contractual</td></tr><tr><td class="">Deal</td><td class="m"><b>DEAL!</b> · The Ruby Compass is yours for 74</td><td class="m">Transaction successfully completed</td></tr><tr><td class="">Result</td><td class="m"><b>YOU CAPTURED 63%</b> of the deal</td><td class="m">Surplus allocation: 0.634</td></tr><tr><td class="">Insight</td><td class="m">You gave up 17. They gave up 46.</td><td class="m">Concession asymmetry index</td></tr><tr><td class="">Next</td><td class="m"><b>REMATCH</b> · <b>NEW OPPONENT</b> · <b>FIND A RIVAL</b></td><td class="m">Return to lobby</td></tr><tr><td class="">Daily</td><td class="m"><b>TODAY’S DEAL</b> · 8h 14m left · <b>TOP 14% TODAY</b></td><td class="m">Daily challenge expires soon!!</td></tr><tr><td class="">New player</td><td class="m"><b>NEW DEALMAKER</b></td><td class="m">0 games · 0%</td></tr><tr><td class="">AI</td><td class="m">THE GRINDER · <b>AI</b> · unrated</td><td class="m">Any human-sounding framing of an AI</td></tr></table></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1600, "height": 1200}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

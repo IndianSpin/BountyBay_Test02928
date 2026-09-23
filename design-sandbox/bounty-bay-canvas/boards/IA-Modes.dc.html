@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Progressive unlock map</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="doc plain" style="width: 1600px; height: 1000px; ">
+
+<div style="position: absolute; inset: 0; padding: 64px; display: flex; flex-direction: column; gap: 20px;">
+  <span class="kicker">A · Progressive unlock — capabilities reveal themselves</span><h1>New players see three doors.</h1>
+  <div style="display: flex; gap: 18px; align-items: stretch;">
+    <div style="flex: 1.1; padding: 22px; border-radius: 28px; background: linear-gradient(135deg, var(--brand-gold), var(--brand-gold-deep)); color: var(--ink-on-gold); display: flex; flex-direction: column; gap: 6px; box-shadow: 0 5px 0 #7A4E14;"><span class="label caps" style="font-weight: 800;">Primary · always</span><span class="display-hero" style="font-size: 48px;">RANKED</span><span class="body">The only rated mode. The biggest object on Bay, PLAY and the result.</span></div>
+    <div style="flex: .8; padding: 22px; border-radius: 28px; background: var(--surface-elevated); display: flex; flex-direction: column; gap: 6px; box-shadow: inset 0 0 0 3px var(--env-lantern);"><span class="label caps gold" style="font-weight: 800;">Featured · always</span><span class="display-title">Today’s Deal</span><span class="body muted">A glowing object in the Bay, not a tab.</span></div>
+    <div style="flex: .7; padding: 22px; border-radius: 28px; background: var(--surface-elevated); display: flex; flex-direction: column; gap: 6px;"><span class="label caps muted" style="font-weight: 800;">Always · quiet</span><span class="display-subtitle">Practice vs AI</span><span class="body muted">Unrated, always disclosed.</span></div></div>
+  <table>
+    <tr><th>Contextual capability</th><th>Appears when</th><th>Where it appears</th><th>Rated?</th></tr>
+    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><span class="ico-chip ico-chip--sm"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7h-3a5 5 0 000 10h3v-2.5H7a2.5 2.5 0 010-5h3zm4 0v2.5h3a2.5 2.5 0 010 5h-3V17h3a5 5 0 000-10zm-6 3.8h8v2.4H8z"/></svg></span><b>Challenge a friend</b></div></td><td class="m">After your first human deal; or when you open a challenge link</td><td class="m">Result screen · a rival’s profile · PLAY › Right now</td><td><span class="pill pill--red">D5</span></td></tr>
+    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><span class="ico-chip ico-chip--violet ico-chip--sm"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 11-8.5 12h2.2A7 7 0 1012 5a7 7 0 00-5 2.1L9.9 10H2V2.1l3.5 3.5A9 9 0 0112 3zm-2 5.5l6 3.5-6 3.5z"/></svg></span><b>Rematch / rivalry</b></div></td><td class="m">You’ve played the same person 3+ times, or they ask for a rematch</td><td class="m">The rival stands on the Bay dock; REMATCH on results</td><td><span class="pill pill--green">RATED</span></td></tr>
+    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><span class="ico-chip ico-chip--sm"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6v2H4v4h4v2H2zm0 10h6v2H4v4h4v2H2zm8-7h5v4h7v2h-7v4h-5v-2h3V8h-3z"/></svg></span><b>Tournament</b></div></td><td class="m">An event you can join opens registration (or you’re registered)</td><td class="m">Bay lantern + PLAY › Right now</td><td><span class="pill pill--red">D5</span></td></tr>
+    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><span class="ico-chip ico-chip--sm"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3a4 4 0 110 8 4 4 0 010-8zm8 1a3.5 3.5 0 110 7 3.5 3.5 0 010-7zM1 20c0-4 3.6-7 8-7s8 3 8 7v2H1zm17.5-6.8c2.8.5 4.5 2.8 4.5 5.8v3h-4v-2c0-2.6-.8-4.8-2.2-6.4z"/></svg></span><b>Deal Night room</b></div></td><td class="m">Someone invites you, or you create one from a friend’s profile</td><td class="m">Invite notification + PLAY › Right now</td><td><span class="pill pill--outline">UNRATED</span></td></tr>
+    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><span class="ico-chip ico-chip--ember ico-chip--sm"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 1L4 14h6l-1 9 9-13h-6z"/></svg></span><b>Rotating mode</b></div></td><td class="m">Only while it is being promoted this week</td><td class="m">One row in PLAY › Right now</td><td><span class="pill pill--red">D5</span></td></tr>
+    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><span class="ico-chip ico-chip--teal ico-chip--sm"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a4 4 0 014 4v6a4 4 0 01-8 0V6a4 4 0 014-4zM5 11h2a5 5 0 0010 0h2a7 7 0 01-6 6.9V21h3v2H8v-2h3v-3.1A7 7 0 015 11z"/></svg></span><b>Voice Deal</b></div></td><td class="m">After 3 ranked deals and mic permission granted</td><td class="m">A toggle on the RANKED row</td><td><span class="pill pill--green">RATED</span></td></tr>
+    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><span class="ico-chip ico-chip--sm"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4c6 0 9.7 4.5 11 8-1.3 3.5-5 8-11 8S2.3 15.5 1 12c1.3-3.5 5-8 11-8zm0 3.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 2.5a2 2 0 110 4 2 2 0 010-4z"/></svg></span><b>Spectating</b></div></td><td class="m">A featured match is live</td><td class="m">Bay lantern “Watch”</td><td>—</td></tr>
+  </table>
+  <div class="pdr-box"><span class="pdr">D5 · D21</span> <span class="caption" style="color: var(--ink-on-dark);">Rating eligibility of friend, tournament and rotating deals is open. Unlock thresholds (3 deals for Voice, first human deal for Friend Challenge) are proposals.</span></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1600, "height": 1000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

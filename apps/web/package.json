@@ -1,0 +1,28 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@bounty-bay/config": "workspace:*",
+    "@bounty-bay/contracts": "workspace:*",
+    "@bounty-bay/domain": "workspace:*",
+    "@clerk/nextjs": "^7.9.4",
+    "next": "^16.3.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "socket.io-client": "^4.8.0",
+    "@bounty-bay/ai": "workspace:*"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  }
+}

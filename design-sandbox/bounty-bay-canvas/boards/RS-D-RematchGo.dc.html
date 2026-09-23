@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rematch accepted — transition</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="world world--deep" style="width: 1440px; height: 900px; ">
+<div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,122,80,.25), rgba(16,26,32,0) 45%, rgba(16,26,32,0) 55%, rgba(139,107,209,.28));"></div>
+<div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 60px;">
+<div class="anim-commit"><span class="turn-ring turn-ring--player"><span class="avatar avatar--xxl avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span></span></div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px;"><span class="display-hero anim-slam" style="font-size: 88px; line-height: 88px; color: var(--brand-gold);">ROUND 8</span><span class="display-subtitle">Rematch accepted</span><span class="body muted">Dealing a new scenario…</span><div class="loading-dots"><span></span><span></span><span></span></div></div>
+<div class="anim-arrive"><span class="turn-ring turn-ring--opponent"><span class="avatar avatar--xxl avatar--opponent"><img src="../assets/goldenotter.svg" alt="goldenotter avatar"></span></span></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1440, "height": 900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

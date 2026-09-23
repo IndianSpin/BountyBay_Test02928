@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Opponent failed to confirm</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="world world--dim" style="width: 1440px; height: 900px; ">
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 70px; display: flex; align-items: center; gap: 14px; padding: 0 32px;"><span class="wordmark" style="font-size: 24px; line-height: 1;">Bounty Bay</span><span class="pill pill--gold"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2h5l9 9-2 2-9-9v3H2zm20 0v5h-3v-2l-5.5 5.5-2-2L17 3h-2V2zM6.5 14.5l2 2-2.2 2.2L8 20.5 6.5 22 2 17.5 3.5 16l1.8 1.8zm11 0l2.2 2.2L21.5 15l1.5 1.5L18.5 22 17 20.5l1.8-1.8-2.3-2.2z"/></svg>RANKED</span><div style="flex-grow: 1;"></div></div>
+<div style="position: absolute; inset: 70px 0 0 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;"><div style="display: flex; align-items: center; gap: 60px;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px;"><span class="turn-ring turn-ring--player"><span class="avatar avatar--xl avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span></span><span class="pill pill--green"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2L4.8 11.5l-2 2 6.7 6.7L21.2 8.5l-2-2z"/></svg>READY</span></div>
+<span class="display-title muted">VS</span>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; opacity: .6;"><span class="avatar avatar--xl avatar--opponent avatar--offline"><img src="../assets/redcrab.svg" alt="redcrab avatar"></span><span class="pill pill--outline">DIDN’T CONFIRM</span></div></div>
+<span class="display-title">REDCRAB didn’t make it to the table</span>
+<span class="body muted">No penalty for you. You’re back at the front of the queue.</span>
+<div style="display: flex; gap: 12px;"><button class="gbtn gbtn--primary gbtn--lg" type="button"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2h5l9 9-2 2-9-9v3H2zm20 0v5h-3v-2l-5.5 5.5-2-2L17 3h-2V2zM6.5 14.5l2 2-2.2 2.2L8 20.5 6.5 22 2 17.5 3.5 16l1.8 1.8zm11 0l2.2 2.2L21.5 15l1.5 1.5L18.5 22 17 20.5l1.8-1.8-2.3-2.2z"/></svg><span class="button-label">KEEP SEARCHING</span></button><button class="gbtn gbtn--ghost gbtn--lg" type="button"><span class="button-label">Cancel</span></button></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1440, "height": 900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pose rules</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 2100px; height: 1060px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">E · When each state plays</div><h1>Expressions react to what both players can see, never to what they can’t</h1>
+<div style="display:grid;grid-template-columns:1.7fr 1fr;gap:36px"><div class="card" style="padding:16px"><table><tr><th>State</th><th>Trigger</th><th>Pose / face</th><th>Allowed input</th></tr><tr><td><b>Idle</b></td><td class="m">Match loading; between beats</td><td class="m">Breathing loop 3 s, blink 4–6 s</td><td><span class="tag pass">Scenario only</span></td></tr><tr><td><b>Thinking</b></td><td class="m">Their clock is running</td><td class="m">Hand to chin, eyes up, thought beads</td><td><span class="tag pass">Turn state</span></td></tr><tr><td><b>Listening</b></td><td class="m">My clock is running</td><td class="m">Hand to ear, head tilt toward camera</td><td><span class="tag pass">Turn state</span></td></tr><tr><td><b>Speaking</b></td><td class="m">They sent a chat message</td><td class="m">Talking mouth 2-frame, gesture arm</td><td><span class="tag pass">Chat event</span></td></tr><tr><td><b>Making offer</b></td><td class="m">Their formal offer lands</td><td class="m">Both hands push the plaque forward</td><td><span class="tag pass">Offer event</span></td></tr><tr><td><b>Holding position</b></td><td class="m">They re-send the same number (if allowed) or I stall past 50% of my clock</td><td class="m">Arms folded, lean back</td><td><span class="tag pass">Offer event / time</span></td></tr><tr><td><b>Surprised</b></td><td class="m">My concession is ≥ 2× my previous step</td><td class="m">Arms up, wide lids, “o” mouth</td><td><span class="tag part">Public offers only</span></td></tr><tr><td><b>Pleased</b></td><td class="m">I concede toward them</td><td class="m">Hands clasp, happy lids, sparkles</td><td><span class="tag part">Public offers only</span></td></tr><tr><td><b>Smug</b></td><td class="m">Gap closes in their favour</td><td class="m">Hand on hip, nails-check, half lids</td><td><span class="tag part">Public offers only</span></td></tr><tr><td><b>Frustrated</b></td><td class="m">My step is ≤ 1 chip, or their clock < 15 s</td><td class="m">Fists, gritted teeth, anger mark</td><td><span class="tag part">Public offers / time</span></td></tr><tr><td><b>Deal accepted</b></td><td class="m">Either side accepts</td><td class="m">Hand extended for a shake</td><td><span class="tag pass">Result</span></td></tr><tr><td><b>No deal</b></td><td class="m">Walk-away or time out</td><td class="m">Shrug, sad lids</td><td><span class="tag pass">Result</span></td></tr><tr><td><b>Disconnected</b></td><td class="m">Opponent connection lost</td><td class="m">Slump, desaturate 95%, “z z”</td><td><span class="tag pass">Connection</span></td></tr><tr><td><b>Rematch challenge</b></td><td class="m">They tap Rematch</td><td class="m">Point at camera, speed lines</td><td><span class="tag pass">Post-match</span></td></tr></table></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div class="adpdr"><div class="k">PRODUCT DECISION REQUIRED · Expressions must not leak limits</div><p style="margin-top:4px">If an opponent’s face reacted to MY offer relative to THEIR private limit (e.g. “surprised” because my bid is above their limit), it would reveal the limit before the result. Rule proposed: expression triggers read only public data (offers, steps, clocks). Needs sign-off from game design.</p></div>
+<div class="adpdr"><div class="k">PRODUCT DECISION REQUIRED · Human opponents: automatic or chosen?</div><p style="margin-top:4px">Option 1: all expressions automatic from public events (recommended, zero input cost, cannot be used to bluff). Option 2: add 4 player-chosen emotes (smug, pleased, thinking, rematch) with a cooldown. Option 2 adds a bluffing channel and a moderation surface.</p></div>
+<div class="card" style="padding:16px"><h3>Motion rules</h3><ul><li>State change = 180 ms ease-out pose blend + 2-frame face swap, never a hard cut</li><li>One reaction per event; reactions queue, and none plays during my composing</li><li>Opponent idle breathing never stops, even while waiting</li><li>Reduced motion: pose swaps only, no FX, no speed lines</li></ul></div></div></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 2100, "height": 1060}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

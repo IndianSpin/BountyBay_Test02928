@@ -1,0 +1,48 @@
+# Milestone 0 exit: CI passes the empty baseline; kept green through every milestone.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: bounty
+          POSTGRES_PASSWORD: bounty
+          POSTGRES_DB: bounty_bay
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U bounty -d bounty_bay"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://bounty:bounty@localhost:5433/bounty_bay
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24 # 06_ARCHITECTURE.md §2: Node 24 LTS
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @bounty-bay/db db:generate
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm --filter @bounty-bay/db db:deploy
+      - run: pnpm --filter @bounty-bay/db db:seed
+      - run: pnpm test:db
+      - run: pnpm build
+      - name: Install Playwright browser
+        run: pnpm --filter web exec playwright install --with-deps chromium
+      - run: pnpm test:e2e

@@ -1,0 +1,329 @@
+// Bounty Bay persistence (docs/07_DATA_MODEL.md; 06_ARCHITECTURE.md §2, §6, §11).
+//
+// Implementation notes beyond the conceptual data model:
+// - Match.domainState holds the authoritative domain snapshot { state, config }
+//   (06 §6: immutable events + current snapshot). It is the source of truth
+//   for gameplay; normalized columns exist for analytics/profile queries.
+// - MatchEvent.commandId carries the client idempotency key (SI-004); the
+//   partial unique index (match_id, command_id) allows nulls for derived events.
+// - GameBalanceConfig rows are immutable once used by a match (07 §GameBalanceConfig).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  // Prisma 7: connection URLs live in prisma.config.ts (migrate) and the
+  // client constructor takes a driver adapter (see src/client.ts).
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  DELETED
+}
+
+enum ScenarioStatus {
+  DRAFT
+  PUBLISHED
+  RETIRED
+}
+
+enum MatchMode {
+  RANKED_LIVE
+  FRIEND_LIVE
+  AI
+  ASYNC
+}
+
+enum MatchStatus {
+  CREATED
+  READY
+  ACTIVE
+  PAUSED
+  DEAL
+  NO_DEAL
+  ABORTED
+}
+
+enum Role {
+  BUYER
+  SELLER
+}
+
+enum CompletionReason {
+  ACCEPTED
+  WALKED_AWAY
+  TIMED_OUT
+  ABORTED
+}
+
+enum ModerationStatus {
+  VISIBLE
+  REDACTED
+  FLAGGED
+}
+
+model User {
+  id          String     @id @default(uuid()) @db.Uuid
+  authSubject String     @unique @map("auth_subject")
+  handle      String     @unique
+  status      UserStatus @default(ACTIVE)
+  /// AI practice opponents (DEC-025): seeded bot users can never authenticate.
+  isBot       Boolean    @default(false) @map("is_bot")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+
+  profile      PlayerProfile?
+  participants MatchParticipant[]
+  ratingEvents RatingEvent[]
+
+  @@map("users")
+}
+
+model PlayerProfile {
+  userId String @id @db.Uuid @map("user_id")
+  // Provisional display default; the rating algorithm itself is OQ-001.
+  bountyRating    Int     @default(1200) @map("bounty_rating")
+  ratingVersion   String? @map("rating_version")
+  ratedGames      Int     @default(0) @map("rated_games")
+  ratedDeals      Int     @default(0) @map("rated_deals")
+  ratedNoDeals    Int     @default(0) @map("rated_no_deals")
+  agreementRate   Decimal @default(0) @db.Decimal(5, 4) @map("agreement_rate")
+  avgSurplusShare Decimal @default(0) @db.Decimal(5, 4) @map("avg_surplus_share")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("player_profiles")
+}
+
+model Scenario {
+  id                   String         @id @default(uuid()) @db.Uuid
+  version              Int
+  title                String
+  description          String
+  buyerBatnaNarrative  String         @map("buyer_batna_narrative")
+  sellerBatnaNarrative String         @map("seller_batna_narrative")
+  status               ScenarioStatus @default(DRAFT)
+  createdAt            DateTime       @default(now()) @map("created_at")
+
+  @@unique([id, version])
+  @@map("scenarios")
+}
+
+model GameBalanceConfig {
+  version               String   @id
+  matchBountyChips      Int      @map("match_bounty_chips")
+  concessionBudgetChips Int      @map("concession_budget_chips")
+  concessionK           Decimal  @db.Decimal(10, 6) @map("concession_k")
+  concessionAlpha       Decimal  @db.Decimal(10, 6) @map("concession_alpha")
+  clockFloorMultiplier  Decimal  @db.Decimal(5, 4) @map("clock_floor_multiplier")
+  clockFloorMs          BigInt   @map("clock_floor_ms")
+  turnGraceMs           Int      @map("turn_grace_ms")
+  /// GR-023 (DD Phase 1): null/absent = no hard decision-time limit.
+  hardDecisionTimeLimitMs BigInt? @map("hard_decision_time_limit_ms")
+  /// GR-024 (DD Phase 1): only 'ATTRIBUTED_NO_DEAL' is supported.
+  timeoutPolicy         String?  @map("timeout_policy")
+  /// DD Phase 1: provisional UI warning thresholds (ms remaining).
+  timeWarningLowMs      Int?     @map("time_warning_low_ms")
+  timeWarningCriticalMs Int?     @map("time_warning_critical_ms")
+  maxAmountTenths       BigInt   @map("max_amount_tenths")
+  createdAt             DateTime @default(now()) @map("created_at")
+  activeForNewMatches   Boolean  @default(true) @map("active_for_new_matches")
+
+  @@map("game_balance_configs")
+}
+
+model Match {
+  id                   String           @id @default(uuid()) @db.Uuid
+  mode                 MatchMode
+  status               MatchStatus      @default(CREATED)
+  scenarioId           String           @db.Uuid @map("scenario_id")
+  scenarioVersion      Int              @map("scenario_version")
+  gameRulesVersion     String           @map("game_rules_version")
+  economyConfigVersion String           @map("economy_config_version")
+  ratingVersion        String?          @map("rating_version")
+  /// Friend-challenge share token (08: POST /v1/challenges → /:token/join).
+  inviteToken          String?          @unique @map("invite_token")
+  /// AI practice matches (DEC-025): the persona that plays, and its config
+  /// version. Null for human matches; both set together for AI matches.
+  aiPersonaKey         String?          @map("ai_persona_key")
+  aiPersonaVersion     String?          @map("ai_persona_version")
+  firstPlayerId        String?          @db.Uuid @map("first_player_id")
+  activePlayerId       String?          @db.Uuid @map("active_player_id")
+  settlementTenths     BigInt?          @map("settlement_amount_tenths")
+  completionReason     CompletionReason? @map("completion_reason")
+  /// GR-024 (DD Phase 1): the timed-out player when completionReason =
+  /// TIMED_OUT. Analytics convenience column; the domain snapshot is
+  /// authoritative.
+  timeoutPlayerId      String?          @db.Uuid @map("timeout_player_id")
+  eventSequence        BigInt           @default(0) @map("event_sequence")
+  /// Authoritative domain snapshot { state, config } (06 §6). Gameplay reads
+  /// come from here; normalized columns are derived for analytics.
+  domainState          Json?            @map("domain_state")
+  createdAt            DateTime         @default(now()) @map("created_at")
+  startedAt            DateTime?        @map("started_at")
+  completedAt          DateTime?        @map("completed_at")
+
+  participants MatchParticipant[]
+  events       MatchEvent[]
+  offers       Offer[]
+  messages     ChatMessage[]
+  result       MatchResult?
+  ratingEvents RatingEvent[]
+  features     MatchFeature[]
+  observations MatchObservation[]
+
+  @@map("matches")
+}
+
+// DEC-028 (IN-1): deterministic behavior analysis computed at match
+// completion, in the same transaction as the terminal state. Immutable
+// computed rows, like MatchResult; playerId is deliberately not a FK (the
+// analysis is a projection of the match, keyed by participant id).
+
+model MatchFeature {
+  matchId  String @db.Uuid @map("match_id")
+  playerId String @db.Uuid @map("player_id")
+  version  String @map("feature_engine_version")
+  features Json   @map("features")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  @@id([matchId, playerId])
+  @@map("match_features")
+}
+
+model MatchObservation {
+  id           String   @id @default(uuid()) @db.Uuid
+  matchId      String   @db.Uuid @map("match_id")
+  playerId     String   @db.Uuid @map("player_id")
+  version      String   @map("observation_engine_version")
+  ordinal      Int
+  type         String
+  magnitude    Decimal? @db.Decimal(14, 6) @map("magnitude")
+  measurements Json     @map("measurements")
+  eventRefs    Json     @map("event_refs")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  @@index([matchId, playerId])
+  @@map("match_observations")
+}
+
+model MatchParticipant {
+  id String @id @default(uuid()) @db.Uuid
+
+  matchId String @db.Uuid @map("match_id")
+  userId  String @db.Uuid @map("user_id")
+  role    Role
+
+  // Server-only: never serialized into participant-visible DTOs (SI-001).
+  reservationValueTenths BigInt   @map("reservation_value_tenths")
+  initialChipBudget      Int      @map("initial_chip_budget")
+  chipsSpent             Int      @default(0) @map("chips_spent")
+  cumulativeActiveMs     BigInt   @default(0) @map("cumulative_active_ms")
+  openingOfferTenths     BigInt?  @map("opening_offer_tenths")
+  latestOfferTenths      BigInt?  @map("latest_offer_tenths")
+  disconnectedAt         DateTime? @map("disconnected_at")
+  createdAt              DateTime @default(now()) @map("created_at")
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@unique([matchId, role]) // one BUYER and one SELLER per match
+  @@unique([matchId, userId])
+  @@map("match_participants")
+}
+
+model Offer {
+  id                  String   @id @default(uuid()) @db.Uuid
+  matchId             String   @db.Uuid @map("match_id")
+  eventSequence       BigInt   @map("event_sequence")
+  playerId            String   @db.Uuid @map("player_id")
+  amountTenths        BigInt   @map("amount_tenths")
+  isOpening           Boolean  @map("is_opening")
+  concessionMagnitude Decimal? @db.Decimal(12, 8) @map("concession_magnitude")
+  concessionCostChips Int      @default(0) @map("concession_cost_chips")
+  createdAt           DateTime @default(now()) @map("created_at")
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  @@unique([matchId, eventSequence])
+  @@map("offers")
+}
+
+model ChatMessage {
+  id               String           @id @default(uuid()) @db.Uuid
+  matchId          String           @db.Uuid @map("match_id")
+  playerId         String           @db.Uuid @map("player_id")
+  eventSequence    BigInt           @map("event_sequence")
+  body             String           @db.VarChar(500)
+  moderationStatus ModerationStatus @default(VISIBLE) @map("moderation_status")
+  createdAt        DateTime         @default(now()) @map("created_at")
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  @@unique([matchId, eventSequence])
+  @@map("chat_messages")
+}
+
+model MatchEvent {
+  id          String   @id @default(uuid()) @db.Uuid
+  matchId     String   @db.Uuid @map("match_id")
+  sequence    BigInt
+  type        String
+  actorUserId String?  @db.Uuid @map("actor_user_id")
+  // SI-004 idempotency key; null for derived events (partial unique allows
+  // multiple nulls).
+  commandId   String?  @db.Uuid @map("command_id")
+  payload     Json
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  @@unique([matchId, sequence])
+  @@unique([matchId, commandId])
+  @@map("match_events")
+}
+
+model MatchResult {
+  matchId                String   @id @db.Uuid @map("match_id")
+  zopaTenths             BigInt   @map("zopa_tenths")
+  buyerSurplusShare      Decimal? @db.Decimal(8, 6) @map("buyer_surplus_share")
+  sellerSurplusShare     Decimal? @db.Decimal(8, 6) @map("seller_surplus_share")
+  buyerClockMultiplier   Decimal  @db.Decimal(8, 6) @map("buyer_clock_multiplier")
+  sellerClockMultiplier  Decimal  @db.Decimal(8, 6) @map("seller_clock_multiplier")
+  buyerGrossReward       Decimal  @db.Decimal(14, 6) @map("buyer_gross_reward")
+  sellerGrossReward      Decimal  @db.Decimal(14, 6) @map("seller_gross_reward")
+  buyerNetResult         Decimal  @db.Decimal(14, 6) @map("buyer_net_result")
+  sellerNetResult        Decimal  @db.Decimal(14, 6) @map("seller_net_result")
+  ratedEligible          Boolean  @map("rated_eligible")
+  calculatedAt           DateTime @default(now()) @map("calculated_at")
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+
+  @@map("match_results")
+}
+
+model RatingEvent {
+  id                   String   @id @default(uuid()) @db.Uuid
+  matchId              String   @db.Uuid @map("match_id")
+  userId               String   @db.Uuid @map("user_id")
+  ratingVersion        String   @map("rating_version")
+  ratingBefore         Int      @map("rating_before")
+  ratingAfter          Int      @map("rating_after")
+  opponentRatingBefore Int      @map("opponent_rating_before")
+  performanceInput     Json?    @map("performance_input")
+  createdAt            DateTime @default(now()) @map("created_at")
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@map("rating_events")
+}

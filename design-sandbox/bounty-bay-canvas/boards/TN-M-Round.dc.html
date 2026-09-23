@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tournament — round result</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="world world--dim phone" style="width: 390px; height: 844px; ">
+<div style="position: absolute; left: 20px; right: 20px; top: 90px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center;">
+<span class="kicker">Harbour Cup · Round 2</span><span class="display-hero anim-slam" style="font-size: 50px; color: var(--positive);">YOU ADVANCE</span>
+<span class="turn-ring turn-ring--player"><span class="avatar avatar--xl avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span></span><span class="body">You took <b class="num">58%</b> vs OLDTORTOISE.</span>
+<div class="panel" style="padding: 14px 16px; width: 100%; display: flex; align-items: center; gap: 12px; text-align: left;"><span class="ico-chip ico-chip--gold"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6v2H4v4h4v2H2zm0 10h6v2H4v4h4v2H2zm8-7h5v4h7v2h-7v4h-5v-2h3V8h-3z"/></svg></span><div style="flex-grow: 1;"><span class="body-strong">Semi-final vs TIDECAT or MAYA</span><div class="caption muted">Starts when their deal ends · ~5 min</div></div></div>
+<div class="panel" style="padding: 14px 16px; width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; opacity: .8;"><span class="ico-chip"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M5.6 3.5L12 9.9l6.4-6.4 2.1 2.1-6.4 6.4 6.4 6.4-2.1 2.1-6.4-6.4-6.4 6.4-2.1-2.1 6.4-6.4-6.4-6.4z"/></svg></span><div style="flex-grow: 1;"><span class="body-strong">Eliminated view</span><div class="caption muted">“Out in round 2 — best finish so far. Watch the rest or play ranked.”</div></div></div></div>
+<div style="position: absolute; left: 20px; right: 20px; bottom: 30px; display: flex; flex-direction: column; gap: 10px;"><a class="gbtn gbtn--primary gbtn--xl gbtn--block" href="TN-D-Bracket.dc.html"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6v2H4v4h4v2H2zm0 10h6v2H4v4h4v2H2zm8-7h5v4h7v2h-7v4h-5v-2h3V8h-3z"/></svg><span class="button-label">VIEW BRACKET</span></a><button class="gbtn gbtn--ghost gbtn--lg gbtn--block" type="button"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4c6 0 9.7 4.5 11 8-1.3 3.5-5 8-11 8S2.3 15.5 1 12c1.3-3.5 5-8 11-8zm0 3.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 2.5a2 2 0 110 4 2 2 0 010-4z"/></svg><span class="button-label">Watch other matches</span></button></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Matchmaking — long wait</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="world world--dim" style="width: 1440px; height: 900px; ">
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 70px; display: flex; align-items: center; gap: 14px; padding: 0 32px;"><span class="wordmark" style="font-size: 24px; line-height: 1;">Bounty Bay</span><span class="pill pill--gold"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2h5l9 9-2 2-9-9v3H2zm20 0v5h-3v-2l-5.5 5.5-2-2L17 3h-2V2zM6.5 14.5l2 2-2.2 2.2L8 20.5 6.5 22 2 17.5 3.5 16l1.8 1.8zm11 0l2.2 2.2L21.5 15l1.5 1.5L18.5 22 17 20.5l1.8-1.8-2.3-2.2z"/></svg>RANKED</span><div style="flex-grow: 1;"></div></div>
+<div style="position: absolute; inset: 70px 0 0 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;"><div style="position: relative; width: 168px; height: 168px; display: flex; align-items: center; justify-content: center;"><span class="pulse-ring anim-breathe" style="inset: 0px; animation-delay: 0.0s;"></span><span class="pulse-ring anim-breathe" style="inset: -34px; animation-delay: 0.4s;"></span><span class="pulse-ring anim-breathe" style="inset: -68px; animation-delay: 0.8s;"></span><span class="pulse-ring anim-breathe" style="inset: -102px; animation-delay: 1.2000000000000002s;"></span><span class="turn-ring turn-ring--player"><span class="avatar avatar--xxl avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span></span></div>
+<span class="display-title" style="margin-top: 60px;">Still searching — widening the net</span>
+<span class="clock-pill" style="font-size: 18px;"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 110 20 10 10 0 010-20zm-1 4v7l5.5 3.3 1-1.7-4.5-2.6V6z"/></svg> 1:12</span>
+<span class="body muted">Now including players 1,380 – 1,590. Fewer rivals are online right now.</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; width: 900px;">
+<a href="#" class="panel" style="padding: 18px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit; box-shadow: var(--shadow-card-elevated), inset 0 0 0 2px var(--brand-gold);"><span class="ico-chip ico-chip--gold"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2h5l9 9-2 2-9-9v3H2zm20 0v5h-3v-2l-5.5 5.5-2-2L17 3h-2V2zM6.5 14.5l2 2-2.2 2.2L8 20.5 6.5 22 2 17.5 3.5 16l1.8 1.8zm11 0l2.2 2.2L21.5 15l1.5 1.5L18.5 22 17 20.5l1.8-1.8-2.3-2.2z"/></svg></span><span class="display-subtitle">Keep searching</span><span class="caption muted">Stay in the ranked queue. We’ll ping you.</span></a>
+<a href="PA-D-Practice.dc.html" class="panel" style="padding: 18px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit;"><span class="ico-chip"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M11 1h2v3h5a3 3 0 013 3v9a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h5zM8.5 9a2 2 0 100 4 2 2 0 000-4zm7 0a2 2 0 100 4 2 2 0 000-4zM8 15v2h8v-2zM1 9h1v5H1zm21 0h1v5h-1zM8 20h8v3H8z"/></svg></span><span class="display-subtitle">Play AI while you wait</span><span class="caption muted">Clearly an AI · unrated · leaves the queue</span></a>
+<a href="FR-D-Create.dc.html" class="panel" style="padding: 18px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit;"><span class="ico-chip"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7h-3a5 5 0 000 10h3v-2.5H7a2.5 2.5 0 010-5h3zm4 0v2.5h3a2.5 2.5 0 010 5h-3V17h3a5 5 0 000-10zm-6 3.8h8v2.4H8z"/></svg></span><span class="display-subtitle">Challenge a friend</span><span class="caption muted">Send a link, play the moment they join</span></a></div>
+<button class="gbtn gbtn--ghost gbtn--lg" type="button"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.6 3.5L12 9.9l6.4-6.4 2.1 2.1-6.4 6.4 6.4 6.4-2.1 2.1-6.4-6.4-6.4 6.4-2.1-2.1 6.4-6.4-6.4-6.4z"/></svg><span class="button-label">Cancel search</span></button></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1440, "height": 900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Component data contracts</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="doc plain" style="width: 1800px; height: 1200px; ">
+<div style="position: absolute; inset: 0; padding: 56px; display: flex; flex-direction: column; gap: 18px;"><span class="kicker">J · Implementation handoff</span><h1>What each object needs, who sees it, what it changes</h1><table><tr><th>Component</th><th>Data it needs</th><th>Visibility</th><th>Changes server state?</th><th>States</th></tr><tr><td class="">Their plaque</td><td class="m">opponent.currentOffer, previousOffer, offeredAt</td><td class="m">Public to both + spectators</td><td class="m">No (display)</td><td class="m">idle · incoming · superseded(ghost) · crossed · settled</td></tr><tr><td class="">Your plaque</td><td class="m">me.currentOffer</td><td class="m">Public</td><td class="m">No</td><td class="m">idle · committed · crossed · settled</td></tr><tr><td class="">Rail</td><td class="m">priceWindow, both offers, my.limit (mine only)</td><td class="m">Limit pin: <b>self only</b></td><td class="m">No</td><td class="m">gap · close (≤ 5% of window) · crossed</td></tr><tr><td class="">Wax-seal limit</td><td class="m">me.limit, me.role</td><td class="m"><b>Self only</b>; opponent limit absent from payload until CLOSED</td><td class="m">No</td><td class="m">revealed-to-self · post-match reveal</td></tr><tr><td class="">Composer</td><td class="m">me.currentOffer, proposed (local), cost(proposed) & maxAffordable (server)</td><td class="m">Self</td><td class="m"><b>Yes</b> on MAKE OFFER (commitOffer)</td><td class="m">idle · composing · insufficient · above-limit · locked</td></tr><tr><td class="">ACCEPT</td><td class="m">opponent.currentOffer, turn</td><td class="m">Self</td><td class="m"><b>Yes</b> (acceptOffer) after 600 ms hold</td><td class="m">default · holding · disabled (their turn, D7)</td></tr><tr><td class="">Walk away</td><td class="m">—</td><td class="m">Self</td><td class="m"><b>Yes</b> (walkAway) after confirm + 1 s hold</td><td class="m">menu item · confirm sheet</td></tr><tr><td class="">Bounty token</td><td class="m">me.multiplier, clockRunning</td><td class="m">Self (opponent’s hidden — D-opp)</td><td class="m">No</td><td class="m">healthy · falling · low · floor</td></tr><tr><td class="">Chip stack</td><td class="m">me.chips, cost(proposed)</td><td class="m">Self</td><td class="m">No (spent on commit)</td><td class="m">full · pending · low · insufficient</td></tr><tr><td class="">Turn banner</td><td class="m">turn, turnStartedAt, dealPossible, connection</td><td class="m">Public</td><td class="m">No</td><td class="m">your move · they’re thinking · deal possible · on hold · paused</td></tr><tr><td class="">Opponent bust</td><td class="m">opponent.avatar, pose(event), isAI, connection, speaking</td><td class="m">Public</td><td class="m">No</td><td class="m">idle · thinking · offer · speaking · offline · rematch · smug</td></tr><tr><td class="">Chat</td><td class="m">messages[], typing, rateLimit</td><td class="m">Both players (spectators read-only)</td><td class="m">Yes (sendMessage) — never changes turn</td><td class="m">sent · received · typing · rate-limited · reported</td></tr><tr><td class="">Result beats</td><td class="m">settlement, both limits, split, rating delta, insight</td><td class="m">Both players after CLOSED</td><td class="m">No</td><td class="m">deal · no deal (possible / impossible) · void</td></tr></table></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1800, "height": 1200}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

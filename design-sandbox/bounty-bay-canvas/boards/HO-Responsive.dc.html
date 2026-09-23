@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Responsive behavior</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="doc plain" style="width: 1600px; height: 1000px; ">
+<div style="position: absolute; inset: 0; padding: 56px; display: flex; flex-direction: column; gap: 18px;"><span class="kicker">I · Responsive behaviour</span><h1>One scene, three widths</h1><div class="spec-card"><h3>Scaling rules</h3><p>Scenes use object-fit: cover anchored at the counter line so the opponent’s face and the asset never crop. The rail’s price window is the union of both opening offers and your limit, padded 10%. Plaques never overlap: theirs always above the rail, yours below. Minimum touch target 44 px; ACCEPT and MAKE OFFER ≥ 52 px.</p></div><table><tr><th>Surface</th><th>Mobile 360–430</th><th>Tablet 768–1024</th><th>Desktop 1280+</th></tr><tr><td class="">Live match</td><td class="m">Opponent bust + asset own top 45%; rail at 50%; limit seal right; composer, ACCEPT, chat bar docked in thumb zone.</td><td class="m">Desktop layout scaled; composer bottom-right; chat as side sheet.</td><td class="m">Full stall scene; bust 470 px; rail spans counter; composer bottom-right; chat/ledger are buttons → side drawers.</td></tr><tr><td class="">Composer</td><td class="m">Steppers + in-game keypad on tap of the number (never the OS keyboard).</td><td class="m">Steppers + keyboard</td><td class="m">Steppers, ↑/↓ keys, typing</td></tr><tr><td class="">Chat</td><td class="m">Bottom sheet stopping at the counter edge</td><td class="m">Right drawer 360 px</td><td class="m">Right drawer 360 px; speech bubble shows the latest line in-world</td></tr><tr><td class="">Result</td><td class="m">3 full-screen beats, tap to advance</td><td class="m">Same as desktop</td><td class="m">One resting frame; beats animate in place</td></tr><tr><td class="">Bay</td><td class="m">Scene + objective + PLAY RANKED above tab bar</td><td class="m">Scene, 2-column objects</td><td class="m">Scene, dock nav, big PLAY</td></tr><tr><td class="">Navigation</td><td class="m">Tab bar: Bay · PLAY · Me</td><td class="m">Tab bar</td><td class="m">Top dock: Bay · Me + gold PLAY</td></tr></table></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1600, "height": 1000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Current vs revised</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 2400px; height: 1500px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">J · Current vs revised</div><h1>From “UI over a picture” to “a seat at the table”</h1>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:30px"><div style="display:flex;flex-direction:column;gap:8px"><span class="tag fail">Current · LMD-02</span><img src="../assets/cur-lmd02.jpg" alt="Current live match" style="width:100%;border:2.5px solid #2A1A2E;border-radius:6px 22px 6px 22px"></div>
+<div style="display:flex;flex-direction:column;gap:8px"><span class="tag pass">Revised · LMR-D-01</span><img src="../assets/new-lmd-mine.jpg" alt="Revised live match" style="width:100%;border:2.5px solid #2A1A2E;border-radius:6px 22px 6px 22px"></div></div>
+<div class="card" style="padding:16px"><table><tr><th style="width:170px"></th><th>Current</th><th>Revised</th></tr><tr><td><b>Point of view</b></td><td class="m">Third-person: me as a parrot bust in the corner</td><td>First-person: my sleeves and hands at the table edge</td></tr><tr><td><b>Opponent</b></td><td class="m">Round mascot bust with a generic face</td><td>Full character with a costume, a tell and a state-driven pose. About 25% of the frame</td></tr><tr><td><b>World</b></td><td class="m">Generic jars and a “NIGHT MARKET” sign</td><td>A navigation stall that sells what the scenario is about</td></tr><tr><td><b>Their offer</b></td><td class="m">Floating card overlapping the opponent</td><td>A brass plaque standing on their side of the table</td></tr><tr><td><b>My offer</b></td><td class="m">Parchment card + a separate composer panel</td><td>One wax-sealed card: the stepper, cost and seal in one object</td></tr><tr><td><b>My limit</b></td><td class="m">Dark label box, bottom left</td><td>An ember leather card under my own hand</td></tr><tr><td><b>Whose turn</b></td><td class="m">Banner at the top + timer pill</td><td>Table light + a brass turn-clock beside my hand, with ember or violet enamel</td></tr><tr><td><b>Chrome</b></td><td class="m">6 floating panels, 4 buttons</td><td>2 corner knobs. Everything else is an object</td></tr></table></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 2400, "height": 1500}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

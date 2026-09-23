@@ -1,0 +1,245 @@
+<title>Arena or Deal Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a1626;
+    --bg-deep: #050b16;
+    --surface: #101f38;
+    --surface-2: #172a4d;
+    --ink: #eaf6ff;
+    --ink-dim: #9fb8d4;
+    --ink-faint: #5f7c9c;
+    --turquoise: #2de0d0;
+    --gold: #ffc94d;
+    --rival: #b26bff;
+    --rule: rgba(159, 184, 212, 0.16);
+  }
+  body {
+    margin: 0;
+    background: radial-gradient(120% 60% at 50% 0%, #0d1d33 0%, var(--bg) 55%, var(--bg-deep) 100%);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+  .kicker {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--turquoise);
+    margin: 0 0 12px;
+  }
+  h1 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.05;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  h1 em { font-style: normal; color: var(--gold); }
+  .lede {
+    max-width: 62ch;
+    color: var(--ink-dim);
+    margin: 0 0 8px;
+  }
+  .read {
+    max-width: 62ch;
+    margin: 16px 0 48px;
+    padding: 14px 18px;
+    border-left: 3px solid var(--gold);
+    background: var(--surface);
+    border-radius: 0 12px 12px 0;
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+  h2 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    margin: 56px 0 4px;
+  }
+  h2 .tag {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bg-deep);
+    background: linear-gradient(180deg, #5cf2e4, var(--turquoise));
+    border-radius: 999px;
+    padding: 4px 14px;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+  h2 .tag.rival { background: linear-gradient(180deg, #c58fff, var(--rival)); }
+  .sub { color: var(--ink-dim); margin: 0 0 20px; max-width: 62ch; }
+  .previews {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 410px;
+    gap: 18px;
+    align-items: start;
+  }
+  .frame {
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--bg-deep);
+    box-shadow: 0 14px 44px rgba(2, 8, 18, 0.6);
+  }
+  .frame iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+    background: var(--bg-deep);
+  }
+  .frame.desktop iframe { height: 780px; }
+  .frame.phone iframe { height: 720px; }
+  .frame .cap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 14px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--rule);
+    background: var(--surface);
+  }
+  .frame .cap b { color: var(--ink-dim); font-weight: 700; }
+  .analysis {
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    background: var(--surface);
+    padding: 18px 20px;
+    display: grid;
+    gap: 10px;
+  }
+  .analysis h3 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin: 0;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .row { display: grid; grid-template-columns: 150px 1fr; gap: 12px; font-size: 0.86rem; align-items: baseline; }
+  .row .k { color: var(--ink-dim); font-weight: 600; }
+  .row .v { color: var(--ink); }
+  .verdict {
+    margin: 16px 0 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 0.86rem;
+    background: var(--bg-deep);
+    border: 1px solid var(--rule);
+    color: var(--ink-dim);
+  }
+  .verdict b { color: var(--ink); }
+  .recommend {
+    margin-top: 56px;
+    padding: 28px 32px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 201, 77, 0.4);
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    box-shadow: 0 0 40px rgba(255, 201, 77, 0.12);
+  }
+  .recommend h2 { margin: 0 0 12px; }
+  .recommend p { color: var(--ink-dim); max-width: 72ch; margin: 0 0 10px; }
+  .recommend .pick {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin: 0 0 6px;
+  }
+  ul.criteria { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  ul.criteria li { padding-left: 20px; position: relative; font-size: 0.9rem; color: var(--ink); }
+  ul.criteria li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; border-radius: 50%; background: var(--turquoise); }
+  ul.criteria li.gold::before { background: var(--gold); }
+  @media (max-width: 860px) {
+    .previews { grid-template-columns: 1fr; }
+    .frame.phone iframe { height: 700px; }
+    .row { grid-template-columns: 1fr; gap: 2px; }
+    .wrap { padding: 32px 16px 64px; }
+  }
+</style>
+
+<div class="wrap">
+  <p class="kicker">Bounty Bay Royale · Phase 3 review</p>
+  <h1>Two ways to stage <em>the deal</em></h1>
+  <p class="lede">Same visual language. Same rules. Same numbers. Two substantially different compositions for the live match screen, rendered for comparison.</p>
+  <div class="read"><b>The design read:</b> a competitive 1v1 game for deal-minded players, in a playful-premium dark fantastical-marketplace language. The world is playful. The numbers are ruthless. These mocks use placeholder artwork and static data; the chosen direction is built for real in Phase 3 with live state, motion, and sound hooks.</div>
+
+  <h2>Direction A <span class="tag">THE ARENA</span></h2>
+  <p class="sub">The negotiation as a PvP battlefield. Opponents face each other across a central asset; offers square off with the gap between them; resources anchor to each combatant; turn ownership is loud.</p>
+  <div class="previews">
+    <div class="frame desktop">
+      <iframe src="arena.html" title="Arena direction, desktop"></iframe>
+      <div class="cap"><span>Desktop composition</span><b>1120px</b></div>
+    </div>
+    <div class="frame phone">
+      <iframe src="arena.html" title="Arena direction, phone"></iframe>
+      <div class="cap"><span>Phone composition</span><b>390px</b></div>
+    </div>
+  </div>
+  <div class="analysis">
+    <h3>How it reads</h3>
+    <div class="row"><span class="k">2-second comprehension</span><span class="v">Strong. Whose move and who wants what are spatial, not labeled.</span></div>
+    <div class="row"><span class="k">Game feel</span><span class="v">Strong. Opposition is visceral; offers feel like positions.</span></div>
+    <div class="row"><span class="k">Mobile translation</span><span class="v">Strong. The vertical battlefield stacks naturally into a phone.</span></div>
+    <div class="row"><span class="k">Offers clarity</span><span class="v">Good. Plates are clear but smaller than the table's.</span></div>
+    <div class="row"><span class="k">Scenario identity</span><span class="v">Weakest point. The asset is a small center medallion between the fighters.</span></div>
+    <div class="row"><span class="k">Room for chat</span><span class="v">Thin strip. Usable, but table talk feels like an afterthought.</span></div>
+    <div class="row"><span class="k">Resource visibility</span><span class="v">Strong. HUDs anchor to each player.</span></div>
+    <div class="row"><span class="k">Distinctiveness</span><span class="v">Good, but symmetrical PvP framing is a well-worn game convention.</span></div>
+    <div class="verdict"><b>Verdict:</b> the most immediately game-like, at the cost of the scenario's presence - and the scenario is what the deal is about.</div>
+  </div>
+
+  <h2>Direction B <span class="tag rival">THE DEAL TABLE</span></h2>
+  <p class="sub">The asset is the centerpiece. Offers arrive as plates on a shared table with the gap between them; players sit at the table's edges; chat is table talk; the action dock sits on the table's edge.</p>
+  <div class="previews">
+    <div class="frame desktop">
+      <iframe src="deal-table.html" title="Deal table direction, desktop"></iframe>
+      <div class="cap"><span>Desktop composition</span><b>1120px</b></div>
+    </div>
+    <div class="frame phone">
+      <iframe src="deal-table.html" title="Deal table direction, phone"></iframe>
+      <div class="cap"><span>Phone composition</span><b>390px</b></div>
+    </div>
+  </div>
+  <div class="analysis">
+    <h3>How it reads</h3>
+    <div class="row"><span class="k">2-second comprehension</span><span class="v">Strong. The question "what are we negotiating over?" answers first.</span></div>
+    <div class="row"><span class="k">Game feel</span><span class="v">Strong. A private deal over a prized object; plates feel like plays.</span></div>
+    <div class="row"><span class="k">Mobile translation</span><span class="v">Strong. The table compresses into a compact stage with a persistent dock.</span></div>
+    <div class="row"><span class="k">Offers clarity</span><span class="v">Excellent. Large plates, gap centered between them.</span></div>
+    <div class="row"><span class="k">Scenario identity</span><span class="v">Excellent. The asset leads the screen with name, art, and story.</span></div>
+    <div class="row"><span class="k">Room for chat</span><span class="v">Excellent. Dedicated table-talk panel; persuasion has a home.</span></div>
+    <div class="row"><span class="k">Resource visibility</span><span class="v">Good. HUD sits under the table, beside the dock.</span></div>
+    <div class="row"><span class="k">Distinctiveness</span><span class="v">Strong. A deal table is a Bounty Bay-specific stage, not a generic battleground.</span></div>
+    <div class="verdict"><b>Verdict:</b> matches the product's priorities directly - scenario first, then offers and gap, then turn and resources.</div>
+  </div>
+
+  <div class="recommend">
+    <p class="pick">Recommendation: The Deal Table</p>
+    <h2>Why</h2>
+    <p>The brief's own priority order decides it. The screen must answer "what are we negotiating over?" first, and only the table gives the asset genuine presence. Offers and the gap land on one shared stage where both players look at the same thing - which is what a negotiation actually is. Table talk gives persuasion a home instead of a strip.</p>
+    <ul class="criteria">
+      <li class="gold">Scenario identity: the asset leads the screen.</li>
+      <li class="gold">Offers and gap: one shared stage, largest plates, centered gap.</li>
+      <li class="gold">Chat: a real panel, not an afterthought.</li>
+      <li>Arena's best move carries over: the turn banner and plate glows make turn ownership loud.</li>
+      <li>Mobile keeps the persistent bottom dock so the turn is never a scroll away.</li>
+    </ul>
+  </div>
+</div>

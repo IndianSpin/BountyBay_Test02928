@@ -1,0 +1,33 @@
+# V1 development services (06_ARCHITECTURE.md §2): PostgreSQL 18 + Redis
+services:
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: bounty
+      POSTGRES_PASSWORD: bounty
+      POSTGRES_DB: bounty_bay
+    ports:
+      # Host 5433: the developer machine runs a Supabase stack on 5432.
+      - "5433:5432"
+    volumes:
+      # postgres:18+ stores data in a versioned subdirectory of this mount
+      # (docker-library/postgres#1259); mount the parent, not .../data.
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bounty -d bounty_bay"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:8-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

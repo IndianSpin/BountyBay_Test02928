@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flow maps — extended</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="doc plain" style="width: 2200px; height: 1240px; ">
+
+<div style="position: absolute; inset: 0; padding: 56px 64px; display: flex; flex-direction: column; gap: 40px;">
+  <div style="display: flex; flex-direction: column; gap: 6px;"><span class="kicker">B · Flow maps — extended</span><h1>Voice, events, spectating</h1></div>
+  <div style="display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; align-items: baseline; gap: 14px;"><h2>Voice match</h2><p>Voice is a mode, never a replacement for formal offers.</p></div>
+<div class="flow-row"><a class="fnode" href="PL-D-PlayMenu.dc.html" style="text-decoration: none;"><span class="fnode__k">MODE</span><span class="fnode__t">Voice Deal</span><span class="fnode__d">Rules card</span></a><div class="farrow farrow--gold"></div><a class="fnode fnode--private" href="VO-M-Setup.dc.html" style="text-decoration: none;"><span class="fnode__k">SETUP</span><span class="fnode__t">Microphone check</span><span class="fnode__d">Permission · level meter</span></a><div class="farrow farrow--gold"></div><a class="fnode fnode--game" href="VO-D-Live.dc.html" style="text-decoration: none;"><span class="fnode__k">MATCH</span><span class="fnode__t">Live voice deal</span><span class="fnode__d">Offers stay on plates</span></a><div class="farrow farrow--gold"></div><a class="fnode fnode--game" href="RS-D-Final.dc.html" style="text-decoration: none;"><span class="fnode__k">RESULT</span><span class="fnode__t">Result</span><span class="fnode__d">Voice ends at DEAL CLOSED</span></a></div><div style="display: flex; gap: 12px; margin-left: 172px;"><a class="fnode fnode--error" href="VO-M-Denied.dc.html" style="text-decoration: none;"><span class="fnode__k">BRANCH</span><span class="fnode__t">Mic denied</span><span class="fnode__d">Switch to text · stay in voice queue</span></a><a class="fnode fnode--error" href="VO-M-Fallback.dc.html" style="text-decoration: none;"><span class="fnode__k">BRANCH</span><span class="fnode__t">Device dropped mid-match</span><span class="fnode__d">Auto-fallback to text chat, match continues</span></a></div></div>
+  <div style="display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; align-items: baseline; gap: 14px;"><h2>Tournament</h2><p>Scheduled, non-cash, bracketed.</p></div>
+<div class="flow-row"><a class="fnode" href="TN-D-Discover.dc.html" style="text-decoration: none;"><span class="fnode__k">DISCOVER</span><span class="fnode__t">Events</span><span class="fnode__d">Upcoming · live · past</span></a><div class="farrow farrow--gold"></div><a class="fnode fnode--primary" href="TN-D-Discover.dc.html" style="text-decoration: none;"><span class="fnode__k">REGISTER</span><span class="fnode__t">Register</span><span class="fnode__d">Seat 11 of 16</span></a><div class="farrow farrow--gold"></div><a class="fnode" href="TN-D-Bracket.dc.html" style="text-decoration: none;"><span class="fnode__k">BRACKET</span><span class="fnode__t">Bracket</span><span class="fnode__d">Next opponent · check-in</span></a><div class="farrow farrow--gold"></div><a class="fnode fnode--game" href="LMD-01-YourTurn.dc.html" style="text-decoration: none;"><span class="fnode__k">MATCH</span><span class="fnode__t">Round match</span><span class="fnode__d">Standard live match</span></a><div class="farrow farrow--gold"></div><a class="fnode fnode--game" href="TN-M-Round.dc.html" style="text-decoration: none;"><span class="fnode__k">ROUND</span><span class="fnode__t">Advance / eliminated</span><span class="fnode__d">Standings update</span></a><div class="farrow farrow--gold"></div><a class="fnode fnode--game" href="TN-D-Bracket.dc.html" style="text-decoration: none;"><span class="fnode__k">FINAL</span><span class="fnode__t">Final + result</span><span class="fnode__d">Champion card</span></a></div></div>
+  <div style="display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; align-items: baseline; gap: 14px;"><h2>Spectator</h2><p>Public spectators never see hidden limits. Casters can.</p></div>
+<div class="flow-row"><a class="fnode" href="HM-D-Bay.dc.html" style="text-decoration: none;"><span class="fnode__k">DISCOVER</span><span class="fnode__t">Live now</span><span class="fnode__d">Bay banner · event page</span></a><div class="farrow farrow--gold"></div><a class="fnode" href="SP-D-Public.dc.html" style="text-decoration: none;"><span class="fnode__k">WATCH</span><span class="fnode__t">Spectator view</span><span class="fnode__d">Offers, turn, public stats</span></a><div class="farrow"></div><a class="fnode fnode--private" href="SP-D-Caster.dc.html" style="text-decoration: none;"><span class="fnode__k">CASTER</span><span class="fnode__t">Caster view (authorised)</span><span class="fnode__d">Both limits · ZOPA · 30 s delay</span></a><div class="farrow farrow--gold"></div><a class="fnode fnode--game" href="RS-D-Final.dc.html" style="text-decoration: none;"><span class="fnode__k">REVEAL</span><span class="fnode__t">Post-match full reveal</span><span class="fnode__d">Same reveal as players</span></a></div></div>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;">
+    <div class="spec-card"><h3>Legend</h3><div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;"><div class="fnode"><span class="fnode__k">KIND</span><span class="fnode__t">Screen</span></div><div class="fnode fnode--game"><span class="fnode__k">KIND</span><span class="fnode__t">Game space</span></div><div class="fnode fnode--private"><span class="fnode__k">KIND</span><span class="fnode__t">Private info</span></div><div class="fnode fnode--primary"><span class="fnode__k">KIND</span><span class="fnode__t">Primary action</span></div><div class="fnode fnode--decision"><span class="fnode__k">KIND</span><span class="fnode__t">Branch</span></div><div class="fnode fnode--error"><span class="fnode__k">KIND</span><span class="fnode__t">Error path</span></div></div></div>
+    <div class="spec-card" style="display: flex; flex-direction: column; gap: 8px;"><h3>Re-entry rules</h3><p>Closing the app mid-match resumes the match on next open (reconnect state). Closing during result resumes at the final result frame, not the reveal start. A friend link opened by the sender shows the waiting-room, not a second challenge.</p></div>
+    <div class="spec-card" style="display: flex; flex-direction: column; gap: 8px;"><h3>Where AI can appear</h3><p>Only: tutorial (The House), Practice, no-human-found fallback, and Daily Deal if D9 resolves to AI. Each entry point states “AI opponent” <em>before</em> the match starts, and the AI pill stays on the opponent seat throughout.</p></div>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 2200, "height": 1240}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

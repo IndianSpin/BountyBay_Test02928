@@ -1,0 +1,29 @@
+{
+  "name": "bounty-bay",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel -r --filter \"./apps/*\" run dev",
+    "build": "pnpm -r run build",
+    "typecheck": "pnpm -r run typecheck",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:db": "RUN_DB_TESTS=1 vitest run --no-file-parallelism packages/db/tests apps/api/tests",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "test:e2e": "pnpm --filter web exec playwright test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@types/node": "^24.0.0",
+    "eslint": "^9.39.0",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^5.0.0"
+  }
+}

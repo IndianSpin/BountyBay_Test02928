@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 1 · The Deal Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: #120c08; color: #f3e6cf; overflow: hidden; }
+  .scene { position: fixed; inset: 0; }
+  .scene > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  /* floating UI: small crafted artifacts, never panels */
+  .ui { position: fixed; inset: 0; pointer-events: none; }
+  .ui > * { position: absolute; pointer-events: auto; }
+
+  .brand { top: 18px; left: 22px; font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.05rem; color: #e8c07a; letter-spacing: 0.08em; }
+  .turn-note { top: 16px; right: 24px; font-family: 'IBM Plex Sans'; font-style: italic; color: #f6d9a0; font-size: 0.95rem; text-shadow: 0 1px 8px rgba(0,0,0,.8); }
+  .turn-note b { font-style: normal; color: #ffd98a; }
+
+  .propose { bottom: 22px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; }
+  .propose input {
+    width: 96px; height: 46px; text-align: center;
+    font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.3rem;
+    color: #241505; background: #d9c79a; border: 1px solid #8a6b34; border-radius: 4px;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,.35), 0 2px 0 #6b4e1f;
+  }
+  .propose .cost { font-size: 0.78rem; color: #d9c79a; text-shadow: 0 1px 4px rgba(0,0,0,.9); line-height: 1.3; }
+  .propose .cost b { color: #ffd98a; }
+
+  .actions { bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; align-items: flex-end; }
+  .actions button {
+    font-family: 'Cinzel', serif; font-weight: 600; font-size: 0.86rem;
+    color: #241505; padding: 10px 18px; border: 1px solid #7a5a26; border-radius: 4px; cursor: pointer;
+    background: linear-gradient(180deg, #e4c07c, #c99b52);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 3px 0 #6b4e1f, 0 6px 12px rgba(0,0,0,.5);
+  }
+  .actions button:active { transform: translateY(2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 1px 0 #6b4e1f; }
+  .actions button.accept { background: linear-gradient(180deg, #e9c67e, #d3a44e); }
+  .actions button.quit { background: linear-gradient(180deg, #a56a55, #7d4a38); color: #f3e6cf; border-color: #4c2a1e; }
+
+  .dossier { bottom: 26px; right: 24px; transform: rotate(-7deg); }
+  .dossier .hint { font-size: 0.7rem; font-style: italic; color: #cbb488; text-align: center; margin-top: 4px; }
+
+  .chat { right: 26px; top: 22%; width: 240px; }
+  .chat .paper {
+    background: #e8dcc0; color: #3a2a16; border-radius: 2px; padding: 12px 14px;
+    font-size: 0.85rem; font-style: italic; line-height: 1.45;
+    box-shadow: 0 8px 20px rgba(0,0,0,.6); transform: rotate(1.5deg);
+  }
+  .chat .who { font-style: normal; font-weight: 600; display: block; margin-bottom: 3px; }
+  .chat .unread { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #b0342a; margin-left: 6px; }
+
+  @media (max-width: 620px) {
+    .brand { font-size: 0.9rem; }
+    .turn-note { font-size: 0.8rem; right: 14px; }
+    .chat { width: 170px; right: 12px; top: 24%; }
+    .chat .paper { font-size: 0.75rem; padding: 8px 10px; }
+    .actions button { font-size: 0.75rem; padding: 9px 12px; }
+    .propose input { width: 80px; height: 42px; font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+<div class="scene">
+<svg viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A candlelit trading table at night. The Ruby Compass sits on velvet at the center. A merchant in a broad hat sits across the table. Brass offer plaques and coins lie on the wood.">
+  <defs>
+    <radialGradient id="room" cx="50%" cy="38%"><stop offset="0%" stop-color="#33200f"/><stop offset="60%" stop-color="#1a1109"/><stop offset="100%" stop-color="#0d0805"/></radialGradient>
+    <radialGradient id="candleGlow" cx="50%" cy="50%"><stop offset="0%" stop-color="#ffcf7d" stop-opacity=".55"/><stop offset="100%" stop-color="#ffcf7d" stop-opacity="0"/></radialGradient>
+    <radialGradient id="ruby" cx="36%" cy="28%"><stop offset="0%" stop-color="#ff93a8"/><stop offset="45%" stop-color="#c22b4e"/><stop offset="100%" stop-color="#4a0a1e"/></radialGradient>
+    <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e3bd77"/><stop offset="55%" stop-color="#c9a15a"/><stop offset="100%" stop-color="#8a6b34"/></linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4a2f17"/><stop offset="100%" stop-color="#2b1a0c"/></linearGradient>
+    <linearGradient id="velvet" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7a2020"/><stop offset="100%" stop-color="#450f14"/></linearGradient>
+    <linearGradient id="spot" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffd98a" stop-opacity=".30"/><stop offset="100%" stop-color="#ffd98a" stop-opacity="0"/></linearGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="soft2" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.5"/></filter>
+  </defs>
+
+  <!-- room -->
+  <rect width="1200" height="760" fill="url(#room)"/>
+  <!-- far wall arch window -->
+  <path d="M430 0 h340 v210 q0 90 -80 90 h-180 q-80 0 -80 -90 z" fill="#0e1418" opacity=".85"/>
+  <circle cx="600" cy="118" r="42" fill="#cbd6e0" opacity=".7" filter="url(#soft2)"/>
+  <!-- curtains -->
+  <path d="M0 0 h210 q-30 380 0 760 h-30 q-30 -380 0 -760 z" fill="#33150f" opacity=".9"/>
+  <path d="M1200 0 h-210 q30 380 0 760 h30 q30 -380 0 -760 z" fill="#33150f" opacity=".9"/>
+  <path d="M0 0 h210 q-30 380 0 760 h-30 q-30 -380 0 -760 z" fill="none" stroke="#5a2a1a" stroke-width="3" opacity=".5"/>
+  <path d="M1200 0 h-210 q30 380 0 760 h30 q30 -380 0 -760 z" fill="none" stroke="#5a2a1a" stroke-width="3" opacity=".5"/>
+  <!-- hanging lantern -->
+  <line x1="600" y1="0" x2="600" y2="86" stroke="#241505" stroke-width="4"/>
+  <circle cx="600" cy="104" r="72" fill="url(#candleGlow)"/>
+  <rect x="578" y="86" width="44" height="52" rx="6" fill="#c9a15a" opacity=".95"/>
+  <rect x="583" y="92" width="34" height="40" rx="4" fill="#ffd98a" filter="url(#soft2)"/>
+
+  <!-- the table -->
+  <path d="M120 760 L120 470 Q600 360 1080 470 L1080 760 Z" fill="url(#wood)"/>
+  <path d="M120 470 Q600 360 1080 470" fill="none" stroke="#5e3c1e" stroke-width="5"/>
+  <!-- velvet runner -->
+  <path d="M470 402 Q600 380 730 402 L700 760 L500 760 Z" fill="url(#velvet)"/>
+  <path d="M470 402 Q600 380 730 402" fill="none" stroke="#e0b46a" stroke-width="2" opacity=".8"/>
+  <!-- grain -->
+  <path d="M180 540 Q600 470 1020 540 M200 600 Q600 530 1000 600 M220 660 Q600 600 980 660 M240 720 Q600 665 960 720" fill="none" stroke="#1c1006" stroke-width="2" opacity=".35"/>
+
+  <!-- candle glows on table -->
+  <circle cx="300" cy="500" r="130" fill="url(#candleGlow)"/>
+  <circle cx="900" cy="500" r="130" fill="url(#candleGlow)"/>
+  <!-- candles -->
+  <g>
+    <rect x="292" y="452" width="16" height="52" rx="3" fill="#e8dcc0"/>
+    <path d="M300 446 q6 -12 0 -22 q-6 10 0 22 z" fill="#ffb44d"/>
+    <ellipse cx="300" cy="444" rx="3.5" ry="8" fill="#fff2c9" filter="url(#soft2)"/>
+  </g>
+  <g>
+    <rect x="892" y="452" width="16" height="52" rx="3" fill="#e8dcc0"/>
+    <path d="M900 446 q6 -12 0 -22 q-6 10 0 22 z" fill="#ffb44d"/>
+    <ellipse cx="900" cy="444" rx="3.5" ry="8" fill="#fff2c9" filter="url(#soft2)"/>
+  </g>
+
+  <!-- THE OPPONENT, across the table -->
+  <g>
+    <path d="M560 150 q40 -60 80 0 l30 150 q-70 26 -140 0 z" fill="#171009"/>
+    <path d="M560 150 q40 -60 80 0 l0 26 q-30 8 -60 0 q-10 -14 -20 -26 z" fill="#221409"/>
+    <ellipse cx="600" cy="142" rx="52" ry="14" fill="#171009"/>
+    <path d="M548 142 q52 -14 104 0 l-10 16 q-42 -8 -84 0 z" fill="#241609"/>
+    <path d="M560 292 q-60 14 -58 40 q64 10 138 0 q2 -26 -58 -40 z" fill="#171009"/>
+    <ellipse cx="600" cy="308" rx="16" ry="4" fill="#0c0603"/>
+    <!-- hands on the table -->
+    <ellipse cx="480" cy="420" rx="34" ry="14" fill="#171009"/>
+    <ellipse cx="720" cy="420" rx="34" ry="14" fill="#171009"/>
+    <!-- rim light -->
+    <path d="M560 150 q40 -60 80 0" fill="none" stroke="#ffd98a" stroke-width="3" opacity=".5" filter="url(#soft2)"/>
+  </g>
+
+  <!-- THE RUBY COMPASS, the centerpiece -->
+  <g transform="translate(600 462)">
+    <ellipse cx="0" cy="118" rx="150" ry="26" fill="#000" opacity=".45" filter="url(#soft)"/>
+    <ellipse cx="0" cy="104" rx="96" ry="16" fill="url(#velvet)" stroke="#e0b46a" stroke-width="2"/>
+    <circle cx="0" cy="0" r="86" fill="url(#brass)"/>
+    <circle cx="0" cy="0" r="80" fill="#5e3c1e"/>
+    <circle cx="0" cy="0" r="74" fill="url(#ruby)"/>
+    <ellipse cx="-20" cy="-26" rx="34" ry="20" fill="#ffffff" opacity=".28" filter="url(#soft2)"/>
+    <circle cx="0" cy="0" r="74" fill="none" stroke="#e3bd77" stroke-width="3"/>
+    <g stroke="#e3bd77" stroke-width="3">
+      <line x1="0" y1="-80" x2="0" y2="-62"/><line x1="0" y1="62" x2="0" y2="80"/>
+      <line x1="-80" y1="0" x2="-62" y2="0"/><line x1="62" y1="0" x2="80" y2="0"/>
+      <line x1="-56" y1="-56" x2="-46" y2="-46"/><line x1="56" y1="-56" x2="46" y2="-46"/>
+      <line x1="-56" y1="56" x2="-46" y2="46"/><line x1="56" y1="56" x2="46" y2="46"/>
+    </g>
+    <polygon points="0,-52 10,6 0,0 -10,6" fill="#ffd98a"/>
+    <polygon points="0,52 -10,-6 0,0 10,-6" fill="#e8dcc0"/>
+    <circle cx="0" cy="0" r="9" fill="#c9a15a" stroke="#5e3c1e" stroke-width="2"/>
+    <circle cx="0" cy="0" r="3.5" fill="#7a2a10"/>
+    <circle cx="0" cy="0" r="86" fill="none" stroke="#8a6b34" stroke-width="1.5"/>
+  </g>
+
+  <!-- THEIR OFFER PLAQUE -->
+  <g transform="translate(415 400) rotate(-3)">
+    <rect x="-70" y="-34" width="140" height="62" rx="4" fill="url(#brass)"/>
+    <rect x="-63" y="-27" width="126" height="48" rx="3" fill="#8a6b34"/>
+    <rect x="-63" y="-27" width="126" height="48" rx="3" fill="none" stroke="#5e3c1e" stroke-width="2"/>
+    <circle cx="-58" cy="-22" r="2.5" fill="#2b1a0c"/><circle cx="58" cy="-22" r="2.5" fill="#2b1a0c"/>
+    <circle cx="-58" cy="22" r="2.5" fill="#2b1a0c"/><circle cx="58" cy="22" r="2.5" fill="#2b1a0c"/>
+    <text x="0" y="10" text-anchor="middle" font-family="Cinzel, serif" font-size="27" font-weight="700" fill="#2b1a0c">82.5</text>
+  </g>
+
+  <!-- MY OFFER PLAQUE (my response, larger, closer) -->
+  <g transform="translate(742 540) rotate(2.5)">
+    <rect x="-84" y="-40" width="168" height="74" rx="4" fill="url(#brass)"/>
+    <rect x="-76" y="-32" width="152" height="58" rx="3" fill="#8a6b34"/>
+    <rect x="-76" y="-32" width="152" height="58" rx="3" fill="none" stroke="#5e3c1e" stroke-width="2"/>
+    <circle cx="-70" cy="-26" r="3" fill="#2b1a0c"/><circle cx="70" cy="-26" r="3" fill="#2b1a0c"/>
+    <circle cx="-70" cy="26" r="3" fill="#2b1a0c"/><circle cx="70" cy="26" r="3" fill="#2b1a0c"/>
+    <text x="0" y="12" text-anchor="middle" font-family="Cinzel, serif" font-size="31" font-weight="700" fill="#2b1a0c">63.0</text>
+  </g>
+
+  <!-- gap etched subtly on the table edge between plaques -->
+  <g transform="translate(600 585)">
+    <rect x="-60" y="-14" width="120" height="28" rx="3" fill="#241505" stroke="#6b4e1f" stroke-width="1.5" opacity=".9"/>
+    <text x="0" y="5" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#d9c79a">gap 19.5</text>
+  </g>
+
+  <!-- MY SIDE: coins, time candle, sealed dossier -->
+  <g transform="translate(918 655)">
+    <ellipse cx="-8" cy="26" rx="58" ry="10" fill="#000" opacity=".4" filter="url(#soft)"/>
+    <ellipse cx="0" cy="-2" rx="26" ry="9" fill="#e3bd77"/><ellipse cx="0" cy="-8" rx="26" ry="9" fill="#c9a15a"/><ellipse cx="0" cy="-14" rx="26" ry="9" fill="#e3bd77"/>
+    <rect x="-3" y="-10" width="6" height="10" fill="#8a6b34"/>
+    <text x="0" y="34" text-anchor="middle" font-size="13" fill="#d9c79a">72 coins</text>
+  </g>
+  <g transform="translate(1030 640)">
+    <rect x="-8" y="14" width="16" height="44" rx="3" fill="#e8dcc0"/>
+    <path d="M0 8 q6 -12 0 -24 q-6 12 0 24 z" fill="#ffb44d"/>
+    <ellipse cx="0" cy="6" rx="3.5" ry="8" fill="#fff2c9" filter="url(#soft2)"/>
+    <text x="0" y="78" text-anchor="middle" font-size="12.5" fill="#d9c79a">bounty × 91%</text>
+  </g>
+  <g transform="translate(160 648) rotate(-6)">
+    <rect x="-46" y="-32" width="92" height="64" rx="2" fill="#e8dcc0" stroke="#c9b98d" stroke-width="1.5"/>
+    <circle cx="0" cy="0" r="13" fill="#7a2020"/>
+    <circle cx="0" cy="0" r="13" fill="none" stroke="#a83232" stroke-width="3"/>
+    <path d="M-46 -14 h-26 M46 -14 h26" stroke="#c9b98d" stroke-width="1.5"/>
+  </g>
+
+  <!-- turn: pool of light on MY side -->
+  <ellipse cx="790" cy="660" rx="300" ry="110" fill="url(#spot)"/>
+</svg>
+</div>
+
+<div class="ui">
+  <div class="brand">BOUNTY BAY</div>
+  <div class="turn-note"><b>Your move.</b> The merchant waits.</div>
+
+  <div class="chat">
+    <div class="paper">
+      <span class="who">The merchant <span class="unread"></span></span>
+      "I can move, but not much."
+    </div>
+  </div>
+
+  <div class="dossier">
+    <svg width="86" height="60" viewBox="0 0 92 64" aria-hidden="true">
+      <rect x="0" y="2" width="92" height="60" rx="2" fill="#e8dcc0" stroke="#c9b98d"/>
+      <circle cx="46" cy="32" r="13" fill="#7a2020"/><circle cx="46" cy="32" r="13" fill="none" stroke="#a83232" stroke-width="3"/>
+    </svg>
+    <div class="hint">your sealed limit · 40.0</div>
+  </div>
+
+  <div class="propose">
+    <input value="60" aria-label="proposed offer">
+    <div class="cost">move −3.0<br>cost <b>5</b> · <b>67</b> left</div>
+  </div>
+  <div class="actions">
+    <button>Make Offer</button>
+    <button class="accept">Accept 82.5</button>
+    <button class="quit">Walk Away</button>
+  </div>
+</div>
+</body>
+</html>

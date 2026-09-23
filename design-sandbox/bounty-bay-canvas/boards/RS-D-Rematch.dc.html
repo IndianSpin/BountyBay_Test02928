@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rematch — waiting for opponent</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="world world--deep" style="width: 1440px; height: 900px; ">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px;">
+<span class="label caps gold" style="letter-spacing: 1.4px; font-weight: 800;">Rematch</span>
+<div style="display: flex; align-items: center; gap: 48px;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px;"><span class="turn-ring turn-ring--player"><span class="avatar avatar--xxl avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span></span><span class="handle" style="font-size: 22px;">BLACKPARROT</span><span class="pill pill--green"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2L4.8 11.5l-2 2 6.7 6.7L21.2 8.5l-2-2z"/></svg>READY</span></div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px;"><span class="display-hero" style="font-size: 72px;">VS</span><span class="numeral-stat gold">4 – 3</span><span class="caption muted">you lead</span></div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px;"><span class="turn-ring turn-ring--opponent"><span class="avatar avatar--xxl avatar--opponent"><img src="../assets/goldenotter.svg" alt="goldenotter avatar"></span></span><span class="handle" style="font-size: 22px;">GOLDENOTTER</span><span class="pill pill--outline anim-breathe">DECIDING… 0:12</span></div></div>
+<div class="panel" style="padding: 14px 20px; display: flex; gap: 16px; align-items: center;"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true" style="color: var(--brand-gold);"><path d="M12 3a9 9 0 11-8.5 12h2.2A7 7 0 1012 5a7 7 0 00-5 2.1L9.9 10H2V2.1l3.5 3.5A9 9 0 0112 3zm-2 5.5l6 3.5-6 3.5z"/></svg><span class="body">New scenario · <b>roles swap</b> — you’ll sell this time.</span><span class="pill pill--red">D12</span></div>
+<div style="display: flex; gap: 12px;"><button class="gbtn gbtn--ghost gbtn--lg" type="button"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.6 3.5L12 9.9l6.4-6.4 2.1 2.1-6.4 6.4 6.4 6.4-2.1 2.1-6.4-6.4-6.4 6.4-2.1-2.1 6.4-6.4-6.4-6.4z"/></svg><span class="button-label">CANCEL REMATCH</span></button><a class="gbtn gbtn--secondary gbtn--lg" href="MM-D-Searching.dc.html"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2h5l9 9-2 2-9-9v3H2zm20 0v5h-3v-2l-5.5 5.5-2-2L17 3h-2V2zM6.5 14.5l2 2-2.2 2.2L8 20.5 6.5 22 2 17.5 3.5 16l1.8 1.8zm11 0l2.2 2.2L21.5 15l1.5 1.5L18.5 22 17 20.5l1.8-1.8-2.3-2.2z"/></svg><span class="button-label">NEW OPPONENT INSTEAD</span></a></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1440, "height": 900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

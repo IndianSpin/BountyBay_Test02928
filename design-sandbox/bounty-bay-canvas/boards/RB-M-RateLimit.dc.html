@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chat rate limit</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="plain phone" style="width: 390px; height: 844px; ">
+<div style="position: absolute; left: 0; right: 0; top: 0; padding: 50px 16px 10px; display: flex; align-items: center; gap: 10px; z-index: 4;"><button class="gbtn gbtn--icon" type="button" aria-label="Back" style="width: 40px; height: 40px;"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3.5L7 12l8.5 8.5 2.1-2.1L11.2 12l6.4-6.4z"/></svg></button><span class="display-subtitle" style="flex-grow: 1;">Table talk</span></div><div style="position: absolute; left: 14px; right: 14px; top: 110px; bottom: 120px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px;"><div class="chat-bubble chat-bubble--received chat">Final offer.<span class="chat-bubble__meta caption">3:10</span></div><div class="chat-bubble chat-bubble--sent chat">You said that at 96.<span class="chat-bubble__meta caption">3:12</span></div><div class="chat-bubble chat-bubble--sent chat">And at 90.<span class="chat-bubble__meta caption">3:12</span></div><div class="chat-bubble chat-bubble--sent chat">And at 84.<span class="chat-bubble__meta caption">3:13</span></div>
+<div class="chat-bubble chat-bubble--system caption" style="color: #F5D48E;">Slow down a little — you can send again in 4 s.</div></div>
+<div style="position: absolute; left: 14px; right: 14px; bottom: 34px; display: flex; gap: 8px;"><input class="chat-panel__input chat" type="text" value="And at 78." aria-label="Message" style="height: 48px;"><button class="gbtn gbtn--secondary is-disabled" type="button" disabled style="min-height: 48px;">4</button></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

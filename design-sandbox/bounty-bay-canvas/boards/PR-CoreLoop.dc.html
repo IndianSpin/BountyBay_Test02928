@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Playable prototype — core loop</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="phone" style="width: 390px; height: 844px; ">
+
+<sc-if value="{{isFound}}" hint-placeholder-val="{{true}}">
+<div class="scene" style="position: absolute; inset: 0;">
+<div class="scene__layer scene__bg"><img src="../assets/bay-dusk.svg" alt="Harbour at dusk"></div>
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(139,107,209,.45), rgba(30,22,60,.2) 45%, rgba(255,122,80,.35));"></div>
+<div style="position: absolute; left: 0; right: 0; top: 56px; display: flex; flex-direction: column; align-items: center; gap: 4px;"><span class="label caps" style="color: var(--env-lantern); font-weight: 800; letter-spacing: 1.4px;">Ranked · round {{round}}</span><span class="display-hero anim-slam" style="font-size: 48px; color: #FFF; text-shadow: 0 5px 0 var(--opponent-deep);">RIVAL FOUND</span></div>
+<div class="bust anim-arrive" style="left: 50px; top: 150px; width: 290px; height: 312px;"><img src="../assets/otter-smug.svg" alt="GOLDENOTTER"></div>
+<div style="position: absolute; left: 0; right: 0; top: 452px; display: flex; flex-direction: column; align-items: center; gap: 6px;"><div class="namesign namesign--them">GOLDENOTTER</div><span class="caption" style="color: #E6DCFF; font-weight: 700;">1,512 · rival · you lead 4–3</span><span class="display-title anim-pop d3" style="color: var(--env-lantern);">VS</span></div>
+<div class="bust anim-commit d2" style="left: 125px; top: 580px; width: 140px; height: 150px;"><img src="../assets/parrot-idle.svg" alt="You"></div>
+<button class="gbtn gbtn--primary gbtn--xl" type="button" onClick="{{goDeal}}" style="position: absolute; left: 20px; right: 20px; bottom: 30px;"><span class="button-label">I’M READY</span></button>
+</div></sc-if>
+
+<sc-if value="{{isDeal}}" hint-placeholder-val="{{false}}">
+<div class="scene" style="position: absolute; inset: 0;">
+<div class="scene__layer scene__bg"><img src="../assets/stall-back.svg" alt="Night market" style="object-position: 50% 30%;"></div>
+<div style="position: absolute; inset: 0; background: rgba(28,18,52,.35);"></div>
+<div class="bust anim-rise" style="left: 45px; top: 70px; width: 300px; height: 300px;"><img src="../assets/obj-compass.svg" alt="The Ruby Compass"></div>
+<div style="position: absolute; left: 20px; right: 20px; top: 380px; display: flex; flex-direction: column; gap: 12px;">
+<span class="display-hero anim-rise" style="font-size: 42px; line-height: 44px; color: #FFF;">The Ruby Compass</span>
+<span class="body anim-rise d1" style="color: #FFE6C8;">Brass, ruby-set, last seen with the Saffron Fleet.</span>
+<div class="banner banner--me anim-rise d2" style="align-self: flex-start; font-size: 20px; padding: 8px 34px;">You are the buyer</div>
+<div class="sealwrap anim-unseal d3" style="align-self: flex-start;"><div class="sealcard"><span class="sealcard__wax"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V8a6 6 0 1112 0v2h1a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1V11a1 1 0 011-1zm3 0h6V8a3 3 0 10-6 0z"/></svg></span><div style="display: flex; flex-direction: column;"><span class="sealcard__k">Your secret maximum</span><span class="sealcard__v">100</span><span class="caption" style="color: #B9B4DA;">only you can see this</span></div></div></div></div>
+<button class="gbtn gbtn--primary gbtn--xl" type="button" onClick="{{goMatch}}" style="position: absolute; left: 20px; right: 20px; bottom: 30px;"><span class="button-label">TAKE YOUR SEAT</span></button>
+</div></sc-if>
+
+<sc-if value="{{isMatch}}" hint-placeholder-val="{{false}}">
+<div class="scene" style="position: absolute; inset: 0;">
+<div class="scene__layer scene__bg" style="height: 560px;"><img src="../assets/stall-back.svg" alt="Night market" style="object-position: 50% 30%;"></div>
+<sc-if value="{{oppTurn}}" hint-placeholder-val="{{false}}"><div class="light-opponent" style="height: 50%;"></div></sc-if>
+<div class="{{bustClass}}" style="left: 34px; top: 92px; width: 270px; height: 290px;"><img src="{{otterSrc}}" alt="GOLDENOTTER"></div>
+<div class="scene__layer scene__counter" style="left: -300px; right: -300px; top: 340px; height: 504px;"><img src="../assets/counter.svg" alt=""></div>
+<sc-if value="{{crossedMine}}" hint-placeholder-val="{{false}}"><div style="position: absolute; left: 0; right: 0; top: 340px; height: 180px; background: radial-gradient(ellipse at 50% 50%, rgba(63,190,107,.55), rgba(63,190,107,0) 70%);"></div></sc-if>
+<div class="bust" style="left: 208px; top: 206px; width: 180px; height: 180px;"><img src="../assets/obj-compass.svg" alt="The Ruby Compass"></div>
+<div style="position: absolute; left: 12px; top: 100px; display: flex; flex-direction: column; gap: 4px;"><div class="namesign namesign--them" style="font-size: 15px; padding: 4px 14px;">GOLDENOTTER</div><span class="caption" style="padding-left: 8px; color: #E6DCFF; font-weight: 700; text-shadow: 0 1px 2px #000;">SELLER · you lead 4–3</span></div>
+<sc-if value="{{myTurn}}" hint-placeholder-val="{{true}}"><div class="speech speech--left anim-pop" style="left: 196px; top: 118px; max-width: 180px;"><span class="speech__tag">GOLDENOTTER says</span>{{say}}</div></sc-if>
+<div class="track" style="left: 18px; top: 424px; width: 354px;"><span class="{{gapClass}}" style="{{gapStyle}}"></span></div>
+<div style="position: absolute; left: 246px; top: 416px; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F07A86, #B23140 60%, #7A1E29); box-shadow: 0 2px 0 #7A1E29, 0 0 0 2px var(--brand-gold); display: flex; align-items: center; justify-content: center; color: #FFE1E4;"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V8a6 6 0 1112 0v2h1a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1V11a1 1 0 011-1zm3 0h6V8a3 3 0 10-6 0z"/></svg></div>
+<sc-if value="{{hasPrev}}" hint-placeholder-val="{{false}}"><div style="{{prevStyle}}"><div class="plaque plaque--ghost plaque--xs"><div class="plaque__face"><span class="plaque__who">was</span><span class="plaque__num">{{prevTheir}}</span></div></div></div></sc-if>
+<div style="{{theirStyle}}"><span class="peg" style="bottom: -10px; height: 10px; background: var(--opponent);"></span><div class="plaque plaque--them plaque--sm"><div class="plaque__face"><span class="plaque__who">Theirs</span><span class="plaque__num">{{their}}</span></div></div></div>
+<div style="{{mineStyle}}"><span class="peg" style="top: -12px; height: 12px; background: var(--player);"></span><div class="plaque plaque--me plaque--sm"><div class="plaque__face"><span class="plaque__who">Yours</span><span class="plaque__num">{{mine}}</span></div></div></div>
+<sc-if value="{{composing}}" hint-placeholder-val="{{false}}"><div style="{{propStyle}}"><span class="rail__pin-flag" style="background: var(--surface-parchment); color: var(--ink-on-parchment); outline: 2px dashed var(--player); outline-offset: -2px;">{{proposed}}</span></div></sc-if>
+<div style="position: absolute; right: 12px; top: 458px;"><div class="sealwrap"><div class="sealcard" style="padding: 8px 16px 8px 46px;"><span class="sealcard__wax" style="width: 42px; height: 42px; margin-top: -21px;"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V8a6 6 0 1112 0v2h1a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1V11a1 1 0 011-1zm3 0h6V8a3 3 0 10-6 0z"/></svg></span><div style="display: flex; flex-direction: column;"><span class="sealcard__k" style="font-size: 10px;">Your limit</span><span class="sealcard__v" style="font-size: 30px; line-height: 30px;">100</span></div></div></div></div>
+<div style="position: absolute; left: 0; right: 0; top: 46px; display: flex; justify-content: center; align-items: center; gap: 8px;"><div class="{{bannerClass}}" style="font-size: 17px; padding: 7px 30px;">{{bannerText}}</div>
+<sc-if value="{{myTurn}}" hint-placeholder-val="{{true}}"><div class="token token--sm"><span class="token__v">×{{bounty}}%</span><span class="token__k">BOUNTY</span></div></sc-if></div>
+<button class="fab" type="button" aria-label="Walk away" onClick="{{walk}}" style="position: absolute; left: 12px; top: 46px; width: 42px; height: 42px;"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2h11a1 1 0 011 1v3h-2V4H7v16h8v-2h2v3a1 1 0 01-1 1H5zm13 6l4 4-4 4v-3h-7v-2h7z"/></svg></button>
+<sc-if value="{{myTurn}}" hint-placeholder-val="{{true}}">
+<div style="position: absolute; left: 10px; right: 10px; bottom: 26px; display: flex; flex-direction: column; gap: 8px;">
+<div class="slip" style="padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 6px;"><span class="caption muted-p caps" style="font-weight: 800; letter-spacing: 1px; font-size: 10px;">New offer · no take-backs</span>
+<div style="display: flex; align-items: center; gap: 8px;"><button class="stepper" type="button" aria-label="Lower" onClick="{{dec}}" style="width: 44px; height: 44px;"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5h18v3H3z"/></svg></button><span class="slip__num" style="font-size: 44px; line-height: 46px;">{{proposed}}</span><button class="stepper" type="button" aria-label="Raise" onClick="{{inc}}" style="width: 44px; height: 44px;"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3h3v7.5H21v3h-7.5V21h-3v-7.5H3v-3h7.5z"/></svg></button><button class="gbtn gbtn--parch gbtn--sm" type="button" onClick="{{inc5}}" style="min-height: 40px;">+5</button>
+<div style="flex-grow: 1;"></div>
+<sc-if value="{{composing}}" hint-placeholder-val="{{false}}"><span class="chipstack"><sc-for list="{{stack}}" as="c" hint-placeholder-count="5"><i style="width: 30px; height: 9px;"></i></sc-for><sc-for list="{{outs}}" as="c" hint-placeholder-count="1"><i class="out" style="width: 30px; height: 9px;"></i></sc-for></span><div style="display: flex; flex-direction: column; line-height: 1.1;"><span class="num" style="font-size: 20px; font-weight: 700; color: var(--resource-chip-deep);">−{{cost}}</span><span class="caption muted-p">{{left}} left</span></div></sc-if></div></div>
+<div style="display: flex; gap: 8px;"><button class="gbtn gbtn--positive gbtn--lg" type="button" onClick="{{accept}}" style="flex: 1;"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M1 7l5-2 3 2h3l3-2 3 1 5-1v9l-3 1-5 4a2 2 0 01-2.8-.2l-.2-.2-.5.4a2 2 0 01-2.8-.3L7.6 17H6l-5-4zm8.3 2L7 10.8l1.4 1.4 2.4-1.7h2.6l4.3 4.3.8-.5V8.2L15.3 7l-2.8 2z"/></svg><span class="button-label">ACCEPT</span><span class="accept-num">{{their}}</span></button>
+<sc-if value="{{canOffer}}" hint-placeholder-val="{{false}}"><button class="gbtn gbtn--primary gbtn--lg" type="button" onClick="{{offer}}" style="flex: 1.2;"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2h6v3a3 3 0 01-1 2.2V10h5a2 2 0 012 2v3H3v-3a2 2 0 012-2h5V7.2A3 3 0 019 5zM3 17h18v2H3zm2 3h14v2H5z"/></svg><span class="button-label">OFFER</span><span class="accept-num">{{proposed}}</span></button></sc-if>
+<sc-if value="{{idle}}" hint-placeholder-val="{{true}}"><button class="gbtn gbtn--lg is-disabled" type="button" disabled style="flex: 1.2;"><span class="button-label">RAISE TO OFFER</span></button></sc-if>
+<sc-if value="{{cantAfford}}" hint-placeholder-val="{{false}}"><button class="gbtn gbtn--lg is-disabled" type="button" disabled style="flex: 1.2;"><span class="button-label">CAN’T AFFORD</span></button></sc-if></div></div></sc-if>
+<sc-if value="{{oppTurn}}" hint-placeholder-val="{{false}}"><div class="anim-fade" style="position: absolute; left: 10px; right: 10px; bottom: 26px; display: flex; align-items: center; gap: 12px; padding: 16px; border-radius: 18px; background: rgba(30,22,60,.9); box-shadow: inset 0 0 0 2px var(--opponent);"><span class="loading-dots"><span></span><span></span><span></span></span><div style="display: flex; flex-direction: column;"><span class="body-strong">Your {{mine}} stands. They’re deciding…</span><span class="caption muted">Your clock is stopped</span></div></div></sc-if>
+</div></sc-if>
+
+<sc-if value="{{isWalk}}" hint-placeholder-val="{{false}}">
+<div class="scene" style="position: absolute; inset: 0;"><div class="scene__layer scene__bg"><img src="../assets/stall-back.svg" alt="" style="object-position: 50% 30%;"></div><div class="scrim"></div>
+<div class="bottom-sheet anim-rise" style="padding: 22px 20px 34px; display: flex; flex-direction: column; gap: 14px; box-shadow: var(--shadow-modal), inset 0 4px 0 var(--crimson);">
+<span class="display-title ink-p">Walk away?</span><p class="body-strong ink-p" style="margin: 0;">No deal means zero bounty for both players.</p>
+<button class="gbtn gbtn--primary gbtn--lg gbtn--block" type="button" onClick="{{stay}}"><span class="button-label">KEEP NEGOTIATING</span></button>
+<button class="gbtn gbtn--destructive gbtn--lg gbtn--block" type="button" onClick="{{confirmWalk}}"><span class="button-label">WALK AWAY</span></button></div></div></sc-if>
+
+<sc-if value="{{isClosed}}" hint-placeholder-val="{{false}}">
+<div class="scene" style="position: absolute; inset: 0;"><div class="scene__layer scene__bg"><img src="../assets/stall-back.svg" alt="" style="object-position: 50% 30%;"></div>
+<div style="position: absolute; inset: 0; background: radial-gradient(ellipse 60% 45% at 50% 58%, rgba(63,190,107,.4), rgba(20,14,40,.7) 75%);"></div>
+<div class="bust anim-pop" style="left: 95px; top: 110px; width: 200px; height: 200px;"><img src="../assets/obj-compass.svg" alt=""></div>
+<div style="position: absolute; left: 0; right: 0; top: 330px; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+<span class="display-hero anim-slam" style="font-size: 64px; color: #FFF; text-shadow: 0 6px 0 var(--positive-deep);">DEAL!</span>
+<div class="plaque plaque--deal anim-pop d2" style="filter: drop-shadow(0 0 28px rgba(63,190,107,.85));"><div class="plaque__face" style="min-width: 230px; padding: 10px 30px 14px;"><span class="plaque__who">The Ruby Compass is yours for</span><span class="plaque__num" style="font-size: 96px; line-height: 96px;">{{price}}</span></div></div></div>
+<button class="gbtn gbtn--primary gbtn--xl" type="button" onClick="{{toReveal}}" style="position: absolute; left: 20px; right: 20px; bottom: 30px;"><span class="button-label">BREAK THE SEALS</span></button></div></sc-if>
+
+<sc-if value="{{isReveal}}" hint-placeholder-val="{{false}}">
+<div class="scene" style="position: absolute; inset: 0;"><div class="scene__layer scene__bg"><img src="../assets/stall-back.svg" alt="" style="object-position: 50% 30%;"></div><div style="position: absolute; inset: 0; background: rgba(28,18,52,.6);"></div>
+<sc-if value="{{step1}}" hint-placeholder-val="{{true}}">
+<div style="position: absolute; left: 20px; right: 20px; top: 70px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+<div style="display: flex; gap: 10px;"><div class="sealwrap anim-unseal"><div class="sealcard" style="padding: 8px 14px 8px 44px; box-shadow: inset 0 0 0 2px var(--opponent), var(--shadow-glow-reward);"><span class="sealcard__wax" style="width: 40px; height: 40px; margin-top: -20px; background: #8B6BD1;"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4c6 0 9.7 4.5 11 8-1.3 3.5-5 8-11 8S2.3 15.5 1 12c1.3-3.5 5-8 11-8zm0 3.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9zm0 2.5a2 2 0 110 4 2 2 0 010-4z"/></svg></span><div style="display: flex; flex-direction: column;"><span class="sealcard__k" style="font-size: 10px; color: #C9B8F0;">Their limit</span><span class="sealcard__v" style="font-size: 30px; line-height: 30px;">59</span></div></div></div>
+<div class="sealwrap"><div class="sealcard" style="padding: 8px 14px 8px 44px;"><span class="sealcard__wax" style="width: 40px; height: 40px; margin-top: -20px;"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V8a6 6 0 1112 0v2h1a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1V11a1 1 0 011-1zm3 0h6V8a3 3 0 10-6 0z"/></svg></span><div style="display: flex; flex-direction: column;"><span class="sealcard__k" style="font-size: 10px;">Your limit</span><span class="sealcard__v" style="font-size: 30px; line-height: 30px;">100</span></div></div></div></div>
+<sc-if value="{{dealt}}" hint-placeholder-val="{{true}}"><span class="label caps" style="margin-top: 30px; color: var(--env-lantern); font-weight: 800; letter-spacing: 1.4px;">You captured</span>
+<span class="numeral-hero anim-pop" style="font-size: 140px; line-height: 130px; color: #FFF; text-shadow: 0 8px 0 var(--player-deep);">{{mePct}}%</span><span class="display-title" style="color: #FFF;">of the deal</span>
+<div style="display: flex; width: 350px; height: 52px; border-radius: 14px; overflow: hidden;"><div class="anim-grow" style="{{split}} background: var(--player);"></div><div style="flex-grow: 1; background: var(--opponent);"></div></div>
+<span class="body" style="color: #FFE6C8; text-align: center;">You kept {{meKept}} of the 41 points between 59 and 100.</span></sc-if>
+<sc-if value="{{nodeal}}" hint-placeholder-val="{{false}}"><span class="display-hero" style="margin-top: 40px; font-size: 52px; color: #FFF;">NO DEAL</span><span class="body" style="color: #FFE6C8; text-align: center;">A deal was possible anywhere from 59 to 100. Zero bounty for both.</span></sc-if></div>
+<button class="gbtn gbtn--primary gbtn--xl" type="button" onClick="{{next}}" style="position: absolute; left: 20px; right: 20px; bottom: 30px;"><span class="button-label">CONTINUE</span></button></sc-if>
+<sc-if value="{{step2}}" hint-placeholder-val="{{false}}">
+<div class="bust anim-arrive" style="left: 95px; top: 80px; width: 200px; height: 215px;"><img src="{{rematchSrc}}" alt="GOLDENOTTER"></div>
+<div class="speech speech--left" style="left: 210px; top: 92px; max-width: 160px;"><span class="speech__tag">GOLDENOTTER says</span>Again. Right now.</div>
+<div style="position: absolute; left: 16px; right: 16px; top: 320px; display: flex; flex-direction: column; align-items: center; gap: 14px;">
+<div style="display: flex; align-items: center; gap: 14px;"><span class="numeral-hero anim-pop" style="font-size: 76px; line-height: 76px; color: #7CF0A0; text-shadow: 0 5px 0 var(--positive-deep);">{{delta}}</span><span class="label caps" style="color: #FFE6C8; font-weight: 800;">Bounty Rating</span></div>
+<div class="objective"><span class="objective__icon"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a11 11 0 110 22 11 11 0 010-22zm0 3a8 8 0 100 16 8 8 0 000-16zm0 3a5 5 0 110 10 5 5 0 010-10zm0 3a2 2 0 100 4 2 2 0 000-4z"/></svg></span><span class="body-strong">Next: Merchant I</span></div></div>
+<div style="position: absolute; left: 16px; right: 16px; bottom: 28px; display: flex; flex-direction: column; gap: 10px;">
+<button class="gbtn gbtn--primary" type="button" onClick="{{rematch}}" style="min-height: 76px; border-radius: 22px;"><svg class="ico ico--lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 11-8.5 12h2.2A7 7 0 1012 5a7 7 0 00-5 2.1L9.9 10H2V2.1l3.5 3.5A9 9 0 0112 3zm-2 5.5l6 3.5-6 3.5z"/></svg><span style="font-family: var(--font-world); font-weight: 800; font-size: 28px;">REMATCH</span></button>
+<button class="gbtn gbtn--secondary gbtn--lg" type="button" onClick="{{rematch}}"><span class="button-label">NEW OPPONENT</span></button></div></sc-if>
+</div></sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = this.fresh(1); }
+  fresh(round) {
+    return { screen: 'found', round: round || 1, their: 78, mine: 67, proposed: 67, chips: 72, bounty: 84, turn: 'me',
+             price: null, nodeal: false, step: 1, arrived: 0, sent: 0, prevTheir: null, say: 'Make it official and we’ll talk.' };
+  }
+  cost(move) { return move <= 0 ? 0 : Math.ceil(move * 0.8); }
+  opponentMove() {
+    const s = this.state;
+    if (s.their - s.mine <= 2) { this.setState({ screen: 'closed', price: s.mine }); return; }
+    const next = Math.max(59, s.their - Math.ceil((s.their - s.mine) * 0.45));
+    const lines = ['Hm. ' + next + '.', next + ' — and that hurts.', 'Fine. ' + next + '.', next + '. Don’t push your luck.'];
+    this.setState({ prevTheir: s.their, their: next, turn: 'me', proposed: s.mine, arrived: s.arrived + 1, say: lines[s.arrived % lines.length], bounty: Math.max(30, s.bounty - 3) });
+  }
+  renderVals() {
+    const IMG = {"otter-idle": "../assets/old-otter.svg", "otter-thinking": "../assets/otter-thinking.svg", "otter-offer": "../assets/otter-offer.svg", "otter-smug": "../assets/otter-smug.svg", "otter-rematch": "../assets/otter-rematch.svg", "parrot-idle": "../assets/parrot-idle.svg", "parrot-win": "../assets/parrot-win.svg", "parrot-lose": "../assets/parrot-lose.svg"};
+    const s = this.state;
+    const move = s.proposed - s.mine;
+    const cost = this.cost(move);
+    const afford = cost <= s.chips;
+    const crossed = s.mine >= s.their;
+    const gap = Math.abs(s.their - s.mine);
+    const X = (v) => Math.round(18 + (v - 45) / 80 * 354);
+    const lo = Math.min(s.mine, s.their), hi = Math.max(s.mine, s.their);
+    const price = s.price || 0;
+    const mePct = s.nodeal ? 0 : Math.round((100 - price) / 41 * 100);
+    const myTurn = s.turn === 'me', oppTurn = s.turn === 'opp';
+    const pose = oppTurn ? 'thinking' : (crossed ? 'smug' : (s.arrived > 0 ? 'offer' : 'idle'));
+    const set = (o) => () => this.setState(o);
+    const nChips = Math.max(0, Math.ceil((s.chips - (move > 0 ? cost : 0)) / 10));
+    return {
+      isFound: s.screen === 'found', isDeal: s.screen === 'deal', isMatch: s.screen === 'match', isClosed: s.screen === 'closed',
+      isReveal: s.screen === 'reveal', isWalk: s.screen === 'walk',
+      myTurn: myTurn, oppTurn: oppTurn, crossedMine: crossed && myTurn, notCrossedMine: !crossed && myTurn,
+      their: s.their, mine: s.mine, proposed: s.proposed, move: '+' + move, cost: String(cost), left: String(s.chips - cost),
+      chips: s.chips, bounty: s.bounty, round: s.round, say: s.say, hasPrev: s.prevTheir !== null && myTurn, prevTheir: s.prevTheir,
+      composing: move > 0, idle: move <= 0, canOffer: move > 0 && afford, cantAfford: move > 0 && !afford,
+      otterSrc: IMG['otter-' + pose], meSrc: IMG['parrot-' + (s.nodeal ? 'lose' : 'win')], rematchSrc: IMG['otter-rematch'],
+      bannerClass: crossed ? 'banner banner--deal' : (myTurn ? 'banner banner--me' : 'banner banner--them'),
+      bannerText: crossed ? 'Deal possible' : (myTurn ? 'Your move' : 'They’re thinking'),
+      bustClass: oppTurn ? 'bust rim-them' : 'bust',
+      gapClass: crossed ? 'track__cross' : (gap <= 4 ? 'track__close' : 'track__gap'),
+      gapStyle: 'left: ' + (X(lo) - 18) + 'px; width: ' + Math.max(8, X(hi) - X(lo)) + 'px;',
+      theirStyle: 'position: absolute; left: ' + (X(s.their) - 62) + 'px; top: 338px;',
+      prevStyle: 'position: absolute; left: ' + (X(s.prevTheir || 0) - 45) + 'px; top: 352px; opacity: .45;',
+      mineStyle: 'position: absolute; left: ' + Math.max(24, X(s.mine) - 62) + 'px; top: 450px;',
+      propStyle: 'position: absolute; left: ' + (X(s.proposed) - 18) + 'px; top: 438px;',
+      stack: Array.from({ length: Math.min(6, nChips) }, (_, i) => ({ k: i })),
+      outs: Array.from({ length: move > 0 ? Math.max(1, Math.ceil(cost / 10)) : 0 }, (_, i) => ({ k: i })),
+      mePct: mePct, oppPct: 100 - mePct, meKept: 100 - price, price: price, nodeal: s.nodeal, dealt: !s.nodeal,
+      delta: s.nodeal ? '−9' : '+' + Math.max(4, Math.round((mePct - 40) * 0.8)),
+      step1: s.step === 1, step2: s.step >= 2,
+      split: 'width: ' + mePct + '%;', bountyFill: 'width: ' + s.bounty + '%;',
+      goDeal: set({ screen: 'deal' }), goMatch: set({ screen: 'match' }),
+      dec: () => this.setState({ proposed: Math.max(s.mine, s.proposed - 1) }),
+      inc: () => this.setState({ proposed: s.proposed + 1 }),
+      inc5: () => this.setState({ proposed: s.proposed + 5 }),
+      offer: () => {
+        if (!(move > 0 && afford && myTurn)) return;
+        this.setState({ mine: s.proposed, chips: s.chips - cost, turn: 'opp', sent: s.sent + 1, bounty: Math.max(30, s.bounty - 2), say: '' });
+        setTimeout(() => this.opponentMove(), 1800);
+      },
+      accept: () => { if (myTurn) this.setState({ screen: 'closed', price: s.their }); },
+      walk: set({ screen: 'walk' }), stay: set({ screen: 'match' }),
+      confirmWalk: () => this.setState({ screen: 'reveal', nodeal: true, step: 1 }),
+      toReveal: set({ screen: 'reveal', step: 1 }),
+      next: () => this.setState({ step: 2 }),
+      rematch: () => this.setState(this.fresh(s.round + 1)),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

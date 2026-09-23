@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction A - The Arena - Bounty Bay Royale (mock)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-0:#050b16; --bg-1:#0a1626; --bg-2:#101f38; --bg-3:#172a4d;
+    --ink:#eaf6ff; --ink-dim:#9fb8d4; --ink-faint:#5f7c9c;
+    --turquoise:#2de0d0; --turquoise-hot:#5cf2e4;
+    --gold:#ffc94d; --gold-deep:#8a6508;
+    --rival:#b26bff; --danger:#ff6b5e; --success:#3ddc84;
+    --r-sm:10px; --r-md:16px; --r-lg:24px; --r-pill:999px;
+    --shadow-1:0 4px 16px rgba(2,8,18,.45); --shadow-2:0 14px 44px rgba(2,8,18,.6);
+    --shadow-raise:0 6px 0 rgba(2,8,18,.55);
+    --glow-accent:0 0 26px rgba(45,224,208,.28); --glow-gold:0 0 26px rgba(255,201,77,.26);
+    --glow-rival:0 0 26px rgba(178,107,255,.28);
+    --ease-pop:cubic-bezier(.2,1.4,.3,1); --ease-snap:cubic-bezier(.16,1,.3,1);
+  }
+  * { box-sizing:border-box; margin:0; }
+  html,body { min-height:100%; }
+  body {
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    background:radial-gradient(140% 100% at 50% 0%, #0d1d33 0%, var(--bg-1) 55%, var(--bg-0) 100%);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .num { font-variant-numeric:tabular-nums; font-feature-settings:'tnum'; }
+
+  /* arena shell */
+  .arena {
+    max-width:1120px; margin:0 auto; padding:18px 22px 26px;
+    display:grid; gap:14px; min-height:100dvh;
+    grid-template-rows:auto 1fr auto;
+  }
+  .arena-top { display:flex; align-items:center; justify-content:space-between; gap:14px; }
+  .brand { font-family:'Outfit'; font-weight:900; font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); }
+  .brand em { font-style:normal; color:var(--turquoise); }
+  .mode-pill { font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-dim); background:var(--bg-2); border:1px solid rgba(159,184,212,.16); border-radius:var(--r-pill); padding:6px 14px; }
+
+  /* the two combatants */
+  .battlefield { display:grid; grid-template-columns:1fr auto 1fr; gap:14px; align-items:stretch; }
+  .combatant { display:flex; flex-direction:column; gap:10px; }
+  .combatant .zone { background:linear-gradient(180deg,var(--bg-3),var(--bg-2)); border:1px solid rgba(159,184,212,.18); border-radius:var(--r-lg); padding:14px 16px; box-shadow:var(--shadow-1); }
+  .combatant.theirs .zone { border-color:rgba(178,107,255,.35); box-shadow:var(--shadow-1),var(--glow-rival); }
+  .combatant.mine .zone { border-color:rgba(45,224,208,.4); box-shadow:var(--shadow-1),var(--glow-accent); }
+  .identity { display:flex; align-items:center; gap:10px; }
+  .avatar { width:44px; height:44px; border-radius:var(--r-pill); display:grid; place-items:center; font-family:'Outfit'; font-weight:900; font-size:1.05rem; color:var(--bg-0); flex:none; }
+  .combatant.theirs .avatar { background:linear-gradient(180deg,#c58fff,var(--rival)); }
+  .combatant.mine .avatar { background:linear-gradient(180deg,var(--turquoise-hot),var(--turquoise)); }
+  .identity .name { font-family:'Outfit'; font-weight:800; font-size:1rem; }
+  .identity .role { font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim); }
+  .identity .sub { font-size:.72rem; color:var(--ink-faint); }
+
+  .offer-plate { background:var(--bg-0); border:1px solid rgba(159,184,212,.25); border-radius:var(--r-md); padding:10px 20px 12px; text-align:center; box-shadow:var(--shadow-2); }
+  .offer-plate .who { font-size:.68rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-dim); }
+  .offer-plate .offer-amount { font-family:'Outfit'; font-size:2.5rem; font-weight:900; line-height:1.05; }
+  .combatant.theirs .offer-amount { color:var(--rival); }
+  .combatant.mine .offer-amount { color:var(--turquoise); }
+  .offer-plate .tag { font-size:.68rem; color:var(--ink-faint); }
+
+  .hud { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .hud-item { display:flex; align-items:center; gap:7px; font-size:.78rem; color:var(--ink-dim); }
+  .hud-item .ring { position:relative; width:46px; height:46px; }
+  .hud-item .ring svg { transform:rotate(-90deg); }
+  .hud-item .ring b { position:absolute; inset:0; display:grid; place-items:center; font-family:'Outfit'; font-weight:800; font-size:.72rem; color:var(--gold); }
+
+  .confidential { background:repeating-linear-gradient(-45deg,rgba(255,201,77,.05) 0 10px,transparent 10px 20px),var(--bg-0); border:1px dashed rgba(255,201,77,.55); border-radius:var(--r-md); padding:10px 14px; }
+  .confidential .kicker { font-size:.64rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); }
+  .confidential .value { font-family:'Outfit'; font-size:1.35rem; font-weight:900; }
+  .confidential .hint { font-size:.7rem; color:var(--ink-faint); }
+
+  /* center: asset + gap */
+  .center-stage { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; min-width:230px; }
+  .asset-frame { width:200px; border-radius:var(--r-lg); overflow:hidden; background:radial-gradient(120% 120% at 30% 20%,#1b3a66,var(--bg-0)); border:1px solid rgba(255,201,77,.4); box-shadow:var(--shadow-2),var(--glow-gold); }
+  .asset-frame .art { display:grid; place-items:center; min-height:170px; }
+  .asset-frame .name { text-align:center; padding:8px 10px 10px; border-top:1px solid rgba(255,201,77,.25); }
+  .asset-frame .name b { font-family:'Outfit'; font-size:.95rem; font-weight:800; letter-spacing:.04em; display:block; }
+  .asset-frame .name span { font-size:.68rem; color:var(--ink-dim); line-height:1.35; display:block; margin-top:3px; }
+  .gap-meter { text-align:center; }
+  .gap-meter .label { font-size:.64rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); }
+  .gap-meter .value { font-family:'Outfit'; font-size:1.7rem; font-weight:900; color:var(--gold); }
+  .gap-meter .line { width:150px; height:4px; margin:4px auto 0; border-radius:var(--r-pill); background:linear-gradient(90deg,var(--turquoise),var(--rival)); }
+
+  /* action dock */
+  .composer { display:flex; align-items:center; gap:12px; flex-wrap:wrap; background:linear-gradient(180deg,var(--bg-3),var(--bg-2)); border:1px solid rgba(45,224,208,.4); border-radius:var(--r-lg); padding:12px 16px; box-shadow:var(--shadow-2),var(--glow-accent); }
+  .composer .propose { display:flex; flex-direction:column; gap:3px; }
+  .composer .propose label { font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); }
+  .composer input { width:130px; min-height:52px; font-family:'Outfit'; font-size:1.5rem; font-weight:800; color:var(--ink); background:var(--bg-0); border:1px solid rgba(159,184,212,.3); border-radius:var(--r-md); padding:0 14px; }
+  .composer input:focus { outline:2px solid var(--turquoise); outline-offset:2px; }
+  .cost-preview { display:flex; gap:14px; flex-wrap:wrap; font-size:.85rem; color:var(--ink-dim); }
+  .cost-preview b { color:var(--ink); }
+  .cost-preview .down { color:var(--danger); }
+  .cost-preview .up { color:var(--success); }
+  .composer .btns { display:flex; gap:10px; flex-wrap:wrap; margin-left:auto; }
+  .game-btn { display:inline-flex; align-items:center; justify-content:center; min-height:52px; padding:0 26px; font-family:'Outfit'; font-size:.98rem; font-weight:800; letter-spacing:.02em; color:var(--bg-0); background:linear-gradient(180deg,var(--turquoise-hot),var(--turquoise)); border:0; border-radius:var(--r-md); box-shadow:var(--shadow-raise),var(--glow-accent); cursor:pointer; transition:transform 120ms var(--ease-pop),box-shadow 120ms var(--ease-snap); }
+  .game-btn:active { transform:translateY(2px) scale(.98); }
+  .game-btn.gold { background:linear-gradient(180deg,#ffdc7a,var(--gold)); box-shadow:var(--shadow-raise),var(--glow-gold); }
+  .game-btn.danger { background:transparent; color:var(--danger); border:1px solid rgba(255,107,94,.6); box-shadow:none; }
+
+  .turn-banner { font-family:'Outfit'; font-weight:900; letter-spacing:.14em; text-transform:uppercase; font-size:.95rem; padding:10px 30px; border-radius:var(--r-pill); color:var(--bg-0); background:linear-gradient(180deg,var(--turquoise-hot),var(--turquoise)); box-shadow:var(--glow-accent); animation:pulse 1.6s var(--ease-snap) infinite; }
+  @keyframes pulse { 0%,100% { box-shadow:0 0 14px rgba(45,224,208,.35);} 50% { box-shadow:0 0 30px rgba(45,224,208,.6);} }
+
+  .chat-strip { display:flex; gap:10px; align-items:center; background:var(--bg-2); border:1px solid rgba(159,184,212,.14); border-radius:var(--r-lg); padding:10px 14px; }
+  .chat-strip .bubble { background:var(--bg-3); border-radius:var(--r-md); padding:8px 12px; font-size:.82rem; color:var(--ink-dim); }
+  .chat-strip input { flex:1; min-height:40px; background:var(--bg-0); border:1px solid rgba(159,184,212,.25); border-radius:var(--r-md); color:var(--ink); padding:0 12px; font-size:.85rem; }
+  .chat-strip .unread { width:8px; height:8px; border-radius:50%; background:var(--danger); flex:none; }
+
+  /* mobile arena: tight vertical battlefield + persistent bottom dock */
+  @media (max-width:560px) {
+    .arena { padding:12px 12px 12px; gap:10px; grid-template-rows:auto 1fr auto; }
+    .battlefield { grid-template-columns:1fr; }
+    .center-stage { flex-direction:row; min-width:0; }
+    .asset-frame { width:110px; flex:none; }
+    .asset-frame .art { min-height:84px; }
+    .asset-frame .name b { font-size:.8rem; }
+    .asset-frame .name span { display:none; }
+    .gap-meter .value { font-size:1.3rem; }
+    .gap-meter .line { width:90px; }
+    .offer-plate .offer-amount { font-size:1.9rem; }
+    .composer { position:sticky; bottom:0; }
+    .composer .btns { margin-left:0; }
+    .composer input { width:104px; }
+    .arena-top { flex-wrap:wrap; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .turn-banner { animation:none; }
+    .game-btn { transition:none; }
+  }
+</style>
+</head>
+<body>
+<div class="arena">
+  <header class="arena-top">
+    <span class="brand">BOUNTY <em>BAY</em></span>
+    <span class="mode-pill">FRIEND MATCH</span>
+    <span class="turn-banner">YOUR MOVE</span>
+  </header>
+
+  <section class="battlefield">
+    <!-- opponent -->
+    <div class="combatant theirs">
+      <div class="zone">
+        <div class="identity">
+          <span class="avatar">VC</span>
+          <div>
+            <div class="name">VantaCrow</div>
+            <div class="role">BUYER</div>
+            <div class="sub">RATING 1412 · 37 GAMES</div>
+          </div>
+        </div>
+        <div class="offer-plate">
+          <div class="who">THEIR OFFER</div>
+          <div class="offer-amount num">82.5</div>
+          <div class="tag">last moved 3.0 toward you</div>
+        </div>
+      </div>
+      <div class="hud">
+        <span class="hud-item"><span class="ring"><svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="19" fill="none" stroke="#172a4d" stroke-width="6"/><circle cx="23" cy="23" r="19" fill="none" stroke="#ffc94d" stroke-width="6" stroke-dasharray="119.4" stroke-dashoffset="10.7"/></svg><b class="num">91%</b></span> BOUNTY</span>
+        <span class="hud-item">76 / 100 CHIPS</span>
+      </div>
+    </div>
+
+    <!-- asset + gap -->
+    <div class="center-stage">
+      <div class="asset-frame">
+        <div class="art">
+          <svg width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="The Ruby Compass">
+            <defs><radialGradient id="ruby" cx="38%" cy="30%"><stop offset="0%" stop-color="#ff7a8a"/><stop offset="60%" stop-color="#c22b4e"/><stop offset="100%" stop-color="#6e0f2a"/></radialGradient></defs>
+            <circle cx="60" cy="60" r="54" fill="none" stroke="#ffc94d" stroke-width="3"/>
+            <circle cx="60" cy="60" r="42" fill="url(#ruby)"/>
+            <g stroke="#ffc94d" stroke-width="2">
+              <line x1="60" y1="8" x2="60" y2="18"/><line x1="60" y1="102" x2="60" y2="112"/>
+              <line x1="8" y1="60" x2="18" y2="60"/><line x1="102" y1="60" x2="112" y2="60"/>
+            </g>
+            <polygon points="60,30 68,64 60,60 52,64" fill="#ffc94d"/>
+            <polygon points="60,90 52,56 60,60 68,56" fill="#e8d8b0"/>
+            <circle cx="60" cy="60" r="6" fill="#2de0d0"/>
+          </svg>
+        </div>
+        <div class="name"><b>THE RUBY COMPASS</b><span>A fabled navigator's instrument. It points to what you want most.</span></div>
+      </div>
+      <div class="gap-meter">
+        <div class="label">THE GAP</div>
+        <div class="value num">19.5</div>
+        <div class="line"></div>
+      </div>
+    </div>
+
+    <!-- me -->
+    <div class="combatant mine">
+      <div class="zone">
+        <div class="identity">
+          <span class="avatar">HB</span>
+          <div>
+            <div class="name">Harbormind</div>
+            <div class="role">SELLER</div>
+            <div class="sub">RATING 1358 · 12 GAMES</div>
+          </div>
+        </div>
+        <div class="offer-plate">
+          <div class="who">YOUR OFFER</div>
+          <div class="offer-amount num">63.0</div>
+          <div class="tag">committed - you cannot move back</div>
+        </div>
+      </div>
+      <div class="confidential">
+        <div class="kicker">CONFIDENTIAL · YOUR LIMIT</div>
+        <div class="value num">40.0</div>
+        <div class="hint">Only you can see this.</div>
+      </div>
+      <div class="hud">
+        <span class="hud-item"><span class="ring"><svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="19" fill="none" stroke="#172a4d" stroke-width="6"/><circle cx="23" cy="23" r="19" fill="none" stroke="#ffc94d" stroke-width="6" stroke-dasharray="119.4" stroke-dashoffset="10.7"/></svg><b class="num">91%</b></span> BOUNTY × 91%</span>
+        <span class="hud-item"><span class="ring" style="width:auto;height:auto;"><b class="num" style="position:static;color:var(--gold);font-size:1rem;">72</b></span> / 100 CHIPS</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="composer">
+    <div class="propose">
+      <label for="offer-a">PROPOSE</label>
+      <input id="offer-a" class="num" inputmode="decimal" value="60">
+    </div>
+    <div class="cost-preview">
+      <span>MOVE <b class="down num">-3.0</b></span>
+      <span>COST <b class="num">5</b></span>
+      <span><b class="num">67 CHIPS LEFT</b></span>
+    </div>
+    <div class="btns">
+      <button class="game-btn">MAKE OFFER</button>
+      <button class="game-btn gold">ACCEPT 82.5</button>
+      <button class="game-btn danger">WALK AWAY</button>
+    </div>
+  </section>
+
+  <section class="chat-strip">
+    <span class="unread" aria-label="new message"></span>
+    <span class="bubble">VantaCrow: I can move, but not much.</span>
+    <input placeholder="Table talk - numbers in chat are not offers.">
+    <button class="game-btn" style="min-height:40px;padding:0 16px;font-size:.8rem;">SEND</button>
+  </section>
+</div>
+</body>
+</html>

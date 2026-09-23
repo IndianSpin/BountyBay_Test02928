@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Blur test</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 2400px; height: 1160px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">H / I · Blur test</div><h1>Blur every word, and the table still tells you what to do</h1>
+<div style="display:grid;grid-template-columns:1.6fr 1fr;gap:36px"><div style="display:flex;flex-direction:column;gap:16px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><img src="../assets/blur-lmd-mine.jpg" alt="Your move, blurred" style="width:620px;border:2.5px solid #2A1A2E;border-radius:6px 18px 6px 18px"><span class="cap" style="text-align:center">Your move</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><img src="../assets/blur-lmd-theirs.jpg" alt="Their move, blurred" style="width:620px;border:2.5px solid #2A1A2E;border-radius:6px 18px 6px 18px"><span class="cap" style="text-align:center">Their move</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><img src="../assets/blur-lmd-cross.jpg" alt="Offers crossed, blurred" style="width:620px;border:2.5px solid #2A1A2E;border-radius:6px 18px 6px 18px"><span class="cap" style="text-align:center">Offers crossed</span></div>
+<div style="display:flex;gap:12px;justify-content:center"><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><img src="../assets/blur-lmm-mine.jpg" alt="Mobile · mine, blurred" style="width:190px;border:2.5px solid #2A1A2E;border-radius:6px 18px 6px 18px"><span class="cap" style="text-align:center">Mobile · mine</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><img src="../assets/blur-lmm-theirs.jpg" alt="Their move, blurred" style="width:190px;border:2.5px solid #2A1A2E;border-radius:6px 18px 6px 18px"><span class="cap" style="text-align:center">Their move</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:6px"><img src="../assets/blur-lmm-cross.jpg" alt="Crossed, blurred" style="width:190px;border:2.5px solid #2A1A2E;border-radius:6px 18px 6px 18px"><span class="cap" style="text-align:center">Crossed</span></div></div></div></div>
+<div style="display:flex;flex-direction:column"><div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(42,26,46,.15)"><span class="tag pass">Pass</span><div><b>Who am I?</b><p>The ember sleeves and hands at the bottom edge, where the camera sits. My limit card and chips are by my hands.</p></div></div><div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(42,26,46,.15)"><span class="tag pass">Pass</span><div><b>Who am I facing?</b><p>The only character in the frame, centred, full costume, lit by the stall lanterns.</p></div></div><div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(42,26,46,.15)"><span class="tag pass">Pass</span><div><b>What are we negotiating?</b><p>The single glowing object on the violet runner between us.</p></div></div><div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(42,26,46,.15)"><span class="tag pass">Pass</span><div><b>Whose turn?</b><p>Light: warm ember pool at my edge vs violet spotlight on them. The turn-clock enamel repeats it. Their pose (listening vs thinking) confirms it.</p></div></div><div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(42,26,46,.15)"><span class="tag pass">Pass</span><div><b>How close are we?</b><p>The distance between the ember and violet pins on the brass rail. Crossed pins turn it green.</p></div></div><div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(42,26,46,.15)"><span class="tag pass">Pass</span><div><b>What do I do?</b><p>The one big wax seal: crimson = send my offer; green = accept theirs. On their turn there is no seal at all.</p></div></div><p class="cap" style="margin-top:12px">10 px Gaussian blur at 1440 wide, 7 px at 390 (stricter than the 7 px v2 test). Same six questions as the v2 test on page 02.</p></div></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 2400, "height": 1160}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

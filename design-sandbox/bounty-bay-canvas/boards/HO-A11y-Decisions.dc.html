@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Accessibility and decisions</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="doc plain" style="width: 1800px; height: 1500px; ">
+<div style="position: absolute; inset: 0; padding: 56px; display: flex; flex-direction: column; gap: 18px;"><span class="kicker">J · Accessibility, animation intent, open decisions</span><h1>Before you build</h1><div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px;">
+<div class="spec-card" style="display: flex; flex-direction: column; gap: 8px;"><h3>Accessibility</h3><p>• Every state is carried by shape + position + text, never colour alone (ember/violet also differ by side of table and label).<br>• Live region announces: “Their offer 74, was 78. Your move.” / “Deal possible.” / “Deal at 74.”<br>• Hold-to-accept has a keyboard equivalent (Enter held 600 ms, or Enter then confirm).<br>• Text on scenes sits on ≥ 80% opaque plates; body text ≥ 4.5:1.<br>• Reduced motion honoured everywhere; no flashing above 3 Hz.<br>• Screen-reader names for busts: “GOLDENOTTER, opponent, thinking”.</p></div>
+<div class="spec-card" style="display: flex; flex-direction: column; gap: 8px;"><h3>Animation intent</h3><p>Motion explains cause (see 18 · Motion). Durations 150–600 ms; result beats ≤ 8 s total and skippable. Opponent poses switch on events (offer received → offer pose 1.5 s → idle; their turn → thinking; voice activity → speaking).</p></div></div><table><tr><th>#</th><th>Product decision required</th><th>Drawn default</th></tr><tr><td class="">D1</td><td class="m">Chip pool size and cost curve per move</td><td class="m">80 chips; cost ≈ 0.8 × move size</td></tr><tr><td class="">D2</td><td class="m">Bounty formula</td><td class="m">surplus captured × multiplier</td></tr><tr><td class="">D3</td><td class="m">Rating algorithm & deltas (incl. no-deal)</td><td class="m">Elo-like placeholders +18 / −9</td></tr><tr><td class="">D4</td><td class="m">Multiplier decay curve</td><td class="m">linear to 30% floor</td></tr><tr><td class="">D5</td><td class="m">Rated status of friend, tournament, rotating deals</td><td class="m">unrated</td></tr><tr><td class="">D6</td><td class="m">Disconnect grace and clock behaviour</td><td class="m">60 s, both clocks frozen, then no-deal</td></tr><tr><td class="">D7</td><td class="m">Can you accept on the opponent’s turn?</td><td class="m">No</td></tr><tr><td class="">D8</td><td class="m">Hard per-match time limit</td><td class="m">None</td></tr><tr><td class="">D9</td><td class="m">Daily Deal opponent</td><td class="m">Fixed disclosed AI (The House)</td></tr><tr><td class="">D10</td><td class="m">Offers above your own limit</td><td class="m">Allowed with warning</td></tr><tr><td class="">D11</td><td class="m">Voice recording for moderation</td><td class="m">Not recorded</td></tr><tr><td class="">D12</td><td class="m">Roles swap on rematch</td><td class="m">Yes</td></tr><tr><td class="">D13</td><td class="m">Can new players skip tutorial to ranked</td><td class="m">Skip allowed after 1 practice deal</td></tr><tr><td class="">D14</td><td class="m">Guest play via friend link</td><td class="m">Allowed</td></tr><tr><td class="">D15</td><td class="m">Rotating-mode modifier values</td><td class="m">placeholders</td></tr><tr><td class="">D16</td><td class="m">Deal-reveal countdown length</td><td class="m">12 s</td></tr><tr><td class="">D17</td><td class="m">Highlight thresholds</td><td class="m">see HL page</td></tr><tr><td class="">D18</td><td class="m">Demotion protection</td><td class="m">20-point cushion</td></tr><tr><td class="">D19</td><td class="m">Tournament tie / no-deal rule</td><td class="m">replay once, then higher rating advances</td></tr><tr><td class="">D20</td><td class="m">Insight rule priority</td><td class="m">concession totals first</td></tr><tr><td class="">D21</td><td class="m">Unlock thresholds (voice, friend challenge)</td><td class="m">3 ranked deals / first human deal</td></tr><tr><td class="">—</td><td class="m">Show opponent’s chips / multiplier?</td><td class="m">Hidden</td></tr></table></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1800, "height": 1500}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

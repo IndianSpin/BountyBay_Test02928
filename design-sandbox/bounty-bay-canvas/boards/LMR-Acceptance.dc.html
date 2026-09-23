@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Acceptance test</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 1900px; height: 1080px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">Acceptance test</div><h1>Seven pass, two partial, and what closes the gap</h1>
+<div class="card" style="padding:16px"><table><tr><th>Criterion</th><th style="width:110px">Status</th><th>Evidence / gap</th></tr><tr><td><b>At least 5 characters recognisable from silhouette alone</b></td><td><span class="tag pass">Pass</span></td><td class="m">All 8 pass in the lineup (A3). The tail, crest, barrel, spikes, antennae, shell, hat and crane are unique shapes.</td></tr><tr><td><b>Characters meaningfully different in personality</b></td><td><span class="tag pass">Pass</span></td><td class="m">Each has an energy, a stance and a tell (A3 bible); the poses differ per rig, not just the heads.</td></tr><tr><td><b>The opponent feels like someone I negotiate against</b></td><td><span class="tag pass">Pass</span></td><td class="m">They sit across a real table, react to public events and hold their offer physically.</td></tr><tr><td><b>The asset looks valuable</b></td><td><span class="tag pass">Pass</span></td><td class="m">Material truth, a jewel moment, a presentation stand, provenance and a halo (F).</td></tr><tr><td><b>The game world feels like a place</b></td><td><span class="tag pass">Pass</span></td><td class="m">Three districts with trades, moods and depth layers; a fourth and fifth are specified but not drawn yet.</td></tr><tr><td><b>Understandable with text blurred</b></td><td><span class="tag pass">Pass</span></td><td class="m">Six of six questions answered (blur test).</td></tr><tr><td><b>The UI feels embedded, not layered on top</b></td><td><span class="tag part">Partial</span></td><td class="m">Plaque, card, limit, chips, clock and seal are objects. The speech bubble and the two corner knobs are still overlay UI by design (legibility, access).</td></tr><tr><td><b>Not generic AI mobile-game output</b></td><td><span class="tag part">Partial</span></td><td class="m">Distinct ink + cel language and invented trades help. A human illustrator pass (brush texture, hand-drawn line variance) is the remaining gap. Code-drawn vectors are the spec, not the final paint.</td></tr><tr><td><b>Recognisable as Bounty Bay without the logo</b></td><td><span class="tag pass">Pass</span></td><td class="m">First-person table + ember sleeves + brass plaque + wax seal is a unique composition.</td></tr></table></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:22px"><div class="adpdr"><div class="k">PRODUCT DECISION REQUIRED · Illustration production</div><p style="margin-top:4px">These boards are production specs drawn in code: proportions, palette, poses and composition are final-intent, but surface paint is not. Decide whether a character illustrator repaints the eight rigs (recommended) or whether we ship the vector style as-is.</p></div>
+<div class="card" style="padding:16px"><h3>Next, after approval</h3><p>1 Paint pass on the 8 rigs · 2 Glasshouse + Saltmarket scenes · 3 Propagate first person to onboarding (T1–T7), the result reveal and the Bay · 4 Re-run the blur test on every propagated state.</p></div></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1900, "height": 1080}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

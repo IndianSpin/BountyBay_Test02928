@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings — mobile</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="plain phone" style="width: 390px; height: 844px; ">
+<div style="position: absolute; left: 0; right: 0; top: 0; padding: 50px 16px 10px; display: flex; align-items: center; gap: 10px; z-index: 4;"><button class="gbtn gbtn--icon" type="button" aria-label="Back" style="width: 40px; height: 40px;"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3.5L7 12l8.5 8.5 2.1-2.1L11.2 12l6.4-6.4z"/></svg></button><span class="display-subtitle" style="flex-grow: 1;">Settings</span></div><div style="position: absolute; left: 14px; right: 14px; top: 100px; display: flex; flex-direction: column; gap: 12px;">
+<div class="panel" style="padding: 4px 16px;"><label style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--mist-200);"><div style="flex-grow: 1; display: flex; flex-direction: column;"><span class="body-strong">Sound effects</span></div>
+<span role="switch" aria-checked="true" style="width: 52px; height: 30px; border-radius: 15px; background: var(--positive); position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,.3);"><span style="position: absolute; top: 3px; left: 25px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink-on-dark); box-shadow: 0 2px 0 rgba(0,0,0,.3);"></span></span></label><label style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--mist-200);"><div style="flex-grow: 1; display: flex; flex-direction: column;"><span class="body-strong">Haptics</span></div>
+<span role="switch" aria-checked="true" style="width: 52px; height: 30px; border-radius: 15px; background: var(--positive); position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,.3);"><span style="position: absolute; top: 3px; left: 25px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink-on-dark); box-shadow: 0 2px 0 rgba(0,0,0,.3);"></span></span></label><label style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--mist-200);"><div style="flex-grow: 1; display: flex; flex-direction: column;"><span class="body-strong">Reduced motion</span></div>
+<span role="switch" aria-checked="false" style="width: 52px; height: 30px; border-radius: 15px; background: var(--surface-disabled); position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,.3);"><span style="position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink-on-dark); box-shadow: 0 2px 0 rgba(0,0,0,.3);"></span></span></label><label style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--mist-200);"><div style="flex-grow: 1; display: flex; flex-direction: column;"><span class="body-strong">In-match hints</span></div>
+<span role="switch" aria-checked="true" style="width: 52px; height: 30px; border-radius: 15px; background: var(--positive); position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,.3);"><span style="position: absolute; top: 3px; left: 25px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink-on-dark); box-shadow: 0 2px 0 rgba(0,0,0,.3);"></span></span></label></div>
+<div class="panel" style="padding: 4px 16px;"><label style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--mist-200);"><div style="flex-grow: 1; display: flex; flex-direction: column;"><span class="body-strong">Voice Deal available</span></div>
+<span role="switch" aria-checked="true" style="width: 52px; height: 30px; border-radius: 15px; background: var(--positive); position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,.3);"><span style="position: absolute; top: 3px; left: 25px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink-on-dark); box-shadow: 0 2px 0 rgba(0,0,0,.3);"></span></span></label><div style="display: flex; justify-content: space-between; padding: 12px 0;"><span class="body-strong">Microphone</span><span class="body muted">Built-in ›</span></div></div>
+<div class="panel" style="padding: 4px 16px;"><div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--mist-200);"><span class="body-strong">Blocked players</span><span class="body muted">2 ›</span></div><div style="display: flex; justify-content: space-between; padding: 12px 0;"><span class="body-strong">Privacy</span><span class="body muted">›</span></div></div>
+<button class="gbtn gbtn--secondary gbtn--lg gbtn--block" type="button"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2h11a1 1 0 011 1v3h-2V4H7v16h8v-2h2v3a1 1 0 01-1 1H5zm13 6l4 4-4 4v-3h-7v-2h7z"/></svg><span class="button-label">Sign out</span></button></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

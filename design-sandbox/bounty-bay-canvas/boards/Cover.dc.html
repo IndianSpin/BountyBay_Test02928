@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bounty Bay — product design cover</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="doc world world--deep" style="width: 1600px; height: 1000px; ">
+
+<div style="position: absolute; inset: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; padding: 80px;">
+  <div style="display: flex; flex-direction: column; gap: 28px;">
+    <span class="kicker">Product design package · v2 (world-first) · Bounty Bay Design System v1 + v1.1 amendment</span>
+    <span class="wordmark" style="font-size: 96px; line-height: 92px;">Bounty Bay</span>
+    <h1 style="font-size: 56px; line-height: 60px;">The world is playful.<br>The numbers are ruthless.</h1>
+    <p style="font-size: 18px; line-height: 28px; max-width: 620px;">A complete consumer design for a competitive 1v1 negotiation game — from first click to the hundredth rematch. v2 makes Bounty Bay a place: the market, your opponent and the object you’re fighting over carry the screen; interface floats on top, and only four things stay on during a deal — their offer, your offer, your secret limit, whose turn.</p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;"><span class="pill pill--gold">Live match is the hero screen</span><span class="pill pill--vault"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V8a6 6 0 1112 0v2h1a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1V11a1 1 0 011-1zm3 0h6V8a3 3 0 10-6 0z"/></svg>Opponent limit never shown pre-result</span><span class="pill pill--ai"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 1h2v3h5a3 3 0 013 3v9a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h5zM8.5 9a2 2 0 100 4 2 2 0 000-4zm7 0a2 2 0 100 4 2 2 0 000-4zM8 15v2h8v-2zM1 9h1v5H1zm21 0h1v5h-1zM8 20h8v3H8z"/></svg>AI always disclosed</span><span class="pill pill--outline"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a2 2 0 012 2v11a2 2 0 01-2 2h-7l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2zm3 6v2h2V9zm4 0v2h2V9zm4 0v2h2V9z"/></svg>Chat is never an offer</span></div>
+    <div class="spec-card" style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
+      <h3>How to read this canvas</h3>
+      <p><strong>Pages run in build priority.</strong> 00 architecture → 01 flows → 02–05 live match, voice, result (max fidelity) → 06 onboarding → 07–15 secondary surfaces → 16 edge states → 17 component states → 18 motion + playable prototype → 19 copy &amp; handoff.</p>
+      <p><strong>Red stickies</strong> mark <span class="pdr">Product decision required</span> — behaviour the brief leaves open. The screens show a sensible default so nothing is blank, but the default is not a decision.</p>
+      <p><strong>Blue-marked artboards</strong> are playable. Start with <strong>18 · Core loop prototype</strong>, then the <strong>blur test</strong> on page 02.</p>
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 24px;">
+    <div class="parch" style="padding: 28px; display: flex; flex-direction: column; gap: 16px; position: relative;">
+      <span class="kicker" style="color: var(--brand-gold-deep);">The reference match — used on every screen</span>
+      <div style="display: flex; gap: 20px; align-items: center;">
+        <div class="art" style="width: 200px; height: 150px; border-radius: 20px; "><img src="../assets/compass.svg" alt="Scenario artwork"></div>
+        <div style="display: flex; flex-direction: column; gap: 6px;"><span class="display-title ink-p">The Ruby Compass</span><span class="body muted-p">Ranked · Night Market scenario · 1v1</span>
+        <div style="display: flex; gap: 8px;"><span class="pill pill--ember">BLACKPARROT · BUYER · YOU</span><span class="pill pill--violet">GOLDENOTTER · SELLER</span></div></div>
+      </div>
+      <table style="border-collapse: collapse; font-size: 14px; color: var(--ink-on-parchment);">
+        <tr><td style="padding: 6px 0; border-bottom: 1px solid var(--stone-200);">Your secret limit (buyer max)</td><td class="num" style="text-align: right; font-weight: 700; border-bottom: 1px solid var(--stone-200);">100</td></tr>
+        <tr><td style="padding: 6px 0; border-bottom: 1px solid var(--stone-200);">Their secret limit (seller min) — <em>revealed only after</em></td><td class="num" style="text-align: right; font-weight: 700; border-bottom: 1px solid var(--stone-200);">59</td></tr>
+        <tr><td style="padding: 6px 0; border-bottom: 1px solid var(--stone-200);">Offer path (seller / you)</td><td class="num" style="text-align: right; font-weight: 700; border-bottom: 1px solid var(--stone-200);">120 · 55 · 96 · 61 · 84 · 67 · 78 · 72 · 74 ✓</td></tr>
+        <tr><td style="padding: 6px 0; border-bottom: 1px solid var(--stone-200);">Settlement</td><td class="num" style="text-align: right; font-weight: 700; border-bottom: 1px solid var(--stone-200);">74</td></tr>
+        <tr><td style="padding: 6px 0; border-bottom: 1px solid var(--stone-200);">Bargaining range 59 → 100</td><td class="num" style="text-align: right; font-weight: 700; border-bottom: 1px solid var(--stone-200);">41</td></tr>
+        <tr><td style="padding: 6px 0; border-bottom: 1px solid var(--stone-200);">Surplus split (you / them)</td><td class="num" style="text-align: right; font-weight: 700; border-bottom: 1px solid var(--stone-200);">26 / 15 → 63% / 37%</td></tr>
+        <tr><td style="padding: 6px 0; border-bottom: 1px solid var(--stone-200);">Chips (start 80) · spent · left</td><td class="num" style="text-align: right; font-weight: 700; border-bottom: 1px solid var(--stone-200);">80 · 12 · 68</td></tr>
+        <tr><td style="padding: 6px 0; border-bottom: 1px solid var(--stone-200);">Bounty multiplier at close</td><td class="num" style="text-align: right; font-weight: 700; border-bottom: 1px solid var(--stone-200);">×84%</td></tr>
+        <tr><td style="padding: 6px 0;">Rating</td><td class="num" style="text-align: right; font-weight: 700;">1,482 → 1,500 (+18)</td></tr>
+      </table>
+      <div class="warn-line warn-line--gold"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 110 20 10 10 0 010-20zm-1.5 8v8h3v-8zm1.5-5a1.8 1.8 0 100 3.6A1.8 1.8 0 0012 5z"/></svg>Chip pool, chip cost per move, bounty formula and rating deltas are illustrative — see 19 · Handoff, decisions D1–D4.</div>
+    </div>
+    <div style="display: flex; gap: 16px; align-items: center;">
+      <span class="turn-ring turn-ring--player"><span class="avatar avatar--lg avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span></span><div style="display: flex; flex-direction: column;"><span class="handle" style="font-size: 20px;">BLACKPARROT</span><span class="caption muted">The viewer — always ember, always bottom seat</span></div>
+      <div style="flex-grow: 1;"></div>
+      <div style="display: flex; flex-direction: column; align-items: flex-end;"><span class="handle" style="font-size: 20px;">GOLDENOTTER</span><span class="caption muted">The adversary — always violet, always top seat</span></div><span class="turn-ring turn-ring--opponent"><span class="avatar avatar--lg avatar--opponent"><img src="../assets/goldenotter.svg" alt="goldenotter avatar"></span></span>
+    </div>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1600, "height": 1000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

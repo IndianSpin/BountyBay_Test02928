@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction B - The Deal Table - Bounty Bay Royale (mock)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-0:#050b16; --bg-1:#0a1626; --bg-2:#101f38; --bg-3:#172a4d;
+    --ink:#eaf6ff; --ink-dim:#9fb8d4; --ink-faint:#5f7c9c;
+    --turquoise:#2de0d0; --turquoise-hot:#5cf2e4;
+    --gold:#ffc94d; --gold-deep:#8a6508;
+    --rival:#b26bff; --danger:#ff6b5e; --success:#3ddc84;
+    --r-sm:10px; --r-md:16px; --r-lg:24px; --r-pill:999px;
+    --shadow-1:0 4px 16px rgba(2,8,18,.45); --shadow-2:0 14px 44px rgba(2,8,18,.6);
+    --shadow-raise:0 6px 0 rgba(2,8,18,.55);
+    --glow-accent:0 0 26px rgba(45,224,208,.28); --glow-gold:0 0 26px rgba(255,201,77,.26);
+    --glow-rival:0 0 26px rgba(178,107,255,.28);
+    --ease-pop:cubic-bezier(.2,1.4,.3,1); --ease-snap:cubic-bezier(.16,1,.3,1);
+  }
+  * { box-sizing:border-box; margin:0; }
+  html,body { min-height:100%; }
+  body {
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    background:radial-gradient(140% 100% at 50% 0%, #0d1d33 0%, var(--bg-1) 55%, var(--bg-0) 100%);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .num { font-variant-numeric:tabular-nums; font-feature-settings:'tnum'; }
+
+  .table-room { max-width:1120px; margin:0 auto; padding:18px 22px 26px; display:flex; flex-direction:column; gap:16px; min-height:100dvh; }
+
+  .top { display:flex; align-items:center; justify-content:space-between; gap:14px; }
+  .brand { font-family:'Outfit'; font-weight:900; font-size:1.05rem; letter-spacing:.08em; text-transform:uppercase; }
+  .brand em { font-style:normal; color:var(--turquoise); }
+  .mode-pill { font-size:.72rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-dim); background:var(--bg-2); border:1px solid rgba(159,184,212,.16); border-radius:var(--r-pill); padding:6px 14px; }
+  .turn-banner { font-family:'Outfit'; font-weight:900; letter-spacing:.14em; text-transform:uppercase; font-size:.95rem; padding:10px 30px; border-radius:var(--r-pill); color:var(--bg-0); background:linear-gradient(180deg,var(--turquoise-hot),var(--turquoise)); box-shadow:var(--glow-accent); animation:pulse 1.6s var(--ease-snap) infinite; }
+  @keyframes pulse { 0%,100% { box-shadow:0 0 14px rgba(45,224,208,.35);} 50% { box-shadow:0 0 30px rgba(45,224,208,.6);} }
+
+  /* the centerpiece */
+  .centerpiece { display:grid; grid-template-columns:auto 1fr auto; gap:18px; align-items:center; }
+  .asset { display:flex; gap:16px; align-items:center; background:radial-gradient(120% 140% at 25% 20%, #1b3a66, var(--bg-0)); border:1px solid rgba(255,201,77,.4); border-radius:var(--r-lg); padding:16px 20px; box-shadow:var(--shadow-2),var(--glow-gold); }
+  .asset .name b { font-family:'Outfit'; font-size:1.5rem; font-weight:900; letter-spacing:.02em; display:block; }
+  .asset .name span { font-size:.85rem; color:var(--ink-dim); line-height:1.45; display:block; margin-top:4px; max-width:34ch; }
+  .seat { display:flex; flex-direction:column; align-items:center; gap:6px; min-width:96px; }
+  .avatar { width:56px; height:56px; border-radius:var(--r-pill); display:grid; place-items:center; font-family:'Outfit'; font-weight:900; font-size:1.2rem; color:var(--bg-0); box-shadow:var(--shadow-1); }
+  .seat.theirs .avatar { background:linear-gradient(180deg,#c58fff,var(--rival)); }
+  .seat.mine .avatar { background:linear-gradient(180deg,var(--turquoise-hot),var(--turquoise)); }
+  .seat .name { font-family:'Outfit'; font-weight:800; font-size:.9rem; }
+  .seat .role { font-size:.66rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim); }
+  .seat .sub { font-size:.68rem; color:var(--ink-faint); text-align:center; }
+
+  /* the table */
+  .table { position:relative; background:linear-gradient(180deg,#0d2038,var(--bg-0)); border:1px solid rgba(255,201,77,.35); border-radius:var(--r-lg); box-shadow:var(--shadow-2),inset 0 1px 0 rgba(255,255,255,.04); padding:26px 30px 34px; }
+  .table::before { content:""; position:absolute; inset:8px; border:1px dashed rgba(255,201,77,.18); border-radius:calc(var(--r-lg) - 8px); pointer-events:none; }
+  .table-label { text-align:center; font-size:.66rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:14px; }
+  .table-row { position:relative; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:26px; }
+  .offer-plate { background:var(--bg-3); border:1px solid rgba(159,184,212,.25); border-radius:var(--r-md); padding:12px 22px 14px; text-align:center; box-shadow:var(--shadow-2); }
+  .offer-plate .who { font-size:.66rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-dim); }
+  .offer-plate .offer-amount { font-family:'Outfit'; font-size:2.6rem; font-weight:900; line-height:1.05; }
+  .offer-plate.mine { border-color:rgba(45,224,208,.5); box-shadow:var(--shadow-2),var(--glow-accent); }
+  .offer-plate.mine .offer-amount { color:var(--turquoise); }
+  .offer-plate.theirs { border-color:rgba(178,107,255,.5); box-shadow:var(--shadow-2),var(--glow-rival); }
+  .offer-plate.theirs .offer-amount { color:var(--rival); }
+  .offer-plate .tag { font-size:.68rem; color:var(--ink-faint); margin-top:3px; }
+  .gap { text-align:center; }
+  .gap .label { font-size:.62rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); }
+  .gap .value { font-family:'Outfit'; font-size:2rem; font-weight:900; color:var(--gold); }
+  .gap .line { width:130px; height:4px; margin:4px auto 0; border-radius:var(--r-pill); background:linear-gradient(90deg,var(--turquoise),var(--rival)); }
+
+  /* side HUDs under the table */
+  .below { display:grid; grid-template-columns:1fr auto 1fr; gap:18px; align-items:start; }
+  .hud { display:flex; flex-direction:column; gap:10px; }
+  .hud .confidential { background:repeating-linear-gradient(-45deg,rgba(255,201,77,.05) 0 10px,transparent 10px 20px),var(--bg-0); border:1px dashed rgba(255,201,77,.55); border-radius:var(--r-md); padding:10px 14px; }
+  .hud .confidential .kicker { font-size:.64rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); }
+  .hud .confidential .value { font-family:'Outfit'; font-size:1.35rem; font-weight:900; }
+  .hud .confidential .hint { font-size:.7rem; color:var(--ink-faint); }
+  .hud-row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .hud-item { display:flex; align-items:center; gap:7px; font-size:.78rem; color:var(--ink-dim); }
+  .hud-item .ring { position:relative; width:46px; height:46px; }
+  .hud-item .ring svg { transform:rotate(-90deg); }
+  .hud-item .ring b { position:absolute; inset:0; display:grid; place-items:center; font-family:'Outfit'; font-weight:800; font-size:.72rem; color:var(--gold); }
+  .chips { display:flex; align-items:center; gap:8px; }
+  .chips .bar { width:90px; height:12px; background:var(--bg-0); border:1px solid rgba(159,184,212,.2); border-radius:var(--r-pill); overflow:hidden; }
+  .chips .bar i { display:block; height:100%; width:72%; background:linear-gradient(90deg,var(--gold-deep),var(--gold)); border-radius:var(--r-pill); }
+  .chips .label { font-family:'Outfit'; font-weight:800; color:var(--gold); font-size:.8rem; white-space:nowrap; }
+
+  .composer { display:flex; align-items:center; gap:12px; flex-wrap:wrap; background:linear-gradient(180deg,var(--bg-3),var(--bg-2)); border:1px solid rgba(45,224,208,.4); border-radius:var(--r-lg); padding:12px 16px; box-shadow:var(--shadow-2),var(--glow-accent); }
+  .composer .propose { display:flex; flex-direction:column; gap:3px; }
+  .composer .propose label { font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim); }
+  .composer input { width:130px; min-height:52px; font-family:'Outfit'; font-size:1.5rem; font-weight:800; color:var(--ink); background:var(--bg-0); border:1px solid rgba(159,184,212,.3); border-radius:var(--r-md); padding:0 14px; }
+  .composer input:focus { outline:2px solid var(--turquoise); outline-offset:2px; }
+  .cost-preview { display:flex; gap:14px; flex-wrap:wrap; font-size:.85rem; color:var(--ink-dim); }
+  .cost-preview b { color:var(--ink); }
+  .cost-preview .down { color:var(--danger); }
+  .cost-preview .up { color:var(--success); }
+  .composer .btns { display:flex; gap:10px; flex-wrap:wrap; margin-left:auto; }
+  .game-btn { display:inline-flex; align-items:center; justify-content:center; min-height:52px; padding:0 26px; font-family:'Outfit'; font-size:.98rem; font-weight:800; letter-spacing:.02em; color:var(--bg-0); background:linear-gradient(180deg,var(--turquoise-hot),var(--turquoise)); border:0; border-radius:var(--r-md); box-shadow:var(--shadow-raise),var(--glow-accent); cursor:pointer; transition:transform 120ms var(--ease-pop),box-shadow 120ms var(--ease-snap); }
+  .game-btn:active { transform:translateY(2px) scale(.98); }
+  .game-btn.gold { background:linear-gradient(180deg,#ffdc7a,var(--gold)); box-shadow:var(--shadow-raise),var(--glow-gold); }
+  .game-btn.danger { background:transparent; color:var(--danger); border:1px solid rgba(255,107,94,.6); box-shadow:none; }
+
+  .chat-panel { background:var(--bg-2); border:1px solid rgba(159,184,212,.14); border-radius:var(--r-lg); padding:12px 14px; display:flex; flex-direction:column; gap:8px; }
+  .chat-panel .title { font-size:.66rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); display:flex; align-items:center; gap:8px; }
+  .chat-panel .unread { width:8px; height:8px; border-radius:50%; background:var(--danger); }
+  .chat-panel .bubble { background:var(--bg-3); border-radius:var(--r-md); padding:8px 12px; font-size:.82rem; color:var(--ink-dim); }
+  .chat-panel .row { display:flex; gap:8px; }
+  .chat-panel input { flex:1; min-height:40px; background:var(--bg-0); border:1px solid rgba(159,184,212,.25); border-radius:var(--r-md); color:var(--ink); padding:0 12px; font-size:.85rem; }
+
+  @media (max-width:560px) {
+    .table-room { padding:12px 12px 12px; gap:12px; }
+    .top { flex-wrap:wrap; }
+    .centerpiece { grid-template-columns:1fr; gap:10px; }
+    .asset { padding:10px 14px; }
+    .asset .name b { font-size:1.15rem; }
+    .asset .name span { display:none; }
+    .asset svg { width:64px; height:64px; }
+    .seats { display:flex; justify-content:space-between; }
+    .seat { min-width:0; }
+    .seat .sub { display:none; }
+    .avatar { width:42px; height:42px; font-size:.95rem; }
+    .table { padding:14px 12px 20px; }
+    .table-row { gap:12px; }
+    .offer-plate { padding:8px 12px 10px; }
+    .offer-plate .offer-amount { font-size:1.8rem; }
+    .gap .value { font-size:1.4rem; }
+    .gap .line { width:60px; }
+    .below { grid-template-columns:1fr; }
+    .composer { position:sticky; bottom:0; }
+    .composer .btns { margin-left:0; }
+    .composer input { width:104px; }
+    .chat-panel { order:99; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .turn-banner { animation:none; }
+    .game-btn { transition:none; }
+  }
+</style>
+</head>
+<body>
+<div class="table-room">
+  <header class="top">
+    <span class="brand">BOUNTY <em>BAY</em></span>
+    <span class="mode-pill">FRIEND MATCH</span>
+    <span class="turn-banner">YOUR MOVE</span>
+  </header>
+
+  <!-- the centerpiece: what we are negotiating over -->
+  <section class="centerpiece">
+    <div class="seat theirs">
+      <span class="avatar">VC</span>
+      <span class="name">VantaCrow</span>
+      <span class="role">BUYER</span>
+      <span class="sub num">RATING 1412 · 37 GAMES</span>
+    </div>
+    <div class="asset">
+      <svg width="96" height="96" viewBox="0 0 120 120" role="img" aria-label="The Ruby Compass">
+        <defs><radialGradient id="rubyB" cx="38%" cy="30%"><stop offset="0%" stop-color="#ff7a8a"/><stop offset="60%" stop-color="#c22b4e"/><stop offset="100%" stop-color="#6e0f2a"/></radialGradient></defs>
+        <circle cx="60" cy="60" r="54" fill="none" stroke="#ffc94d" stroke-width="3"/>
+        <circle cx="60" cy="60" r="42" fill="url(#rubyB)"/>
+        <g stroke="#ffc94d" stroke-width="2">
+          <line x1="60" y1="8" x2="60" y2="18"/><line x1="60" y1="102" x2="60" y2="112"/>
+          <line x1="8" y1="60" x2="18" y2="60"/><line x1="102" y1="60" x2="112" y2="60"/>
+        </g>
+        <polygon points="60,30 68,64 60,60 52,64" fill="#ffc94d"/>
+        <polygon points="60,90 52,56 60,60 68,56" fill="#e8d8b0"/>
+        <circle cx="60" cy="60" r="6" fill="#2de0d0"/>
+      </svg>
+      <div class="name">
+        <b>THE RUBY COMPASS</b>
+        <span>A fabled navigator's instrument. It points to what you want most.</span>
+      </div>
+    </div>
+    <div class="seat mine">
+      <span class="avatar">HB</span>
+      <span class="name">Harbormind</span>
+      <span class="role">SELLER</span>
+      <span class="sub num">RATING 1358 · 12 GAMES</span>
+    </div>
+  </section>
+
+  <!-- the deal table -->
+  <section class="table">
+    <div class="table-label">THE DEAL</div>
+    <div class="table-row">
+      <div class="offer-plate theirs">
+        <div class="who">THEIR OFFER</div>
+        <div class="offer-amount num">82.5</div>
+        <div class="tag">last moved 3.0 toward you</div>
+      </div>
+      <div class="gap">
+        <div class="label">THE GAP</div>
+        <div class="value num">19.5</div>
+        <div class="line"></div>
+      </div>
+      <div class="offer-plate mine">
+        <div class="who">YOUR OFFER</div>
+        <div class="offer-amount num">63.0</div>
+        <div class="tag">committed - you cannot move back</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HUDs + composer -->
+  <section class="below">
+    <div class="hud">
+      <div class="confidential">
+        <div class="kicker">CONFIDENTIAL · YOUR LIMIT</div>
+        <div class="value num">40.0</div>
+        <div class="hint">Only you can see this.</div>
+      </div>
+      <div class="hud-row">
+        <span class="hud-item"><span class="ring"><svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="19" fill="none" stroke="#172a4d" stroke-width="6"/><circle cx="23" cy="23" r="19" fill="none" stroke="#ffc94d" stroke-width="6" stroke-dasharray="119.4" stroke-dashoffset="10.7"/></svg><b class="num">91%</b></span> BOUNTY × 91%</span>
+        <span class="chips"><span class="bar"><i></i></span><span class="label num">72 / 100</span></span>
+      </div>
+    </div>
+
+    <div class="composer">
+      <div class="propose">
+        <label for="offer-b">PROPOSE</label>
+        <input id="offer-b" class="num" inputmode="decimal" value="60">
+      </div>
+      <div class="cost-preview">
+        <span>MOVE <b class="down num">-3.0</b></span>
+        <span>COST <b class="num">5</b></span>
+        <span><b class="num">67 CHIPS LEFT</b></span>
+      </div>
+      <div class="btns">
+        <button class="game-btn">MAKE OFFER</button>
+        <button class="game-btn gold">ACCEPT 82.5</button>
+        <button class="game-btn danger">WALK AWAY</button>
+      </div>
+    </div>
+
+    <div class="chat-panel">
+      <div class="title"><span class="unread" aria-label="new message"></span> TABLE TALK</div>
+      <div class="bubble">VantaCrow: I can move, but not much.</div>
+      <div class="row">
+        <input placeholder="Numbers in chat are not offers.">
+        <button class="game-btn" style="min-height:40px;padding:0 16px;font-size:.8rem;">SEND</button>
+      </div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

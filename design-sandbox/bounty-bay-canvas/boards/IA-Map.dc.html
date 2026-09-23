@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Information architecture</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="doc plain" style="width: 1600px; height: 1000px; ">
+
+<div style="position: absolute; inset: 0; padding: 64px; display: flex; flex-direction: column; gap: 26px;">
+  <div style="display: flex; align-items: flex-end; gap: 24px;"><div style="display: flex; flex-direction: column; gap: 8px;"><span class="kicker">A · Information architecture (v2)</span><h1>Bay. PLAY. Me.</h1></div><div style="flex-grow: 1;"></div>
+  <p style="max-width: 600px;">Three persistent places. The player thinks “what am I doing next?”, not “which section am I in?”. Daily Deal, rivals and events are <strong>things in the Bay</strong>; rating, divisions and leaderboards are <strong>part of Me</strong>; every mode is <strong>behind PLAY</strong> and only appears when it is relevant.</p></div>
+  <div style="display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: 22px;">
+    <div style="display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--radius-lg); background: var(--surface-elevated); box-shadow: var(--shadow-card-elevated), inset 0 0 0 1.5px var(--mist-200);">
+<div style="display: flex; align-items: center; gap: 10px;"><span class="ico-chip"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l10 9h-3v11h-5v-7h-4v7H5V11H2z"/></svg></span><h3>Bay</h3></div>
+<p>The harbour. Answers “what next?” with one objective and one big button.</p><ul style="margin: 0; padding-left: 18px; font-size: 13px; line-height: 18px; color: var(--ink-on-dark);"><li style="margin: 0 0 6px;">PLAY RANKED — the dominant object</li><li style="margin: 0 0 6px;">One objective chip (placement / division / best)</li><li style="margin: 0 0 6px;">Rival standing on the dock (only if a rematch is pending)</li><li style="margin: 0 0 6px;">Today’s Deal as a glowing bottle on a stall</li><li style="margin: 0 0 6px;">Live event lantern (only while live)</li></ul></div>
+    <div style="display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--radius-lg); background: var(--surface-elevated); box-shadow: var(--shadow-card-elevated), inset 0 0 0 2px var(--brand-gold);">
+<div style="display: flex; align-items: center; gap: 10px;"><span class="ico-chip ico-chip--gold"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2h5l9 9-2 2-9-9v3H2zm20 0v5h-3v-2l-5.5 5.5-2-2L17 3h-2V2zM6.5 14.5l2 2-2.2 2.2L8 20.5 6.5 22 2 17.5 3.5 16l1.8 1.8zm11 0l2.2 2.2L21.5 15l1.5 1.5L18.5 22 17 20.5l1.8-1.8-2.3-2.2z"/></svg></span><h3>PLAY</h3></div>
+<p>Gold button (desktop top-right, mobile centre tab). A short sheet, never a menu wall.</p><ul style="margin: 0; padding-left: 18px; font-size: 13px; line-height: 18px; color: var(--ink-on-dark);"><li style="margin: 0 0 6px;">Always: RANKED · TODAY’S DEAL · PRACTICE</li><li style="margin: 0 0 6px;">“Right now” (only when real): event check-in, Deal Night invite, promoted rotating mode</li><li style="margin: 0 0 6px;">Challenge a friend — unlocked after first human deal</li></ul></div>
+    <div style="display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--radius-lg); background: var(--surface-elevated); box-shadow: var(--shadow-card-elevated), inset 0 0 0 1.5px var(--mist-200);">
+<div style="display: flex; align-items: center; gap: 10px;"><span class="ico-chip"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a5 5 0 110 10 5 5 0 010-10zM3 21c0-5 4-8 9-8s9 3 9 8v1H3z"/></svg></span><h3>Me</h3></div>
+<p>Your record and your standing.</p><ul style="margin: 0; padding-left: 18px; font-size: 13px; line-height: 18px; color: var(--ink-on-dark);"><li style="margin: 0 0 6px;">Rating, division, next threshold</li><li style="margin: 0 0 6px;">Leaderboards (global · week · Daily)</li><li style="margin: 0 0 6px;">History → result → replay</li><li style="margin: 0 0 6px;">Rivals · play style</li><li style="margin: 0 0 6px;">Settings, blocked players</li></ul></div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 18px; padding: 14px 20px; border-radius: var(--radius-xl); background: var(--surface-world-deep); box-shadow: inset 0 0 0 1.5px var(--mist-200);">
+    <span class="frame-label">Desktop</span><span class="wordmark" style="font-size: 24px; line-height: 1;">Bounty Bay</span><nav class="dock-nav"><a class="is-active" href="HM-D-Bay.dc.html"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l10 9h-3v11h-5v-7h-4v7H5V11H2z"/></svg>Bay</a><a href="PF-D-Profile.dc.html"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a5 5 0 110 10 5 5 0 010-10zM3 21c0-5 4-8 9-8s9 3 9 8v1H3z"/></svg>Me</a></nav><div style="flex-grow: 1;"></div><a class="gbtn gbtn--primary gbtn--lg" href="PL-D-PlayMenu.dc.html"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2h5l9 9-2 2-9-9v3H2zm20 0v5h-3v-2l-5.5 5.5-2-2L17 3h-2V2zM6.5 14.5l2 2-2.2 2.2L8 20.5 6.5 22 2 17.5 3.5 16l1.8 1.8zm11 0l2.2 2.2L21.5 15l1.5 1.5L18.5 22 17 20.5l1.8-1.8-2.3-2.2z"/></svg><span class="button-label">PLAY</span></a>
+    <span class="frame-label" style="margin-left: 30px;">Mobile</span><div style="display: flex; gap: 26px; align-items: center; padding: 8px 22px; border-radius: 20px; background: rgba(30,22,60,.94);"><span class="caption">BAY</span><span class="pill pill--gold"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2h5l9 9-2 2-9-9v3H2zm20 0v5h-3v-2l-5.5 5.5-2-2L17 3h-2V2zM6.5 14.5l2 2-2.2 2.2L8 20.5 6.5 22 2 17.5 3.5 16l1.8 1.8zm11 0l2.2 2.2L21.5 15l1.5 1.5L18.5 22 17 20.5l1.8-1.8-2.3-2.2z"/></svg>PLAY</span><span class="caption">ME</span></div></div>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px;">
+    <div class="spec-card" style="display: flex; flex-direction: column; gap: 8px;"><h3>Full-screen game spaces</h3><p>Queue → rival found → deal reveal → live match → 3-beat result → REMATCH. No navigation chrome inside; leaving is always explicit.</p></div>
+    <div class="spec-card" style="display: flex; flex-direction: column; gap: 8px;"><h3>Deep links</h3><p><code>/c/&lt;code&gt;</code> challenge · <code>/daily</code> · <code>/watch/&lt;id&gt;</code> · <code>/t/&lt;id&gt;</code> · <code>/room/&lt;code&gt;</code> · <code>/r/&lt;id&gt;</code> shared card. Each lands on a context page.</p></div>
+    <div class="spec-card" style="display: flex; flex-direction: column; gap: 8px;"><h3>Tap budget</h3><p>Bay → ranked queue: <strong>1</strong>. Anywhere → ranked: <strong>2</strong> (PLAY → RANKED). Result → next match: <strong>1</strong> (REMATCH is the biggest thing on the result).</p></div>
+  </div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1600, "height": 1000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

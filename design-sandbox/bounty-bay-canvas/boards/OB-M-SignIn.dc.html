@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Create account / sign in</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="plain phone" style="width: 390px; height: 844px; ">
+<div style="position: absolute; left: 0; right: 0; top: 0; height: 330px; overflow: hidden;"><div class="art" style="width: 390px; height: 330px; border-radius: 0px; "><img src="../assets/compass.svg" alt="Scenario artwork"></div><div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,26,32,.2), var(--surface-world) 95%);"></div></div>
+<div style="position: absolute; left: 20px; right: 20px; top: 250px; display: flex; flex-direction: column; gap: 14px;">
+<span class="wordmark" style="font-size: 26px; line-height: 1;">Bounty Bay</span><span class="display-title">Your seat is waiting</span><span class="body muted">Save your rating, rivals and Daily Deal streak. Your real name is never shown to other players.</span>
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+<button class="gbtn gbtn--parch gbtn--lg gbtn--block" type="button"><span class="button-label">Continue with Apple</span></button>
+<button class="gbtn gbtn--parch gbtn--lg gbtn--block" type="button"><span class="button-label">Continue with Google</span></button>
+<div style="display: flex; align-items: center; gap: 10px; margin: 4px 0;"><span class="hair" style="flex-grow: 1;"></span><span class="caption muted">or</span><span class="hair" style="flex-grow: 1;"></span></div>
+<label class="label muted" for="email">Email</label><input id="email" type="email" value="jr@example.com" style="height: 52px; border-radius: 12px; border: none; padding: 0 16px; background: var(--surface-interactive); color: var(--ink-on-dark); font: inherit; font-size: 16px;">
+<a class="gbtn gbtn--primary gbtn--lg gbtn--block" href="OB-M-Handle.dc.html"><span class="button-label">SEND MAGIC LINK</span></a></div></div>
+<div style="position: absolute; left: 20px; right: 20px; bottom: 30px; text-align: center;"><span class="caption muted">Already playing? The same button signs you in.</span></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

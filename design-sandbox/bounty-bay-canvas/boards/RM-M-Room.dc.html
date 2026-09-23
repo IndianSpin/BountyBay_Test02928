@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Deal Night — mobile</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="plain phone" style="width: 390px; height: 844px; ">
+<div style="position: absolute; left: 0; right: 0; top: 0; padding: 50px 16px 10px; display: flex; align-items: center; gap: 10px; z-index: 4;"><button class="gbtn gbtn--icon" type="button" aria-label="Back" style="width: 40px; height: 40px;"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3.5L7 12l8.5 8.5 2.1-2.1L11.2 12l6.4-6.4z"/></svg></button><span class="display-subtitle" style="flex-grow: 1;">Deal Night</span><span class="pill pill--vault">ROUND 2/4</span></div>
+<div style="position: absolute; left: 14px; right: 14px; top: 100px; display: flex; flex-direction: column; gap: 10px;">
+<div class="panel" style="padding: 16px; display: flex; flex-direction: column; gap: 6px; background: linear-gradient(135deg, var(--vault-ink), var(--surface-elevated));"><span class="display-title">BOB’S DEAL NIGHT</span><span class="caption muted">6 players · avg capture wins</span></div>
+<div class="panel" style="padding: 14px; display: flex; align-items: center; gap: 10px;"><span class="avatar avatar--sm avatar--opponent"><img src="../assets/nightowl.svg" alt="nightowl avatar"></span><div style="flex-grow: 1;"><span class="body-strong">Your round 2: BOB</span><div class="caption muted">ready now</div></div><button class="gbtn gbtn--primary gbtn--sm" type="button"><span class="button-label">PLAY</span></button></div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; background: var(--surface-interactive);"><span class="numeral-label muted" style="width: 20px;">1</span><span class="avatar avatar--sm"><img src="../assets/tidecat.svg" alt="tidecat avatar"></span><span class="handle" style="font-size: 15px; flex-grow: 1;">MAYA</span><span class="caption muted">3 deals</span><span class="numeral-stat" style="width: 64px; text-align: right;">61%</span></div><div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; background: var(--surface-overlay); box-shadow: inset 0 0 0 2px var(--player);"><span class="numeral-label muted" style="width: 20px;">2</span><span class="avatar avatar--sm avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span><span class="handle" style="font-size: 15px; flex-grow: 1;">BLACKPARROT</span><span class="caption muted">3 deals</span><span class="numeral-stat" style="width: 64px; text-align: right;">58%</span></div><div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; background: var(--surface-interactive);"><span class="numeral-label muted" style="width: 20px;">3</span><span class="avatar avatar--sm"><img src="../assets/nightowl.svg" alt="nightowl avatar"></span><span class="handle" style="font-size: 15px; flex-grow: 1;">BOB</span><span class="caption muted">2 deals</span><span class="numeral-stat" style="width: 64px; text-align: right;">55%</span></div><div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; background: var(--surface-interactive);"><span class="numeral-label muted" style="width: 20px;">4</span><span class="avatar avatar--sm"><img src="../assets/redcrab.svg" alt="redcrab avatar"></span><span class="handle" style="font-size: 15px; flex-grow: 1;">IMRAN</span><span class="caption muted">2 deals</span><span class="numeral-stat" style="width: 64px; text-align: right;">49%</span></div><div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; background: var(--surface-interactive);"><span class="numeral-label muted" style="width: 20px;">5</span><span class="avatar avatar--sm"><img src="../assets/oldtortoise.svg" alt="oldtortoise avatar"></span><span class="handle" style="font-size: 15px; flex-grow: 1;">LOTTE</span><span class="caption muted">2 deals</span><span class="numeral-stat" style="width: 64px; text-align: right;">44%</span></div><div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px; background: var(--surface-interactive);"><span class="numeral-label muted" style="width: 20px;">6</span><span class="avatar avatar--sm"><img src="../assets/saltfox.svg" alt="saltfox avatar"></span><span class="handle" style="font-size: 15px; flex-grow: 1;">SAM</span><span class="caption muted">1 deals</span><span class="numeral-stat" style="width: 64px; text-align: right;">38%</span></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

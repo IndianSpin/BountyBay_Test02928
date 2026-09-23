@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Matchmaking states</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="plain" style="width: 1100px; height: 1220px; ">
+<div style="position: absolute; inset: 0; padding: 32px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-content: start;">
+<div class="sb-frame" style="height: 380px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;"><span class="frame-label">Ready to queue</span><button class="gbtn gbtn--primary gbtn--xl" type="button"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2h5l9 9-2 2-9-9v3H2zm20 0v5h-3v-2l-5.5 5.5-2-2L17 3h-2V2zM6.5 14.5l2 2-2.2 2.2L8 20.5 6.5 22 2 17.5 3.5 16l1.8 1.8zm11 0l2.2 2.2L21.5 15l1.5 1.5L18.5 22 17 20.5l1.8-1.8-2.3-2.2z"/></svg><span class="button-label">PLAY RANKED</span></button><span class="caption muted">Merchant II · text deal</span></div>
+<div class="sb-frame" style="height: 380px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;"><span class="frame-label">Searching</span><div style="position: relative; width: 168px; height: 168px; display: flex; align-items: center; justify-content: center;"><span class="pulse-ring anim-breathe" style="inset: 0px; animation-delay: 0.0s;"></span><span class="pulse-ring anim-breathe" style="inset: -34px; animation-delay: 0.4s;"></span><span class="avatar avatar--lg avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span></div><span class="clock-pill" style="margin-top: 20px;">0:07</span></div>
+<div class="sb-frame" style="height: 380px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;"><span class="frame-label">Widening search</span><div style="position: relative; width: 168px; height: 168px; display: flex; align-items: center; justify-content: center;"><span class="pulse-ring anim-breathe" style="inset: 0px; animation-delay: 0.0s;"></span><span class="pulse-ring anim-breathe" style="inset: -34px; animation-delay: 0.4s;"></span><span class="pulse-ring anim-breathe" style="inset: -68px; animation-delay: 0.8s;"></span><span class="avatar avatar--lg avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span></div><span class="body muted" style="margin-top: 20px;">Range 1,380 – 1,590</span></div>
+<div class="sb-frame" style="height: 380px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;"><span class="frame-label">Human found → confirming</span><div style="display: flex; gap: 10px; align-items: center;"><span class="avatar avatar--lg avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span><span class="display-subtitle">VS</span><span class="avatar avatar--lg avatar--opponent"><img src="../assets/goldenotter.svg" alt="goldenotter avatar"></span></div><button class="gbtn gbtn--primary gbtn--lg" type="button"><span class="button-label">I’M READY 0:08</span></button></div>
+<div class="sb-frame" style="height: 380px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;"><span class="frame-label">Waiting for opponent</span><div style="display: flex; gap: 10px; align-items: center;"><span class="avatar avatar--lg avatar--player"><img src="../assets/blackparrot.svg" alt="blackparrot avatar"></span><span class="pill pill--green"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2L4.8 11.5l-2 2 6.7 6.7L21.2 8.5l-2-2z"/></svg>READY</span></div><span class="body muted anim-breathe">GOLDENOTTER is confirming…</span></div>
+<div class="sb-frame" style="height: 380px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;"><span class="frame-label">Opponent didn’t confirm</span><span class="avatar avatar--lg avatar--opponent avatar--offline"><img src="../assets/redcrab.svg" alt="redcrab avatar"></span><span class="body">Back in the queue — priority kept.</span></div>
+<div class="sb-frame" style="height: 380px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;"><span class="frame-label">Connection problem</span><span class="ico-chip ico-chip--red"><svg class="ico " viewBox="0 0 24 24" aria-hidden="true"><path d="M12 18.5a2 2 0 110 4 2 2 0 010-4zM1 8.5a15.5 15.5 0 0122 0l-2 2a12.7 12.7 0 00-18 0zm4 4a10 10 0 0114 0l-2 2a7.2 7.2 0 00-10 0z"/></svg></span><span class="body-strong">Can’t reach the harbour</span><span class="caption muted">You’re still queued for 30 s while we retry.</span><button class="gbtn gbtn--secondary gbtn--sm" type="button"><span class="button-label">Retry now</span></button></div>
+<div class="sb-frame" style="height: 380px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;"><span class="frame-label">Cancel search</span><span class="body">Leave the queue?</span><div style="display: flex; gap: 8px;"><button class="gbtn gbtn--primary gbtn--sm" type="button"><span class="button-label">Keep searching</span></button><button class="gbtn gbtn--ghost gbtn--sm" type="button"><span class="button-label">Leave</span></button></div><span class="caption muted">No penalty before a match is found.</span></div>
+<div class="sb-frame" style="height: 380px; padding: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center;"><span class="frame-label">No human found (low liquidity)</span><span class="body-strong">Quiet harbour tonight</span><button class="gbtn gbtn--primary gbtn--sm" type="button"><span class="button-label">KEEP SEARCHING</span></button><button class="gbtn gbtn--secondary gbtn--sm" type="button"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 1h2v3h5a3 3 0 013 3v9a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h5zM8.5 9a2 2 0 100 4 2 2 0 000-4zm7 0a2 2 0 100 4 2 2 0 000-4zM8 15v2h8v-2zM1 9h1v5H1zm21 0h1v5h-1zM8 20h8v3H8z"/></svg><span class="button-label">Play AI (unrated)</span></button><button class="gbtn gbtn--ghost gbtn--sm" type="button"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7h-3a5 5 0 000 10h3v-2.5H7a2.5 2.5 0 010-5h3zm4 0v2.5h3a2.5 2.5 0 010 5h-3V17h3a5 5 0 000-10zm-6 3.8h8v2.4H8z"/></svg><span class="button-label">Challenge a friend</span></button></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1100, "height": 1220}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

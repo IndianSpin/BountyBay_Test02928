@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Voice — mic denied</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="world world--deep phone" style="width: 390px; height: 844px; ">
+<div style="position: absolute; inset: 0; padding: 60px 22px 34px; display: flex; flex-direction: column; gap: 18px;">
+<div style="display: flex; align-items: center; gap: 10px;"><button class="gbtn gbtn--icon" type="button" aria-label="Back" style="width: 40px; height: 40px;"><svg class="ico ico--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3.5L7 12l8.5 8.5 2.1-2.1L11.2 12l6.4-6.4z"/></svg></button><span class="display-subtitle">Voice Deal</span></div>
+<div class="panel" style="padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; box-shadow: var(--shadow-card-elevated), inset 0 0 0 2px var(--crimson);">
+<span class="ico-chip ico-chip--red" style="width: 72px; height: 72px;"><svg class="ico ico--xl" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.3 2.3l18.4 18.4-1.4 1.4-4.4-4.4A7 7 0 0113 17.9V21h3v2H8v-2h3v-3.1A7 7 0 015 11h2a5 5 0 007.4 4.4l-1.5-1.5A4 4 0 018 12V9.4L1.9 3.7zM12 2a4 4 0 014 4v5.2L8.3 3.5A4 4 0 0112 2zm5 9h2a7 7 0 01-.8 3.3l-1.5-1.5c.2-.6.3-1.2.3-1.8z"/></svg></span><span class="display-title">No mic access</span>
+<span class="body muted">Bounty Bay can’t hear you. Voice Deal needs your microphone — every other mode works without it.</span></div>
+<div class="spec-card" style="padding: 16px; display: flex; flex-direction: column; gap: 10px;"><span class="frame-label">To turn it on</span>
+<span class="body">1 · Open your browser’s site settings (the lock in the address bar)</span><span class="body">2 · Set Microphone to <b>Allow</b></span><span class="body">3 · Come back and tap Try again</span></div>
+<div style="flex-grow: 1;"></div><button class="gbtn gbtn--primary gbtn--xl gbtn--block" type="button"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a4 4 0 014 4v6a4 4 0 01-8 0V6a4 4 0 014-4zM5 11h2a5 5 0 0010 0h2a7 7 0 01-6 6.9V21h3v2H8v-2h3v-3.1A7 7 0 015 11z"/></svg><span class="button-label">TRY AGAIN</span></button><button class="gbtn gbtn--secondary gbtn--lg gbtn--block" type="button"><svg class="ico gbtn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16a2 2 0 012 2v11a2 2 0 01-2 2h-7l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2zm3 6v2h2V9zm4 0v2h2V9zm4 0v2h2V9z"/></svg><span class="button-label">PLAY RANKED WITH TEXT</span></button></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 390, "height": 844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

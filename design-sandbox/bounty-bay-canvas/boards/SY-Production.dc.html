@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Production rules</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="../styles/ds-bundle.css">
+<link rel="stylesheet" href="../styles/bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 1600px; height: 760px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">K · Production rules</div><h1>How the art system is built and extended</h1>
+<div class="card" style="padding:16px"><table><tr><td style="width:200px"><b>Rig</b></td><td class="m">Each character = one function over the shared rig: body plan + costume + prop + head. 15 states (14 + seller) from a shared pose library with per-character overrides.</td></tr><tr><td style="width:200px"><b>Sprite format</b></td><td class="m">One SVG sheet per character, 600×900 cells side by side, ground at y 872, head centre documented. Crops (portrait, bust, avatar, icon) are coordinates, not files.</td></tr><tr><td style="width:200px"><b>Scenes</b></td><td class="m">1600×1000 SVG, calm centre x 36–75%. Table foreground is a separate layer (desktop 1600×440, mobile 780×900) so the opponent sits between the two.</td></tr><tr><td style="width:200px"><b>Animation</b></td><td class="m">Idle breathing (scale-y 1.00–1.012, 3 s), blink, 180 ms pose blend, 2-frame face swap, FX layer on top. Reduced motion = swaps only.</td></tr><tr><td style="width:200px"><b>Adding a character</b></td><td class="m">1 concept line + trade · 2 silhouette test vs cast · 3 face test at 64/96 px · 4 all 15 states · 5 no semantic hues · 6 review against the reject list.</td></tr><tr><td style="width:200px"><b>Accessibility</b></td><td class="m">The UI never relies on character expression: every state also has text, light and position. Numbers are real text on objects, never baked into art.</td></tr></table></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1600, "height": 760}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
