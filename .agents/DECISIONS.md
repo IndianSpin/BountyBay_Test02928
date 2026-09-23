@@ -493,3 +493,13 @@ baseline. Merged: W1's GR-007 flake fix (bounded 5×250 ms retry on the
 active-match read, diagnostics preserved) — `56f9141`, conflict resolved
 manager-side. Next integration step: after QA's re-run, full regression
 → GOLDEN BASELINE.
+
+## D-33 — Golden baseline regression status (2026-09-23)
+
+Legs green so far (manager-run on main): typecheck exit 0 · unit 251 ·
+lint exit 0 (first fully clean tree) · db 70/70 (after L-010 fix: seed
+targets dev DB by default — e2e must be seeded with explicit
+DATABASE_URL; replay test requires default-seeded e2e). Remaining: E2E
+strict leg (blocked on W2's dev servers releasing 3000/4000). Recipe +
+lesson in LEARNINGS (L-010). Golden baseline commit cut after the E2E
+leg.
