@@ -20,6 +20,13 @@ import type { TurnState } from '../../components/game/turn-banner';
 import ResultReveal from '../../components/game/result-reveal';
 import type { MatchSnapshot, MatchView, TimelineItem } from '../../components/game/types';
 
+// Canvas composition + result reveal (BB-201: split out of globals.css).
+// Imported at the single container for all .lm-* usage — the board, the
+// staging MerchantScene, and the terminal ResultReveal.
+import '../../components/game/live-match.css';
+import '../../components/game/reveal.css';
+
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
 
 export interface MatchScreenProps {
