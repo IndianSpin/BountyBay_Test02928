@@ -459,3 +459,13 @@ verified resolved by BB-214 (typecheck 0 on main). Ruling: QA-005's
 fix (CTA neutralization — disable/auto-correct illegal amounts like
 the duplicate-offer case + grouped seal label) rides with W2's BB-216
 composition redesign; no separate task.
+
+## D-30 — BB-220 ACCEPTED (2026-09-23)
+
+Insights API merged: GET /v1/me/insights serves the caller's own IN-3
+profile, null-200 on empty history, self-only. Gate: typecheck 0,
+insights 5/5 (manager-run, isolated DB), no schema/domain/contracts
+changes. Coaching state correctly excluded (no persistence yet —
+IN-5/IN-7; serving emptyCoachingState() would be fake data). docs/08
+updated. W1 stands down pending the founder's DD-M2 checkpoint
+(DEC-026 phase gate → DD-M3).
