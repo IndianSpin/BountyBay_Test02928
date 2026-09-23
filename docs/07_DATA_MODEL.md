@@ -35,9 +35,17 @@ Types are conceptual. Implementation uses PostgreSQL + Prisma 7.x. Amounts are i
 | version | integer | Immutable published version |
 | title | text | Fantasy asset/context |
 | description | text | Shared context |
+| shared_context | text nullable | Shared negotiation context (GR-028, DD-M2) |
 | buyer_batna_narrative | text | Private role narrative template |
 | seller_batna_narrative | text | Private role narrative template |
+| buyer_private_context | text nullable | Buyer-private role context (GR-028) |
+| seller_private_context | text nullable | Seller-private role context (GR-028) |
+| buyer_private_facts | jsonb nullable | Buyer-private facts (GR-028; number-free by domain validation, category whitelist, caps) |
+| seller_private_facts | jsonb nullable | Seller-private facts (same rules) |
 | status | enum | DRAFT/PUBLISHED/RETIRED |
+
+Private dossier fields are role-scoped at serialization (SI-001); the
+opponent's dossier is never served.
 
 Reservation values may be generated per match rather than embedded in scenario.
 

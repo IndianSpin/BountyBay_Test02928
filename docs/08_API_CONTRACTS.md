@@ -65,13 +65,21 @@ Scenario content follows the same role-scoping discipline (DEC-024 follow-up):
   "version": 1,
   "title": "The Ruby Compass",
   "description": "A fabled instrument…",
-  "myNarrative": "You have authority to acquire…"
+  "sharedContext": "A private sale after the wharf closes…",
+  "myNarrative": "You have authority to acquire…",
+  "myPrivateContext": "…",
+  "myPrivateFacts": [
+    { "id": "compass-s1", "text": "…", "category": "URGENCY", "verifiable": false }
+  ]
 }
 ```
 
-- `title` and `description` are shared context, visible to both participants.
-- `myNarrative` is the VIEWER'S OWN role/BATNA narrative only.
-- The opponent's role/BATNA narrative is NEVER serialized to any participant
+- `title`, `description` and `sharedContext` are shared context, visible to
+  both participants.
+- `myNarrative`, `myPrivateContext` and `myPrivateFacts` are the VIEWER'S
+  OWN role content only (GR-028 dossier data; number-free by domain
+  validation — no RV-equivalent leakage).
+- The opponent's role content is NEVER serialized to any participant
   payload, pre- or post-result. It is server-private with the same severity
   as the reservation value (SI-001).
 - The pre-join (challenge waiting) response uses the same `scenario` shape.
