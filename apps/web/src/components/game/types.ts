@@ -71,6 +71,10 @@ export interface ScenarioView {
   title: string;
   description: string;
   myNarrative: string;
+  /** DD-M2 (GR-028): role-scoped dossier — the viewer's own only. */
+  sharedContext: string | null;
+  myPrivateContext: string | null;
+  myPrivateFacts: DossierFactView[];
 }
 
 /** DEC-025: an AI practice opponent in this match (empty for human matches). */
@@ -91,6 +95,8 @@ export interface MatchSnapshot {
   /** GR-024: set when the match ended by timeout; null otherwise. */
   timeoutPlayerId: string | null;
 }
+
+import type { DossierFactView } from './dossier-model';
 
 export interface TimelineItem {
   kind: string;

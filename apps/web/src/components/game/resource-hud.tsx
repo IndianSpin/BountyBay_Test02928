@@ -1,7 +1,5 @@
 'use client';
 
-import { formatPercent } from '../../lib/format';
-
 /**
  * ResourceHUD (canvas v1): the opponent's side gear — clock-multiplier
  * badge and chip count. My side's resources are the dedicated medallion
@@ -11,9 +9,9 @@ export default function ResourceHUD({
   side,
   multiplier,
   remainingChips,
-  totalChips,
-  thinkingMs,
-  confidential,
+  totalChips: _totalChips,
+  thinkingMs: _thinkingMs,
+  confidential: _confidential,
 }: {
   side: 'mine' | 'theirs';
   multiplier: number;
@@ -22,6 +20,9 @@ export default function ResourceHUD({
   thinkingMs?: number;
   confidential?: { limitTenths?: number; mandate?: string };
 }) {
+  void _totalChips;
+  void _thinkingMs;
+  void _confidential;
   if (side === 'mine') return null;
   return (
     <div className="lm-opponent-hud" data-testid="opponent-hud">

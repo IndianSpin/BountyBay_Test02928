@@ -1,3 +1,23 @@
+/* BB-219b (PDR-3): mutual-consent rematch — the accept prompt and the
+   proposer's status line sit with the result actions. */
+.lm-rematch-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 2px solid var(--brand-gold);
+  border-radius: var(--radius-md);
+  background: var(--surface-overlay);
+  box-shadow: 0 0 0 3px rgba(63,190,107,.25);
+}
+.lm-rematch-prompt p { margin: 0; font-size: 14px; font-weight: 700; color: var(--ink-on-dark); }
+.lm-rematch-prompt__row { display: flex; gap: 10px; }
+.lm-rematch-accept { padding: 8px 18px; border-radius: var(--radius-full); border: none; background: var(--positive); color: var(--ink-on-positive); font-family: var(--font-world); font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 3px 0 var(--positive-deep); }
+.lm-rematch-decline { padding: 8px 18px; border-radius: var(--radius-full); border: none; background: var(--surface-interactive); color: var(--ink-on-dark); font-weight: 700; font-size: 13px; cursor: pointer; }
+.lm-rematch-status { margin: 2px 0 0; font-size: 12px; color: var(--ink-muted-on-dark); }
+.lm-rematch-status button { border: none; background: none; color: var(--ink-on-dark); text-decoration: underline; cursor: pointer; font: inherit; padding: 0; }
+
 /* ---------------------------------------------------------------------------
  * Result reveal (canvas v1, sequence F, boards RS-*): staged overlay,
  * stamp, ledger, rematch seal, skip hint. Mounts at terminal state.

@@ -103,6 +103,7 @@ test('canvas checkpoint: live-match screen vs design boards', async ({ browser }
       { name: 'their ask plaque', locator: '.lm-offer--theirs' },
       { name: 'my offer readout', locator: '.lm-offer--mine' },
       { name: 'my limit card', locator: '.lm-limit' },
+      { name: 'private dossier (BB-213)', locator: '.lm-dossier' },
       { name: 'price rail', locator: '.lm-rail' },
       { name: 'composer', locator: '.lm-composer' },
       { name: 'seal action', locator: '.lm-seal' },

@@ -235,6 +235,16 @@
 .lm-asset { position: absolute; left: 26%; top: 52%; width: 150px; z-index: 1; pointer-events: none; opacity: .92; }
 .lm-asset img { width: 100%; display: block; filter: drop-shadow(0 10px 18px rgba(10,8,4,.5)); }
 
+/* private dossier (BB-213): W1's vault panel lives in the private zone,
+   left of the rail on desktop, a row under my band on mobile */
+.lm-dossier {
+  position: absolute;
+  left: 24px;
+  top: 58%;
+  width: min(260px, 20vw);
+  z-index: 2;
+}
+
 /* crossed ribbon: quiet deal signal under the plaque */
 .lm-ribbon {
   position: absolute;
@@ -544,6 +554,7 @@
   .lm-limit__v { font-size: 20px; }
   .lm-offer--mine .lm-offer__v { font-size: 20px; }
   .lm-asset { display: none; } /* world decoration yields the stage on mobile */
+  .lm-dossier { position: relative; left: auto; top: auto; width: 92vw; max-width: 640px; }
 
   /* zone 3 · action band, persistent bottom interaction */
   .lm-action-zone { position: relative; z-index: 3; flex: none; display: flex; align-items: flex-end; gap: 10px; padding: 0 16px; justify-content: center; }
