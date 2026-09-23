@@ -64,8 +64,7 @@ export default function PlayPage() {
           setPhase('playing');
         })
         .catch((err: Error) => {
-          setError(err.message);
-          setPhase('idle');
+          void recoverJoinFailure(err);
         });
     } else if (resumeMatchId) {
       // resume (DEC-025): the snapshot decides — live match, or a challenge still waiting
@@ -97,6 +96,31 @@ export default function PlayPage() {
       setPhase('idle');
     }
   }, [ready, token, joinToken, resumeMatchId]);
+
+  /**
+   * QA-001: a consumed invite token (CHALLENGE_NOT_FOUND after the first
+   * join) or the creator's own link (CANNOT_JOIN_OWN_CHALLENGE) usually
+   * means this browser identity is already a participant — recover
+   * straight to the live match instead of alarming with
+   * "no challenge with that token". The URL becomes the canonical match
+   * URL, so a further refresh lands on the board directly.
+   */
+  async function recoverJoinFailure(err: Error): Promise<void> {
+    let active: { activeMatch?: { matchId?: string } | null } | null = null;
+    try {
+      const res = await fetch(`${API_URL}/v1/me/active-match`, { headers: { authorization: `Bearer ${token}` } });
+      if (res.ok) active = (await res.json()) as { activeMatch?: { matchId?: string } | null };
+    } catch {
+      /* recovery is best-effort; fall through to the join error */
+    }
+    const activeMatchId = active?.activeMatch?.matchId;
+    if (activeMatchId) {
+      window.location.replace(`/play?resume=${activeMatchId}`);
+      return;
+    }
+    setError(err.message);
+    setPhase('idle');
+  }
 
   // Continue-your-game discovery (item 30 partial, DEC-025).
   useEffect(() => {
