@@ -432,6 +432,20 @@ BB-204) and BB-219b (result-screen rematch UI — W2, after BB-216).
 ## PDR-1 — RESOLVED: Negotiation-agent architecture approved as direction (DEC-030)
 
 
+## D-29 — BB-219a ACCEPTED (2026-09-23)
+
+Friend-rematch API merged (`49e6a38`). Gate: typecheck exit 0, unit
+251/56sk, rematch db tests 6/6 (manager-run, isolated DB), migration
+additive nullable (PASS). Design review: fresh RVs per role on propose
+and accept (no RV carried or leaked), proposal = CREATED row with no
+domain state until acceptance, one open proposal per source under
+source-row lock, unrated (GR-019), decline/cancel delete the proposal
+(no audit record — accepted; no domain state existed). Product
+assumption ratified: cancel (proposer retraction) is consistent with
+PDR-3 mutual consent. Docs/07 + docs/08 updated (manager). UI half =
+BB-219b (W2, after BB-216). Lint-debt flagged by W1 (QA tools 8, W2's
+resource-hud/result-reveal 5) → folded into the next QA/W2 inbox tasks.
+
 ## D-28 — BB-218 ACCEPTED; QA-005 folded into BB-216 (2026-09-23)
 
 QA's founder-state probe confirmed the item-10 diagnosis: the offer

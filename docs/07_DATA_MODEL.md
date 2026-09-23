@@ -88,6 +88,8 @@ Configs are immutable after use by a match.
 | settlement_amount_tenths | bigint nullable | result only |
 | completion_reason | enum nullable | ACCEPTED / WALKED_AWAY / TIMED_OUT / ABORTED; result |
 | timeout_player_id | UUID nullable | set when completion_reason = TIMED_OUT (GR-024) |
+| rematch_from_match_id | UUID nullable | set ⟺ the row is an open rematch proposal (PDR-3); source match |
+| rematch_opponent_user_id | UUID nullable | set with the above; the only user who may accept the proposal |
 | event_sequence | bigint | server |
 | created_at | timestamptz | shared |
 | started_at | timestamptz nullable | shared |

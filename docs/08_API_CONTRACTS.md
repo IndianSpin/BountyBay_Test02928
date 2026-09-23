@@ -361,3 +361,27 @@ with IN-8, research (L3) and coaching hypotheses (L4) with IN-4/IN-5.
 `eventRefs` are match event sequences for timeline linkage; timeline
 kinds and rules are defined in docs/20 (negotiation steps only, no
 plumbing events).
+
+## Rematch endpoints (PDR-3, DD-M2 follow-up)
+
+Friend-mode mutual-consent rematch. A proposal is a CREATED Match row
+with one participant, no invite token, `rematchFromMatchId` +
+`rematchOpponentUserId` set; it has no domain state until accepted.
+Unrated throughout (ratingVersion null, GR-019).
+
+- `POST /v1/matches/:id/rematch` — propose (terminal FRIEND_LIVE match,
+  participant; one open proposal per source). Same scenario, same
+  roles; reservation values are freshly drawn.
+- `POST /v1/matches/:id/rematch/accept` — fixed opponent only;
+  materializes the match (fresh RVs, pickFirstPlayer) and auto-readies
+  both players in one transaction → ACTIVE.
+- `POST /v1/matches/:id/rematch/decline` · `POST /v1/matches/:id/
+  rematch/cancel` — decline (opponent) / cancel (proposer retraction);
+  proposals are deleted, no audit record.
+- `GET /v1/matches/:id/rematch` — incoming/outgoing proposal state for
+  the result-screen prompt (BB-219b).
+
+Error codes: `REMATCH_NOT_FOUND` / `REMATCH_NOT_OPEN` /
+`REMATCH_FORBIDDEN` / `REMATCH_ALREADY_PROPOSED` /
+`REMATCH_NOT_AVAILABLE`. `GET /v1/matches/:id` pre-join returns status
+`REMATCH_PENDING` for proposals; `/v1/me/active-match` excludes them.
