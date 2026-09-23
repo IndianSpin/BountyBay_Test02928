@@ -81,3 +81,43 @@ Review UI. Version `review-curation-0.1.0`.
 - **Copy is fixed per type** and built from measurements only — Level 1
   objective facts, no interpretation, no banned vocabulary (best move,
   blunder, mistake, should have, psychology).
+
+## Timeline (IN-2)
+
+Deterministic derivation from the persisted event stream, strictly
+`sequence`-ordered, negotiation-relevant actions only. Version: carried
+by the review envelope (`game-review-0.1.0`).
+
+| Entry kind | Event | Fields |
+|---|---|---|
+| `OFFER` | `OFFER_SUBMITTED` | `actorPlayerId`, `role`, `amountTenths`, `isOpening`, `concessionCostChips` (authoritative domain value) |
+| `MESSAGE` | `MESSAGE_SENT` | `actorPlayerId`, `role` — presence and timing only; **content is never loaded** (docs/18 §14; no NLP in this package) |
+| `ACCEPT` | `OFFER_ACCEPTED` | `actorPlayerId`, `role` |
+| `WALK_AWAY` | `WALKED_AWAY` | `actorPlayerId`, `role` |
+| `TIMEOUT` | `TIMED_OUT` | `actorPlayerId` = `payload.timedOutPlayerId`, `role` — the domain scheduler raises the event, not a player action |
+| `ABORTED` | `MATCH_ABORTED` | no actor |
+
+`MATCH_STARTED`, `PLAYER_READY`, disconnect/reconnect, pause and
+`MATCH_COMPLETED` are plumbing, not negotiation steps — excluded. Every
+entry carries `seq` (links moments to steps) and `at` (server ms).
+
+## Game Review envelope (IN-2)
+
+`buildGameReview(state, events, config, playerId)` is the single
+deterministic IN-2 entry point. Version `game-review-0.1.0`; returns
+
+- `version`, `curationVersion`, `featureVersion`, `observationVersion`
+  (engine versions at computation time),
+- `matchId`, `playerId`, `outcome`,
+- `moments` — 1–5 curated moments, moment 1 always RESULT,
+- `timeline` — the shared match timeline above (both participants see
+  the same steps; moments are player-scoped).
+
+The review is **self-contained by contract** (docs/18 §3, §13): pure
+over the stored snapshot + event stream + economy config, with no
+coaching, LLM, retrieval or external service in the path — the Game
+Review works fully when the coaching service is unavailable, and is the
+fallback everything else degrades to, never the other way around.
+It throws on a non-completed match (status outside
+`DEAL`/`NO_DEAL`/`ABORTED`) and on a non-participant `playerId`. The
+timeline is derived, never persisted — no schema change rides with IN-2.

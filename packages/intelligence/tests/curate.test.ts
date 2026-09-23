@@ -5,7 +5,7 @@
  */
 
 import { describe, expect, it } from 'vitest';
-import { analyzeMatch, curateReview, MOMENT_CAP, REVIEW_CURATION_VERSION, type MatchObservation, type ObservationType } from '../src';
+import { analyzeMatch, curateReview, MOMENT_CAP, REVIEW_CURATION_VERSION, type ObservationType } from '../src';
 import { BUYER_ID, play, readyBoth, START_NOW } from './helpers';
 
 describe('review curation', () => {

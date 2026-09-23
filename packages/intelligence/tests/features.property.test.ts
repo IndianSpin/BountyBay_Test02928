@@ -6,9 +6,9 @@
  */
 
 import { makeEconomyConfig, type EconomyConfig } from '@bounty-bay/config';
-import { applyCommand, createMatch, type CreateMatchInput, type DomainCommand, type DomainEvent, type MatchState, type PlayerId } from '@bounty-bay/domain';
+import { applyCommand, createMatch, type CreateMatchInput, type DomainCommand, type DomainEvent, type MatchState } from '@bounty-bay/domain';
 import { describe, expect, it } from 'vitest';
-import { analyzeMatch, computeFeatures } from '../src';
+import { analyzeMatch, buildGameReview, computeFeatures, MOMENT_CAP } from '../src';
 import { BUYER_ID, mustOk, SELLER_ID, START_NOW } from './helpers';
 
 function mulberry32(seed: number): () => number {
@@ -150,6 +150,29 @@ describe('property invariants (seeded random matches)', () => {
           expect(features.settlementWithinOpponentLimitFraction).toBeGreaterThanOrEqual(0);
         }
         if (features.foregoneValueTenths !== null) expect(features.foregoneValueTenths).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it('game review is deterministic, bounded and references real timeline events', () => {
+    for (const match of matches) {
+      for (const playerId of [BUYER_ID, SELLER_ID]) {
+        const first = buildGameReview(match.state, match.events, match.config, playerId);
+        const second = buildGameReview(match.state, match.events, match.config, playerId);
+        expect(second).toEqual(first);
+
+        expect(first.moments.length).toBeGreaterThanOrEqual(1);
+        expect(first.moments.length).toBeLessThanOrEqual(MOMENT_CAP);
+        expect(first.moments[0]!.kind).toBe('RESULT');
+
+        const timelineSeqs = first.timeline.map((e) => e.seq);
+        expect([...timelineSeqs].sort((a, b) => a - b)).toEqual(timelineSeqs);
+        const timelineSet = new Set(timelineSeqs);
+        for (const moment of first.moments.slice(1)) {
+          for (const ref of moment.eventRefs) {
+            expect(timelineSet.has(ref)).toBe(true);
+          }
+        }
       }
     }
   });
