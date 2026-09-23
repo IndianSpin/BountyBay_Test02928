@@ -1,0 +1,756 @@
+
+> bounty-bay@0.1.0 test:e2e /Users/jeremydommnich/projects/bay-qa
+> pnpm --filter web exec playwright test
+
+[WebServer] npm warn Unknown env config "npm-globalconfig". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+[WebServer] npm warn Unknown env config "verify-deps-before-run". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+[WebServer] npm warn Unknown env config "_jsr-registry". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+[WebServer] npm warn Unknown env config "only-built-dependencies". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+[WebServer] npm warn Unknown global config "only-built-dependencies". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+Running 17 tests using 5 workers
+
+  ✘   3 e2e/insights-api.spec.ts:12:5 › insights: a completed friend match feeds the caller’s longitudinal profile only (93ms)
+  -   5 e2e/canvas-checkpoint.spec.ts:64:5 › canvas checkpoint: live-match screen vs design boards
+  ✓   4 e2e/dossier-api.spec.ts:30:5 › dossier payload is present, role-scoped, and leakage-free (DD-M2) (482ms)
+  ✓   7 e2e/rematch-api.spec.ts:18:5 › rematch: propose after the result, opponent accepts, new ACTIVE match starts (PDR-3) (129ms)
+  ✓   9 e2e/rematch-api.spec.ts:83:5 › rematch: decline removes the proposal and either side may propose again (PDR-3) (103ms)
+  ✓   8 e2e/join-refresh.spec.ts:21:5 › mid-match refresh on the share URL recovers to the live board (QA-001) (3.9s)
+  ✓   2 e2e/hold-accept.spec.ts:61:5 › hold-to-accept: early release cancels, full hold settles the deal (5.4s)
+  ✓   6 e2e/practice-vs-ai.spec.ts:12:5 › a full practice match vs the Closer ends in a labeled deal (7.1s)
+  ✓  13 e2e/stale-auth-recovery.spec.ts:13:5 › stale dev token self-heals into a working identity (205ms)
+  ✓  12 e2e/hold-accept.spec.ts:117:5 › walk away lives in the ⋯ menu behind a confirm hold (LMD-07) (3.7s)
+  ✓  10 e2e/rematch-consent.spec.ts:62:5 › mutual-consent rematch: propose → accept → both land on a new ACTIVE match (10.1s)
+  ✓  11 e2e/review-flow.spec.ts:9:5 › a completed match reviews into deterministic moments and a linked timeline (7.0s)
+  ✓   1 e2e/friend-match.spec.ts:82:5 › two browsers complete a friend match (deal, reveal, rematch CTA) (11.5s)
+  ✘  15 e2e/rematch-consent.spec.ts:106:5 › decline closes the offer cleanly on both sides (5.3s)
+  ✘  16 e2e/friend-match.spec.ts:151:5 › chat does not transfer the turn (GR-013) (5.2s)
+  ✘  17 e2e/friend-match.spec.ts:181:5 › repeating the same formal offer is rejected and never switches the turn (GR-007) (5.2s)
+  ✓  14 e2e/timeout.spec.ts:31:5 › a stalled match warns through LOW TIME and CRITICAL, then times out distinctly (52.1s)
+
+
+  1) e2e/friend-match.spec.ts:151:5 › chat does not transfer the turn (GR-013) ─────────────────────
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/play/
+    Received string:  "http://localhost:3100/"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="en">…</html>
+           - unexpected value "http://localhost:3100/"
+
+
+      18 |   await page.goto('/');
+      19 |   await page.getByTestId('dev-play-button').click();
+    > 20 |   await expect(page).toHaveURL(/\/play/);
+         |                      ^
+      21 |   await page.getByRole('button', { name: 'Create challenge' }).click();
+      22 |   const shareInput = page.locator('input.share-input');
+      23 |   await expect(shareInput).toBeVisible({ timeout: 15_000 });
+        at createChallenge (/Users/jeremydommnich/projects/bay-qa/apps/web/e2e/friend-match.spec.ts:20:22)
+        at /Users/jeremydommnich/projects/bay-qa/apps/web/e2e/friend-match.spec.ts:157:20
+
+    Error Context: test-results/friend-match-chat-does-not-transfer-the-turn-GR-013-/error-context.md
+
+  2) e2e/friend-match.spec.ts:181:5 › repeating the same formal offer is rejected and never switches the turn (GR-007) 
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/play/
+    Received string:  "http://localhost:3100/"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="en">…</html>
+           - unexpected value "http://localhost:3100/"
+
+
+      18 |   await page.goto('/');
+      19 |   await page.getByTestId('dev-play-button').click();
+    > 20 |   await expect(page).toHaveURL(/\/play/);
+         |                      ^
+      21 |   await page.getByRole('button', { name: 'Create challenge' }).click();
+      22 |   const shareInput = page.locator('input.share-input');
+      23 |   await expect(shareInput).toBeVisible({ timeout: 15_000 });
+        at createChallenge (/Users/jeremydommnich/projects/bay-qa/apps/web/e2e/friend-match.spec.ts:20:22)
+        at /Users/jeremydommnich/projects/bay-qa/apps/web/e2e/friend-match.spec.ts:187:20
+
+    Error Context: test-results/friend-match-repeating-the-59000-r-switches-the-turn-GR-007-/error-context.md
+
+  3) e2e/insights-api.spec.ts:12:5 › insights: a completed friend match feeds the caller’s longitudinal profile only 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -   1
+    + Received  + 614
+
+      Object {
+    -   "profile": null,
+    +   "profile": Object {
+    +     "confidenceBand": "INSUFFICIENT_DATA",
+    +     "descriptors": Array [],
+    +     "featureEngineVersion": "feature-engine-0.1.0",
+    +     "lastMatchEndedAt": 1790166313114,
+    +     "lifetime": Object {
+    +       "dimensions": Object {
+    +         "agreementRate": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "chipsSpent": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "concessionCount": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "concessionEfficiency": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "concessionMeanRelativeSize": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "decisionSpeedMs": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "fastConcessionsAfterResistance": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "finalGapTenths": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "floorTimeMs": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "longHolds": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "maxConsecutiveUnilateral": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "messagesSent": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "noDealRate": Object {
+    +           "count": 1,
+    +           "max": 1,
+    +           "mean": 1,
+    +           "min": 1,
+    +         },
+    +         "offerCount": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "openingDistanceFromRv": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "openingPositionInZopa": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "pitchedOffers": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "surplusCapture": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timeFromCrossedToSettlementMs": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timePressureExposure": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timeoutRate": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "unreciprocatedConcessions": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "walkAwayRate": Object {
+    +           "count": 1,
+    +           "max": 1,
+    +           "mean": 1,
+    +           "min": 1,
+    +         },
+    +       },
+    +       "matchCount": 1,
+    +     },
+    +     "matchCount": 1,
+    +     "playerId": "85928b61-fc42-43f3-b2cc-03c42bb8352b",
+    +     "previous": Object {
+    +       "dimensions": Object {
+    +         "agreementRate": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "chipsSpent": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "concessionCount": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "concessionEfficiency": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "concessionMeanRelativeSize": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "decisionSpeedMs": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "fastConcessionsAfterResistance": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "finalGapTenths": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "floorTimeMs": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "longHolds": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "maxConsecutiveUnilateral": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "messagesSent": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "noDealRate": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "offerCount": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "openingDistanceFromRv": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "openingPositionInZopa": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "pitchedOffers": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "surplusCapture": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timeFromCrossedToSettlementMs": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timePressureExposure": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timeoutRate": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "unreciprocatedConcessions": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "walkAwayRate": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +       },
+    +       "matchCount": 0,
+    +     },
+    +     "recent": Object {
+    +       "dimensions": Object {
+    +         "agreementRate": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "chipsSpent": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "concessionCount": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "concessionEfficiency": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "concessionMeanRelativeSize": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "decisionSpeedMs": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "fastConcessionsAfterResistance": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "finalGapTenths": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "floorTimeMs": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "longHolds": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "maxConsecutiveUnilateral": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "messagesSent": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "noDealRate": Object {
+    +           "count": 1,
+    +           "max": 1,
+    +           "mean": 1,
+    +           "min": 1,
+    +         },
+    +         "offerCount": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "openingDistanceFromRv": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "openingPositionInZopa": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "pitchedOffers": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "surplusCapture": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timeFromCrossedToSettlementMs": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timePressureExposure": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timeoutRate": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "unreciprocatedConcessions": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "walkAwayRate": Object {
+    +           "count": 1,
+    +           "max": 1,
+    +           "mean": 1,
+    +           "min": 1,
+    +         },
+    +       },
+    +       "matchCount": 1,
+    +     },
+    +     "roleSplit": Object {
+    +       "buyer": Object {
+    +         "agreementRate": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "matchCount": 1,
+    +         "surplusCapture": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +       },
+    +       "seller": Object {
+    +         "agreementRate": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "matchCount": 0,
+    +         "surplusCapture": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +       },
+    +     },
+    +     "rolling": Object {
+    +       "dimensions": Object {
+    +         "agreementRate": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "chipsSpent": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "concessionCount": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "concessionEfficiency": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "concessionMeanRelativeSize": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "decisionSpeedMs": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "fastConcessionsAfterResistance": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "finalGapTenths": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "floorTimeMs": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "longHolds": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "maxConsecutiveUnilateral": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "messagesSent": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "noDealRate": Object {
+    +           "count": 1,
+    +           "max": 1,
+    +           "mean": 1,
+    +           "min": 1,
+    +         },
+    +         "offerCount": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "openingDistanceFromRv": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "openingPositionInZopa": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "pitchedOffers": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "surplusCapture": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timeFromCrossedToSettlementMs": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timePressureExposure": Object {
+    +           "count": 0,
+    +           "max": null,
+    +           "mean": null,
+    +           "min": null,
+    +         },
+    +         "timeoutRate": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "unreciprocatedConcessions": Object {
+    +           "count": 1,
+    +           "max": 0,
+    +           "mean": 0,
+    +           "min": 0,
+    +         },
+    +         "walkAwayRate": Object {
+    +           "count": 1,
+    +           "max": 1,
+    +           "mean": 1,
+    +           "min": 1,
+    +         },
+    +       },
+    +       "matchCount": 1,
+    +     },
+    +     "trends": Array [],
+    +     "version": "longitudinal-profile-0.1.0",
+    +   },
+      }
+
+      27 |   const before = await api.get('/v1/me/insights', { headers: authOf(buyer.token) });
+      28 |   expect(before.status()).toBe(200);
+    > 29 |   expect(await before.json()).toEqual({ profile: null });
+         |                               ^
+      30 |
+      31 |   // A terminal friend match: challenge → join → ready both → one side walks.
+      32 |   const created = await api.post('/v1/challenges', { headers: authOf(buyer.token), data: cmd() });
+        at /Users/jeremydommnich/projects/bay-qa/apps/web/e2e/insights-api.spec.ts:29:31
+
+    Error Context: test-results/insights-api-insights-a-co-64a81-s-longitudinal-profile-only/error-context.md
+
+  4) e2e/rematch-consent.spec.ts:106:5 › decline closes the offer cleanly on both sides ────────────
+
+    Error: expect(page).toHaveURL(expected) failed
+
+    Expected pattern: /\/play/
+    Received string:  "http://localhost:3100/"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toHaveURL" with timeout 5000ms
+        14 × locator resolved to <html lang="en">…</html>
+           - unexpected value "http://localhost:3100/"
+
+
+      11 |   await page.goto('/');
+      12 |   await page.getByTestId('dev-play-button').click();
+    > 13 |   await expect(page).toHaveURL(/\/play/);
+         |                      ^
+      14 |   await page.getByRole('button', { name: 'Create challenge' }).click();
+      15 |   const shareInput = page.locator('input.share-input');
+      16 |   await expect(shareInput).toBeVisible({ timeout: 15_000 });
+        at createChallenge (/Users/jeremydommnich/projects/bay-qa/apps/web/e2e/rematch-consent.spec.ts:13:22)
+        at /Users/jeremydommnich/projects/bay-qa/apps/web/e2e/rematch-consent.spec.ts:112:20
+
+    Error Context: test-results/rematch-consent-decline-cl-47407-offer-cleanly-on-both-sides/error-context.md
+
+  4 failed
+    e2e/friend-match.spec.ts:151:5 › chat does not transfer the turn (GR-013) ──────────────────────
+    e2e/friend-match.spec.ts:181:5 › repeating the same formal offer is rejected and never switches the turn (GR-007) 
+    e2e/insights-api.spec.ts:12:5 › insights: a completed friend match feeds the caller’s longitudinal profile only 
+    e2e/rematch-consent.spec.ts:106:5 › decline closes the offer cleanly on both sides ─────────────
+  1 skipped
+  12 passed (1.1m)
+undefined
+/Users/jeremydommnich/projects/bay-qa/apps/web:
+ ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command failed with exit code 1: playwright test
+ ELIFECYCLE  Command failed with exit code 1.
