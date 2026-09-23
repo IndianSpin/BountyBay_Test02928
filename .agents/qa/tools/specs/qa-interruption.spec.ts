@@ -134,14 +134,14 @@ test('MATCH STATE INTERRUPTION matrix: refresh at offer/accept/result/rematch (L
   const readyCount = await pageB.evaluate(async (apiUrl) => {
     const stored = JSON.parse(localStorage.getItem('bb-dev-auth') ?? '{}') as { token?: string };
     const headers = { authorization: `Bearer ${stored.token ?? ''}` };
-    const me = await fetch(`${apiUrl}/v1/me`, { headers }).then((r) => r.json()) as { user?: { id?: string } };
+    const me = await fetch(`${apiUrl}/v1/me`, { headers }).then((r) => r.json()) as { id?: string };
     const active = await fetch(`${apiUrl}/v1/me/active-match`, { headers }).then((r) => r.json()) as { activeMatch?: { matchId?: string } | null };
     const matchId = active.activeMatch?.matchId;
     if (!matchId) return -1;
     const events = await fetch(`${apiUrl}/v1/matches/${matchId}/events`, { headers }).then((r) => r.json()) as {
       events: { type: string; actorPlayerId: string | null }[];
     };
-    return events.events.filter((e) => e.type === 'PLAYER_READY' && e.actorPlayerId === me.user?.id).length;
+    return events.events.filter((e) => e.type === 'PLAYER_READY' && e.actorPlayerId === me.id).length;
   }, API_URL);
   expect(readyCount).toBe(1);
 
