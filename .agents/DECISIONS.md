@@ -290,6 +290,24 @@ error handler, no env/release tags). Implementation (DA-P1-*) NOT
 scheduled — backlog with ownership rulings pending. `data-analytics`
 branch + `~/projects/bay-data` worktree cut for future work.
 
+## D-21 — Founder sign-offs (2026-09-23): DD Phase 1 + IN-2
+
+Founder: DD Phase 1 checkpoint SIGNED OFF → **DD-M2 (private dossiers,
+GR-028) unblocked** for W1 (BB-204 in inbox, after BB-211). Founder: IN-2
+checkpoint SIGNED OFF → **IN-3 (longitudinal profile) unblocked** for W3
+(BB-205 in inbox). Ruling on the DEC-028 dependency line ("P1-M2 rating
+stays ahead of IN-3"): IN-3's core behavioral profile has no rating
+dependency (docs/18 §9 fields); rating-dependent comparisons and cohorts
+stay deferred until P1-M2 — recorded, not silently dropped.
+
+## D-22 — BB-201 proceeds against canvas v1
+
+Founder did not answer whether to hold BB-201 for a v2 export; default:
+proceed against v1. If a v2 export lands mid-flight, the stale-design
+stop condition applies — W2 finishes or pauses at the next checkpoint and
+re-bases; the v2 delta gets classified (COSMETIC/COMPONENT/FLOW/PRODUCT)
+and re-sequenced by the manager.
+
 ## D-20 — Environment corrections + BB-210 ACCEPTED (2026-09-23)
 
 Sixth specialist's environment matrix (BB-210, `bounty-control/
@@ -305,10 +323,13 @@ install` in `~/projects/bay-w2` (W2 blocked on BB-201) + verify node_
 modules in bay-w1/w3/qa; (6) bay-data without node_modules is fine while
 read-only.
 
-## PDR-2 — PRODUCT DECISION REQUIRED: GR-012 walk-away doc-vs-behavior
+## PDR-2 — OPEN: GR-012 walk-away doc-vs-behavior
 
-QA found docs and domain disagree about walk-away turn gating. Per
-AGENTS.md: conflict reported, not resolved. **Status:** awaiting founder
-ruling on whether docs/02's GR-012 wording or the domain implementation
-is correct; no code or doc changes made.
+QA found docs and domain disagree about walk-away turn gating. Founder
+asked 2026-09-23: "i dont know" — not resolved, not abandoned. Plan:
+W1 (domain owner) writes the doc-vs-behavior comparison + a
+recommendation in worker-1.md (evidence task); QA includes its observed
+behavior in the BB-206 report; manager presents both to the founder with
+a recommendation. **Nothing changes in code or docs until the founder
+rules.**
 
