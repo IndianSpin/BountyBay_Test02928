@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OS · Rationale</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/bounty-bay/components/bundle.css">
+<link rel="stylesheet" href="bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 1400px; height: 760px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">OS · 3 — DESIGN RATIONALE</div><h1>Why the opening screen looks like this</h1>
+<div class="card" style="padding:16px"><table><tr><td style="width:210px"><b>Host, not lineup</b></td><td class="m">GoldenOtter fronts the screen alone — he is the benchmark character and the one every player meets in the tutorial. A full cast grid up front would read as a character-select screen, which this game does not have (opponents are matched, never picked).</td></tr><tr><td style="width:210px"><b>Cast is a teaser, not a menu</b></td><td class="m">The avatar strip is a promise ("here is who you'll face"), not a navigation control — none of the seven are tappable here. Clicking a face here would imply pick-your-opponent, which breaks matchmaking's fairness story.</td></tr><tr><td style="width:210px"><b>One dominant action</b></td><td class="m">PLAY NOW is the only gold button on the screen. Watch a match and Create account are visually secondary so a returning player's eye still lands on one place.</td></tr><tr><td style="width:210px"><b>Scene over chrome</b></td><td class="m">Reuses the same Lantern Wharf environment and GoldenOtter render built for the live-match screen (C2 · 2), so the title screen and the first real match feel like the same place, not a separate marketing wrapper.</td></tr><tr><td style="width:210px"><b>Live social proof</b></td><td class="m">The "Live · N deals in progress" pill is the only stat on the screen — it signals a real, populated game world without competing with the wordmark for attention.</td></tr><tr><td style="width:210px"><b>Mobile: scene shrinks, decision stays put</b></td><td class="m">On mobile the wharf art becomes a top band and the CTA stack drops onto a solid parchment-dark panel so PLAY NOW is always in the thumb zone, never floating over busy art.</td></tr></table></div>
+<div class="adpdr"><div class="k">PRODUCT DECISION REQUIRED · Returning-player behaviour</div><p style="margin-top:4px">This title screen is drawn for a first-time / signed-out visit. For a returning, signed-in player, does the app show this screen at all, or route straight to 07 · The Bay? Drawn assumption: signed-out → this screen; signed-in → skip straight to the Bay (matching the "no dashboard, a place" principle on 07). Needs confirmation.</p></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1400, "height": 760}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
