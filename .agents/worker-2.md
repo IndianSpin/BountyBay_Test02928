@@ -31,31 +31,55 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — W2-02: IN handoff checkpoint (founder correction 1)
-Do NOT let worker-3 rebuild IN-1 if your work is valid. Execute:
-1. `git status` in both `~/projects/bay` (should be clean, manager-only)
-   and your worktree; commit any of your own uncommitted
-   `packages/intelligence` work to your branch as a clean handoff
-   checkpoint.
-2. Record in this file: (a) **exact commit hash** of the handoff; (b)
-   what is complete, partial, temporary, and untested; (c) list of
-   relevant files and tests.
-3. Confirm here that you are no longer editing that package.
-Also: remove leftover debug `console.log` edits in your files; provide
-screenshots + testing instructions for the founder canvas review
-(screenshots already in `design-sandbox/screenshots/` — document how to
-run the E2E strict/reuse modes).
+## CURRENT TASK — BB-216: live-match composition redesign — READY FOR REVIEW
+Committed to `w2-frontend-design` (tip `fa6ad69`, rebased on main
+`346cc25`): `5eb46b7` composition → `07b8b5f` v2 assets → `de49f12`
+pose system → `fa6ad69` D-28 + mobile fix.
+Delivered: D-24 five-object/four-zone composition + D-26 three-level
+chat (bubble fade, quick prompts, bottom sheet) + canvas v2 Closer
+poses (key-state swap + crossfade) + D-28 seal neutralization (illegal
+amount disables the seal; grouped `SEAL OFFER 116,500`).
+Verification: typecheck 0 · unit 251 passed · E2E friend-match/
+hold-accept/timeout 10 passed · canvas-checkpoint green (11 captures
+in `apps/web/test-results/canvas/`) · QA bb-218 repro flips at its
+pin (seal disabled). Deviations + evidence: inbox file. STOPPED for
+founder review — do not start BB-213/BB-215 until BB-216 is ACCEPTed.
 
-## NEXT (after founder canvas verdict)
-- W2-03: structural CSS split (`globals.css` → per-area modules) at the
-  next safe checkpoint — do not start before the verdict and do not do a
-  large refactor that risks the checkpoint.
+## BB-201 CHECKPOINT (CSS split, PAUSED by manager D-24 — commit below)
+Committed to `w2-frontend-design` as a salvage checkpoint; NOT reviewed.
+**What exists in the commit:**
+- `apps/web/src/components/game/live-match.css` — canvas composition
+  (world/opponent/plaque/offer/limit/rail/composer/seal/ribbon/clock/
+  coins/chat/round-btn/menu/asset/positions/mobile) + my acceptance
+  interaction pieces (`.lm-accept--pressed`, `lm-shockwave` keyframe +
+  class) + their reduced-motion rule.
+- `apps/web/src/components/game/reveal.css` — `.lm-result-*` overlay/
+  stage/stamp/limits/range/split/headline/ledger/rematch-seal/skip-hint
+  + mobile media + `.lm-split__coin` reduced-motion.
+- `apps/web/src/app/play/match-screen.tsx` — imports both modules (only
+  `app/` files may import global CSS; match-screen is the single `.lm-*`
+  container incl. staging MerchantScene).
+- `globals.css` — reduced to legacy/secondary styles + tokens/keyframes
+  + worker-1's owned acceptance sections (`.lm-accept` overflow/
+  transition, `.lm-accept__fill`, `lm-stamp`, `.lm-accept--stamping`,
+  `.lm-confirm-sheet`, `.lm-walk__hold/__fill`) + their reduced-motion
+  block (restored).
+**Verification done:** rule-multiset parity script (538 rules before =
+after, mod the intentional 3-way decomposition of one shared
+reduced-motion line — same elements/query/computed styles); `pnpm test`
+226 passed; `next build` compiles CSS (Turbopack ✓).
+**Known gap at pause time:** `pnpm typecheck` / `next build` fail on
+PRE-EXISTING worker-1 spec error `e2e/friend-match.spec.ts:249`
+(`body.code` union narrowing, from their commit `0aec467`) — untouched
+per ownership, flagged in inbox. E2E canvas-checkpoint desktop half
+passed (all `.lm-*` structural checks) on a run against STALE main-
+checkout servers; I killed them (they were started from `~/projects/bay`
+by my earlier session) — 3000/4000 are free; restart from this worktree
+when needed. Zero-visual-diff screenshot comparison NOT completed
+before the pause.
 
-## STATUS (as of baseline `f1e8c99`, your report)
-All three slices shipped: unit 216 passed; E2E strict mode 8 passed / 1
-skipped; web typecheck clean; production build ok; canvas-checkpoint
-structural contract passed. `deal-table.tsx` remains on disk, not
-rendered → TD-3.
+## NEXT (after BB-216)
+- BB-213 / BB-215 re-queue after BB-216 (manager, D-24).
 
 ## BLOCKERS
 - None that block the handoff; canvas verdict is the founder's.

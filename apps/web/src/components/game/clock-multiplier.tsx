@@ -3,10 +3,11 @@
 import { formatPercent } from '../../lib/format';
 
 /**
- * Clock medallion (canvas v1): gold outer ring, ember (mine) / violet
- * (theirs) enamel, countdown, and the clock-multiplier badge. At the 30%
- * floor the badge greys out and carries the FLOOR tag — the timer never
- * implies further loss (GE-008).
+ * Clock chip (BB-216, D-24): the quiet-row countdown + clock-multiplier
+ * badge — was the 150 px medallion. The turn label lives on the turn
+ * chip (turn-banner) only; duplication was part of the scale inflation.
+ * At the 30% floor the badge greys out and carries the FLOOR tag — the
+ * timer never implies further loss (GE-008).
  */
 
 function fmtClock(ms: number): string {
@@ -26,18 +27,15 @@ export default function ClockMultiplier({
   atFloor?: boolean;
 }) {
   return (
-    <div
+    <span
       className={`lm-clock ${side === 'theirs' ? 'lm-clock--opponent' : ''}`}
       data-testid="clock-medallion"
       aria-label={`Clock multiplier ${formatPercent(multiplier)}`}
     >
-      <div className="lm-clock__face">
-        <span className="lm-clock__k">{side === 'mine' ? 'YOUR MOVE' : 'THINKING'}</span>
-        {thinkingMs !== undefined && <span className="lm-clock__v">{fmtClock(thinkingMs)}</span>}
-      </div>
-      <div className={`lm-clock__mult ${atFloor ? 'lm-clock__mult--floor' : ''}`} title="Clock multiplier">
+      {thinkingMs !== undefined && <span className="lm-clock__v">{fmtClock(thinkingMs)}</span>}
+      <span className={`lm-clock__mult ${atFloor ? 'lm-clock__mult--floor' : ''}`} title="Clock multiplier">
         ×{Math.round(multiplier * 100)}%{atFloor ? ' · FLOOR' : ''}
-      </div>
-    </div>
+      </span>
+    </span>
   );
 }

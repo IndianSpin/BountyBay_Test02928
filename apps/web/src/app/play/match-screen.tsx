@@ -20,6 +20,13 @@ import type { TurnState } from '../../components/game/turn-banner';
 import ResultReveal from '../../components/game/result-reveal';
 import type { MatchSnapshot, MatchView, TimelineItem } from '../../components/game/types';
 
+// Canvas composition + result reveal (BB-201: split out of globals.css).
+// Imported at the single container for all .lm-* usage — the board, the
+// staging MerchantScene, and the terminal ResultReveal.
+import '../../components/game/live-match.css';
+import '../../components/game/reveal.css';
+
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
 
 export interface MatchScreenProps {
@@ -248,8 +255,11 @@ export default function MatchScreen({ matchId, token, userId, opponentJoined, on
     }
   }
 
-  async function sendChat(): Promise<void> {
-    const body = chatInput.trim();
+  async function sendChat(override?: string): Promise<void> {
+    // `override` is the quick-prompt path (chat-panel): a prompt sends as
+    // a normal chat message — COMM stays mechanically separate from
+    // FORMAL OFFER, and chat never changes turn state (GR-013).
+    const body = (override ?? chatInput).trim();
     if (!body) return;
     setChatInput('');
     try {
@@ -364,6 +374,13 @@ export default function MatchScreen({ matchId, token, userId, opponentJoined, on
           canOffer:
             view.myTurn &&
             parsedAmount.ok &&
+            // D-28 (QA-005): a beyond-mandate amount DISABLES the seal —
+            // the CTA is never an enabled hero for an illegal offer
+            // (the composer strip explains why; GR-007-style precedent).
+            (view.myReservationValueTenths === undefined ||
+              (view.myRole === 'BUYER'
+                ? parsedAmount.tenths <= view.myReservationValueTenths
+                : parsedAmount.tenths >= view.myReservationValueTenths)) &&
             (myPrevious === null || (preview !== null && preview.movingToward && preview.affordable)),
           canAccept:
             view.myTurn &&
