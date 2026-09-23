@@ -67,7 +67,7 @@ button { font:inherit; }
 .wordmark { font-family:var(--font-world); font-weight:800; color:var(--brand-gold); letter-spacing:-0.5px; }
 
 /* ---------- world backdrops ---------- */
-.world { position:relative; overflow:hidden; background-color:var(--surface-world); background-image:url(../assets/harbor.svg); background-size:cover; background-position:center 70%; }
+.world { position:relative; overflow:hidden; background-color:var(--surface-world); background-image:url(/_blob/e0d15dc7bce09ffa2a6f8412847059ee); background-size:cover; background-position:center 70%; }
 .world--dim::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(16,26,32,0.55) 0%, rgba(16,26,32,0.78) 55%, rgba(16,26,32,0.94) 100%); pointer-events:none; }
 .world--deep::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(16,26,32,0.80) 0%, rgba(16,26,32,0.92) 60%, rgba(16,26,32,0.98) 100%); pointer-events:none; }
 .world--hero::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(16,26,32,0.15) 0%, rgba(16,26,32,0.35) 45%, rgba(16,26,32,0.96) 100%); pointer-events:none; }
@@ -473,7 +473,7 @@ a.gbtn { text-decoration:none; }
 
 /* v1.1: secondary screens live at dusk, not midnight */
 .plain { background:linear-gradient(180deg, #2B2366 0%, #3A2466 45%, #22304A 100%); }
-.world { background-image:url(../assets/bay-dusk.svg); background-position:center 60%; }
+.world { background-image:url(/_blob/1b4e4d7ac584fb2907029f19c4f647f4); background-position:center 60%; }
 .world--dim::before { background:linear-gradient(180deg, rgba(34,22,70,.45) 0%, rgba(34,22,70,.72) 55%, rgba(24,20,48,.9) 100%); }
 .world--deep::before { background:linear-gradient(180deg, rgba(34,22,70,.72) 0%, rgba(30,22,60,.86) 60%, rgba(24,20,48,.95) 100%); }
 .world--hero::before { background:linear-gradient(180deg, rgba(34,22,70,.05) 0%, rgba(34,22,70,.25) 45%, rgba(24,20,48,.9) 100%); }

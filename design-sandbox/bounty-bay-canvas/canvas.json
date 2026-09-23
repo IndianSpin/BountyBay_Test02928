@@ -1,2350 +1,2576 @@
 {
- "v": 3,
- "attachments": {},
- "boards": {
-  "AD-Materials.dc.html": {
-   "h": 1000,
-   "page": "a1",
-   "title": "A · MATERIALS — plaque, wax card, limit card, chips, clock, stamp, notice",
-   "w": 2000,
-   "x": 4460,
-   "y": 0
-  },
-  "AD-Palette.dc.html": {
-   "h": 1120,
-   "page": "a1",
-   "title": "A · COLOUR — semantic vs world palette, six moods",
-   "w": 2000,
-   "x": 2380,
-   "y": 0
-  },
-  "AD-World.dc.html": {
-   "h": 1000,
-   "page": "a1",
-   "title": "A · WORLD — pillars, districts, what we are not",
-   "w": 2300,
-   "x": 0,
-   "y": 0
-  },
-  "AN-D-Analysis.dc.html": {
-   "h": 1000,
-   "page": "p09",
-   "title": "AN-D · Deal analysis",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "AN-M-Analysis.dc.html": {
-   "h": 1000,
-   "page": "p09",
-   "title": "AN-M · Deal analysis (mobile)",
-   "w": 390,
-   "x": 1520,
-   "y": 0
-  },
-  "AS-Hero.dc.html": {
-   "h": 1120,
-   "page": "a5",
-   "title": "F · HERO ASSETS — compass, engine, codex + value cues",
-   "w": 2100,
-   "x": 0,
-   "y": 0
-  },
-  "CC-Bible.dc.html": {
-   "h": 1740,
-   "page": "a3",
-   "title": "D · CAST BIBLE — attributes per character",
-   "w": 2800,
-   "x": 0,
-   "y": 1440
-  },
-  "CC-Derivation.dc.html": {
-   "h": 1060,
-   "page": "a3",
-   "title": "D · DERIVATION — full → portrait → bust → avatar → icon",
-   "w": 1500,
-   "x": 2480,
-   "y": 3440
-  },
-  "CC-Lineup.dc.html": {
-   "h": 1180,
-   "page": "a3",
-   "title": "D · LINEUP + silhouettes — 8 core characters",
-   "w": 2800,
-   "x": 0,
-   "y": 0
-  },
-  "CC-Tests.dc.html": {
-   "h": 1180,
-   "page": "a3",
-   "title": "D · TESTS — face, 64/96 px, differentiation",
-   "w": 2400,
-   "x": 0,
-   "y": 3440
-  },
-  "CP-Amendment.dc.html": {
-   "h": 900,
-   "page": "p17",
-   "title": "CP · DS v1.1 amendment (palette + rules)",
-   "w": 1600,
-   "x": 0,
-   "y": 0
-  },
-  "CP-Silhouettes.dc.html": {
-   "h": 1180,
-   "page": "p17",
-   "title": "CP · Game-object silhouettes (v1.1)",
-   "w": 1600,
-   "x": 1680,
-   "y": 0
-  },
-  "CP-States.dc.html": {
-   "h": 1180,
-   "page": "p17",
-   "title": "CP · Component states (brief §58)",
-   "w": 1700,
-   "x": 3360,
-   "y": 0
-  },
-  "CR-Recommend.dc.html": {
-   "h": 960,
-   "page": "a2",
-   "title": "C · RECOMMENDATION — tests across A / B / C",
-   "w": 2200,
-   "x": 0,
-   "y": 1460
-  },
-  "CR-RouteA.dc.html": {
-   "h": 1200,
-   "page": "a2",
-   "title": "B · ROUTE A — Merchant Adventurers",
-   "w": 2500,
-   "x": 0,
-   "y": 0
-  },
-  "CR-RouteB.dc.html": {
-   "h": 1200,
-   "page": "a2",
-   "title": "B · ROUTE B — Creature Dealmakers",
-   "w": 2500,
-   "x": 2580,
-   "y": 0
-  },
-  "CR-RouteC.dc.html": {
-   "h": 1200,
-   "page": "a2",
-   "title": "B · ROUTE C — Premium Traders",
-   "w": 2500,
-   "x": 5160,
-   "y": 0
-  },
-  "Cover.dc.html": {
-   "h": 1000,
-   "page": "p00",
-   "title": "Cover · how to read this canvas",
-   "w": 1600,
-   "x": 0,
-   "y": 0
-  },
-  "DD-D-Daily.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p11",
-   "title": "DD-D · Daily Deal pre-play",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "DD-D-Played.dc.html": {
-   "h": 900,
-   "page": "p11",
-   "title": "DD-D · Daily Deal played: benchmark + board",
-   "w": 1440,
-   "x": 1520,
-   "y": 0
-  },
-  "DD-M-Daily.dc.html": {
-   "h": 844,
-   "page": "p11",
-   "title": "DD-M · Daily Deal pre-play",
-   "w": 390,
-   "x": 3040,
-   "y": 0
-  },
-  "DD-M-EarlyCohort.dc.html": {
-   "h": 844,
-   "page": "p11",
-   "title": "DD-M · Insufficient cohort (no false precision)",
-   "w": 390,
-   "x": 3980,
-   "y": 0
-  },
-  "DD-M-Played.dc.html": {
-   "h": 844,
-   "page": "p11",
-   "title": "DD-M · Played: YOU CAPTURED 67% · TOP 14%",
-   "w": 390,
-   "x": 3510,
-   "y": 0
-  },
-  "ED-Errors.dc.html": {
-   "h": 1180,
-   "page": "p16",
-   "title": "ED · Error / edge / empty states (18)",
-   "w": 2400,
-   "x": 0,
-   "y": 0
-  },
-  "ED-Loading.dc.html": {
-   "h": 820,
-   "page": "p16",
-   "title": "ED · Loading & waiting states (contextual)",
-   "w": 1600,
-   "x": 2480,
-   "y": 0
-  },
-  "EN-Gearside.dc.html": {
-   "h": 900,
-   "page": "a5",
-   "title": "G · GEARSIDE DOCKS — sunny workshop · Zippa · Comet Twin",
-   "w": 1440,
-   "x": 1520,
-   "y": 1380
-  },
-  "EN-Layers.dc.html": {
-   "h": 940,
-   "page": "a5",
-   "title": "G · LAYERS — depth rules for every scene",
-   "w": 2100,
-   "x": 0,
-   "y": 2540
-  },
-  "EN-Stacks.dc.html": {
-   "h": 900,
-   "page": "a5",
-   "title": "G · THE STACKS — rainy archive · Old Mossback · Vellum Codex",
-   "w": 1440,
-   "x": 3040,
-   "y": 1380
-  },
-  "EN-Wharf.dc.html": {
-   "h": 900,
-   "page": "a5",
-   "title": "G · LANTERN WHARF — night navigation stall · Goldenotter · Ruby Compass",
-   "w": 1440,
-   "x": 0,
-   "y": 1380
-  },
-  "FL-Core.dc.html": {
-   "h": 1240,
-   "is_interactive": true,
-   "page": "p01",
-   "title": "B · Flow maps — core",
-   "w": 2200,
-   "x": 0,
-   "y": 0
-  },
-  "FL-Extended.dc.html": {
-   "h": 1240,
-   "is_interactive": true,
-   "page": "p01",
-   "title": "B · Flow maps — voice, events, spectator",
-   "w": 2200,
-   "x": 2280,
-   "y": 0
-  },
-  "FR-D-Create.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p12",
-   "title": "FR-D · Create challenge",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "FR-D-Share.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p12",
-   "title": "FR-D · Share link / code, waiting room",
-   "w": 1440,
-   "x": 1520,
-   "y": 0
-  },
-  "FR-M-Recipient.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p12",
-   "title": "FR-M · Recipient landing",
-   "w": 390,
-   "x": 3040,
-   "y": 0
-  },
-  "HL-Highlights.dc.html": {
-   "h": 1000,
-   "page": "p09",
-   "title": "HL · Highlight system",
-   "w": 1440,
-   "x": 3510,
-   "y": 0
-  },
-  "HM-D-Bay.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p07",
-   "title": "HM-D · The Bay (returning player)",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "HM-M-Bay.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p07",
-   "title": "HM-M · The Bay (mobile)",
-   "w": 390,
-   "x": 1520,
-   "y": 0
-  },
-  "HM-M-BayNew.dc.html": {
-   "h": 844,
-   "page": "p07",
-   "title": "HM-M · New player: placement is the one objective",
-   "w": 390,
-   "x": 1990,
-   "y": 0
-  },
-  "HO-A11y-Decisions.dc.html": {
-   "h": 1500,
-   "page": "p19",
-   "title": "J · Accessibility + PRODUCT DECISIONS REQUIRED",
-   "w": 1800,
-   "x": 5240,
-   "y": 0
-  },
-  "HO-Contracts.dc.html": {
-   "h": 1200,
-   "page": "p19",
-   "title": "J · Data, visibility, server vs visual",
-   "w": 1800,
-   "x": 3360,
-   "y": 0
-  },
-  "HO-Copy.dc.html": {
-   "h": 1200,
-   "page": "p19",
-   "title": "H · Copy system",
-   "w": 1600,
-   "x": 0,
-   "y": 0
-  },
-  "HO-Responsive.dc.html": {
-   "h": 1000,
-   "page": "p19",
-   "title": "I · Responsive notes",
-   "w": 1600,
-   "x": 1680,
-   "y": 0
-  },
-  "IA-Map.dc.html": {
-   "h": 1000,
-   "page": "p00",
-   "title": "A · IA v2 — Bay / PLAY / Me",
-   "w": 1600,
-   "x": 1680,
-   "y": 0
-  },
-  "IA-Modes.dc.html": {
-   "h": 1000,
-   "page": "p00",
-   "title": "A · Progressive unlock map (replaces equal mode list)",
-   "w": 1600,
-   "x": 3360,
-   "y": 0
-  },
-  "IA-StateModel.dc.html": {
-   "h": 1000,
-   "page": "p00",
-   "title": "A · Match lifecycle",
-   "w": 1600,
-   "x": 5040,
-   "y": 0
-  },
-  "LB-D-Leaderboard.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p11",
-   "title": "LB-D · Global leaderboard + your neighbourhood",
-   "w": 1440,
-   "x": 0,
-   "y": 1320
-  },
-  "LB-M-Leaderboard.dc.html": {
-   "h": 844,
-   "page": "p11",
-   "title": "LB-M · Leaderboard (mobile)",
-   "w": 390,
-   "x": 1520,
-   "y": 1320
-  },
-  "LB-M-NotRanked.dc.html": {
-   "h": 844,
-   "page": "p11",
-   "title": "LB-M · Not ranked yet",
-   "w": 390,
-   "x": 1990,
-   "y": 1320
-  },
-  "LMD-00-BlurTest.dc.html": {
-   "h": 1000,
-   "page": "p02",
-   "title": "BLUR TEST · six questions answered without text",
-   "w": 1900,
-   "x": 0,
-   "y": 3960
-  },
-  "LMD-01-YourTurn.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-01 · Your turn (idle: raise or accept)",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "LMD-02-Composing.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-02 · Composing: chips appear only now",
-   "w": 1440,
-   "x": 1520,
-   "y": 0
-  },
-  "LMD-03-OppThinking.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-03 · Offer committed → they think",
-   "w": 1440,
-   "x": 3040,
-   "y": 0
-  },
-  "LMD-04-OfferArrives.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-04 · Their offer arrives — plaque slides toward yours",
-   "w": 1440,
-   "x": 4560,
-   "y": 0
-  },
-  "LMD-05-DealPossible.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-05 · Offers crossed — the counter lights up",
-   "w": 1440,
-   "x": 6080,
-   "y": 0
-  },
-  "LMD-06-AcceptHold.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-06 · Accept — press & hold",
-   "w": 1440,
-   "x": 0,
-   "y": 1320
-  },
-  "LMD-07-WalkAway.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-07 · Walk away (from ⋯ menu only)",
-   "w": 1440,
-   "x": 1520,
-   "y": 1320
-  },
-  "LMD-08-NoChips.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-08 · Not enough chips",
-   "w": 1440,
-   "x": 3040,
-   "y": 1320
-  },
-  "LMD-09-Floor.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-09 · Bounty at its 30% floor",
-   "w": 1440,
-   "x": 4560,
-   "y": 1320
-  },
-  "LMD-10-OppOffline.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-10 · Opponent disconnected",
-   "w": 1440,
-   "x": 0,
-   "y": 2640
-  },
-  "LMD-11-Reconnecting.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-11 · You are reconnecting",
-   "w": 1440,
-   "x": 1520,
-   "y": 2640
-  },
-  "LMD-12-Paused.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-12 · Match paused",
-   "w": 1440,
-   "x": 3040,
-   "y": 2640
-  },
-  "LMD-13-DealClosed.dc.html": {
-   "h": 900,
-   "page": "p02",
-   "title": "LMD-13 · DEAL! → result",
-   "w": 1440,
-   "x": 4560,
-   "y": 2640
-  },
-  "LMM-01-YourTurn.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-01 · Your turn",
-   "w": 390,
-   "x": 0,
-   "y": 0
-  },
-  "LMM-02-Keypad.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-02 · Composing (chips appear)",
-   "w": 390,
-   "x": 470,
-   "y": 0
-  },
-  "LMM-03-OppThinking.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-03 · They’re thinking",
-   "w": 390,
-   "x": 940,
-   "y": 0
-  },
-  "LMM-04-OfferArrived.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-04 · Offer arrives (close)",
-   "w": 390,
-   "x": 1410,
-   "y": 0
-  },
-  "LMM-05-DealPossible.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-05 · Crossed: deal possible",
-   "w": 390,
-   "x": 1880,
-   "y": 0
-  },
-  "LMM-06-Chat.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-06 · Chat sheet — plaques + limit stay visible",
-   "w": 390,
-   "x": 2350,
-   "y": 0
-  },
-  "LMM-07-AcceptHold.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-07 · Hold to accept",
-   "w": 390,
-   "x": 0,
-   "y": 1264
-  },
-  "LMM-08-WalkAway.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-08 · Walk away sheet",
-   "w": 390,
-   "x": 470,
-   "y": 1264
-  },
-  "LMM-09-NoChips.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-09 · Not enough chips",
-   "w": 390,
-   "x": 940,
-   "y": 1264
-  },
-  "LMM-10-Floor.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-10 · Bounty floor",
-   "w": 390,
-   "x": 1410,
-   "y": 1264
-  },
-  "LMM-11-OppOffline.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-11 · Opponent offline",
-   "w": 390,
-   "x": 1880,
-   "y": 1264
-  },
-  "LMM-12-Reconnecting.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-12 · Reconnecting",
-   "w": 390,
-   "x": 2350,
-   "y": 1264
-  },
-  "LMM-13-Menu.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-13 · ⋯ Match menu (the only way to walk away)",
-   "w": 390,
-   "x": 3290,
-   "y": 1264
-  },
-  "LMM-14-AboveLimit.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-14 · Proposed offer above your limit",
-   "w": 390,
-   "x": 2820,
-   "y": 1264
-  },
-  "LMM-15-DealClosed.dc.html": {
-   "h": 844,
-   "page": "p03",
-   "title": "LMM-15 · DEAL!",
-   "w": 390,
-   "x": 3760,
-   "y": 1264
-  },
-  "LMR-Acceptance.dc.html": {
-   "h": 1080,
-   "page": "a6",
-   "title": "ACCEPTANCE — the brief’s nine checks, honestly scored",
-   "w": 1900,
-   "x": 4960,
-   "y": 2264
-  },
-  "LMR-BlurTest.dc.html": {
-   "h": 1160,
-   "page": "a6",
-   "title": "H/I · BLUR TEST — revised desktop + mobile",
-   "w": 2400,
-   "x": 2480,
-   "y": 2264
-  },
-  "LMR-Compare.dc.html": {
-   "h": 1500,
-   "page": "a6",
-   "title": "J · COMPARISON — current LMD-02 vs revised",
-   "w": 2400,
-   "x": 0,
-   "y": 2264
-  },
-  "LMR-D-01-YourMove.dc.html": {
-   "h": 900,
-   "page": "a6",
-   "title": "H · DESKTOP · Your move — composing an offer",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "LMR-D-02-TheirMove.dc.html": {
-   "h": 900,
-   "page": "a6",
-   "title": "H · DESKTOP · Their move — Goldenotter thinking",
-   "w": 1440,
-   "x": 1520,
-   "y": 0
-  },
-  "LMR-D-03-Crossed.dc.html": {
-   "h": 900,
-   "page": "a6",
-   "title": "H · DESKTOP · Offers crossed — accept to close",
-   "w": 1440,
-   "x": 3040,
-   "y": 0
-  },
-  "LMR-M-01-YourMove.dc.html": {
-   "h": 844,
-   "page": "a6",
-   "title": "I · MOBILE · Your move",
-   "w": 390,
-   "x": 0,
-   "y": 1160
-  },
-  "LMR-M-02-TheirMove.dc.html": {
-   "h": 844,
-   "page": "a6",
-   "title": "I · MOBILE · Their move",
-   "w": 390,
-   "x": 470,
-   "y": 1160
-  },
-  "LMR-M-03-Crossed.dc.html": {
-   "h": 844,
-   "page": "a6",
-   "title": "I · MOBILE · Offers crossed",
-   "w": 390,
-   "x": 940,
-   "y": 1160
-  },
-  "MM-D-FailedConfirm.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p08",
-   "title": "MM-D · Opponent failed to confirm",
-   "w": 1440,
-   "x": 4560,
-   "y": 0
-  },
-  "MM-D-Found.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p08",
-   "title": "MM-D · Match found (opponent reveal)",
-   "w": 1440,
-   "x": 3040,
-   "y": 0
-  },
-  "MM-D-LongWait.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p08",
-   "title": "MM-D · Longer than expected → alternatives",
-   "w": 1440,
-   "x": 1520,
-   "y": 0
-  },
-  "MM-D-Searching.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p08",
-   "title": "MM-D · Searching",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "MM-M-Found.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p08",
-   "title": "MM-M · Match found",
-   "w": 390,
-   "x": 6550,
-   "y": 0
-  },
-  "MM-M-Searching.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p08",
-   "title": "MM-M · Searching",
-   "w": 390,
-   "x": 6080,
-   "y": 0
-  },
-  "MM-States.dc.html": {
-   "h": 1220,
-   "page": "p08",
-   "title": "MM · All matchmaking states",
-   "w": 1100,
-   "x": 7020,
-   "y": 0
-  },
-  "MO-D-Rotating.dc.html": {
-   "h": 900,
-   "page": "p07",
-   "title": "MO-D · Rotating mode: rules before entry",
-   "w": 1440,
-   "x": 0,
-   "y": 1320
-  },
-  "MO-Storyboard.dc.html": {
-   "h": 1640,
-   "page": "p18",
-   "title": "MO · 13 transitions: numbers as physical events",
-   "w": 1800,
-   "x": 0,
-   "y": 1264
-  },
-  "OB-D-Landing.dc.html": {
-   "h": 1700,
-   "is_interactive": true,
-   "page": "p06",
-   "title": "OB-D · Landing (desktop)",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "OB-D-Tutorial.dc.html": {
-   "h": 900,
-   "page": "p06",
-   "title": "OB-D · Tutorial on desktop (lesson 4 keyframe)",
-   "w": 1440,
-   "x": 4230,
-   "y": 2120
-  },
-  "OB-M-FirstHuman.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p06",
-   "title": "OB-M · First human match (placement 1/5)",
-   "w": 390,
-   "x": 3760,
-   "y": 2120
-  },
-  "OB-M-Handle.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p06",
-   "title": "OB-M · Handle + avatar (one screen)",
-   "w": 390,
-   "x": 2460,
-   "y": 0
-  },
-  "OB-M-Landing.dc.html": {
-   "h": 1440,
-   "is_interactive": true,
-   "page": "p06",
-   "title": "OB-M · Landing (mobile, scrolls)",
-   "w": 390,
-   "x": 1520,
-   "y": 0
-  },
-  "OB-M-ReadyReal.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p06",
-   "title": "OB-M · READY FOR A REAL OPPONENT?",
-   "w": 390,
-   "x": 3290,
-   "y": 2120
-  },
-  "OB-M-Returning.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p06",
-   "title": "OB-M · Returning player (graceful re-entry)",
-   "w": 390,
-   "x": 2930,
-   "y": 0
-  },
-  "OB-M-SignIn.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p06",
-   "title": "OB-M · Create account / sign in",
-   "w": 390,
-   "x": 1990,
-   "y": 0
-  },
-  "OB-M-T1-Limit.dc.html": {
-   "h": 844,
-   "page": "p06",
-   "title": "T1 · Secret limit",
-   "w": 390,
-   "x": 0,
-   "y": 2120
-  },
-  "OB-M-T2-Counter.dc.html": {
-   "h": 844,
-   "page": "p06",
-   "title": "T2 · They ask 90 → your opening offer",
-   "w": 390,
-   "x": 470,
-   "y": 2120
-  },
-  "OB-M-T3-NoTakeBacks.dc.html": {
-   "h": 844,
-   "page": "p06",
-   "title": "T3 · Irreversible concession (explained after acting)",
-   "w": 390,
-   "x": 940,
-   "y": 2120
-  },
-  "OB-M-T4-Chips.dc.html": {
-   "h": 844,
-   "page": "p06",
-   "title": "T4 · Chips + cost preview (only while composing)",
-   "w": 390,
-   "x": 1410,
-   "y": 2120
-  },
-  "OB-M-T5-Clock.dc.html": {
-   "h": 844,
-   "page": "p06",
-   "title": "T5 · Clock + bounty token",
-   "w": 390,
-   "x": 1880,
-   "y": 2120
-  },
-  "OB-M-T6-Deal.dc.html": {
-   "h": 844,
-   "page": "p06",
-   "title": "T6 · Accept",
-   "w": 390,
-   "x": 2350,
-   "y": 2120
-  },
-  "OB-M-T7-Reveal.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p06",
-   "title": "T7 · Reveal: YOU CAPTURED 55%",
-   "w": 390,
-   "x": 2820,
-   "y": 2120
-  },
-  "PA-D-Practice.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p13",
-   "title": "PA-D · Practice mode selection",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "PA-M-InMatch.dc.html": {
-   "h": 844,
-   "page": "p13",
-   "title": "PA-M · AI opponent in match (named + AI label on every frame)",
-   "w": 390,
-   "x": 1990,
-   "y": 0
-  },
-  "PA-M-Practice.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p13",
-   "title": "PA-M · Practice (mobile)",
-   "w": 390,
-   "x": 1520,
-   "y": 0
-  },
-  "PE-FaceKit.dc.html": {
-   "h": 1000,
-   "page": "a4",
-   "title": "E · FACE KIT — lids, brows, mouths",
-   "w": 1900,
-   "x": 4180,
-   "y": 0
-  },
-  "PE-Matrix.dc.html": {
-   "h": 1640,
-   "page": "a4",
-   "title": "E · MATRIX — 14 states × 8 characters",
-   "w": 1920,
-   "x": 0,
-   "y": 0
-  },
-  "PE-Rules.dc.html": {
-   "h": 1060,
-   "page": "a4",
-   "title": "E · RULES — triggers, allowed inputs, motion",
-   "w": 2100,
-   "x": 2000,
-   "y": 0
-  },
-  "PF-D-History.dc.html": {
-   "h": 900,
-   "page": "p10",
-   "title": "PF-D · Match history → result / replay",
-   "w": 1440,
-   "x": 4450,
-   "y": 0
-  },
-  "PF-D-Profile.dc.html": {
-   "h": 1000,
-   "page": "p10",
-   "title": "PF-D · Profile",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "PF-M-Empty.dc.html": {
-   "h": 844,
-   "page": "p10",
-   "title": "PF-M · Profile with no history (empty state)",
-   "w": 390,
-   "x": 1990,
-   "y": 0
-  },
-  "PF-M-Profile.dc.html": {
-   "h": 844,
-   "page": "p10",
-   "title": "PF-M · Profile (mobile)",
-   "w": 390,
-   "x": 1520,
-   "y": 0
-  },
-  "PL-D-PlayMenu.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p07",
-   "title": "PL-D · Play (desktop): same 3 + “right now”",
-   "w": 1440,
-   "x": 3400,
-   "y": 0
-  },
-  "PL-M-PlayMenu.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p07",
-   "title": "PL-M · Play for a NEW player: 3 choices",
-   "w": 390,
-   "x": 2460,
-   "y": 0
-  },
-  "PL-M-PlayVeteran.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p07",
-   "title": "PL-M · Play for a veteran: context unlocks only",
-   "w": 390,
-   "x": 2930,
-   "y": 0
-  },
-  "PR-CoreLoop.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p18",
-   "title": "PROTOTYPE · Core loop — rival found → deal → negotiate → DEAL! → 3-beat result → rematch",
-   "w": 390,
-   "x": 0,
-   "y": 0
-  },
-  "RB-M-Blocked.dc.html": {
-   "h": 844,
-   "page": "p15",
-   "title": "RB-M · Block confirmation + list",
-   "w": 390,
-   "x": 2460,
-   "y": 0
-  },
-  "RB-M-RateLimit.dc.html": {
-   "h": 844,
-   "page": "p15",
-   "title": "Chat rate-limit feedback",
-   "w": 390,
-   "x": 2930,
-   "y": 0
-  },
-  "RB-M-Report.dc.html": {
-   "h": 844,
-   "page": "p15",
-   "title": "RB-M · Report (from match menu or chat flag)",
-   "w": 390,
-   "x": 1990,
-   "y": 0
-  },
-  "RM-D-Room.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p12",
-   "title": "RM-D · Deal Night room",
-   "w": 1440,
-   "x": 0,
-   "y": 1320
-  },
-  "RM-M-Room.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p12",
-   "title": "RM-M · Deal Night (mobile)",
-   "w": 390,
-   "x": 1520,
-   "y": 1320
-  },
-  "RP-D-Replay.dc.html": {
-   "h": 900,
-   "page": "p09",
-   "title": "RP-D · Replay (step through offers, chat, clock, chips)",
-   "w": 1440,
-   "x": 1990,
-   "y": 0
-  },
-  "RS-D-Details.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p05",
-   "title": "RS-D · Full breakdown (one level deeper: ZOPA, chips, multiplier)",
-   "w": 1440,
-   "x": 470,
-   "y": 1320
-  },
-  "RS-D-Final.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p05",
-   "title": "RS-D · Result (resting beat 3)",
-   "w": 1440,
-   "x": 1410,
-   "y": 0
-  },
-  "RS-D-NoDeal.dc.html": {
-   "h": 900,
-   "page": "p05",
-   "title": "RS-D · NO DEAL — a deal was possible",
-   "w": 1440,
-   "x": 1990,
-   "y": 1320
-  },
-  "RS-D-Rematch.dc.html": {
-   "h": 900,
-   "page": "p05",
-   "title": "RS-D · Rematch requested — waiting",
-   "w": 1440,
-   "x": 3980,
-   "y": 1320
-  },
-  "RS-D-RematchGo.dc.html": {
-   "h": 900,
-   "page": "p05",
-   "title": "RS-D · Rematch accepted → new deal (1.2 s)",
-   "w": 1440,
-   "x": 5500,
-   "y": 1320
-  },
-  "RS-M-1-Deal.dc.html": {
-   "h": 844,
-   "page": "p05",
-   "title": "Beat 1 · DEAL 74 (1.2 s)",
-   "w": 390,
-   "x": 0,
-   "y": 0
-  },
-  "RS-M-2-Captured.dc.html": {
-   "h": 844,
-   "page": "p05",
-   "title": "Beat 2 · YOU CAPTURED 63% (the central result)",
-   "w": 390,
-   "x": 470,
-   "y": 0
-  },
-  "RS-M-3-Next.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p05",
-   "title": "Beat 3 · +18 · one insight · REMATCH",
-   "w": 390,
-   "x": 940,
-   "y": 0
-  },
-  "RS-M-Details.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p05",
-   "title": "RS-M · Details (one level deeper)",
-   "w": 390,
-   "x": 0,
-   "y": 1320
-  },
-  "RS-M-NoDeal.dc.html": {
-   "h": 844,
-   "page": "p05",
-   "title": "RS-M · NO DEAL — none was possible",
-   "w": 390,
-   "x": 3510,
-   "y": 1320
-  },
-  "RS-M-Rematch.dc.html": {
-   "h": 844,
-   "page": "p05",
-   "title": "RS-M · Rematch declined → NEW OPPONENT",
-   "w": 390,
-   "x": 7020,
-   "y": 1320
-  },
-  "RT-Rating.dc.html": {
-   "h": 900,
-   "page": "p10",
-   "title": "RT · Rating, placement, promotion, demotion",
-   "w": 1440,
-   "x": 2460,
-   "y": 0
-  },
-  "RV-M-Rivalry.dc.html": {
-   "h": 844,
-   "page": "p10",
-   "title": "RV-M · Rivalry (emerges after 3+ deals)",
-   "w": 390,
-   "x": 3980,
-   "y": 0
-  },
-  "SC-D-Reveal.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p08",
-   "title": "SC-D · Deal reveal",
-   "w": 1440,
-   "x": 0,
-   "y": 1640
-  },
-  "SC-M-Reveal.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p08",
-   "title": "SC-M · Deal reveal",
-   "w": 390,
-   "x": 1520,
-   "y": 1640
-  },
-  "SC-M-RevealSeller.dc.html": {
-   "h": 844,
-   "page": "p08",
-   "title": "SC-M · Deal reveal as SELLER (minimum)",
-   "w": 390,
-   "x": 1990,
-   "y": 1640
-  },
-  "SH-D-Card.dc.html": {
-   "h": 630,
-   "page": "p12",
-   "title": "SH · Share card (1200×630, link preview)",
-   "w": 1200,
-   "x": 3510,
-   "y": 0
-  },
-  "SH-M-Share.dc.html": {
-   "h": 844,
-   "page": "p12",
-   "title": "SH-M · Share preview + privacy controls",
-   "w": 390,
-   "x": 4790,
-   "y": 0
-  },
-  "SP-D-Caster.dc.html": {
-   "h": 900,
-   "page": "p14",
-   "title": "SP-D · Caster / observer view (hidden info + delay)",
-   "w": 1440,
-   "x": 1520,
-   "y": 0
-  },
-  "SP-D-Public.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p14",
-   "title": "SP-D · Public spectator (no hidden info)",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "SP-M-Public.dc.html": {
-   "h": 844,
-   "page": "p14",
-   "title": "SP-M · Spectator (mobile)",
-   "w": 390,
-   "x": 3040,
-   "y": 0
-  },
-  "ST-D-Settings.dc.html": {
-   "h": 1000,
-   "page": "p15",
-   "title": "ST-D · Settings",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "ST-M-Settings.dc.html": {
-   "h": 844,
-   "page": "p15",
-   "title": "ST-M · Settings (mobile)",
-   "w": 390,
-   "x": 1520,
-   "y": 0
-  },
-  "SY-Audit.dc.html": {
-   "h": 860,
-   "page": "a7",
-   "title": "K · AUDIT — current vs revised",
-   "w": 2100,
-   "x": 2180,
-   "y": 0
-  },
-  "SY-Production.dc.html": {
-   "h": 760,
-   "page": "a7",
-   "title": "K · PRODUCTION — rig, sheets, scenes, animation, new characters",
-   "w": 1600,
-   "x": 6340,
-   "y": 0
-  },
-  "SY-Rejects.dc.html": {
-   "h": 700,
-   "page": "a7",
-   "title": "K · REJECTED SHORTCUTS",
-   "w": 1900,
-   "x": 4360,
-   "y": 0
-  },
-  "SY-Style.dc.html": {
-   "h": 1180,
-   "page": "a7",
-   "title": "K · STYLE SPEC — 13 rules",
-   "w": 2100,
-   "x": 0,
-   "y": 0
-  },
-  "TN-D-Bracket.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p14",
-   "title": "TN-D · Bracket + next opponent",
-   "w": 1440,
-   "x": 1520,
-   "y": 1320
-  },
-  "TN-D-Discover.dc.html": {
-   "h": 900,
-   "is_interactive": true,
-   "page": "p14",
-   "title": "TN-D · Discover / register",
-   "w": 1440,
-   "x": 0,
-   "y": 1320
-  },
-  "TN-M-Champion.dc.html": {
-   "h": 844,
-   "page": "p14",
-   "title": "TN-M · Final result",
-   "w": 390,
-   "x": 3510,
-   "y": 1320
-  },
-  "TN-M-Round.dc.html": {
-   "h": 844,
-   "is_interactive": true,
-   "page": "p14",
-   "title": "TN-M · Round result: advance / eliminated",
-   "w": 390,
-   "x": 3040,
-   "y": 1320
-  },
-  "VO-D-Live.dc.html": {
-   "h": 900,
-   "page": "p04",
-   "title": "VO-D · Voice deal: GOLDENOTTER speaking (their portrait talks)",
-   "w": 1440,
-   "x": 0,
-   "y": 0
-  },
-  "VO-D-Poor.dc.html": {
-   "h": 900,
-   "page": "p04",
-   "title": "VO-D · You muted · their connection choppy",
-   "w": 1440,
-   "x": 1520,
-   "y": 0
-  },
-  "VO-M-Denied.dc.html": {
-   "h": 844,
-   "page": "p04",
-   "title": "VO-M · Microphone denied",
-   "w": 390,
-   "x": 3980,
-   "y": 0
-  },
-  "VO-M-Fallback.dc.html": {
-   "h": 844,
-   "page": "p04",
-   "title": "VO-M · Device dropped → text fallback",
-   "w": 390,
-   "x": 4450,
-   "y": 0
-  },
-  "VO-M-Live.dc.html": {
-   "h": 844,
-   "page": "p04",
-   "title": "VO-M · Voice deal (mobile)",
-   "w": 390,
-   "x": 3040,
-   "y": 0
-  },
-  "VO-M-Setup.dc.html": {
-   "h": 844,
-   "page": "p04",
-   "title": "VO-M · Microphone setup",
-   "w": 390,
-   "x": 3510,
-   "y": 0
-  },
-  "JX-Principles.dc.html": {
-   "x": 0,
-   "y": 0,
-   "w": 2500,
-   "h": 1180,
-   "title": "J1 · PRINCIPLES — intensity classes, budgets, the scene graph",
-   "page": "j1"
-  },
-  "JX-Tokens.dc.html": {
-   "x": 2580,
-   "y": 0,
-   "w": 2200,
-   "h": 1060,
-   "title": "J1 · TOKENS — curves, sound, haptics, light",
-   "page": "j1"
-  },
-  "JX-Events-Negotiation.dc.html": {
-   "x": 0,
-   "y": 0,
-   "w": 2600,
-   "h": 1610,
-   "title": "J2 · EVENTS — negotiation",
-   "page": "j2"
-  },
-  "JX-Events-Close.dc.html": {
-   "x": 0,
-   "y": 1870,
-   "w": 2600,
-   "h": 590,
-   "title": "J2 · EVENTS — closing",
-   "page": "j2"
-  },
-  "JX-Events-Result.dc.html": {
-   "x": 2680,
-   "y": 1870,
-   "w": 2600,
-   "h": 930,
-   "title": "J2 · EVENTS — result & progression",
-   "page": "j2"
-  },
-  "JX-A-OfferLanding.dc.html": {
-   "x": 0,
-   "y": 0,
-   "w": 2350,
-   "h": 1132,
-   "title": "J3 · A — Offer landing",
-   "page": "j3"
-  },
-  "JX-B-ConcessionSpend.dc.html": {
-   "x": 0,
-   "y": 1392,
-   "w": 2350,
-   "h": 832,
-   "title": "J3 · B — Concession spend",
-   "page": "j3"
-  },
-  "JX-C-DealHeat.dc.html": {
-   "x": 0,
-   "y": 2484,
-   "w": 2350,
-   "h": 832,
-   "title": "J3 · C — Deal heat",
-   "page": "j3"
-  },
-  "JX-D-DealPossible.dc.html": {
-   "x": 0,
-   "y": 3576,
-   "w": 1908,
-   "h": 1132,
-   "title": "J3 · D — Deal possible (offers crossed)",
-   "page": "j3"
-  },
-  "JX-E-Acceptance.dc.html": {
-   "x": 0,
-   "y": 4968,
-   "w": 1908,
-   "h": 892,
-   "title": "J3 · E — Acceptance",
-   "page": "j3"
-  },
-  "JX-F-ResultReveal.dc.html": {
-   "x": 0,
-   "y": 6120,
-   "w": 2534,
-   "h": 830,
-   "title": "J3 · F — Result reveal",
-   "page": "j3"
-  },
-  "JX-G-Performance.dc.html": {
-   "x": 0,
-   "y": 7210,
-   "w": 1908,
-   "h": 1072,
-   "title": "J3 · G — High-performance celebration",
-   "page": "j3"
-  },
-  "JX-H-Promotion.dc.html": {
-   "x": 0,
-   "y": 8542,
-   "w": 2350,
-   "h": 892,
-   "title": "J3 · H — Rank promotion",
-   "page": "j3"
-  },
-  "JX-Storyboard-Silent.dc.html": {
-   "x": 0,
-   "y": 0,
-   "w": 2480,
-   "h": 1760,
-   "title": "J4 · SILENT STORYBOARD — 16 frames, no captions",
-   "page": "j4"
-  },
-  "JX-Storyboard.dc.html": {
-   "x": 2560,
-   "y": 0,
-   "w": 2480,
-   "h": 2020,
-   "title": "J4 · STORYBOARD — beats, classes, durations, notes",
-   "page": "j4"
-  },
-  "JX-FeelCurve.dc.html": {
-   "x": 0,
-   "y": 2280,
-   "w": 2300,
-   "h": 1200,
-   "title": "J4 · FEEL CURVE — why it satisfies without text",
-   "page": "j4"
-  },
-  "JX-Playable.dc.html": {
-   "x": 2380,
-   "y": 2280,
-   "w": 1440,
-   "h": 900,
-   "title": "J4 · PLAYABLE — the full path with real timing (Play / step / reduced motion)",
-   "page": "j4",
-   "is_interactive": true
-  }
- },
- "createdOnFiles": {
-  "at": "2026-09-22T21:35:55Z",
-  "v": 1
- },
- "designSystems": [
-  {
-   "artifact": "https://claude.ai/code/artifact/20de934e-a298-4457-9887-51c9246f4b2b",
-   "copiedAt": "2026-09-22T21:35:55Z",
-   "namespace": "bounty-bay",
-   "title": "Bounty Bay",
-   "version": "1790111789-ee87"
-  }
- ],
- "launch": {
-  "view": "canvas",
-  "page": "j1"
- },
- "notes": {
-  "a1_t": {
-   "kind": "title1",
-   "maxW": 2600,
-   "page": "a1",
-   "text": "ART PASS v1 — World & art direction. Awaiting approval of the core cast + live match before anything propagates to pages 00–19.",
-   "w": 240,
-   "x": 0,
-   "y": -300
-  },
-  "a2_t": {
-   "kind": "title1",
-   "maxW": 2600,
-   "page": "a2",
-   "text": "Three character routes on the same rig and pose set, judged on the same tests. Route A is recommended.",
-   "w": 240,
-   "x": 0,
-   "y": -300
-  },
-  "a3_t": {
-   "kind": "title1",
-   "maxW": 2600,
-   "page": "a3",
-   "text": "Core cast: 8 dealmakers. The full character comes first, then portrait → bust → avatar → icon.",
-   "w": 240,
-   "x": 0,
-   "y": -300
-  },
-  "a4_t": {
-   "kind": "title1",
-   "maxW": 2600,
-   "page": "a4",
-   "text": "Pose & expression system: 14 states × 8 characters, all from one rig. Expressions are driven only by public game events.",
-   "w": 240,
-   "x": 0,
-   "y": -300
-  },
-  "a5_t": {
-   "kind": "title1",
-   "maxW": 2600,
-   "page": "a5",
-   "text": "Hero asset art + three environment families, each built in seven depth layers around a calm centre where the opponent stands.",
-   "w": 240,
-   "x": 0,
-   "y": -300
-  },
-  "a6_mnote": {
-   "page": "a6",
-   "text": "Mobile keeps the same four facts in the same places, top to bottom: THEIR plaque (their side) → gap rail → MY sealed card + the one seal button in the thumb zone → MY limit card and the turn-clock by my hands. Chat opens as a sheet from the chat knob.",
-   "w": 360,
-   "x": 1410,
-   "y": 1160
-  },
-  "a6_stop": {
-   "fill": "red",
-   "page": "a6",
-   "text": "STOP HERE. The new art direction has NOT been applied to pages 00–19. Approve the core cast + this live match first, then I propagate it to onboarding, result, the Bay and the rest.",
-   "w": 360,
-   "x": -420,
-   "y": -40
-  },
-  "a6_t": {
-   "kind": "title1",
-   "maxW": 2600,
-   "page": "a6",
-   "text": "Revised live match: first person, across the table. Desktop + mobile, the comparison with the current screen, the blur test and the acceptance checklist.",
-   "w": 240,
-   "x": 0,
-   "y": -300
-  },
-  "a7_t": {
-   "kind": "title1",
-   "maxW": 2600,
-   "page": "a7",
-   "text": "Updated art / character design system (K): style spec, audit of the current product, rejected shortcuts and production rules.",
-   "w": 240,
-   "x": 0,
-   "y": -300
-  },
-  "an_t": {
-   "kind": "title1",
-   "maxW": 3600,
-   "page": "p09",
-   "text": "Post-match analysis & replay — a scoreboard, not a report",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "b2_n": {
-   "page": "p07",
-   "text": "ONE NEAR-TERM REASON, ONE AT A TIME (priority order)\n1 Placement n/5 (new players)\n2 Rival asked for a rematch (shown as the rival standing on the dock)\n3 Today’s Deal not played (the bottle glows)\n4 Points to next division\n5 New personal best / style profile completing\nThe objective chip shows the highest one; others live in the world (rival, bottle) — never as a card grid.",
-   "w": 440,
-   "x": 4340,
-   "y": 0
-  },
-  "b2_n2": {
-   "page": "p07",
-   "text": "PROGRESSIVE UNLOCK — see 00 · Unlock map. New players see RANKED · TODAY’S DEAL · PRACTICE only. “Right now” rows appear only when real: an event you can join, an invitation, a promoted rotating mode. Friend Challenge unlocks after your first human deal.",
-   "w": 440,
-   "x": 4340,
-   "y": 620
-  },
-  "b2_t": {
-   "kind": "title1",
-   "maxW": 3800,
-   "page": "p07",
-   "text": "The Bay v2 — a place, not a dashboard. One objective, one big button, the rest lives in the world",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "bl_t": {
-   "kind": "title1",
-   "maxW": 2400,
-   "page": "p02",
-   "text": "The strict test — all text blurred",
-   "w": 240,
-   "x": 0,
-   "y": 3640
-  },
-  "cp_t": {
-   "kind": "title1",
-   "maxW": 4200,
-   "page": "p17",
-   "text": "Design System v1.1 amendment — silhouettes, environment palette, component states",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "dd_t": {
-   "kind": "title1",
-   "maxW": 3600,
-   "page": "p11",
-   "text": "Daily Deal — one shared deal, honest benchmarks",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "ed_t": {
-   "kind": "title1",
-   "maxW": 3400,
-   "page": "p16",
-   "text": "Every dead end has a next step — no raw codes, no blank screens",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "fr_t": {
-   "kind": "title1",
-   "maxW": 3600,
-   "page": "p12",
-   "text": "Friend challenge — inviting is faster than explaining",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "hm_t": {
-   "kind": "title1",
-   "maxW": 2000,
-   "page": "p07",
-   "text": "Rotating mode — shown only when promoted",
-   "w": 240,
-   "x": 0,
-   "y": 1000
-  },
-  "ho_t": {
-   "kind": "title1",
-   "maxW": 6800,
-   "page": "p19",
-   "text": "H · Copy · I · Responsive · J · Implementation handoff",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "l2_n1": {
-   "page": "p02",
-   "text": "WHAT CHANGED (v2)\n• The stall, GOLDENOTTER and the compass are the structure; UI floats on them.\n• The price rail became the counter’s brass rail: the physical distance between the two plaques IS the gap. Close = gold glow. Crossed = green, counter lights up.\n• Always on: their plaque, your plaque, your wax-sealed limit, the turn banner.\n• Context only: chips (while composing), bounty token (while your clock runs), chat (a speech bubble + the chat button), history (ledger button), walk away (⋯ menu).",
-   "w": 440,
-   "x": 7600,
-   "y": 0
-  },
-  "l2_n2": {
-   "page": "p02",
-   "text": "ONE DOMINANT DECISION per state\nYour turn, far apart → compose (MAKE OFFER).\nYour turn, close or crossed → ACCEPT becomes the big green button; MAKE OFFER drops to secondary.\nTheir turn → nothing to press; watch them think.",
-   "w": 440,
-   "x": 7600,
-   "y": 620
-  },
-  "l2_pdr": {
-   "fill": "red",
-   "page": "p02",
-   "text": "PRODUCT DECISION REQUIRED — D1 chip cost curve · D7 accept on their turn · D10 offers above own limit · opponent resources hidden (drawn).",
-   "w": 440,
-   "x": 7600,
-   "y": 1320
-  },
-  "l2_t1": {
-   "kind": "title1",
-   "maxW": 4800,
-   "page": "p02",
-   "text": "Live match v2 — you are facing GOLDENOTTER across a market counter. Four things always on: THEIR OFFER · YOUR OFFER · YOUR LIMIT · WHOSE TURN",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "l2_t2": {
-   "kind": "title1",
-   "maxW": 4800,
-   "page": "p02",
-   "text": "Consequential actions & exceptions",
-   "w": 240,
-   "x": 0,
-   "y": 1000
-  },
-  "l2_t3": {
-   "kind": "title1",
-   "maxW": 4800,
-   "page": "p02",
-   "text": "Connection states & the closing moment",
-   "w": 240,
-   "x": 0,
-   "y": 2320
-  },
-  "lb_t": {
-   "kind": "title1",
-   "maxW": 2600,
-   "page": "p11",
-   "text": "Leaderboards",
-   "w": 240,
-   "x": 0,
-   "y": 1000
-  },
-  "m2_n": {
-   "page": "p03",
-   "text": "The top half is never covered by UI except the turn banner and name sign. Composer, chat bar and ACCEPT live in the thumb zone. The chat sheet stops at the counter edge so both plaques, the rail and the wax seal stay readable while you type.",
-   "w": 420,
-   "x": 3760,
-   "y": 1264
-  },
-  "m2_t1": {
-   "kind": "title1",
-   "maxW": 4400,
-   "page": "p03",
-   "text": "Live match v2 — mobile: opponent + asset own the top half; one thumb-zone decision at the bottom",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "m2_t2": {
-   "kind": "title1",
-   "maxW": 4400,
-   "page": "p03",
-   "text": "Mobile — consequential & exceptional states",
-   "w": 240,
-   "x": 0,
-   "y": 944
-  },
-  "mm_n": {
-   "page": "p08",
-   "text": "NEW DEALMAKER: when an opponent has fewer than 10 rated deals, stats are replaced with the seaglass NEW DEALMAKER pill — never “0 games / 0%”.",
-   "w": 420,
-   "x": 8200,
-   "y": 0
-  },
-  "mm_t": {
-   "kind": "title1",
-   "maxW": 4400,
-   "page": "p08",
-   "text": "Matchmaking → match found → deal reveal",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "mo_t": {
-   "kind": "title1",
-   "maxW": 3600,
-   "page": "p18",
-   "text": "Numbers as physical events — 13 core transitions",
-   "w": 240,
-   "x": 0,
-   "y": 944
-  },
-  "ob_n1": {
-   "page": "p06",
-   "text": "TUTORIAL RULES\n• One concept per lesson; the player acts first, then we name what happened (T3 explains irreversibility only after the first offer).\n• The Harbourmaster is labelled AI on every frame; tutorial deals are unrated.\n• No ZOPA/BATNA jargon. An optional “Why?” link on T7 can explain the bargaining range.\n• Skip tutorial is always available; skipping still requires one practice deal before ranked (D13).",
-   "w": 420,
-   "x": 4230,
-   "y": 1264
-  },
-  "ob_pdr": {
-   "fill": "red",
-   "page": "p06",
-   "text": "PRODUCT DECISION REQUIRED — D13 can a new player skip straight to ranked? D14 guest play: may a visitor from a friend link play before creating an account? Drawn: account first on the main funnel; friend-link guests allowed (see 12 · Friends).",
-   "w": 420,
-   "x": 4230,
-   "y": 1760
-  },
-  "ob_t1": {
-   "kind": "title1",
-   "maxW": 3000,
-   "page": "p06",
-   "text": "Acquisition — make someone want to try one deal",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "ob_t2": {
-   "kind": "title1",
-   "maxW": 3800,
-   "page": "p06",
-   "text": "Interactive tutorial — seven lessons, ~90 seconds, taught by doing (AI tutor, unrated)",
-   "w": 240,
-   "x": 0,
-   "y": 1800
-  },
-  "pa_t": {
-   "kind": "title1",
-   "maxW": 3000,
-   "page": "p13",
-   "text": "Practice vs AI — named personalities, always disclosed, never rated",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "pf_t": {
-   "kind": "title1",
-   "maxW": 3600,
-   "page": "p10",
-   "text": "Your competitive record — not a CV",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "pr_t": {
-   "kind": "title1",
-   "maxW": 2400,
-   "page": "p18",
-   "text": "Playable prototype — the core loop in the v2 world (press Play)",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "r2_n": {
-   "page": "p05",
-   "text": "THREE BEATS, then the next match\n1 · DEAL 74 — plaque slams green on the counter (1.2 s, auto)\n2 · YOU CAPTURED 63% — both wax seals break, split bar fills (tap)\n3 · +18 and one deterministic insight — REMATCH is the biggest thing on screen\nEverything else (bargaining range chart, chips, multiplier, bounty maths, replay) is one level deeper: “Breakdown”.",
-   "w": 440,
-   "x": 2930,
-   "y": 0
-  },
-  "r2_pdr": {
-   "fill": "red",
-   "page": "p05",
-   "text": "PRODUCT DECISION REQUIRED — D2 bounty formula (not shown in the 3 beats; lives in Breakdown) · D3 rating deltas · D12 do roles swap on rematch · D20 insight rule priority (drawn: concession total comparison; alternatives: opening anchor, time used, largest single move).",
-   "w": 440,
-   "x": 2930,
-   "y": 560
-  },
-  "r2_t": {
-   "kind": "title1",
-   "maxW": 3400,
-   "page": "p05",
-   "text": "Result v2 — three beats: DEAL 74 → YOU CAPTURED 63% → +18 & one insight → REMATCH",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "rm_t": {
-   "kind": "title1",
-   "maxW": 2400,
-   "page": "p12",
-   "text": "Deal Night — a private mini-league for your group",
-   "w": 240,
-   "x": 0,
-   "y": 1000
-  },
-  "rs_t1b": {
-   "kind": "title1",
-   "maxW": 5200,
-   "page": "p05",
-   "text": "One level deeper — the full breakdown, no-deal outcomes, rematch states",
-   "w": 240,
-   "x": 0,
-   "y": 1000
-  },
-  "sc_n": {
-   "page": "p08",
-   "text": "Role colour never changes: YOU are always ember, whatever your role. BUYER/SELLER is a label, not a colour. The brief text is flavour; the number on the vault card is the only binding figure. “TAKE YOUR SEAT” auto-starts at 0:00 so a slow reader can’t stall the opponent (D16: reveal countdown length).",
-   "w": 420,
-   "x": 2460,
-   "y": 1640
-  },
-  "sc_t": {
-   "kind": "title1",
-   "maxW": 2600,
-   "page": "p08",
-   "text": "Deal reveal — the asset is the star, then the secret",
-   "w": 240,
-   "x": 0,
-   "y": 1320
-  },
-  "sp_t": {
-   "kind": "title1",
-   "maxW": 3600,
-   "page": "p14",
-   "text": "Spectator & caster — “they don’t realise how close they are!”",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "st_t": {
-   "kind": "title1",
-   "maxW": 3000,
-   "page": "p15",
-   "text": "Settings, report & block",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "tn_t": {
-   "kind": "title1",
-   "maxW": 4000,
-   "page": "p14",
-   "text": "Tournaments (non-cash, P1)",
-   "w": 240,
-   "x": 0,
-   "y": 1000
-  },
-  "vo_n": {
-   "page": "p04",
-   "text": "Voice-only rotating mode: same screens with the text chat section removed from the voice panel and the chat bar replaced by the voice bar; if the mic fails in Voice Only, the player is offered to leave the queue before a match starts — never mid-match text-less.",
-   "w": 420,
-   "x": 500,
-   "y": 1260
-  },
-  "vo_pdr": {
-   "fill": "red",
-   "page": "p04",
-   "text": "PRODUCT DECISION REQUIRED — D11 voice moderation. Brief: “do not imply recording unless explicitly enabled”. Drawn: “not recorded”. If reports need audio evidence, recording must be an explicit, pre-match opt-in and this copy changes on VO-M-Setup + voice panel.",
-   "w": 420,
-   "x": 0,
-   "y": 1260
-  },
-  "vo_t": {
-   "kind": "title1",
-   "maxW": 3800,
-   "page": "p04",
-   "text": "Voice Deal (P1) — voice rides alongside the table; offers never leave the plates",
-   "w": 240,
-   "x": 0,
-   "y": -320
-  },
-  "j1_t": {
-   "x": 0,
-   "y": -300,
-   "text": "JUICE PASS: numbers must cause physical events in the game world. Three intensity classes, one scene that reacts as a whole.",
-   "page": "j1",
-   "kind": "title1",
-   "maxW": 2600
-  },
-  "j1_scope": {
-   "x": -420,
-   "y": -40,
-   "text": "Scope: live negotiation → deal → result only. Nothing here has been propagated to other screens yet.",
-   "page": "j1",
-   "w": 360,
-   "fill": "red"
-  },
-  "j2_t": {
-   "x": 0,
-   "y": -300,
-   "text": "Every event × 10 dimensions: anticipation, motion, impact, secondary, character, world, sound, haptic, duration, reduced motion.",
-   "page": "j2",
-   "kind": "title1",
-   "maxW": 2600
-  },
-  "j2_pdr": {
-   "x": 0,
-   "y": -200,
-   "text": "PRODUCT DECISION REQUIRED · “Verified information reveal” is not defined in the approved rules. Choreography assumes a verified fact about the asset becomes visible to BOTH players mid-match. If it is private intel, only the slip + stamp play, and only on the receiver’s side.",
-   "page": "j2",
-   "w": 520,
-   "fill": "red"
-  },
-  "j3_t": {
-   "x": 0,
-   "y": -300,
-   "text": "Eight signature sequences, keyframed on the real first-person scene. Ghosts, arcs and rings are storyboard marks for motion.",
-   "page": "j3",
-   "kind": "title1",
-   "maxW": 2600
-  },
-  "j4_t": {
-   "x": 0,
-   "y": -300,
-   "text": "Full path: 78 → I consider 64 → 6 chips → lands → he reacts → gap tightens → 69 → in reach → accept → close → limits → 72% → rating → rematch.",
-   "page": "j4",
-   "kind": "title1",
-   "maxW": 2600
-  }
- },
- "order": [
-  "JX-Principles.dc.html",
-  "JX-Tokens.dc.html",
-  "JX-Events-Negotiation.dc.html",
-  "JX-Events-Close.dc.html",
-  "JX-Events-Result.dc.html",
-  "JX-A-OfferLanding.dc.html",
-  "JX-B-ConcessionSpend.dc.html",
-  "JX-C-DealHeat.dc.html",
-  "JX-D-DealPossible.dc.html",
-  "JX-E-Acceptance.dc.html",
-  "JX-F-ResultReveal.dc.html",
-  "JX-G-Performance.dc.html",
-  "JX-H-Promotion.dc.html",
-  "JX-Storyboard-Silent.dc.html",
-  "JX-Storyboard.dc.html",
-  "JX-FeelCurve.dc.html",
-  "JX-Playable.dc.html",
-  "AD-World.dc.html",
-  "AD-Palette.dc.html",
-  "AD-Materials.dc.html",
-  "CR-RouteA.dc.html",
-  "CR-RouteB.dc.html",
-  "CR-RouteC.dc.html",
-  "CR-Recommend.dc.html",
-  "CC-Lineup.dc.html",
-  "CC-Bible.dc.html",
-  "CC-Tests.dc.html",
-  "CC-Derivation.dc.html",
-  "PE-Matrix.dc.html",
-  "PE-Rules.dc.html",
-  "PE-FaceKit.dc.html",
-  "AS-Hero.dc.html",
-  "EN-Wharf.dc.html",
-  "EN-Gearside.dc.html",
-  "EN-Stacks.dc.html",
-  "EN-Layers.dc.html",
-  "LMR-D-01-YourMove.dc.html",
-  "LMR-D-02-TheirMove.dc.html",
-  "LMR-D-03-Crossed.dc.html",
-  "LMR-M-01-YourMove.dc.html",
-  "LMR-M-02-TheirMove.dc.html",
-  "LMR-M-03-Crossed.dc.html",
-  "LMR-Compare.dc.html",
-  "LMR-BlurTest.dc.html",
-  "LMR-Acceptance.dc.html",
-  "SY-Style.dc.html",
-  "SY-Audit.dc.html",
-  "SY-Rejects.dc.html",
-  "SY-Production.dc.html",
-  "Cover.dc.html",
-  "IA-Map.dc.html",
-  "IA-Modes.dc.html",
-  "IA-StateModel.dc.html",
-  "FL-Core.dc.html",
-  "FL-Extended.dc.html",
-  "LMD-01-YourTurn.dc.html",
-  "LMD-02-Composing.dc.html",
-  "LMD-03-OppThinking.dc.html",
-  "LMD-04-OfferArrives.dc.html",
-  "LMD-05-DealPossible.dc.html",
-  "LMD-06-AcceptHold.dc.html",
-  "LMD-07-WalkAway.dc.html",
-  "LMD-08-NoChips.dc.html",
-  "LMD-09-Floor.dc.html",
-  "LMD-10-OppOffline.dc.html",
-  "LMD-11-Reconnecting.dc.html",
-  "LMD-12-Paused.dc.html",
-  "LMD-13-DealClosed.dc.html",
-  "LMD-00-BlurTest.dc.html",
-  "LMM-01-YourTurn.dc.html",
-  "LMM-02-Keypad.dc.html",
-  "LMM-03-OppThinking.dc.html",
-  "LMM-04-OfferArrived.dc.html",
-  "LMM-05-DealPossible.dc.html",
-  "LMM-06-Chat.dc.html",
-  "LMM-07-AcceptHold.dc.html",
-  "LMM-08-WalkAway.dc.html",
-  "LMM-09-NoChips.dc.html",
-  "LMM-10-Floor.dc.html",
-  "LMM-11-OppOffline.dc.html",
-  "LMM-12-Reconnecting.dc.html",
-  "LMM-14-AboveLimit.dc.html",
-  "LMM-13-Menu.dc.html",
-  "LMM-15-DealClosed.dc.html",
-  "VO-D-Live.dc.html",
-  "VO-D-Poor.dc.html",
-  "VO-M-Live.dc.html",
-  "VO-M-Setup.dc.html",
-  "VO-M-Denied.dc.html",
-  "VO-M-Fallback.dc.html",
-  "RS-M-1-Deal.dc.html",
-  "RS-M-2-Captured.dc.html",
-  "RS-M-3-Next.dc.html",
-  "RS-D-Final.dc.html",
-  "RS-M-Details.dc.html",
-  "RS-D-Details.dc.html",
-  "RS-D-NoDeal.dc.html",
-  "RS-M-NoDeal.dc.html",
-  "RS-D-Rematch.dc.html",
-  "RS-D-RematchGo.dc.html",
-  "RS-M-Rematch.dc.html",
-  "OB-D-Landing.dc.html",
-  "OB-M-Landing.dc.html",
-  "OB-M-SignIn.dc.html",
-  "OB-M-Handle.dc.html",
-  "OB-M-Returning.dc.html",
-  "OB-M-T1-Limit.dc.html",
-  "OB-M-T2-Counter.dc.html",
-  "OB-M-T3-NoTakeBacks.dc.html",
-  "OB-M-T4-Chips.dc.html",
-  "OB-M-T5-Clock.dc.html",
-  "OB-M-T6-Deal.dc.html",
-  "OB-M-T7-Reveal.dc.html",
-  "OB-M-ReadyReal.dc.html",
-  "OB-M-FirstHuman.dc.html",
-  "OB-D-Tutorial.dc.html",
-  "HM-D-Bay.dc.html",
-  "HM-M-Bay.dc.html",
-  "HM-M-BayNew.dc.html",
-  "PL-M-PlayMenu.dc.html",
-  "PL-M-PlayVeteran.dc.html",
-  "PL-D-PlayMenu.dc.html",
-  "MO-D-Rotating.dc.html",
-  "MM-D-Searching.dc.html",
-  "MM-D-LongWait.dc.html",
-  "MM-D-Found.dc.html",
-  "MM-D-FailedConfirm.dc.html",
-  "MM-M-Searching.dc.html",
-  "MM-M-Found.dc.html",
-  "MM-States.dc.html",
-  "SC-D-Reveal.dc.html",
-  "SC-M-Reveal.dc.html",
-  "SC-M-RevealSeller.dc.html",
-  "AN-D-Analysis.dc.html",
-  "AN-M-Analysis.dc.html",
-  "RP-D-Replay.dc.html",
-  "HL-Highlights.dc.html",
-  "PF-D-Profile.dc.html",
-  "PF-M-Profile.dc.html",
-  "PF-M-Empty.dc.html",
-  "RT-Rating.dc.html",
-  "RV-M-Rivalry.dc.html",
-  "PF-D-History.dc.html",
-  "DD-D-Daily.dc.html",
-  "DD-D-Played.dc.html",
-  "DD-M-Daily.dc.html",
-  "DD-M-Played.dc.html",
-  "DD-M-EarlyCohort.dc.html",
-  "LB-D-Leaderboard.dc.html",
-  "LB-M-Leaderboard.dc.html",
-  "LB-M-NotRanked.dc.html",
-  "FR-D-Create.dc.html",
-  "FR-D-Share.dc.html",
-  "FR-M-Recipient.dc.html",
-  "SH-D-Card.dc.html",
-  "SH-M-Share.dc.html",
-  "RM-D-Room.dc.html",
-  "RM-M-Room.dc.html",
-  "PA-D-Practice.dc.html",
-  "PA-M-Practice.dc.html",
-  "PA-M-InMatch.dc.html",
-  "SP-D-Public.dc.html",
-  "SP-D-Caster.dc.html",
-  "SP-M-Public.dc.html",
-  "TN-D-Discover.dc.html",
-  "TN-D-Bracket.dc.html",
-  "TN-M-Round.dc.html",
-  "TN-M-Champion.dc.html",
-  "ST-D-Settings.dc.html",
-  "ST-M-Settings.dc.html",
-  "RB-M-Report.dc.html",
-  "RB-M-Blocked.dc.html",
-  "RB-M-RateLimit.dc.html",
-  "ED-Errors.dc.html",
-  "ED-Loading.dc.html",
-  "CP-Amendment.dc.html",
-  "CP-Silhouettes.dc.html",
-  "CP-States.dc.html",
-  "PR-CoreLoop.dc.html",
-  "MO-Storyboard.dc.html",
-  "HO-Copy.dc.html",
-  "HO-Responsive.dc.html",
-  "HO-Contracts.dc.html",
-  "HO-A11y-Decisions.dc.html"
- ],
- "pages": [
-  {
-   "id": "j1",
-   "name": "J1 · Juice system: rules & tokens"
-  },
-  {
-   "id": "j2",
-   "name": "J2 · Event choreography (24 events)"
-  },
-  {
-   "id": "j3",
-   "name": "J3 · Signature sequences A–H"
-  },
-  {
-   "id": "j4",
-   "name": "J4 · Full-path storyboard"
-  },
-  {
-   "id": "a1",
-   "name": "A1 · World & art direction"
-  },
-  {
-   "id": "a2",
-   "name": "A2 · Character routes (A / B / C)"
-  },
-  {
-   "id": "a3",
-   "name": "A3 · Core cast (Route A)"
-  },
-  {
-   "id": "a4",
-   "name": "A4 · Pose & expression system"
-  },
-  {
-   "id": "a5",
-   "name": "A5 · Asset art & environments"
-  },
-  {
-   "id": "a6",
-   "name": "A6 · Live match — revised (first person)"
-  },
-  {
-   "id": "a7",
-   "name": "A7 · Art & character design system"
-  },
-  {
-   "id": "p00",
-   "name": "00 · Start here"
-  },
-  {
-   "id": "p01",
-   "name": "01 · Flow maps"
-  },
-  {
-   "id": "p02",
-   "name": "02 · Live match — desktop"
-  },
-  {
-   "id": "p03",
-   "name": "03 · Live match — mobile"
-  },
-  {
-   "id": "p04",
-   "name": "04 · Voice deal (P1)"
-  },
-  {
-   "id": "p05",
-   "name": "05 · Result reveal"
-  },
-  {
-   "id": "p06",
-   "name": "06 · Onboarding & tutorial"
-  },
-  {
-   "id": "p07",
-   "name": "07 · The Bay & play entry"
-  },
-  {
-   "id": "p08",
-   "name": "08 · Matchmaking & deal reveal"
-  },
-  {
-   "id": "p09",
-   "name": "09 · Analysis, replay, highlights"
-  },
-  {
-   "id": "p10",
-   "name": "10 · Profile, rating, rivalry"
-  },
-  {
-   "id": "p11",
-   "name": "11 · Daily Deal & leaderboards"
-  },
-  {
-   "id": "p12",
-   "name": "12 · Friends, sharing, Deal Night"
-  },
-  {
-   "id": "p13",
-   "name": "13 · AI practice"
-  },
-  {
-   "id": "p14",
-   "name": "14 · Spectate & tournaments"
-  },
-  {
-   "id": "p15",
-   "name": "15 · Settings & safety"
-  },
-  {
-   "id": "p16",
-   "name": "16 · Edge, error, empty, loading"
-  },
-  {
-   "id": "p17",
-   "name": "17 · Components & v1.1 amendment"
-  },
-  {
-   "id": "p18",
-   "name": "18 · Motion & playable prototype"
-  },
-  {
-   "id": "p19",
-   "name": "19 · Copy & implementation handoff"
-  }
- ],
- "title": "Bounty Bay — Product Design v2"
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "AD-Materials.dc.html": {
+      "h": 1000,
+      "page": "a1",
+      "title": "A · MATERIALS — plaque, wax card, limit card, chips, clock, stamp, notice",
+      "w": 2000,
+      "x": 4460,
+      "y": 0
+    },
+    "AD-Palette.dc.html": {
+      "h": 1120,
+      "page": "a1",
+      "title": "A · COLOUR — semantic vs world palette, six moods",
+      "w": 2000,
+      "x": 2380,
+      "y": 0
+    },
+    "AD-World.dc.html": {
+      "h": 1000,
+      "page": "a1",
+      "title": "A · WORLD — pillars, districts, what we are not",
+      "w": 2300,
+      "x": 0,
+      "y": 0
+    },
+    "AN-D-Analysis.dc.html": {
+      "h": 1000,
+      "page": "p09",
+      "title": "AN-D · Deal analysis",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "AN-M-Analysis.dc.html": {
+      "h": 1000,
+      "page": "p09",
+      "title": "AN-M · Deal analysis (mobile)",
+      "w": 390,
+      "x": 1520,
+      "y": 0
+    },
+    "AS-Hero.dc.html": {
+      "h": 1120,
+      "page": "a5",
+      "title": "F · HERO ASSETS — compass, engine, codex + value cues",
+      "w": 2100,
+      "x": 0,
+      "y": 0
+    },
+    "CC-Bible.dc.html": {
+      "h": 1740,
+      "page": "a3",
+      "title": "D · CAST BIBLE — attributes per character",
+      "w": 2800,
+      "x": 0,
+      "y": 1440
+    },
+    "CC-Derivation.dc.html": {
+      "h": 1060,
+      "page": "a3",
+      "title": "D · DERIVATION — full → portrait → bust → avatar → icon",
+      "w": 1500,
+      "x": 2480,
+      "y": 3440
+    },
+    "CC-Lineup.dc.html": {
+      "h": 1180,
+      "page": "a3",
+      "title": "D · LINEUP + silhouettes — 8 core characters",
+      "w": 2800,
+      "x": 0,
+      "y": 0
+    },
+    "CC-Tests.dc.html": {
+      "h": 1180,
+      "page": "a3",
+      "title": "D · TESTS — face, 64/96 px, differentiation",
+      "w": 2400,
+      "x": 0,
+      "y": 3440
+    },
+    "CP-Amendment.dc.html": {
+      "h": 900,
+      "page": "p17",
+      "title": "CP · DS v1.1 amendment (palette + rules)",
+      "w": 1600,
+      "x": 0,
+      "y": 0
+    },
+    "CP-Silhouettes.dc.html": {
+      "h": 1180,
+      "page": "p17",
+      "title": "CP · Game-object silhouettes (v1.1)",
+      "w": 1600,
+      "x": 1680,
+      "y": 0
+    },
+    "CP-States.dc.html": {
+      "h": 1180,
+      "page": "p17",
+      "title": "CP · Component states (brief §58)",
+      "w": 1700,
+      "x": 3360,
+      "y": 0
+    },
+    "CR-Recommend.dc.html": {
+      "h": 960,
+      "page": "a2",
+      "title": "C · RECOMMENDATION — tests across A / B / C",
+      "w": 2200,
+      "x": 0,
+      "y": 1460
+    },
+    "CR-RouteA.dc.html": {
+      "h": 1200,
+      "page": "a2",
+      "title": "B · ROUTE A — Merchant Adventurers",
+      "w": 2500,
+      "x": 0,
+      "y": 0
+    },
+    "CR-RouteB.dc.html": {
+      "h": 1200,
+      "page": "a2",
+      "title": "B · ROUTE B — Creature Dealmakers",
+      "w": 2500,
+      "x": 2580,
+      "y": 0
+    },
+    "CR-RouteC.dc.html": {
+      "h": 1200,
+      "page": "a2",
+      "title": "B · ROUTE C — Premium Traders",
+      "w": 2500,
+      "x": 5160,
+      "y": 0
+    },
+    "Cover.dc.html": {
+      "h": 1000,
+      "page": "p00",
+      "title": "Cover · how to read this canvas",
+      "w": 1600,
+      "x": 0,
+      "y": 0
+    },
+    "DD-D-Daily.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p11",
+      "title": "DD-D · Daily Deal pre-play",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "DD-D-Played.dc.html": {
+      "h": 900,
+      "page": "p11",
+      "title": "DD-D · Daily Deal played: benchmark + board",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "DD-M-Daily.dc.html": {
+      "h": 844,
+      "page": "p11",
+      "title": "DD-M · Daily Deal pre-play",
+      "w": 390,
+      "x": 3040,
+      "y": 0
+    },
+    "DD-M-EarlyCohort.dc.html": {
+      "h": 844,
+      "page": "p11",
+      "title": "DD-M · Insufficient cohort (no false precision)",
+      "w": 390,
+      "x": 3980,
+      "y": 0
+    },
+    "DD-M-Played.dc.html": {
+      "h": 844,
+      "page": "p11",
+      "title": "DD-M · Played: YOU CAPTURED 67% · TOP 14%",
+      "w": 390,
+      "x": 3510,
+      "y": 0
+    },
+    "ED-Errors.dc.html": {
+      "h": 1180,
+      "page": "p16",
+      "title": "ED · Error / edge / empty states (18)",
+      "w": 2400,
+      "x": 0,
+      "y": 0
+    },
+    "ED-Loading.dc.html": {
+      "h": 820,
+      "page": "p16",
+      "title": "ED · Loading & waiting states (contextual)",
+      "w": 1600,
+      "x": 2480,
+      "y": 0
+    },
+    "EN-Gearside.dc.html": {
+      "h": 900,
+      "page": "a5",
+      "title": "G · GEARSIDE DOCKS — sunny workshop · Zippa · Comet Twin",
+      "w": 1440,
+      "x": 1520,
+      "y": 1380
+    },
+    "EN-Layers.dc.html": {
+      "h": 940,
+      "page": "a5",
+      "title": "G · LAYERS — depth rules for every scene",
+      "w": 2100,
+      "x": 0,
+      "y": 2540
+    },
+    "EN-Stacks.dc.html": {
+      "h": 900,
+      "page": "a5",
+      "title": "G · THE STACKS — rainy archive · Old Mossback · Vellum Codex",
+      "w": 1440,
+      "x": 3040,
+      "y": 1380
+    },
+    "EN-Wharf.dc.html": {
+      "h": 900,
+      "page": "a5",
+      "title": "G · LANTERN WHARF — night navigation stall · Goldenotter · Ruby Compass",
+      "w": 1440,
+      "x": 0,
+      "y": 1380
+    },
+    "FL-Core.dc.html": {
+      "h": 1240,
+      "is_interactive": true,
+      "page": "p01",
+      "title": "B · Flow maps — core",
+      "w": 2200,
+      "x": 0,
+      "y": 0
+    },
+    "FL-Extended.dc.html": {
+      "h": 1240,
+      "is_interactive": true,
+      "page": "p01",
+      "title": "B · Flow maps — voice, events, spectator",
+      "w": 2200,
+      "x": 2280,
+      "y": 0
+    },
+    "FR-D-Create.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p12",
+      "title": "FR-D · Create challenge",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "FR-D-Share.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p12",
+      "title": "FR-D · Share link / code, waiting room",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "FR-M-Recipient.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p12",
+      "title": "FR-M · Recipient landing",
+      "w": 390,
+      "x": 3040,
+      "y": 0
+    },
+    "GO-Audit.dc.html": {
+      "h": 1100,
+      "page": "c1",
+      "title": "C1 · AUDIT — childlike? generic? opponent? memorable? flat?",
+      "w": 1900,
+      "x": 0,
+      "y": 6070
+    },
+    "GO-CastPlan.dc.html": {
+      "h": 820,
+      "page": "c1",
+      "title": "C1 · NEXT — archetypes for the other 7",
+      "w": 1900,
+      "x": 1980,
+      "y": 6070
+    },
+    "GO-CurrentVsNew.dc.html": {
+      "h": 1330,
+      "page": "c1",
+      "title": "C1 · 1 — CURRENT vs REDESIGNED GoldenOtter",
+      "w": 2200,
+      "x": 0,
+      "y": 0
+    },
+    "GO-Directions.dc.html": {
+      "h": 1240,
+      "page": "c1",
+      "title": "C1 · 2 — THREE DIRECTIONS (Closer · Magnate · Hustler)",
+      "w": 2200,
+      "x": 2280,
+      "y": 0
+    },
+    "GO-Expressions.dc.html": {
+      "h": 900,
+      "page": "c1",
+      "title": "C1 · 4 — EXPRESSION SHEET (13)",
+      "w": 2380,
+      "x": 2080,
+      "y": 1590
+    },
+    "GO-FaceCloseup.dc.html": {
+      "h": 1000,
+      "page": "c1",
+      "title": "C1 · 6 — CLOSE-UP FACE SHEET",
+      "w": 2000,
+      "x": 2360,
+      "y": 2990
+    },
+    "GO-FullBody.dc.html": {
+      "h": 1260,
+      "page": "c1",
+      "title": "C1 · 7 — FULL-BODY SHEET + silhouette + avatar sizes",
+      "w": 2200,
+      "x": 0,
+      "y": 4550
+    },
+    "GO-Gestures.dc.html": {
+      "h": 1300,
+      "page": "c1",
+      "title": "C1 · 5 — NEGOTIATION GESTURE SHEET (10)",
+      "w": 2280,
+      "x": 0,
+      "y": 2990
+    },
+    "GO-LiveMatch.dc.html": {
+      "h": 900,
+      "page": "c1",
+      "title": "C1 · 8 — LIVE MATCH: new GoldenOtter in scene (your move)",
+      "w": 1440,
+      "x": 2280,
+      "y": 4550
+    },
+    "GO-Recommended.dc.html": {
+      "h": 1140,
+      "page": "c1",
+      "title": "C1 · 3 — RECOMMENDED: The Closer (callouts)",
+      "w": 2000,
+      "x": 0,
+      "y": 1590
+    },
+    "GO2-Animation.dc.html": {
+      "h": 3120,
+      "page": "c2",
+      "title": "C2 · 8 — ANIMATION KEY-POSE SHEET (10 states)",
+      "w": 2400,
+      "x": 2480,
+      "y": 4860
+    },
+    "GO2-BeforeAfter.dc.html": {
+      "h": 1300,
+      "page": "c2",
+      "title": "C2 · 9 — BEFORE / AFTER",
+      "w": 2300,
+      "x": 0,
+      "y": 8240
+    },
+    "GO2-Construction.dc.html": {
+      "h": 1080,
+      "page": "c2",
+      "title": "C2 · 5 — BODY CONSTRUCTION / PROPORTION PASS",
+      "w": 2200,
+      "x": 0,
+      "y": 3520
+    },
+    "GO2-Environment.dc.html": {
+      "h": 1300,
+      "page": "c2",
+      "title": "C2 · 7 — ENVIRONMENT STYLE-MATCHED PASS (Lantern Wharf v4)",
+      "w": 2400,
+      "x": 0,
+      "y": 4860
+    },
+    "GO2-Expressions.dc.html": {
+      "h": 1640,
+      "page": "c2",
+      "title": "C2 · 3 — FACIAL EXPRESSION SHEET (8 targets + 4 support)",
+      "w": 2400,
+      "x": 0,
+      "y": 1620
+    },
+    "GO2-FullBody.dc.html": {
+      "h": 1360,
+      "page": "c2",
+      "title": "C2 · 1 — REFINED FULL-BODY SHEET",
+      "w": 2300,
+      "x": 0,
+      "y": 0
+    },
+    "GO2-Gestures.dc.html": {
+      "h": 1620,
+      "page": "c2",
+      "title": "C2 · 4 — NEGOTIATION GESTURE SHEET (8)",
+      "w": 2400,
+      "x": 2480,
+      "y": 1620
+    },
+    "GO2-LiveMatch.dc.html": {
+      "h": 900,
+      "page": "c2",
+      "title": "C2 · 2 — LIVE MATCH close crop: repainted wharf + lit GoldenOtter (your move)",
+      "w": 1440,
+      "x": 2380,
+      "y": 0
+    },
+    "GO2-Materials.dc.html": {
+      "h": 1080,
+      "page": "c2",
+      "title": "C2 · 6 — MATERIALS / RENDERING PASS (fur · wool · silk · metal · paper · leather)",
+      "w": 2300,
+      "x": 2280,
+      "y": 3520
+    },
+    "GO2-Rationale.dc.html": {
+      "h": 1080,
+      "page": "c2",
+      "title": "C2 · 10 — RATIONALE",
+      "w": 1900,
+      "x": 2380,
+      "y": 8240
+    },
+    "HL-Highlights.dc.html": {
+      "h": 1000,
+      "page": "p09",
+      "title": "HL · Highlight system",
+      "w": 1440,
+      "x": 3510,
+      "y": 0
+    },
+    "HM-D-Bay.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p07",
+      "title": "HM-D · The Bay (returning player)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "HM-M-Bay.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p07",
+      "title": "HM-M · The Bay (mobile)",
+      "w": 390,
+      "x": 1520,
+      "y": 0
+    },
+    "HM-M-BayNew.dc.html": {
+      "h": 844,
+      "page": "p07",
+      "title": "HM-M · New player: placement is the one objective",
+      "w": 390,
+      "x": 1990,
+      "y": 0
+    },
+    "HO-A11y-Decisions.dc.html": {
+      "h": 1500,
+      "page": "p19",
+      "title": "J · Accessibility + PRODUCT DECISIONS REQUIRED",
+      "w": 1800,
+      "x": 5240,
+      "y": 0
+    },
+    "HO-Contracts.dc.html": {
+      "h": 1200,
+      "page": "p19",
+      "title": "J · Data, visibility, server vs visual",
+      "w": 1800,
+      "x": 3360,
+      "y": 0
+    },
+    "HO-Copy.dc.html": {
+      "h": 1200,
+      "page": "p19",
+      "title": "H · Copy system",
+      "w": 1600,
+      "x": 0,
+      "y": 0
+    },
+    "HO-Responsive.dc.html": {
+      "h": 1000,
+      "page": "p19",
+      "title": "I · Responsive notes",
+      "w": 1600,
+      "x": 1680,
+      "y": 0
+    },
+    "IA-Map.dc.html": {
+      "h": 1000,
+      "page": "p00",
+      "title": "A · IA v2 — Bay / PLAY / Me",
+      "w": 1600,
+      "x": 1680,
+      "y": 0
+    },
+    "IA-Modes.dc.html": {
+      "h": 1000,
+      "page": "p00",
+      "title": "A · Progressive unlock map (replaces equal mode list)",
+      "w": 1600,
+      "x": 3360,
+      "y": 0
+    },
+    "IA-StateModel.dc.html": {
+      "h": 1000,
+      "page": "p00",
+      "title": "A · Match lifecycle",
+      "w": 1600,
+      "x": 5040,
+      "y": 0
+    },
+    "JX-A-OfferLanding.dc.html": {
+      "h": 1132,
+      "page": "j3",
+      "title": "J3 · A — Offer landing",
+      "w": 2350,
+      "x": 0,
+      "y": 0
+    },
+    "JX-B-ConcessionSpend.dc.html": {
+      "h": 832,
+      "page": "j3",
+      "title": "J3 · B — Concession spend",
+      "w": 2350,
+      "x": 0,
+      "y": 1392
+    },
+    "JX-C-DealHeat.dc.html": {
+      "h": 832,
+      "page": "j3",
+      "title": "J3 · C — Deal heat",
+      "w": 2350,
+      "x": 0,
+      "y": 2484
+    },
+    "JX-D-DealPossible.dc.html": {
+      "h": 1132,
+      "page": "j3",
+      "title": "J3 · D — Deal possible (offers crossed)",
+      "w": 1908,
+      "x": 0,
+      "y": 3576
+    },
+    "JX-E-Acceptance.dc.html": {
+      "h": 892,
+      "page": "j3",
+      "title": "J3 · E — Acceptance",
+      "w": 1908,
+      "x": 0,
+      "y": 4968
+    },
+    "JX-Events-Close.dc.html": {
+      "h": 590,
+      "page": "j2",
+      "title": "J2 · EVENTS — closing",
+      "w": 2600,
+      "x": 0,
+      "y": 1870
+    },
+    "JX-Events-Negotiation.dc.html": {
+      "h": 1610,
+      "page": "j2",
+      "title": "J2 · EVENTS — negotiation",
+      "w": 2600,
+      "x": 0,
+      "y": 0
+    },
+    "JX-Events-Result.dc.html": {
+      "h": 930,
+      "page": "j2",
+      "title": "J2 · EVENTS — result & progression",
+      "w": 2600,
+      "x": 2680,
+      "y": 1870
+    },
+    "JX-F-ResultReveal.dc.html": {
+      "h": 830,
+      "page": "j3",
+      "title": "J3 · F — Result reveal",
+      "w": 2534,
+      "x": 0,
+      "y": 6120
+    },
+    "JX-FeelCurve.dc.html": {
+      "h": 1200,
+      "page": "j4",
+      "title": "J4 · FEEL CURVE — why it satisfies without text",
+      "w": 2300,
+      "x": 0,
+      "y": 2280
+    },
+    "JX-G-Performance.dc.html": {
+      "h": 1072,
+      "page": "j3",
+      "title": "J3 · G — High-performance celebration",
+      "w": 1908,
+      "x": 0,
+      "y": 7210
+    },
+    "JX-H-Promotion.dc.html": {
+      "h": 892,
+      "page": "j3",
+      "title": "J3 · H — Rank promotion",
+      "w": 2350,
+      "x": 0,
+      "y": 8542
+    },
+    "JX-Playable.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "j4",
+      "title": "J4 · PLAYABLE — the full path with real timing (Play / step / reduced motion)",
+      "w": 1440,
+      "x": 2380,
+      "y": 2280
+    },
+    "JX-Principles.dc.html": {
+      "h": 1180,
+      "page": "j1",
+      "title": "J1 · PRINCIPLES — intensity classes, budgets, the scene graph",
+      "w": 2500,
+      "x": 0,
+      "y": 0
+    },
+    "JX-Storyboard-Silent.dc.html": {
+      "h": 1760,
+      "page": "j4",
+      "title": "J4 · SILENT STORYBOARD — 16 frames, no captions",
+      "w": 2480,
+      "x": 0,
+      "y": 0
+    },
+    "JX-Storyboard.dc.html": {
+      "h": 2020,
+      "page": "j4",
+      "title": "J4 · STORYBOARD — beats, classes, durations, notes",
+      "w": 2480,
+      "x": 2560,
+      "y": 0
+    },
+    "JX-Tokens.dc.html": {
+      "h": 1060,
+      "page": "j1",
+      "title": "J1 · TOKENS — curves, sound, haptics, light",
+      "w": 2200,
+      "x": 2580,
+      "y": 0
+    },
+    "LB-D-Leaderboard.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p11",
+      "title": "LB-D · Global leaderboard + your neighbourhood",
+      "w": 1440,
+      "x": 0,
+      "y": 1320
+    },
+    "LB-M-Leaderboard.dc.html": {
+      "h": 844,
+      "page": "p11",
+      "title": "LB-M · Leaderboard (mobile)",
+      "w": 390,
+      "x": 1520,
+      "y": 1320
+    },
+    "LB-M-NotRanked.dc.html": {
+      "h": 844,
+      "page": "p11",
+      "title": "LB-M · Not ranked yet",
+      "w": 390,
+      "x": 1990,
+      "y": 1320
+    },
+    "LMD-00-BlurTest.dc.html": {
+      "h": 1000,
+      "page": "p02",
+      "title": "BLUR TEST · six questions answered without text",
+      "w": 1900,
+      "x": 0,
+      "y": 3960
+    },
+    "LMD-01-YourTurn.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-01 · Your turn (idle: raise or accept)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "LMD-02-Composing.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-02 · Composing: chips appear only now",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "LMD-03-OppThinking.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-03 · Offer committed → they think",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "LMD-04-OfferArrives.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-04 · Their offer arrives — plaque slides toward yours",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "LMD-05-DealPossible.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-05 · Offers crossed — the counter lights up",
+      "w": 1440,
+      "x": 6080,
+      "y": 0
+    },
+    "LMD-06-AcceptHold.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-06 · Accept — press & hold",
+      "w": 1440,
+      "x": 0,
+      "y": 1320
+    },
+    "LMD-07-WalkAway.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-07 · Walk away (from ⋯ menu only)",
+      "w": 1440,
+      "x": 1520,
+      "y": 1320
+    },
+    "LMD-08-NoChips.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-08 · Not enough chips",
+      "w": 1440,
+      "x": 3040,
+      "y": 1320
+    },
+    "LMD-09-Floor.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-09 · Bounty at its 30% floor",
+      "w": 1440,
+      "x": 4560,
+      "y": 1320
+    },
+    "LMD-10-OppOffline.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-10 · Opponent disconnected",
+      "w": 1440,
+      "x": 0,
+      "y": 2640
+    },
+    "LMD-11-Reconnecting.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-11 · You are reconnecting",
+      "w": 1440,
+      "x": 1520,
+      "y": 2640
+    },
+    "LMD-12-Paused.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-12 · Match paused",
+      "w": 1440,
+      "x": 3040,
+      "y": 2640
+    },
+    "LMD-13-DealClosed.dc.html": {
+      "h": 900,
+      "page": "p02",
+      "title": "LMD-13 · DEAL! → result",
+      "w": 1440,
+      "x": 4560,
+      "y": 2640
+    },
+    "LMM-01-YourTurn.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-01 · Your turn",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "LMM-02-Keypad.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-02 · Composing (chips appear)",
+      "w": 390,
+      "x": 470,
+      "y": 0
+    },
+    "LMM-03-OppThinking.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-03 · They’re thinking",
+      "w": 390,
+      "x": 940,
+      "y": 0
+    },
+    "LMM-04-OfferArrived.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-04 · Offer arrives (close)",
+      "w": 390,
+      "x": 1410,
+      "y": 0
+    },
+    "LMM-05-DealPossible.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-05 · Crossed: deal possible",
+      "w": 390,
+      "x": 1880,
+      "y": 0
+    },
+    "LMM-06-Chat.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-06 · Chat sheet — plaques + limit stay visible",
+      "w": 390,
+      "x": 2350,
+      "y": 0
+    },
+    "LMM-07-AcceptHold.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-07 · Hold to accept",
+      "w": 390,
+      "x": 0,
+      "y": 1264
+    },
+    "LMM-08-WalkAway.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-08 · Walk away sheet",
+      "w": 390,
+      "x": 470,
+      "y": 1264
+    },
+    "LMM-09-NoChips.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-09 · Not enough chips",
+      "w": 390,
+      "x": 940,
+      "y": 1264
+    },
+    "LMM-10-Floor.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-10 · Bounty floor",
+      "w": 390,
+      "x": 1410,
+      "y": 1264
+    },
+    "LMM-11-OppOffline.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-11 · Opponent offline",
+      "w": 390,
+      "x": 1880,
+      "y": 1264
+    },
+    "LMM-12-Reconnecting.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-12 · Reconnecting",
+      "w": 390,
+      "x": 2350,
+      "y": 1264
+    },
+    "LMM-13-Menu.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-13 · ⋯ Match menu (the only way to walk away)",
+      "w": 390,
+      "x": 3290,
+      "y": 1264
+    },
+    "LMM-14-AboveLimit.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-14 · Proposed offer above your limit",
+      "w": 390,
+      "x": 2820,
+      "y": 1264
+    },
+    "LMM-15-DealClosed.dc.html": {
+      "h": 844,
+      "page": "p03",
+      "title": "LMM-15 · DEAL!",
+      "w": 390,
+      "x": 3760,
+      "y": 1264
+    },
+    "LMR-Acceptance.dc.html": {
+      "h": 1080,
+      "page": "a6",
+      "title": "ACCEPTANCE — the brief’s nine checks, honestly scored",
+      "w": 1900,
+      "x": 4960,
+      "y": 2264
+    },
+    "LMR-BlurTest.dc.html": {
+      "h": 1160,
+      "page": "a6",
+      "title": "H/I · BLUR TEST — revised desktop + mobile",
+      "w": 2400,
+      "x": 2480,
+      "y": 2264
+    },
+    "LMR-Compare.dc.html": {
+      "h": 1500,
+      "page": "a6",
+      "title": "J · COMPARISON — current LMD-02 vs revised",
+      "w": 2400,
+      "x": 0,
+      "y": 2264
+    },
+    "LMR-D-01-YourMove.dc.html": {
+      "h": 900,
+      "page": "a6",
+      "title": "H · DESKTOP · Your move — composing an offer",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "LMR-D-02-TheirMove.dc.html": {
+      "h": 900,
+      "page": "a6",
+      "title": "H · DESKTOP · Their move — Goldenotter thinking",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "LMR-D-03-Crossed.dc.html": {
+      "h": 900,
+      "page": "a6",
+      "title": "H · DESKTOP · Offers crossed — accept to close",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "LMR-M-01-YourMove.dc.html": {
+      "h": 844,
+      "page": "a6",
+      "title": "I · MOBILE · Your move",
+      "w": 390,
+      "x": 0,
+      "y": 1160
+    },
+    "LMR-M-02-TheirMove.dc.html": {
+      "h": 844,
+      "page": "a6",
+      "title": "I · MOBILE · Their move",
+      "w": 390,
+      "x": 470,
+      "y": 1160
+    },
+    "LMR-M-03-Crossed.dc.html": {
+      "h": 844,
+      "page": "a6",
+      "title": "I · MOBILE · Offers crossed",
+      "w": 390,
+      "x": 940,
+      "y": 1160
+    },
+    "MM-D-FailedConfirm.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p08",
+      "title": "MM-D · Opponent failed to confirm",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "MM-D-Found.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p08",
+      "title": "MM-D · Match found (opponent reveal)",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "MM-D-LongWait.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p08",
+      "title": "MM-D · Longer than expected → alternatives",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "MM-D-Searching.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p08",
+      "title": "MM-D · Searching",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "MM-M-Found.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p08",
+      "title": "MM-M · Match found",
+      "w": 390,
+      "x": 6550,
+      "y": 0
+    },
+    "MM-M-Searching.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p08",
+      "title": "MM-M · Searching",
+      "w": 390,
+      "x": 6080,
+      "y": 0
+    },
+    "MM-States.dc.html": {
+      "h": 1220,
+      "page": "p08",
+      "title": "MM · All matchmaking states",
+      "w": 1100,
+      "x": 7020,
+      "y": 0
+    },
+    "MO-D-Rotating.dc.html": {
+      "h": 900,
+      "page": "p07",
+      "title": "MO-D · Rotating mode: rules before entry",
+      "w": 1440,
+      "x": 0,
+      "y": 1320
+    },
+    "MO-Storyboard.dc.html": {
+      "h": 1640,
+      "page": "p18",
+      "title": "MO · 13 transitions: numbers as physical events",
+      "w": 1800,
+      "x": 0,
+      "y": 1264
+    },
+    "OB-D-Landing.dc.html": {
+      "h": 1700,
+      "is_interactive": true,
+      "page": "p06",
+      "title": "OB-D · Landing (desktop)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "OB-D-Tutorial.dc.html": {
+      "h": 900,
+      "page": "p06",
+      "title": "OB-D · Tutorial on desktop (lesson 4 keyframe)",
+      "w": 1440,
+      "x": 4230,
+      "y": 2120
+    },
+    "OB-M-FirstHuman.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p06",
+      "title": "OB-M · First human match (placement 1/5)",
+      "w": 390,
+      "x": 3760,
+      "y": 2120
+    },
+    "OB-M-Handle.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p06",
+      "title": "OB-M · Handle + avatar (one screen)",
+      "w": 390,
+      "x": 2460,
+      "y": 0
+    },
+    "OB-M-Landing.dc.html": {
+      "h": 1440,
+      "is_interactive": true,
+      "page": "p06",
+      "title": "OB-M · Landing (mobile, scrolls)",
+      "w": 390,
+      "x": 1520,
+      "y": 0
+    },
+    "OB-M-ReadyReal.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p06",
+      "title": "OB-M · READY FOR A REAL OPPONENT?",
+      "w": 390,
+      "x": 3290,
+      "y": 2120
+    },
+    "OB-M-Returning.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p06",
+      "title": "OB-M · Returning player (graceful re-entry)",
+      "w": 390,
+      "x": 2930,
+      "y": 0
+    },
+    "OB-M-SignIn.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p06",
+      "title": "OB-M · Create account / sign in",
+      "w": 390,
+      "x": 1990,
+      "y": 0
+    },
+    "OB-M-T1-Limit.dc.html": {
+      "h": 844,
+      "page": "p06",
+      "title": "T1 · Secret limit",
+      "w": 390,
+      "x": 0,
+      "y": 2120
+    },
+    "OB-M-T2-Counter.dc.html": {
+      "h": 844,
+      "page": "p06",
+      "title": "T2 · They ask 90 → your opening offer",
+      "w": 390,
+      "x": 470,
+      "y": 2120
+    },
+    "OB-M-T3-NoTakeBacks.dc.html": {
+      "h": 844,
+      "page": "p06",
+      "title": "T3 · Irreversible concession (explained after acting)",
+      "w": 390,
+      "x": 940,
+      "y": 2120
+    },
+    "OB-M-T4-Chips.dc.html": {
+      "h": 844,
+      "page": "p06",
+      "title": "T4 · Chips + cost preview (only while composing)",
+      "w": 390,
+      "x": 1410,
+      "y": 2120
+    },
+    "OB-M-T5-Clock.dc.html": {
+      "h": 844,
+      "page": "p06",
+      "title": "T5 · Clock + bounty token",
+      "w": 390,
+      "x": 1880,
+      "y": 2120
+    },
+    "OB-M-T6-Deal.dc.html": {
+      "h": 844,
+      "page": "p06",
+      "title": "T6 · Accept",
+      "w": 390,
+      "x": 2350,
+      "y": 2120
+    },
+    "OB-M-T7-Reveal.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p06",
+      "title": "T7 · Reveal: YOU CAPTURED 55%",
+      "w": 390,
+      "x": 2820,
+      "y": 2120
+    },
+    "PA-D-Practice.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p13",
+      "title": "PA-D · Practice mode selection",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "PA-M-InMatch.dc.html": {
+      "h": 844,
+      "page": "p13",
+      "title": "PA-M · AI opponent in match (named + AI label on every frame)",
+      "w": 390,
+      "x": 1990,
+      "y": 0
+    },
+    "PA-M-Practice.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p13",
+      "title": "PA-M · Practice (mobile)",
+      "w": 390,
+      "x": 1520,
+      "y": 0
+    },
+    "PE-FaceKit.dc.html": {
+      "h": 1000,
+      "page": "a4",
+      "title": "E · FACE KIT — lids, brows, mouths",
+      "w": 1900,
+      "x": 4180,
+      "y": 0
+    },
+    "PE-Matrix.dc.html": {
+      "h": 1640,
+      "page": "a4",
+      "title": "E · MATRIX — 14 states × 8 characters",
+      "w": 1920,
+      "x": 0,
+      "y": 0
+    },
+    "PE-Rules.dc.html": {
+      "h": 1060,
+      "page": "a4",
+      "title": "E · RULES — triggers, allowed inputs, motion",
+      "w": 2100,
+      "x": 2000,
+      "y": 0
+    },
+    "PF-D-History.dc.html": {
+      "h": 900,
+      "page": "p10",
+      "title": "PF-D · Match history → result / replay",
+      "w": 1440,
+      "x": 4450,
+      "y": 0
+    },
+    "PF-D-Profile.dc.html": {
+      "h": 1000,
+      "page": "p10",
+      "title": "PF-D · Profile",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "PF-M-Empty.dc.html": {
+      "h": 844,
+      "page": "p10",
+      "title": "PF-M · Profile with no history (empty state)",
+      "w": 390,
+      "x": 1990,
+      "y": 0
+    },
+    "PF-M-Profile.dc.html": {
+      "h": 844,
+      "page": "p10",
+      "title": "PF-M · Profile (mobile)",
+      "w": 390,
+      "x": 1520,
+      "y": 0
+    },
+    "PL-D-PlayMenu.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p07",
+      "title": "PL-D · Play (desktop): same 3 + “right now”",
+      "w": 1440,
+      "x": 3400,
+      "y": 0
+    },
+    "PL-M-PlayMenu.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p07",
+      "title": "PL-M · Play for a NEW player: 3 choices",
+      "w": 390,
+      "x": 2460,
+      "y": 0
+    },
+    "PL-M-PlayVeteran.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p07",
+      "title": "PL-M · Play for a veteran: context unlocks only",
+      "w": 390,
+      "x": 2930,
+      "y": 0
+    },
+    "PR-CoreLoop.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p18",
+      "title": "PROTOTYPE · Core loop — rival found → deal → negotiate → DEAL! → 3-beat result → rematch",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "RB-M-Blocked.dc.html": {
+      "h": 844,
+      "page": "p15",
+      "title": "RB-M · Block confirmation + list",
+      "w": 390,
+      "x": 2460,
+      "y": 0
+    },
+    "RB-M-RateLimit.dc.html": {
+      "h": 844,
+      "page": "p15",
+      "title": "Chat rate-limit feedback",
+      "w": 390,
+      "x": 2930,
+      "y": 0
+    },
+    "RB-M-Report.dc.html": {
+      "h": 844,
+      "page": "p15",
+      "title": "RB-M · Report (from match menu or chat flag)",
+      "w": 390,
+      "x": 1990,
+      "y": 0
+    },
+    "RM-D-Room.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p12",
+      "title": "RM-D · Deal Night room",
+      "w": 1440,
+      "x": 0,
+      "y": 1320
+    },
+    "RM-M-Room.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p12",
+      "title": "RM-M · Deal Night (mobile)",
+      "w": 390,
+      "x": 1520,
+      "y": 1320
+    },
+    "RP-D-Replay.dc.html": {
+      "h": 900,
+      "page": "p09",
+      "title": "RP-D · Replay (step through offers, chat, clock, chips)",
+      "w": 1440,
+      "x": 1990,
+      "y": 0
+    },
+    "RS-D-Details.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p05",
+      "title": "RS-D · Full breakdown (one level deeper: ZOPA, chips, multiplier)",
+      "w": 1440,
+      "x": 470,
+      "y": 1320
+    },
+    "RS-D-Final.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p05",
+      "title": "RS-D · Result (resting beat 3)",
+      "w": 1440,
+      "x": 1410,
+      "y": 0
+    },
+    "RS-D-NoDeal.dc.html": {
+      "h": 900,
+      "page": "p05",
+      "title": "RS-D · NO DEAL — a deal was possible",
+      "w": 1440,
+      "x": 1990,
+      "y": 1320
+    },
+    "RS-D-Rematch.dc.html": {
+      "h": 900,
+      "page": "p05",
+      "title": "RS-D · Rematch requested — waiting",
+      "w": 1440,
+      "x": 3980,
+      "y": 1320
+    },
+    "RS-D-RematchGo.dc.html": {
+      "h": 900,
+      "page": "p05",
+      "title": "RS-D · Rematch accepted → new deal (1.2 s)",
+      "w": 1440,
+      "x": 5500,
+      "y": 1320
+    },
+    "RS-M-1-Deal.dc.html": {
+      "h": 844,
+      "page": "p05",
+      "title": "Beat 1 · DEAL 74 (1.2 s)",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "RS-M-2-Captured.dc.html": {
+      "h": 844,
+      "page": "p05",
+      "title": "Beat 2 · YOU CAPTURED 63% (the central result)",
+      "w": 390,
+      "x": 470,
+      "y": 0
+    },
+    "RS-M-3-Next.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p05",
+      "title": "Beat 3 · +18 · one insight · REMATCH",
+      "w": 390,
+      "x": 940,
+      "y": 0
+    },
+    "RS-M-Details.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p05",
+      "title": "RS-M · Details (one level deeper)",
+      "w": 390,
+      "x": 0,
+      "y": 1320
+    },
+    "RS-M-NoDeal.dc.html": {
+      "h": 844,
+      "page": "p05",
+      "title": "RS-M · NO DEAL — none was possible",
+      "w": 390,
+      "x": 3510,
+      "y": 1320
+    },
+    "RS-M-Rematch.dc.html": {
+      "h": 844,
+      "page": "p05",
+      "title": "RS-M · Rematch declined → NEW OPPONENT",
+      "w": 390,
+      "x": 7020,
+      "y": 1320
+    },
+    "RT-Rating.dc.html": {
+      "h": 900,
+      "page": "p10",
+      "title": "RT · Rating, placement, promotion, demotion",
+      "w": 1440,
+      "x": 2460,
+      "y": 0
+    },
+    "RV-M-Rivalry.dc.html": {
+      "h": 844,
+      "page": "p10",
+      "title": "RV-M · Rivalry (emerges after 3+ deals)",
+      "w": 390,
+      "x": 3980,
+      "y": 0
+    },
+    "SC-D-Reveal.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p08",
+      "title": "SC-D · Deal reveal",
+      "w": 1440,
+      "x": 0,
+      "y": 1640
+    },
+    "SC-M-Reveal.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p08",
+      "title": "SC-M · Deal reveal",
+      "w": 390,
+      "x": 1520,
+      "y": 1640
+    },
+    "SC-M-RevealSeller.dc.html": {
+      "h": 844,
+      "page": "p08",
+      "title": "SC-M · Deal reveal as SELLER (minimum)",
+      "w": 390,
+      "x": 1990,
+      "y": 1640
+    },
+    "SH-D-Card.dc.html": {
+      "h": 630,
+      "page": "p12",
+      "title": "SH · Share card (1200×630, link preview)",
+      "w": 1200,
+      "x": 3510,
+      "y": 0
+    },
+    "SH-M-Share.dc.html": {
+      "h": 844,
+      "page": "p12",
+      "title": "SH-M · Share preview + privacy controls",
+      "w": 390,
+      "x": 4790,
+      "y": 0
+    },
+    "SP-D-Caster.dc.html": {
+      "h": 900,
+      "page": "p14",
+      "title": "SP-D · Caster / observer view (hidden info + delay)",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "SP-D-Public.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p14",
+      "title": "SP-D · Public spectator (no hidden info)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "SP-M-Public.dc.html": {
+      "h": 844,
+      "page": "p14",
+      "title": "SP-M · Spectator (mobile)",
+      "w": 390,
+      "x": 3040,
+      "y": 0
+    },
+    "ST-D-Settings.dc.html": {
+      "h": 1000,
+      "page": "p15",
+      "title": "ST-D · Settings",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "ST-M-Settings.dc.html": {
+      "h": 844,
+      "page": "p15",
+      "title": "ST-M · Settings (mobile)",
+      "w": 390,
+      "x": 1520,
+      "y": 0
+    },
+    "SY-Audit.dc.html": {
+      "h": 860,
+      "page": "a7",
+      "title": "K · AUDIT — current vs revised",
+      "w": 2100,
+      "x": 2180,
+      "y": 0
+    },
+    "SY-Production.dc.html": {
+      "h": 760,
+      "page": "a7",
+      "title": "K · PRODUCTION — rig, sheets, scenes, animation, new characters",
+      "w": 1600,
+      "x": 6340,
+      "y": 0
+    },
+    "SY-Rejects.dc.html": {
+      "h": 700,
+      "page": "a7",
+      "title": "K · REJECTED SHORTCUTS",
+      "w": 1900,
+      "x": 4360,
+      "y": 0
+    },
+    "SY-Style.dc.html": {
+      "h": 1180,
+      "page": "a7",
+      "title": "K · STYLE SPEC — 13 rules",
+      "w": 2100,
+      "x": 0,
+      "y": 0
+    },
+    "TN-D-Bracket.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p14",
+      "title": "TN-D · Bracket + next opponent",
+      "w": 1440,
+      "x": 1520,
+      "y": 1320
+    },
+    "TN-D-Discover.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "p14",
+      "title": "TN-D · Discover / register",
+      "w": 1440,
+      "x": 0,
+      "y": 1320
+    },
+    "TN-M-Champion.dc.html": {
+      "h": 844,
+      "page": "p14",
+      "title": "TN-M · Final result",
+      "w": 390,
+      "x": 3510,
+      "y": 1320
+    },
+    "TN-M-Round.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "p14",
+      "title": "TN-M · Round result: advance / eliminated",
+      "w": 390,
+      "x": 3040,
+      "y": 1320
+    },
+    "VO-D-Live.dc.html": {
+      "h": 900,
+      "page": "p04",
+      "title": "VO-D · Voice deal: GOLDENOTTER speaking (their portrait talks)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "VO-D-Poor.dc.html": {
+      "h": 900,
+      "page": "p04",
+      "title": "VO-D · You muted · their connection choppy",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "VO-M-Denied.dc.html": {
+      "h": 844,
+      "page": "p04",
+      "title": "VO-M · Microphone denied",
+      "w": 390,
+      "x": 3980,
+      "y": 0
+    },
+    "VO-M-Fallback.dc.html": {
+      "h": 844,
+      "page": "p04",
+      "title": "VO-M · Device dropped → text fallback",
+      "w": 390,
+      "x": 4450,
+      "y": 0
+    },
+    "VO-M-Live.dc.html": {
+      "h": 844,
+      "page": "p04",
+      "title": "VO-M · Voice deal (mobile)",
+      "w": 390,
+      "x": 3040,
+      "y": 0
+    },
+    "VO-M-Setup.dc.html": {
+      "h": 844,
+      "page": "p04",
+      "title": "VO-M · Microphone setup",
+      "w": 390,
+      "x": 3510,
+      "y": 0
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-09-22T21:35:55Z",
+    "v": 1
+  },
+  "designSystems": [
+    {
+      "artifact": "https://claude.ai/code/artifact/20de934e-a298-4457-9887-51c9246f4b2b",
+      "copiedAt": "2026-09-22T21:35:55Z",
+      "namespace": "bounty-bay",
+      "title": "Bounty Bay",
+      "version": "1790111789-ee87"
+    }
+  ],
+  "launch": {
+    "page": "c2",
+    "view": "canvas"
+  },
+  "notes": {
+    "a1_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "a1",
+      "text": "ART PASS v1 — World & art direction. Awaiting approval of the core cast + live match before anything propagates to pages 00–19.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "a2_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "a2",
+      "text": "Three character routes on the same rig and pose set, judged on the same tests. Route A is recommended.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "a3_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "a3",
+      "text": "Core cast: 8 dealmakers. The full character comes first, then portrait → bust → avatar → icon.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "a4_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "a4",
+      "text": "Pose & expression system: 14 states × 8 characters, all from one rig. Expressions are driven only by public game events.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "a5_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "a5",
+      "text": "Hero asset art + three environment families, each built in seven depth layers around a calm centre where the opponent stands.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "a6_mnote": {
+      "page": "a6",
+      "text": "Mobile keeps the same four facts in the same places, top to bottom: THEIR plaque (their side) → gap rail → MY sealed card + the one seal button in the thumb zone → MY limit card and the turn-clock by my hands. Chat opens as a sheet from the chat knob.",
+      "w": 360,
+      "x": 1410,
+      "y": 1160
+    },
+    "a6_stop": {
+      "fill": "red",
+      "page": "a6",
+      "text": "STOP HERE. The new art direction has NOT been applied to pages 00–19. Approve the core cast + this live match first, then I propagate it to onboarding, result, the Bay and the rest.",
+      "w": 360,
+      "x": -420,
+      "y": -40
+    },
+    "a6_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "a6",
+      "text": "Revised live match: first person, across the table. Desktop + mobile, the comparison with the current screen, the blur test and the acceptance checklist.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "a7_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "a7",
+      "text": "Updated art / character design system (K): style spec, audit of the current product, rejected shortcuts and production rules.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "an_t": {
+      "kind": "title1",
+      "maxW": 3600,
+      "page": "p09",
+      "text": "Post-match analysis & replay — a scoreboard, not a report",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "b2_n": {
+      "page": "p07",
+      "text": "ONE NEAR-TERM REASON, ONE AT A TIME (priority order)\n1 Placement n/5 (new players)\n2 Rival asked for a rematch (shown as the rival standing on the dock)\n3 Today’s Deal not played (the bottle glows)\n4 Points to next division\n5 New personal best / style profile completing\nThe objective chip shows the highest one; others live in the world (rival, bottle) — never as a card grid.",
+      "w": 440,
+      "x": 4340,
+      "y": 0
+    },
+    "b2_n2": {
+      "page": "p07",
+      "text": "PROGRESSIVE UNLOCK — see 00 · Unlock map. New players see RANKED · TODAY’S DEAL · PRACTICE only. “Right now” rows appear only when real: an event you can join, an invitation, a promoted rotating mode. Friend Challenge unlocks after your first human deal.",
+      "w": 440,
+      "x": 4340,
+      "y": 620
+    },
+    "b2_t": {
+      "kind": "title1",
+      "maxW": 3800,
+      "page": "p07",
+      "text": "The Bay v2 — a place, not a dashboard. One objective, one big button, the rest lives in the world",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "bl_t": {
+      "kind": "title1",
+      "maxW": 2400,
+      "page": "p02",
+      "text": "The strict test — all text blurred",
+      "w": 240,
+      "x": 0,
+      "y": 3640
+    },
+    "c1_stop": {
+      "fill": "red",
+      "page": "c1",
+      "text": "Only GoldenOtter is redrawn in this pass. The other 7 get archetypes and a shape plan (last board) and are redrawn to this standard once you approve him.",
+      "w": 360,
+      "x": -420,
+      "y": -40
+    },
+    "c1_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "c1",
+      "text": "Character quality pass: GoldenOtter from “friendly mascot vector art” to a premium casual opponent with social presence. He is the benchmark for the rest of the cast.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "c2_stop": {
+      "fill": "red",
+      "page": "c2",
+      "text": "Stops here. The other 7 characters wait until you sign GoldenOtter off as final.",
+      "w": 360,
+      "x": -420,
+      "y": -40
+    },
+    "c2_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "c2",
+      "text": "GoldenOtter refinement: structure, finish, scene unification and animation readiness. Same concept as C1 (the Closer). No other screens or characters change.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "cp_t": {
+      "kind": "title1",
+      "maxW": 4200,
+      "page": "p17",
+      "text": "Design System v1.1 amendment — silhouettes, environment palette, component states",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "dd_t": {
+      "kind": "title1",
+      "maxW": 3600,
+      "page": "p11",
+      "text": "Daily Deal — one shared deal, honest benchmarks",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "ed_t": {
+      "kind": "title1",
+      "maxW": 3400,
+      "page": "p16",
+      "text": "Every dead end has a next step — no raw codes, no blank screens",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "fr_t": {
+      "kind": "title1",
+      "maxW": 3600,
+      "page": "p12",
+      "text": "Friend challenge — inviting is faster than explaining",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "hm_t": {
+      "kind": "title1",
+      "maxW": 2000,
+      "page": "p07",
+      "text": "Rotating mode — shown only when promoted",
+      "w": 240,
+      "x": 0,
+      "y": 1000
+    },
+    "ho_t": {
+      "kind": "title1",
+      "maxW": 6800,
+      "page": "p19",
+      "text": "H · Copy · I · Responsive · J · Implementation handoff",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "j1_scope": {
+      "fill": "red",
+      "page": "j1",
+      "text": "Scope: live negotiation → deal → result only. Nothing here has been propagated to other screens yet.",
+      "w": 360,
+      "x": -420,
+      "y": -40
+    },
+    "j1_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "j1",
+      "text": "JUICE PASS: numbers must cause physical events in the game world. Three intensity classes, one scene that reacts as a whole.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "j2_pdr": {
+      "fill": "red",
+      "page": "j2",
+      "text": "PRODUCT DECISION REQUIRED · “Verified information reveal” is not defined in the approved rules. Choreography assumes a verified fact about the asset becomes visible to BOTH players mid-match. If it is private intel, only the slip + stamp play, and only on the receiver’s side.",
+      "w": 520,
+      "x": 0,
+      "y": -200
+    },
+    "j2_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "j2",
+      "text": "Every event × 10 dimensions: anticipation, motion, impact, secondary, character, world, sound, haptic, duration, reduced motion.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "j3_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "j3",
+      "text": "Eight signature sequences, keyframed on the real first-person scene. Ghosts, arcs and rings are storyboard marks for motion.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "j4_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "j4",
+      "text": "Full path: 78 → I consider 64 → 6 chips → lands → he reacts → gap tightens → 69 → in reach → accept → close → limits → 72% → rating → rematch.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "l2_n1": {
+      "page": "p02",
+      "text": "WHAT CHANGED (v2)\n• The stall, GOLDENOTTER and the compass are the structure; UI floats on them.\n• The price rail became the counter’s brass rail: the physical distance between the two plaques IS the gap. Close = gold glow. Crossed = green, counter lights up.\n• Always on: their plaque, your plaque, your wax-sealed limit, the turn banner.\n• Context only: chips (while composing), bounty token (while your clock runs), chat (a speech bubble + the chat button), history (ledger button), walk away (⋯ menu).",
+      "w": 440,
+      "x": 7600,
+      "y": 0
+    },
+    "l2_n2": {
+      "page": "p02",
+      "text": "ONE DOMINANT DECISION per state\nYour turn, far apart → compose (MAKE OFFER).\nYour turn, close or crossed → ACCEPT becomes the big green button; MAKE OFFER drops to secondary.\nTheir turn → nothing to press; watch them think.",
+      "w": 440,
+      "x": 7600,
+      "y": 620
+    },
+    "l2_pdr": {
+      "fill": "red",
+      "page": "p02",
+      "text": "PRODUCT DECISION REQUIRED — D1 chip cost curve · D7 accept on their turn · D10 offers above own limit · opponent resources hidden (drawn).",
+      "w": 440,
+      "x": 7600,
+      "y": 1320
+    },
+    "l2_t1": {
+      "kind": "title1",
+      "maxW": 4800,
+      "page": "p02",
+      "text": "Live match v2 — you are facing GOLDENOTTER across a market counter. Four things always on: THEIR OFFER · YOUR OFFER · YOUR LIMIT · WHOSE TURN",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "l2_t2": {
+      "kind": "title1",
+      "maxW": 4800,
+      "page": "p02",
+      "text": "Consequential actions & exceptions",
+      "w": 240,
+      "x": 0,
+      "y": 1000
+    },
+    "l2_t3": {
+      "kind": "title1",
+      "maxW": 4800,
+      "page": "p02",
+      "text": "Connection states & the closing moment",
+      "w": 240,
+      "x": 0,
+      "y": 2320
+    },
+    "lb_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "p11",
+      "text": "Leaderboards",
+      "w": 240,
+      "x": 0,
+      "y": 1000
+    },
+    "m2_n": {
+      "page": "p03",
+      "text": "The top half is never covered by UI except the turn banner and name sign. Composer, chat bar and ACCEPT live in the thumb zone. The chat sheet stops at the counter edge so both plaques, the rail and the wax seal stay readable while you type.",
+      "w": 420,
+      "x": 3760,
+      "y": 1264
+    },
+    "m2_t1": {
+      "kind": "title1",
+      "maxW": 4400,
+      "page": "p03",
+      "text": "Live match v2 — mobile: opponent + asset own the top half; one thumb-zone decision at the bottom",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "m2_t2": {
+      "kind": "title1",
+      "maxW": 4400,
+      "page": "p03",
+      "text": "Mobile — consequential & exceptional states",
+      "w": 240,
+      "x": 0,
+      "y": 944
+    },
+    "mm_n": {
+      "page": "p08",
+      "text": "NEW DEALMAKER: when an opponent has fewer than 10 rated deals, stats are replaced with the seaglass NEW DEALMAKER pill — never “0 games / 0%”.",
+      "w": 420,
+      "x": 8200,
+      "y": 0
+    },
+    "mm_t": {
+      "kind": "title1",
+      "maxW": 4400,
+      "page": "p08",
+      "text": "Matchmaking → match found → deal reveal",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "mo_t": {
+      "kind": "title1",
+      "maxW": 3600,
+      "page": "p18",
+      "text": "Numbers as physical events — 13 core transitions",
+      "w": 240,
+      "x": 0,
+      "y": 944
+    },
+    "ob_n1": {
+      "page": "p06",
+      "text": "TUTORIAL RULES\n• One concept per lesson; the player acts first, then we name what happened (T3 explains irreversibility only after the first offer).\n• The Harbourmaster is labelled AI on every frame; tutorial deals are unrated.\n• No ZOPA/BATNA jargon. An optional “Why?” link on T7 can explain the bargaining range.\n• Skip tutorial is always available; skipping still requires one practice deal before ranked (D13).",
+      "w": 420,
+      "x": 4230,
+      "y": 1264
+    },
+    "ob_pdr": {
+      "fill": "red",
+      "page": "p06",
+      "text": "PRODUCT DECISION REQUIRED — D13 can a new player skip straight to ranked? D14 guest play: may a visitor from a friend link play before creating an account? Drawn: account first on the main funnel; friend-link guests allowed (see 12 · Friends).",
+      "w": 420,
+      "x": 4230,
+      "y": 1760
+    },
+    "ob_t1": {
+      "kind": "title1",
+      "maxW": 3000,
+      "page": "p06",
+      "text": "Acquisition — make someone want to try one deal",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "ob_t2": {
+      "kind": "title1",
+      "maxW": 3800,
+      "page": "p06",
+      "text": "Interactive tutorial — seven lessons, ~90 seconds, taught by doing (AI tutor, unrated)",
+      "w": 240,
+      "x": 0,
+      "y": 1800
+    },
+    "pa_t": {
+      "kind": "title1",
+      "maxW": 3000,
+      "page": "p13",
+      "text": "Practice vs AI — named personalities, always disclosed, never rated",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "pf_t": {
+      "kind": "title1",
+      "maxW": 3600,
+      "page": "p10",
+      "text": "Your competitive record — not a CV",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "pr_t": {
+      "kind": "title1",
+      "maxW": 2400,
+      "page": "p18",
+      "text": "Playable prototype — the core loop in the v2 world (press Play)",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "r2_n": {
+      "page": "p05",
+      "text": "THREE BEATS, then the next match\n1 · DEAL 74 — plaque slams green on the counter (1.2 s, auto)\n2 · YOU CAPTURED 63% — both wax seals break, split bar fills (tap)\n3 · +18 and one deterministic insight — REMATCH is the biggest thing on screen\nEverything else (bargaining range chart, chips, multiplier, bounty maths, replay) is one level deeper: “Breakdown”.",
+      "w": 440,
+      "x": 2930,
+      "y": 0
+    },
+    "r2_pdr": {
+      "fill": "red",
+      "page": "p05",
+      "text": "PRODUCT DECISION REQUIRED — D2 bounty formula (not shown in the 3 beats; lives in Breakdown) · D3 rating deltas · D12 do roles swap on rematch · D20 insight rule priority (drawn: concession total comparison; alternatives: opening anchor, time used, largest single move).",
+      "w": 440,
+      "x": 2930,
+      "y": 560
+    },
+    "r2_t": {
+      "kind": "title1",
+      "maxW": 3400,
+      "page": "p05",
+      "text": "Result v2 — three beats: DEAL 74 → YOU CAPTURED 63% → +18 & one insight → REMATCH",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "rm_t": {
+      "kind": "title1",
+      "maxW": 2400,
+      "page": "p12",
+      "text": "Deal Night — a private mini-league for your group",
+      "w": 240,
+      "x": 0,
+      "y": 1000
+    },
+    "rs_t1b": {
+      "kind": "title1",
+      "maxW": 5200,
+      "page": "p05",
+      "text": "One level deeper — the full breakdown, no-deal outcomes, rematch states",
+      "w": 240,
+      "x": 0,
+      "y": 1000
+    },
+    "sc_n": {
+      "page": "p08",
+      "text": "Role colour never changes: YOU are always ember, whatever your role. BUYER/SELLER is a label, not a colour. The brief text is flavour; the number on the vault card is the only binding figure. “TAKE YOUR SEAT” auto-starts at 0:00 so a slow reader can’t stall the opponent (D16: reveal countdown length).",
+      "w": 420,
+      "x": 2460,
+      "y": 1640
+    },
+    "sc_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "p08",
+      "text": "Deal reveal — the asset is the star, then the secret",
+      "w": 240,
+      "x": 0,
+      "y": 1320
+    },
+    "sp_t": {
+      "kind": "title1",
+      "maxW": 3600,
+      "page": "p14",
+      "text": "Spectator & caster — “they don’t realise how close they are!”",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "st_t": {
+      "kind": "title1",
+      "maxW": 3000,
+      "page": "p15",
+      "text": "Settings, report & block",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    },
+    "tn_t": {
+      "kind": "title1",
+      "maxW": 4000,
+      "page": "p14",
+      "text": "Tournaments (non-cash, P1)",
+      "w": 240,
+      "x": 0,
+      "y": 1000
+    },
+    "vo_n": {
+      "page": "p04",
+      "text": "Voice-only rotating mode: same screens with the text chat section removed from the voice panel and the chat bar replaced by the voice bar; if the mic fails in Voice Only, the player is offered to leave the queue before a match starts — never mid-match text-less.",
+      "w": 420,
+      "x": 500,
+      "y": 1260
+    },
+    "vo_pdr": {
+      "fill": "red",
+      "page": "p04",
+      "text": "PRODUCT DECISION REQUIRED — D11 voice moderation. Brief: “do not imply recording unless explicitly enabled”. Drawn: “not recorded”. If reports need audio evidence, recording must be an explicit, pre-match opt-in and this copy changes on VO-M-Setup + voice panel.",
+      "w": 420,
+      "x": 0,
+      "y": 1260
+    },
+    "vo_t": {
+      "kind": "title1",
+      "maxW": 3800,
+      "page": "p04",
+      "text": "Voice Deal (P1) — voice rides alongside the table; offers never leave the plates",
+      "w": 240,
+      "x": 0,
+      "y": -320
+    }
+  },
+  "order": [
+    "GO2-FullBody.dc.html",
+    "GO2-LiveMatch.dc.html",
+    "GO2-Expressions.dc.html",
+    "GO2-Gestures.dc.html",
+    "GO2-Construction.dc.html",
+    "GO2-Materials.dc.html",
+    "GO2-Environment.dc.html",
+    "GO2-Animation.dc.html",
+    "GO2-BeforeAfter.dc.html",
+    "GO2-Rationale.dc.html",
+    "GO-CurrentVsNew.dc.html",
+    "GO-Directions.dc.html",
+    "GO-Recommended.dc.html",
+    "GO-Expressions.dc.html",
+    "GO-Gestures.dc.html",
+    "GO-FaceCloseup.dc.html",
+    "GO-FullBody.dc.html",
+    "GO-LiveMatch.dc.html",
+    "GO-Audit.dc.html",
+    "GO-CastPlan.dc.html",
+    "JX-Principles.dc.html",
+    "JX-Tokens.dc.html",
+    "JX-Events-Negotiation.dc.html",
+    "JX-Events-Close.dc.html",
+    "JX-Events-Result.dc.html",
+    "JX-A-OfferLanding.dc.html",
+    "JX-B-ConcessionSpend.dc.html",
+    "JX-C-DealHeat.dc.html",
+    "JX-D-DealPossible.dc.html",
+    "JX-E-Acceptance.dc.html",
+    "JX-F-ResultReveal.dc.html",
+    "JX-G-Performance.dc.html",
+    "JX-H-Promotion.dc.html",
+    "JX-Storyboard-Silent.dc.html",
+    "JX-Storyboard.dc.html",
+    "JX-FeelCurve.dc.html",
+    "JX-Playable.dc.html",
+    "AD-World.dc.html",
+    "AD-Palette.dc.html",
+    "AD-Materials.dc.html",
+    "CR-RouteA.dc.html",
+    "CR-RouteB.dc.html",
+    "CR-RouteC.dc.html",
+    "CR-Recommend.dc.html",
+    "CC-Lineup.dc.html",
+    "CC-Bible.dc.html",
+    "CC-Tests.dc.html",
+    "CC-Derivation.dc.html",
+    "PE-Matrix.dc.html",
+    "PE-Rules.dc.html",
+    "PE-FaceKit.dc.html",
+    "AS-Hero.dc.html",
+    "EN-Wharf.dc.html",
+    "EN-Gearside.dc.html",
+    "EN-Stacks.dc.html",
+    "EN-Layers.dc.html",
+    "LMR-D-01-YourMove.dc.html",
+    "LMR-D-02-TheirMove.dc.html",
+    "LMR-D-03-Crossed.dc.html",
+    "LMR-M-01-YourMove.dc.html",
+    "LMR-M-02-TheirMove.dc.html",
+    "LMR-M-03-Crossed.dc.html",
+    "LMR-Compare.dc.html",
+    "LMR-BlurTest.dc.html",
+    "LMR-Acceptance.dc.html",
+    "SY-Style.dc.html",
+    "SY-Audit.dc.html",
+    "SY-Rejects.dc.html",
+    "SY-Production.dc.html",
+    "Cover.dc.html",
+    "IA-Map.dc.html",
+    "IA-Modes.dc.html",
+    "IA-StateModel.dc.html",
+    "FL-Core.dc.html",
+    "FL-Extended.dc.html",
+    "LMD-01-YourTurn.dc.html",
+    "LMD-02-Composing.dc.html",
+    "LMD-03-OppThinking.dc.html",
+    "LMD-04-OfferArrives.dc.html",
+    "LMD-05-DealPossible.dc.html",
+    "LMD-06-AcceptHold.dc.html",
+    "LMD-07-WalkAway.dc.html",
+    "LMD-08-NoChips.dc.html",
+    "LMD-09-Floor.dc.html",
+    "LMD-10-OppOffline.dc.html",
+    "LMD-11-Reconnecting.dc.html",
+    "LMD-12-Paused.dc.html",
+    "LMD-13-DealClosed.dc.html",
+    "LMD-00-BlurTest.dc.html",
+    "LMM-01-YourTurn.dc.html",
+    "LMM-02-Keypad.dc.html",
+    "LMM-03-OppThinking.dc.html",
+    "LMM-04-OfferArrived.dc.html",
+    "LMM-05-DealPossible.dc.html",
+    "LMM-06-Chat.dc.html",
+    "LMM-07-AcceptHold.dc.html",
+    "LMM-08-WalkAway.dc.html",
+    "LMM-09-NoChips.dc.html",
+    "LMM-10-Floor.dc.html",
+    "LMM-11-OppOffline.dc.html",
+    "LMM-12-Reconnecting.dc.html",
+    "LMM-14-AboveLimit.dc.html",
+    "LMM-13-Menu.dc.html",
+    "LMM-15-DealClosed.dc.html",
+    "VO-D-Live.dc.html",
+    "VO-D-Poor.dc.html",
+    "VO-M-Live.dc.html",
+    "VO-M-Setup.dc.html",
+    "VO-M-Denied.dc.html",
+    "VO-M-Fallback.dc.html",
+    "RS-M-1-Deal.dc.html",
+    "RS-M-2-Captured.dc.html",
+    "RS-M-3-Next.dc.html",
+    "RS-D-Final.dc.html",
+    "RS-M-Details.dc.html",
+    "RS-D-Details.dc.html",
+    "RS-D-NoDeal.dc.html",
+    "RS-M-NoDeal.dc.html",
+    "RS-D-Rematch.dc.html",
+    "RS-D-RematchGo.dc.html",
+    "RS-M-Rematch.dc.html",
+    "OB-D-Landing.dc.html",
+    "OB-M-Landing.dc.html",
+    "OB-M-SignIn.dc.html",
+    "OB-M-Handle.dc.html",
+    "OB-M-Returning.dc.html",
+    "OB-M-T1-Limit.dc.html",
+    "OB-M-T2-Counter.dc.html",
+    "OB-M-T3-NoTakeBacks.dc.html",
+    "OB-M-T4-Chips.dc.html",
+    "OB-M-T5-Clock.dc.html",
+    "OB-M-T6-Deal.dc.html",
+    "OB-M-T7-Reveal.dc.html",
+    "OB-M-ReadyReal.dc.html",
+    "OB-M-FirstHuman.dc.html",
+    "OB-D-Tutorial.dc.html",
+    "HM-D-Bay.dc.html",
+    "HM-M-Bay.dc.html",
+    "HM-M-BayNew.dc.html",
+    "PL-M-PlayMenu.dc.html",
+    "PL-M-PlayVeteran.dc.html",
+    "PL-D-PlayMenu.dc.html",
+    "MO-D-Rotating.dc.html",
+    "MM-D-Searching.dc.html",
+    "MM-D-LongWait.dc.html",
+    "MM-D-Found.dc.html",
+    "MM-D-FailedConfirm.dc.html",
+    "MM-M-Searching.dc.html",
+    "MM-M-Found.dc.html",
+    "MM-States.dc.html",
+    "SC-D-Reveal.dc.html",
+    "SC-M-Reveal.dc.html",
+    "SC-M-RevealSeller.dc.html",
+    "AN-D-Analysis.dc.html",
+    "AN-M-Analysis.dc.html",
+    "RP-D-Replay.dc.html",
+    "HL-Highlights.dc.html",
+    "PF-D-Profile.dc.html",
+    "PF-M-Profile.dc.html",
+    "PF-M-Empty.dc.html",
+    "RT-Rating.dc.html",
+    "RV-M-Rivalry.dc.html",
+    "PF-D-History.dc.html",
+    "DD-D-Daily.dc.html",
+    "DD-D-Played.dc.html",
+    "DD-M-Daily.dc.html",
+    "DD-M-Played.dc.html",
+    "DD-M-EarlyCohort.dc.html",
+    "LB-D-Leaderboard.dc.html",
+    "LB-M-Leaderboard.dc.html",
+    "LB-M-NotRanked.dc.html",
+    "FR-D-Create.dc.html",
+    "FR-D-Share.dc.html",
+    "FR-M-Recipient.dc.html",
+    "SH-D-Card.dc.html",
+    "SH-M-Share.dc.html",
+    "RM-D-Room.dc.html",
+    "RM-M-Room.dc.html",
+    "PA-D-Practice.dc.html",
+    "PA-M-Practice.dc.html",
+    "PA-M-InMatch.dc.html",
+    "SP-D-Public.dc.html",
+    "SP-D-Caster.dc.html",
+    "SP-M-Public.dc.html",
+    "TN-D-Discover.dc.html",
+    "TN-D-Bracket.dc.html",
+    "TN-M-Round.dc.html",
+    "TN-M-Champion.dc.html",
+    "ST-D-Settings.dc.html",
+    "ST-M-Settings.dc.html",
+    "RB-M-Report.dc.html",
+    "RB-M-Blocked.dc.html",
+    "RB-M-RateLimit.dc.html",
+    "ED-Errors.dc.html",
+    "ED-Loading.dc.html",
+    "CP-Amendment.dc.html",
+    "CP-Silhouettes.dc.html",
+    "CP-States.dc.html",
+    "PR-CoreLoop.dc.html",
+    "MO-Storyboard.dc.html",
+    "HO-Copy.dc.html",
+    "HO-Responsive.dc.html",
+    "HO-Contracts.dc.html",
+    "HO-A11y-Decisions.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "c2",
+      "name": "C2 · GoldenOtter refinement"
+    },
+    {
+      "id": "c1",
+      "name": "C1 · GoldenOtter redesign"
+    },
+    {
+      "id": "j1",
+      "name": "J1 · Juice system: rules & tokens"
+    },
+    {
+      "id": "j2",
+      "name": "J2 · Event choreography (24 events)"
+    },
+    {
+      "id": "j3",
+      "name": "J3 · Signature sequences A–H"
+    },
+    {
+      "id": "j4",
+      "name": "J4 · Full-path storyboard"
+    },
+    {
+      "id": "a1",
+      "name": "A1 · World & art direction"
+    },
+    {
+      "id": "a2",
+      "name": "A2 · Character routes (A / B / C)"
+    },
+    {
+      "id": "a3",
+      "name": "A3 · Core cast (Route A)"
+    },
+    {
+      "id": "a4",
+      "name": "A4 · Pose & expression system"
+    },
+    {
+      "id": "a5",
+      "name": "A5 · Asset art & environments"
+    },
+    {
+      "id": "a6",
+      "name": "A6 · Live match — revised (first person)"
+    },
+    {
+      "id": "a7",
+      "name": "A7 · Art & character design system"
+    },
+    {
+      "id": "p00",
+      "name": "00 · Start here"
+    },
+    {
+      "id": "p01",
+      "name": "01 · Flow maps"
+    },
+    {
+      "id": "p02",
+      "name": "02 · Live match — desktop"
+    },
+    {
+      "id": "p03",
+      "name": "03 · Live match — mobile"
+    },
+    {
+      "id": "p04",
+      "name": "04 · Voice deal (P1)"
+    },
+    {
+      "id": "p05",
+      "name": "05 · Result reveal"
+    },
+    {
+      "id": "p06",
+      "name": "06 · Onboarding & tutorial"
+    },
+    {
+      "id": "p07",
+      "name": "07 · The Bay & play entry"
+    },
+    {
+      "id": "p08",
+      "name": "08 · Matchmaking & deal reveal"
+    },
+    {
+      "id": "p09",
+      "name": "09 · Analysis, replay, highlights"
+    },
+    {
+      "id": "p10",
+      "name": "10 · Profile, rating, rivalry"
+    },
+    {
+      "id": "p11",
+      "name": "11 · Daily Deal & leaderboards"
+    },
+    {
+      "id": "p12",
+      "name": "12 · Friends, sharing, Deal Night"
+    },
+    {
+      "id": "p13",
+      "name": "13 · AI practice"
+    },
+    {
+      "id": "p14",
+      "name": "14 · Spectate & tournaments"
+    },
+    {
+      "id": "p15",
+      "name": "15 · Settings & safety"
+    },
+    {
+      "id": "p16",
+      "name": "16 · Edge, error, empty, loading"
+    },
+    {
+      "id": "p17",
+      "name": "17 · Components & v1.1 amendment"
+    },
+    {
+      "id": "p18",
+      "name": "18 · Motion & playable prototype"
+    },
+    {
+      "id": "p19",
+      "name": "19 · Copy & implementation handoff"
+    }
+  ],
+  "title": "Bounty Bay — Product Design v2"
 }

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Rationale</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/bounty-bay/components/bundle.css">
+<link rel="stylesheet" href="bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 1900px; height: 1080px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">C2 · 10 — Rationale</div><h1>What changed and why</h1>
+<div class="card" style="padding:16px"><table><tr><td style="width:150px"><b>Body</b></td><td class="m">He was a head on a stand because nothing connected the head, arms and legs. A neck column, a shoulder yoke and a pear torso make one mass; shorter, thicker legs and the tail on the floor give him weight.</td></tr><tr><td style="width:150px"><b>Face</b></td><td class="m">Premium expression comes from control, not size. Per-eye lids, a real brow ridge and a cheek that moves with the mouth let him be skeptical, fake-friendly or irritated without cartoon exaggeration.</td></tr><tr><td style="width:150px"><b>Hands</b></td><td class="m">The ideas were right but the drawing was noisy. Silhouette-first construction (one knuckle roll, one shape per finger, two rings) keeps every gesture readable at match size.</td></tr><tr><td style="width:150px"><b>Materials</b></td><td class="m">Each material now has its own light response: matte wool, sheen silk, banded metal, fibrous paper, pebbled leather, stranded fur. That removes the clip-art look without going realistic.</td></tr><tr><td style="width:150px"><b>Line + finish</b></td><td class="m">One finish layer (heavier outer line, rim light, grain) and material-coloured inner lines replace uniform vector strokes.</td></tr><tr><td style="width:150px"><b>Scene</b></td><td class="m">The wharf was repainted in the same language and the same light directions, and the character receives the scene’s light, so he stands in the stall instead of on top of it.</td></tr><tr><td style="width:150px"><b>Animation</b></td><td class="m">Every pose and face is a set of numbers on one rig, so ten states × three keys already exist and in-betweens are interpolation. Timings match the juice spec.</td></tr></table></div>
+<div class="card" style="padding:16px"><h3>Still open (honest)</h3><table><tr><td style="width:190px"><b>Painter pass</b></td><td class="m">Still code-drawn. A final illustrator paint-over on this rig (texture, hand-drawn line variance) is the last step to “final”.</td></tr><tr><td style="width:190px"><b>Hands at small sizes</b></td><td class="m">At 48–64 px the palm pads and rings merge; the in-match size (≥ 180 px hand) is fine.</td></tr><tr><td style="width:190px"><b>Other scenes</b></td><td class="m">Only Lantern Wharf is repainted; Gearside and the Stacks still use v3 flat rendering.</td></tr></table></div>
+<div class="card" style="padding:14px 16px;border-color:#2A8A4A"><div class="k" style="color:#2A8A4A">DECIDED · Sign-off</div><p style="margin-top:4px">GoldenOtter v4 is approved as the final-quality benchmark. The cast pass can start, at his standard and on his height scale.</p></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1900, "height": 1080}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

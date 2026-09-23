@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Audit</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/bounty-bay/components/bundle.css">
+<link rel="stylesheet" href="bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 1900px; height: 1100px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">C1 · Audit</div><h1>Five hard questions, answered honestly</h1>
+<div class="card" style="padding:16px"><table><tr><td style="width:300px"><b>Does it still feel too childlike?</b></td><td style="width:170px"><span class="tag part">Mostly no</span></td><td class="m">Head is 22% of height (was ~45%), adult tailoring, narrow heavy-lidded eyes, gold tooth. Residual softness: the round skull and big cream muzzle are still friendly. That is kept on purpose (one soft element), but a painter should sharpen the brow ridge further.</td></tr><tr><td style="width:300px"><b>Does it still feel generic?</b></td><td style="width:170px"><span class="tag pass">No</span></td><td class="m">Nothing about him is a default: pointed collar, waxed whisker, coin display, gold tooth, ledger, wax-seal fob. Each detail is tied to how he negotiates.</td></tr><tr><td style="width:300px"><b>Game opponent or mascot?</b></td><td style="width:170px"><span class="tag pass">Opponent</span></td><td class="m">3/4 stance toward you, eye contact from under heavy lids, an asymmetric smirk and a gesture aimed at you (coin, finger wag, finger-gun). Mascots pose for the viewer; he negotiates with you.</td></tr><tr><td style="width:300px"><b>Remembered after one match?</b></td><td style="width:170px"><span class="tag pass">Likely</span></td><td class="m">“The smug otter with the rings and the gold tooth who flashes a coin at you.” Three hooks at three sizes: silhouette (collar + tail), face (smirk + tooth), hand (coin + rings).</td></tr><tr><td style="width:300px"><b>Does the rendering still look like cheap flat vector?</b></td><td style="width:170px"><span class="tag part">Much less, not fully</span></td><td class="m">Soft volume, material separation, rim light and fur strands remove the clip-art feel. It is still clean vector: final production needs a painter pass (texture, hand-drawn line weight). Also: the environments are now flatter than him. Upgrade them to the same shading before shipping.</td></tr></table></div>
+<div class="card" style="padding:16px"><h3>Iteration log</h3><table><tr><td><b>Iteration 1</b></td><td class="m">Front-facing head, round skull, big button nose, bear ears on top</td><td>Read as a cute bear. Rejected</td></tr><tr><td><b>Iteration 2</b></td><td class="m">3/4 head, snout breaks the silhouette, flat otter skull, tiny low ears, larger lid-driven eyes</td><td>Right attitude; expressions too subtle</td></tr><tr><td><b>Iteration 3</b></td><td class="m">Expression ranges doubled (brow ±40, mouth open ×1.5), shorter legs, cutaway coat, lower collar, coin held out toward the player</td><td>This board</td></tr></table></div>
+<div class="adpdr"><div class="k">PRODUCT DECISION REQUIRED · Rendering target</div><p style="margin-top:4px">Code-drawn vector at this level is the ceiling for this pass. To go further: an illustrator paints over these rigs (texture, line variance), and the scenes get the same soft-volume treatment. Decide whether to commission that before or after the full cast is redrawn.</p></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1900, "height": 1100}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

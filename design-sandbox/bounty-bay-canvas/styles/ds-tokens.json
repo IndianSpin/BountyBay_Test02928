@@ -1,0 +1,143 @@
+{
+  "name": "Bounty Bay",
+  "version": 1,
+  "color": {
+    "themes": [
+      { "id": "bay", "name": "Bounty Bay Night" }
+    ],
+    "tokens": [
+      { "name": "brand-gold", "value": "#D9A653", "usage": "Primary brand color and the Bounty resource fill. Primary GameButton fill, wordmark accent, BountyMeter ring at full charge." },
+      { "name": "brand-gold-deep", "value": "#A6741F", "usage": "Bevel base beneath brand-gold; darker gold for small text set directly on parchment." },
+      { "name": "brand-ember", "value": "#FF7A50", "usage": "Secondary brand color and the Player identity accent. Player avatar ring, \"you\" badges, secondary emphasis." },
+      { "name": "brand-ember-deep", "value": "#C24E29", "usage": "Bevel base beneath brand-ember; pressed state of player-tinted controls." },
+      { "name": "brand-violet", "value": "#8B6BD1", "usage": "Accent brand color and the Opponent identity accent. Opponent avatar ring, \"them\" badges." },
+      { "name": "brand-violet-deep", "value": "#5E48A0", "usage": "Bevel base beneath brand-violet." },
+      { "name": "brand-seaglass", "value": "#3FD8C4", "usage": "Reward-reveal and focus-ring highlight only — legendary rarity glints, keyboard focus rings, rating-tier promotion. Never a resting UI fill; see the Depth & Lighting doc for exactly where glow is and is not allowed." },
+      { "name": "player", "value": "{brand-ember}", "usage": "Whichever seat the viewer occupies. OfferPlate ownership, chat bubble sent, TurnIndicator glow, avatar ring." },
+      { "name": "opponent", "value": "{brand-violet}", "usage": "The other seat at the table. OfferPlate ownership, chat bubble received, TurnIndicator glow, avatar ring." },
+      { "name": "bounty", "value": "{brand-gold}", "usage": "The bounty multiplier and match stakes. BountyMeter fill, payout numerals, ResultStat “net result” figure when positive." },
+      { "name": "resource-chip", "value": "#2FBFA8", "usage": "Concession chips — the fresh per-match spend resource. ChipMeter fill, chip icon, “chip spent” toast." },
+      { "name": "resource-chip-deep", "value": "#1F8F7E", "usage": "Bevel base beneath resource-chip; depleted-chip track tint at reduced opacity." },
+      { "name": "positive", "value": "#3FBE6B", "usage": "Deal accepted, favorable surplus capture, rating gains. Never used for the Bounty or chip resources — keep result-of-play green distinct from resource gold/teal." },
+      { "name": "positive-deep", "value": "#2A9150", "usage": "Bevel base beneath positive; pressed Accept button." },
+      { "name": "crimson", "value": "#E2495A", "usage": "Danger, a low/decaying bounty multiplier, and the Walk Away / destructive action. On surface-world limit to 16px+ or bold text, an icon, or a fill — pair with an icon or label, never color alone (fails small-text contrast on dark; see Accessibility)." },
+      { "name": "crimson-deep", "value": "#B23140", "usage": "Bevel base beneath crimson; pressed Walk Away / destructive button." },
+      { "name": "stone-200", "value": "#E4D3A6", "usage": "Hairline borders and dividers on parchment surfaces." },
+      { "name": "stone-400", "value": "#B9A264", "usage": "Muted icon stroke and secondary borders on parchment surfaces." },
+      { "name": "stone-700", "value": "#58492F", "usage": "Muted/secondary text on parchment surfaces — captions, timestamps, helper copy. 5.3:1 on surface-parchment." },
+      { "name": "stone-900", "value": "#241C10", "usage": "Primary ink on parchment surfaces. 14.8:1 on surface-parchment." },
+      { "name": "mist-200", "value": "#33475A", "usage": "Hairline borders and dividers on dark world/elevated/interactive surfaces." },
+      { "name": "mist-400", "value": "#5C7280", "usage": "Disabled text and icons on dark surfaces. Never use for an interactive label — pair with reduced opacity on the whole control instead." },
+      { "name": "vault-ink", "value": "#2E2A55", "usage": "Confidential/private-information base. ConfidentialCard fill, sealed-dossier and wax-seal motifs." },
+      { "name": "vault-ink-deep", "value": "#1E1B3D", "usage": "Bevel base beneath vault-ink; the confidential card's recessed well." },
+      { "name": "vault-trim", "value": "{brand-gold}", "usage": "Foil trim, wax seal, and stitching details on confidential surfaces." },
+      { "name": "ink-on-dark", "value": "#F3EEDD", "usage": "Primary text and icons on surface-world, surface-elevated, surface-overlay, surface-interactive. 14.2:1 on surface-world." },
+      { "name": "ink-muted-on-dark", "value": "#93A6AD", "usage": "Secondary text on the same dark surfaces. 6.6:1 on surface-world." },
+      { "name": "ink-on-parchment", "value": "{stone-900}", "usage": "Primary text on surface-parchment and surface-parchment-deep." },
+      { "name": "ink-muted-on-parchment", "value": "{stone-700}", "usage": "Secondary text on parchment surfaces." },
+      { "name": "ink-on-gold", "value": "#2A1B05", "usage": "Text and icon color for content placed directly on brand-gold / bounty fills. 6.8:1." },
+      { "name": "ink-on-ember", "value": "#34140A", "usage": "Text and icon color for content placed directly on brand-ember fills. 5.9:1." },
+      { "name": "ink-on-violet", "value": "#1E1533", "usage": "Text and icon color for content placed directly on brand-violet fills. 6.1:1." },
+      { "name": "ink-on-positive", "value": "#12331D", "usage": "Text and icon color for content placed directly on positive fills. 6.4:1." },
+      { "name": "ink-on-crimson", "value": "#FFF0EC", "usage": "Text and icon color for content placed directly on crimson fills. 5.2:1." },
+      { "name": "ink-on-vault", "value": "{ink-on-dark}", "usage": "Text on vault-ink confidential surfaces." },
+      { "name": "surface-world", "value": "#17242D", "usage": "The base world/background layer behind every screen — the night-market harbor tone. Always paired with warm lantern-glow art direction; never left as flat, undecorated color (see Illustration & Art Direction)." },
+      { "name": "surface-world-deep", "value": "#101A20", "usage": "Lower gradient stop of the world background (horizon, water, screen vignette edges)." },
+      { "name": "surface-elevated", "value": "#223140", "usage": "Elevated gameplay HUD surface sitting on the world — the resource dock, score rail, top bar." },
+      { "name": "surface-overlay", "value": "#2B3E4C", "usage": "Floating overlay surfaces — tooltips, toasts, dropdown menus, the TurnIndicator ribbon." },
+      { "name": "surface-interactive", "value": "#24384A", "usage": "Dark interactive chrome — tab bars, secondary/utility buttons, ChatPanel body." },
+      { "name": "surface-parchment", "value": "#F3E7C9", "usage": "The warm tactile card surface — OfferPlate, ConfidentialCard, result Modal, received ChatBubble, ScenarioHero description plate." },
+      { "name": "surface-parchment-deep", "value": "#E4D0A0", "usage": "Recessed / pressed parchment — OfferPlate inset well, ChipMeter track, input fields drawn on parchment." },
+      { "name": "surface-modal-scrim", "value": "rgba(10,14,18,0.72)", "usage": "Backdrop behind a Modal or BottomSheet, laid over surface-world." },
+      { "name": "surface-disabled", "value": "#3A4550", "usage": "Disabled control fill on dark surfaces." },
+      { "name": "surface-disabled-parchment", "value": "#DCD0AE", "usage": "Disabled control fill on parchment surfaces." }
+    ]
+  },
+  "type": {
+    "fonts": [],
+    "families": {
+      "display-world": "'Baloo 2', 'Segoe UI Rounded', sans-serif",
+      "display-numeral": "'Space Grotesk', 'SF Mono', sans-serif",
+      "ui": "'Inter', system-ui, -apple-system, sans-serif"
+    },
+    "groups": [
+      {
+        "name": "Display",
+        "family": "display-world",
+        "styles": [
+          { "name": "display-hero", "fontSize": "56px", "lineHeight": "60px", "fontWeight": 800, "letterSpacing": "-0.5px", "usage": "The Bounty Bay wordmark and splash/hero lockups only." },
+          { "name": "display-title", "fontSize": "32px", "lineHeight": "38px", "fontWeight": 700, "usage": "Asset titles, match-state banners (DEAL COMPLETE, OPPONENT FOUND), ScenarioHero headline." },
+          { "name": "display-subtitle", "fontSize": "22px", "lineHeight": "28px", "fontWeight": 700, "usage": "Section flavor headers, rarity callouts, tavern/board voice copy." }
+        ]
+      },
+      {
+        "name": "Numeral",
+        "family": "display-numeral",
+        "styles": [
+          { "name": "numeral-hero", "fontSize": "64px", "lineHeight": "64px", "fontWeight": 700, "letterSpacing": "-1px", "usage": "The single largest number on a result screen — the final deal price or surplus % captured. Set font-variant-numeric: tabular-nums." },
+          { "name": "numeral-offer", "fontSize": "40px", "lineHeight": "44px", "fontWeight": 700, "usage": "The number inside an OfferPlate — committed, proposed, or incoming price. Tabular numerals required." },
+          { "name": "numeral-stat", "fontSize": "22px", "lineHeight": "26px", "fontWeight": 700, "usage": "Resource and meter numerals — bounty %, chip count, rating figure." },
+          { "name": "numeral-label", "fontSize": "15px", "lineHeight": "20px", "fontWeight": 600, "usage": "Small inline tabular numbers — countdown timers, secondary stat rows." }
+        ]
+      },
+      {
+        "name": "UI",
+        "family": "ui",
+        "styles": [
+          { "name": "body", "fontSize": "15px", "lineHeight": "22px", "fontWeight": 400, "usage": "Default paragraph and explanatory copy." },
+          { "name": "body-strong", "fontSize": "15px", "lineHeight": "22px", "fontWeight": 600, "usage": "Emphasized body text, confirmation copy." },
+          { "name": "label", "fontSize": "13px", "lineHeight": "16px", "fontWeight": 600, "letterSpacing": "0.2px", "usage": "Field labels, resource-pill captions, section chrome. Apply uppercase sparingly in CSS — never on long strings; see Anti-patterns on excessive letter-spacing." },
+          { "name": "caption", "fontSize": "12px", "lineHeight": "16px", "fontWeight": 500, "usage": "Timestamps, helper text, fine print under confidential numbers." },
+          { "name": "button-label", "fontSize": "15px", "lineHeight": "20px", "fontWeight": 700, "letterSpacing": "0.2px", "usage": "All GameButton labels." },
+          { "name": "chat", "fontSize": "14px", "lineHeight": "20px", "fontWeight": 400, "usage": "ChatBubble copy." },
+          { "name": "tooltip", "fontSize": "13px", "lineHeight": "18px", "fontWeight": 500, "usage": "Tooltip and inline rule-reminder copy." }
+        ]
+      }
+    ]
+  },
+  "spacing": {
+    "tokens": [
+      { "name": "space-1", "value": "4px", "usage": "Icon-to-label gaps, chip stack overlap." },
+      { "name": "space-2", "value": "8px", "usage": "Tight internal padding — badge and pill insets." },
+      { "name": "space-3", "value": "12px", "usage": "Default gap between adjacent small controls." },
+      { "name": "space-4", "value": "16px", "usage": "Standard card/plate padding; base grid unit." },
+      { "name": "space-5", "value": "20px", "usage": "Button horizontal padding." },
+      { "name": "space-6", "value": "24px", "usage": "Panel padding; gap between HUD zones." },
+      { "name": "space-8", "value": "32px", "usage": "Section spacing within a modal or sheet." },
+      { "name": "space-10", "value": "40px", "usage": "Safe-area inset on mobile bottom action bars." },
+      { "name": "space-12", "value": "48px", "usage": "Gap between the ScenarioHero art and the negotiation HUD." },
+      { "name": "space-16", "value": "64px", "usage": "Large layout gutters on desktop." },
+      { "name": "space-20", "value": "80px", "usage": "Maximum single gutter; result-screen top clearance." }
+    ]
+  },
+  "radius": {
+    "tokens": [
+      { "name": "radius-xs", "value": "6px", "usage": "Small tags, timer pill corners, icon-button corners." },
+      { "name": "radius-sm", "value": "10px", "usage": "Input fields, small badges, tooltip corners." },
+      { "name": "radius-md", "value": "16px", "usage": "GameButton corners, resource pill body, chat bubble tail corner." },
+      { "name": "radius-lg", "value": "22px", "usage": "OfferPlate, ChatBubble, MatchmakingCard corners." },
+      { "name": "radius-xl", "value": "28px", "usage": "Modal, ConfidentialCard, ScenarioHero, RatingBadge shield corners." },
+      { "name": "radius-2xl", "value": "36px", "usage": "BottomSheet top corners only." },
+      { "name": "radius-full", "value": "999px", "usage": "Pills, chip capsules, avatar frames, ProgressionBadge ring." }
+    ]
+  },
+  "shadow": {
+    "tokens": [
+      { "name": "shadow-button-primary", "value": "0 4px 0 #A6741F, 0 10px 16px rgba(20,14,4,0.35)", "usage": "Resting state of a primary (gold) GameButton — the bottom bevel plus ambient drop." },
+      { "name": "shadow-button-primary-pressed", "value": "0 1px 0 #A6741F, 0 2px 5px rgba(20,14,4,0.3)", "usage": "Pressed/active state of a primary GameButton — bevel collapses, button sinks 3px." },
+      { "name": "shadow-button-positive", "value": "0 4px 0 #2A9150, 0 10px 16px rgba(10,20,14,0.32)", "usage": "Resting state of a positive-contextual (Accept) GameButton." },
+      { "name": "shadow-button-positive-pressed", "value": "0 1px 0 #2A9150, 0 2px 5px rgba(10,20,14,0.3)", "usage": "Pressed state of a positive-contextual GameButton." },
+      { "name": "shadow-button-destructive", "value": "0 4px 0 #B23140, 0 10px 16px rgba(20,10,10,0.4)", "usage": "Resting state of the destructive (Walk Away) GameButton." },
+      { "name": "shadow-button-destructive-pressed", "value": "0 1px 0 #B23140, 0 2px 5px rgba(20,10,10,0.35)", "usage": "Pressed state of the destructive GameButton." },
+      { "name": "shadow-button-secondary", "value": "0 3px 0 #16222B, 0 8px 14px rgba(10,14,18,0.35)", "usage": "Resting state of a secondary (dark) GameButton on surface-world." },
+      { "name": "shadow-button-secondary-pressed", "value": "0 1px 0 #16222B, 0 2px 4px rgba(10,14,18,0.3)", "usage": "Pressed state of a secondary GameButton." },
+      { "name": "shadow-card-elevated", "value": "0 10px 24px rgba(8,12,16,0.45), inset 0 1px 0 rgba(255,255,255,0.06)", "usage": "Dark elevated gameplay panels — ambient drop plus a 1px top rim highlight." },
+      { "name": "shadow-card-parchment", "value": "0 14px 30px rgba(30,20,6,0.35), inset 0 2px 0 rgba(255,255,255,0.55)", "usage": "Parchment cards and plates — warm ambient drop plus a paper-edge top highlight." },
+      { "name": "shadow-card-parchment-recessed", "value": "inset 0 2px 5px rgba(90,60,10,0.3)", "usage": "The inset well inside an OfferPlate or ChipMeter track." },
+      { "name": "shadow-modal", "value": "0 24px 60px rgba(6,8,10,0.55)", "usage": "Modal and BottomSheet elevation above the scrim." },
+      { "name": "shadow-tooltip", "value": "0 8px 18px rgba(6,8,10,0.4)", "usage": "Tooltip and Toast elevation above gameplay surfaces." },
+      { "name": "shadow-glow-reward", "value": "0 0 28px 6px rgba(63,216,196,0.55)", "usage": "Reward-reveal glow only — legendary asset reveal, rating-tier promotion, deal-accepted burst. Prohibited on resting buttons, cards, or icons; see Depth & Lighting." },
+      { "name": "shadow-focus-ring", "value": "0 0 0 3px rgba(63,216,196,0.6)", "usage": "Keyboard focus ring. Meets 3:1 against surface-world and surface-parchment alike." }
+    ]
+  }
+}
