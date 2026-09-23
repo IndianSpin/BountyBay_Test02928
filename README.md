@@ -54,6 +54,16 @@ pnpm build          # includes the Next.js production build
 pnpm dev            # runs web (3000) + api (4000) — then open /play
 ```
 
+E2E runs against the isolated `bounty_bay_e2e` database by default (never
+the dev DB). Create it once: `CREATE DATABASE bounty_bay_e2e;`, then
+`DATABASE_URL=postgresql://bounty:bounty@localhost:5433/bounty_bay_e2e
+pnpm --filter @bounty-bay/db db:deploy` and seed it with the short test
+limits: `DATABASE_URL=… E2E_HARD_LIMIT_MS=45000 E2E_WARN_LOW_MS=25000
+E2E_WARN_CRITICAL_MS=10000 pnpm --filter @bounty-bay/db db:seed`.
+Override with an explicit `E2E_DATABASE_URL` when you mean it; when other
+dev servers hold ports 3000/4000, use `E2E_REUSE_SERVERS=1` (live stack)
+or `E2E_WEB_PORT=3100 E2E_API_PORT=4100` (fresh stack).
+
 Run a seeded simulation batch:
 
 ```sh
