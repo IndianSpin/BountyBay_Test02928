@@ -125,7 +125,13 @@ The buyer must explicitly accept 65 to settle at 65, or take another legal actio
 
 ## GR-012 — Walk away
 
-Either active player may choose **Walk Away**. Walk-away ends the match as no-deal.
+The player whose turn it is may choose **Walk Away**. Walk-away is a
+formal gameplay action like OFFER/ACCEPT: it requires the acting
+player's turn, is subject to the personal decision-time budget
+(GR-023), and ends the match as no-deal. A player who wants to leave
+while it is the opponent's turn may disconnect (the clock freezes) and
+walk away on their own turn, or let their decision-time budget run out
+(TIMED_OUT, GR-024).
 
 No-deal bounty reward is zero for both players. Concession chips already spent remain spent for match-economy analytics.
 

@@ -359,13 +359,27 @@ install` in `~/projects/bay-w2` (W2 blocked on BB-201) + verify node_
 modules in bay-w1/w3/qa; (6) bay-data without node_modules is fine while
 read-only.
 
-## PDR-2 — OPEN: GR-012 walk-away doc-vs-behavior
+## PDR-2 — RESOLVED by manager (founder delegated, 2026-09-23)
 
-QA found docs and domain disagree about walk-away turn gating. Founder
-asked 2026-09-23: "i dont know" — not resolved, not abandoned. Plan:
-W1 (domain owner) writes the doc-vs-behavior comparison + a
-recommendation in worker-1.md (evidence task); QA includes its observed
-behavior in the BB-206 report; manager presents both to the founder with
-a recommendation. **Nothing changes in code or docs until the founder
-rules.**
+Founder: "i leave those to you to decide." Ruling: **the domain's turn
+gating is canonical** — walk-away is a formal gameplay action on the
+acting player's turn, subject to GR-023's decision-time budget (same
+gate as OFFER/ACCEPT). Rationale: non-active walk-away would break turn
+ownership, race the active player's decision, and make timeout
+attribution ambiguous; D7 already established the same principle for
+accept. docs/02 GR-012 wording corrected accordingly (manager-applied,
+D-6). W1's PDR-2 evidence section still lands for the ledger and will
+be checked against this ruling when it arrives.
+
+## PDR-3 — RESOLVED by manager (founder delegated, 2026-09-23)
+
+QA-004 friend-mode rematch. Ruling: **rematch = mutual consent.** After
+the result, either side may propose a rematch (same scenario, same
+roles, unrated); the opponent sees an in-session accept prompt; on
+acceptance a new match starts. Until the flow ships, the result screen
+must not present a misleading rematch affordance. Tasks: BB-219a (API:
+challenge creation with fixed known opponent + rematch flag — W1, after
+BB-204) and BB-219b (result-screen rematch UI — W2, after BB-216).
+
+## PDR-1 — RESOLVED: Negotiation-agent architecture approved as direction (DEC-030)
 
