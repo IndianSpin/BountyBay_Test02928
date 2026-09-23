@@ -14,6 +14,11 @@ import { formatPercent, formatTenthsGrouped } from '../../lib/format';
 import ZopaBar from '../../components/zopa-bar';
 import type { MatchSnapshot } from '../../components/game/types';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
+
+/** BB-219b (PDR-3): rematch = mutual consent. */
+type RematchPhase = 'idle' | 'proposing' | 'waiting' | 'declined';
+
 const BEAT_TIMES = [0, 1100, 2000, 2600, 3000, 4000] as const;
 const FINAL_BEAT = BEAT_TIMES.length; // actions
 
@@ -26,11 +31,13 @@ export default function ResultReveal({
   userId,
   onRematch,
   matchId,
+  token,
 }: {
   snapshot: MatchSnapshot;
   userId: string;
   onRematch: () => void;
   matchId: string;
+  token: string;
 }) {
   const view = snapshot.view;
   const opponent = view.participants.find((p) => p.playerId !== userId)!;
@@ -45,6 +52,122 @@ export default function ResultReveal({
   const dealWasPossible = (view.economy?.zopaTenths ?? 0) > 0;
 
   const [beat, setBeat] = useState(0);
+  // PDR-3 mutual-consent rematch state (friend matches only; AI practice
+  // keeps the plain reset path).
+  const friendMode = ai === null;
+  const opponentHandle = snapshot.handles[opponent.playerId] ?? 'your opponent';
+  const [rematchPhase, setRematchPhase] = useState<RematchPhase>('idle');
+  const [proposalId, setProposalId] = useState<string | null>(null);
+  const [incoming, setIncoming] = useState<{ matchId: string } | null>(null);
+
+  const authHeaders = { authorization: `Bearer ${token}` };
+
+  async function proposeRematch(): Promise<void> {
+    setRematchPhase('proposing');
+    try {
+      const res = await fetch(`${API_URL}/v1/matches/${matchId}/rematch`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', ...authHeaders },
+        body: JSON.stringify({ commandId: crypto.randomUUID() }),
+      });
+      if (!res.ok) {
+        // 409 = the opponent proposed first (one open proposal per source):
+        // stay idle — the incoming poll below surfaces their proposal.
+        setRematchPhase('idle');
+        return;
+      }
+      const body = (await res.json()) as { matchId: string };
+      setProposalId(body.matchId);
+      setRematchPhase('waiting');
+    } catch {
+      setRematchPhase('idle');
+    }
+  }
+
+  // The proposer watches their open proposal: ACTIVE means the opponent
+  // accepted — join the new match. A 403/404 means the row is gone
+  // (declined or cancelled) — surface the closed state.
+  useEffect(() => {
+    if (rematchPhase !== 'waiting' || proposalId === null) return;
+    const timer = setInterval(async () => {
+      try {
+        const res = await fetch(`${API_URL}/v1/matches/${proposalId}`, { headers: authHeaders });
+        if (res.status === 403 || res.status === 404) {
+          setProposalId(null);
+          setRematchPhase('declined');
+          return;
+        }
+        if (!res.ok) return;
+        // the accepted proposal returns the FULL snapshot: status lives at
+        // view.status (the bare { status } shape is the pre-join branch).
+        const body = (await res.json()) as { status?: string; view?: { status?: string } };
+        if (body.status === 'ACTIVE' || body.view?.status === 'ACTIVE') {
+          window.location.assign(`/play?resume=${proposalId}`);
+        }
+      } catch {
+        /* polling is best-effort */
+      }
+    }, 2000);
+    return () => clearInterval(timer);
+  }, [rematchPhase, proposalId, token]);
+
+  // The opponent watches for an incoming proposal on the source match.
+  useEffect(() => {
+    if (!friendMode || rematchPhase !== 'idle') return;
+    let cancelled = false;
+    const timer = setInterval(async () => {
+      try {
+        const res = await fetch(`${API_URL}/v1/matches/${matchId}/rematch`, { headers: authHeaders });
+        if (!res.ok || cancelled) return;
+        const body = (await res.json()) as { incoming: { matchId: string } | null };
+        if (body.incoming !== null && !cancelled) {
+          setIncoming(body.incoming);
+          clearInterval(timer);
+        }
+      } catch {
+        /* polling is best-effort */
+      }
+    }, 2500);
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
+  }, [friendMode, rematchPhase, matchId, token]);
+
+  async function acceptRematch(): Promise<void> {
+    if (incoming === null) return;
+    const res = await fetch(`${API_URL}/v1/matches/${incoming.matchId}/rematch/accept`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', ...authHeaders },
+      body: JSON.stringify({ commandId: crypto.randomUUID() }),
+    });
+    if (!res.ok) {
+      setIncoming(null);
+      return;
+    }
+    window.location.assign(`/play?resume=${incoming.matchId}`);
+  }
+
+  async function declineRematch(): Promise<void> {
+    if (incoming === null) return;
+    await fetch(`${API_URL}/v1/matches/${incoming.matchId}/rematch/decline`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', ...authHeaders },
+      body: JSON.stringify({ commandId: crypto.randomUUID() }),
+    }).catch(() => null);
+    setIncoming(null);
+  }
+
+  async function cancelRematch(): Promise<void> {
+    if (proposalId === null) return;
+    await fetch(`${API_URL}/v1/matches/${proposalId}/rematch/cancel`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', ...authHeaders },
+      body: JSON.stringify({ commandId: crypto.randomUUID() }),
+    }).catch(() => null);
+    setProposalId(null);
+    setRematchPhase('idle');
+  }
   useEffect(() => {
     const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) {
@@ -147,10 +270,35 @@ export default function ResultReveal({
                 practice match · unrated
               </p>
             )}
+            {friendMode && incoming !== null && (
+              <div className="lm-rematch-prompt" data-testid="rematch-prompt">
+                <p>{opponentHandle} wants a rematch — same table, fresh numbers.</p>
+                <div className="lm-rematch-prompt__row">
+                  <button type="button" className="lm-rematch-accept" data-testid="rematch-accept" onClick={acceptRematch}>
+                    Accept
+                  </button>
+                  <button type="button" className="lm-rematch-decline" data-testid="rematch-decline" onClick={declineRematch}>
+                    Decline
+                  </button>
+                </div>
+              </div>
+            )}
             <div className="lm-result-actions">
-              <button type="button" className="lm-rematch-seal" data-testid="rematch-button" onClick={onRematch}>
-                REMATCH
+              <button
+                type="button"
+                className="lm-rematch-seal"
+                data-testid="rematch-button"
+                disabled={rematchPhase === 'proposing' || rematchPhase === 'waiting'}
+                onClick={friendMode ? proposeRematch : onRematch}
+              >
+                {rematchPhase === 'waiting' ? 'REMATCH SENT' : 'REMATCH'}
               </button>
+              {rematchPhase === 'waiting' && (
+                <p className="lm-rematch-status">
+                  Rematch proposed — waiting for {opponentHandle}. <button type="button" onClick={cancelRematch}>Cancel</button>
+                </p>
+              )}
+              {rematchPhase === 'declined' && <p className="lm-rematch-status">The rematch is no longer open.</p>}
               <a className="lm-result-link" href={`/review/${matchId}`} data-testid="analyze-deal">
                 Analyze deal
               </a>

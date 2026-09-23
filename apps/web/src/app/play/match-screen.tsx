@@ -406,7 +406,7 @@ export default function MatchScreen({ matchId, token, userId, opponentJoined, on
       {error && <p className="world-error" role="alert">{error}</p>}
 
       {terminal && view.economy && (
-        <ResultReveal snapshot={snapshot} userId={userId} onRematch={onRematch} matchId={matchId} />
+        <ResultReveal snapshot={snapshot} userId={userId} onRematch={onRematch} matchId={matchId} token={token} />
       )}
     </main>
   );

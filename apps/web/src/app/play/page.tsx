@@ -69,7 +69,17 @@ export default function PlayPage() {
     } else if (resumeMatchId) {
       // resume (DEC-025): the snapshot decides — live match, or a challenge still waiting
       setPhase('joining');
-      fetch(`${API_URL}/v1/matches/${resumeMatchId}`, { headers: { authorization: `Bearer ${token}` } })
+      // one retry for transient failures: a dropped resume fetch must not
+      // strand a returning player on the error panel (QA-001 adjacent)
+      const resumeFetch = async (attempt: number): Promise<Response> => {
+        const res = await fetch(`${API_URL}/v1/matches/${resumeMatchId}`, { headers: { authorization: `Bearer ${token}` } });
+        if (!res.ok && attempt < 2) {
+          await new Promise((r) => setTimeout(r, 800));
+          return resumeFetch(attempt + 1);
+        }
+        return res;
+      };
+      resumeFetch(1)
         .then(async (res) => {
           if (!res.ok) throw new Error((await res.json()).message ?? 'could not resume');
           const body = (await res.json()) as { status: string; role: 'BUYER' | 'SELLER'; inviteToken?: string | null };
