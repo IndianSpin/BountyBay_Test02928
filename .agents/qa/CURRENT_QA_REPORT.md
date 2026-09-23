@@ -74,7 +74,24 @@ Reproduced the founder's state and pinned the full chain (spec:
 Environment note: the QA DB was migrated with the DD-M2 additive migration
 + reseeded before this run.
 
+## BB-221 — strict-mode late-suite stall ROOT-CAUSED (base `golden-baseline-1`, `927c0e1`)
+
+Reproduced the manager's deterministic signature twice (4 failed/12
+passed: rematch-consent decline, friend-match chat, friend-match GR-007
+at positions 15–17 + the intermittent insights-api).
+
+**Root cause (instrumentation-proven):** the full suite makes ~49
+dev-signin calls; `POST /v1/auth/dev/signin` caps at 30/min; requests
+#31+ → 429. The wall lands exactly in the last three tests (one 429 per
+failing test, timestamps correlated). All observed properties explained
+(deterministic positions, standalone green, simultaneous failures). →
+**QA-006** (HIGH, infra) in `BUGS.md` with two fix options (QA
+recommends the dev-mode rate-limit bump, owner W1) + acceptance test.
+Insights-api = separate **QA-007** (LOW): fixed-subject pollution across
+runs. Instrumentation committed under `.agents/qa/tools/
+instrumented-api.ts`; evidence logs in `.agents/qa/evidence/`.
+Environment restored (e2e DB re-seeded without overrides, L-010).
+
 ## Terminal state
 
-BB-218 REPORTED TO MANAGER. Stopping per contract; no further campaigns
-started.
+BB-221 REPORTED TO MANAGER. Stopping per contract.

@@ -1,0 +1,87 @@
+[QA-INSTR] instrumented API on :4100
+[QA-INSTR] signin 200 10ms 2026-09-23T15:24:07.520Z
+[QA-INSTR] signin 200 14ms 2026-09-23T15:24:07.521Z
+[QA-INSTR] signin 200 1ms 2026-09-23T15:24:07.526Z
+[QA-INSTR] signin 200 1ms 2026-09-23T15:24:07.526Z
+{"analytics_event":"time_tier_entered","matchId":"0990c7b7-6c0f-4f64-acfe-29ff11aa3e50","playerId":"44d3b05c-190d-4237-8257-0c9787484b54","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177047604}
+{"analytics_event":"time_tier_entered","matchId":"0990c7b7-6c0f-4f64-acfe-29ff11aa3e50","playerId":"368f32bf-d489-4306-8d1a-5cb16db4917c","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177047604}
+{"analytics_event":"match_completed","matchId":"0990c7b7-6c0f-4f64-acfe-29ff11aa3e50","mode":"FRIEND_LIVE","completionReason":"ACCEPTED","cumulativeActiveMs:368f32bf-d489-4306-8d1a-5cb16db4917c":24,"clockMultiplier:368f32bf-d489-4306-8d1a-5cb16db4917c":0.99972,"cumulativeActiveMs:44d3b05c-190d-4237-8257-0c9787484b54":163,"clockMultiplier:44d3b05c-190d-4237-8257-0c9787484b54":0.9980983333333333,"emitted_at":1790177047844}
+[QA-INSTR] signin 200 1ms 2026-09-23T15:24:07.938Z
+[QA-INSTR] signin 200 1ms 2026-09-23T15:24:07.945Z
+{"analytics_event":"time_tier_entered","matchId":"2513da2d-bfd7-4785-a88b-9dc5f5f4647b","playerId":"fb8cd969-eff2-40dc-8137-a22332ccf8ed","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177048037}
+{"analytics_event":"time_tier_entered","matchId":"2513da2d-bfd7-4785-a88b-9dc5f5f4647b","playerId":"3fbc605f-8864-4141-9f33-45a48540cf21","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177048037}
+{"analytics_event":"match_completed","matchId":"2513da2d-bfd7-4785-a88b-9dc5f5f4647b","mode":"FRIEND_LIVE","completionReason":"WALKED_AWAY","cumulativeActiveMs:3fbc605f-8864-4141-9f33-45a48540cf21":32,"clockMultiplier:3fbc605f-8864-4141-9f33-45a48540cf21":0.9996266666666667,"cumulativeActiveMs:fb8cd969-eff2-40dc-8137-a22332ccf8ed":0,"clockMultiplier:fb8cd969-eff2-40dc-8137-a22332ccf8ed":1,"emitted_at":1790177048109}
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:08.175Z
+[QA-INSTR] signin 200 17ms 2026-09-23T15:24:08.194Z
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:08.195Z
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:08.213Z
+[QA-INSTR] signin 200 23ms 2026-09-23T15:24:08.220Z
+[QA-INSTR] signin 200 17ms 2026-09-23T15:24:08.232Z
+[QA-INSTR] signin 200 2ms 2026-09-23T15:24:08.268Z
+[QA-INSTR] signin 200 1ms 2026-09-23T15:24:08.270Z
+{"analytics_event":"time_tier_entered","matchId":"8b97401a-5fdb-4577-9375-f78439a4e322","playerId":"87547261-d405-4231-a9e0-66beb6ed9f15","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177048304}
+{"analytics_event":"time_tier_entered","matchId":"8b97401a-5fdb-4577-9375-f78439a4e322","playerId":"b0c7c26a-3565-42e4-b3f9-ed9a5268c64d","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177048304}
+{"analytics_event":"match_completed","matchId":"8b97401a-5fdb-4577-9375-f78439a4e322","mode":"FRIEND_LIVE","completionReason":"WALKED_AWAY","cumulativeActiveMs:87547261-d405-4231-a9e0-66beb6ed9f15":23,"clockMultiplier:87547261-d405-4231-a9e0-66beb6ed9f15":0.9997316666666667,"cumulativeActiveMs:b0c7c26a-3565-42e4-b3f9-ed9a5268c64d":0,"clockMultiplier:b0c7c26a-3565-42e4-b3f9-ed9a5268c64d":1,"emitted_at":1790177048368}
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:08.507Z
+[QA-INSTR] signin 200 5ms 2026-09-23T15:24:08.512Z
+{"analytics_event":"time_tier_entered","matchId":"eeef90d3-9b98-46e4-94c7-bbc42b678f0d","playerId":"00000000-0000-4000-9000-000000000003","tier":"NORMAL","decisionTimeRemainingMs":44995,"emitted_at":1790177048524}
+{"analytics_event":"time_tier_entered","matchId":"eeef90d3-9b98-46e4-94c7-bbc42b678f0d","playerId":"59fe22b6-fa21-47cb-b0f5-ebdd3e9f20da","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177048524}
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:08.765Z
+[QA-INSTR] signin 200 6ms 2026-09-23T15:24:08.772Z
+[QA-INSTR] signin 200 8ms 2026-09-23T15:24:08.774Z
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:08.879Z
+[QA-INSTR] signin 200 7ms 2026-09-23T15:24:08.887Z
+{"analytics_event":"time_tier_entered","matchId":"1a077cae-ddba-4319-9e40-e8bb1446fb4d","playerId":"4e7801c1-dc24-454f-b05b-bf2b62549cae","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177048900}
+{"analytics_event":"time_tier_entered","matchId":"1a077cae-ddba-4319-9e40-e8bb1446fb4d","playerId":"98901337-f89d-49d4-945b-837c2b509595","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177048900}
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:08.959Z
+[QA-INSTR] signin 200 5ms 2026-09-23T15:24:08.964Z
+[QA-INSTR] signin 200 5ms 2026-09-23T15:24:08.964Z
+{"analytics_event":"time_tier_entered","matchId":"4a0ac965-8d73-43a6-b868-bb1db1161ce3","playerId":"b7506b44-713b-42bb-8801-d190f28393c9","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177049091}
+{"analytics_event":"time_tier_entered","matchId":"4a0ac965-8d73-43a6-b868-bb1db1161ce3","playerId":"b9d8c833-d384-4cc7-a545-83d1f59442fc","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177049091}
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:09.194Z
+[QA-INSTR] signin 200 6ms 2026-09-23T15:24:09.200Z
+[QA-INSTR] signin 200 5ms 2026-09-23T15:24:09.201Z
+{"analytics_event":"time_tier_entered","matchId":"f4ea8b93-9fbf-486e-b84f-4d71a484f6e0","playerId":"3beeec25-7f33-4b42-8180-8dd72b9f28b9","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177049308}
+{"analytics_event":"time_tier_entered","matchId":"f4ea8b93-9fbf-486e-b84f-4d71a484f6e0","playerId":"d27c9719-997a-49b9-baf1-0a95146d388c","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177049308}
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:09.363Z
+[QA-INSTR] signin 200 4ms 2026-09-23T15:24:09.368Z
+[QA-INSTR] signin 200 6ms 2026-09-23T15:24:09.369Z
+{"analytics_event":"time_tier_entered","matchId":"77641eb2-d0ad-4e32-85e0-3e7471e0dbc9","playerId":"d267b4f1-ed5c-4683-8d95-18ca84fbe5c9","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177049471}
+{"analytics_event":"time_tier_entered","matchId":"77641eb2-d0ad-4e32-85e0-3e7471e0dbc9","playerId":"05edbc8f-89a5-4875-8afa-0b99b2810ec9","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177049471}
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:11.647Z
+[QA-INSTR] signin 200 4ms 2026-09-23T15:24:11.651Z
+{"analytics_event":"time_tier_entered","matchId":"35486626-e951-487a-ab2d-74e8b5413e16","playerId":"00000000-0000-4000-9000-000000000003","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177051889}
+{"analytics_event":"time_tier_entered","matchId":"35486626-e951-487a-ab2d-74e8b5413e16","playerId":"1986f627-d174-4308-8225-5ac2d0a7f15c","tier":"NORMAL","decisionTimeRemainingMs":44993,"emitted_at":1790177051889}
+{"analytics_event":"match_completed","matchId":"1a077cae-ddba-4319-9e40-e8bb1446fb4d","mode":"FRIEND_LIVE","completionReason":"ACCEPTED","cumulativeActiveMs:4e7801c1-dc24-454f-b05b-bf2b62549cae":1084,"clockMultiplier:4e7801c1-dc24-454f-b05b-bf2b62549cae":0.9873533333333333,"cumulativeActiveMs:98901337-f89d-49d4-945b-837c2b509595":463,"clockMultiplier:98901337-f89d-49d4-945b-837c2b509595":0.9945983333333334,"emitted_at":1790177052265}
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:12.589Z
+[QA-INSTR] signin 200 6ms 2026-09-23T15:24:12.595Z
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:12.869Z
+[QA-INSTR] signin 200 5ms 2026-09-23T15:24:12.875Z
+[QA-INSTR] signin 200 7ms 2026-09-23T15:24:12.876Z
+{"analytics_event":"time_tier_entered","matchId":"a5161418-597f-45a1-a80b-f534e0aca792","playerId":"040d396c-636a-4692-ba37-e44a38099451","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177052978}
+{"analytics_event":"time_tier_entered","matchId":"a5161418-597f-45a1-a80b-f534e0aca792","playerId":"a23f1abe-5a5d-40f4-97ca-b1ef77963b84","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177052978}
+{"analytics_event":"match_completed","matchId":"f4ea8b93-9fbf-486e-b84f-4d71a484f6e0","mode":"FRIEND_LIVE","completionReason":"ACCEPTED","cumulativeActiveMs:3beeec25-7f33-4b42-8180-8dd72b9f28b9":435,"clockMultiplier:3beeec25-7f33-4b42-8180-8dd72b9f28b9":0.994925,"cumulativeActiveMs:d27c9719-997a-49b9-baf1-0a95146d388c":1647,"clockMultiplier:d27c9719-997a-49b9-baf1-0a95146d388c":0.980785,"emitted_at":1790177053232}
+{"analytics_event":"match_completed","matchId":"77641eb2-d0ad-4e32-85e0-3e7471e0dbc9","mode":"FRIEND_LIVE","completionReason":"ACCEPTED","cumulativeActiveMs:05edbc8f-89a5-4875-8afa-0b99b2810ec9":2182,"clockMultiplier:05edbc8f-89a5-4875-8afa-0b99b2810ec9":0.9745433333333333,"cumulativeActiveMs:d267b4f1-ed5c-4683-8d95-18ca84fbe5c9":1143,"clockMultiplier:d267b4f1-ed5c-4683-8d95-18ca84fbe5c9":0.986665,"emitted_at":1790177054117}
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:15.562Z
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:15.563Z
+[QA-INSTR] signin 200 5ms 2026-09-23T15:24:15.568Z
+[QA-INSTR] signin 200 6ms 2026-09-23T15:24:15.569Z
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:15.802Z
+[QA-INSTR] signin 200 6ms 2026-09-23T15:24:15.808Z
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:16.085Z
+[QA-INSTR] signin 200 5ms 2026-09-23T15:24:16.091Z
+[QA-INSTR] signin 200 5ms 2026-09-23T15:24:16.091Z
+{"analytics_event":"time_tier_entered","matchId":"cb649fc0-52ae-4d02-938e-3d28de0643ff","playerId":"24f7d039-b67d-4ca0-a441-ca8cbada7980","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177056191}
+{"analytics_event":"time_tier_entered","matchId":"cb649fc0-52ae-4d02-938e-3d28de0643ff","playerId":"be1157c5-c6a4-4a95-91cc-954c62b7b724","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790177056191}
+{"analytics_event":"match_completed","matchId":"a5161418-597f-45a1-a80b-f534e0aca792","mode":"FRIEND_LIVE","completionReason":"WALKED_AWAY","cumulativeActiveMs:040d396c-636a-4692-ba37-e44a38099451":0,"clockMultiplier:040d396c-636a-4692-ba37-e44a38099451":1,"cumulativeActiveMs:a23f1abe-5a5d-40f4-97ca-b1ef77963b84":1145,"clockMultiplier:a23f1abe-5a5d-40f4-97ca-b1ef77963b84":0.9866416666666666,"emitted_at":1790177056437}
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:18.212Z
+[QA-INSTR] signin 429 1ms 2026-09-23T15:24:18.213Z
+{"analytics_event":"review_opened","playerId":"1986f627-d174-4308-8225-5ac2d0a7f15c","matchId":"35486626-e951-487a-ab2d-74e8b5413e16","emitted_at":1790177058318}
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:18.939Z
+[QA-INSTR] signin 429 0ms 2026-09-23T15:24:18.939Z
+[QA-INSTR] signin 204 -1ms 2026-09-23T15:24:24.453Z
+[QA-INSTR] signin 429 0ms 2026-09-23T15:24:24.453Z
+{"analytics_event":"match_timed_out","matchId":"babb2d76-f143-4cb7-9f2a-ec7bf67dcc28","mode":"FRIEND_LIVE","playerId":"3fbc605f-8864-4141-9f33-45a48540cf21","cumulativeActiveMs":0,"emitted_at":1790177093250}
+{"analytics_event":"match_completed","matchId":"babb2d76-f143-4cb7-9f2a-ec7bf67dcc28","mode":"FRIEND_LIVE","completionReason":"TIMED_OUT","cumulativeActiveMs:3fbc605f-8864-4141-9f33-45a48540cf21":45005,"clockMultiplier:3fbc605f-8864-4141-9f33-45a48540cf21":0.4749416666666667,"cumulativeActiveMs:fb8cd969-eff2-40dc-8137-a22332ccf8ed":0,"clockMultiplier:fb8cd969-eff2-40dc-8137-a22332ccf8ed":1,"emitted_at":1790177093250}
+{"analytics_event":"match_timed_out","matchId":"cb649fc0-52ae-4d02-938e-3d28de0643ff","mode":"FRIEND_LIVE","playerId":"24f7d039-b67d-4ca0-a441-ca8cbada7980","cumulativeActiveMs":0,"emitted_at":1790177103040}
+{"analytics_event":"match_completed","matchId":"cb649fc0-52ae-4d02-938e-3d28de0643ff","mode":"FRIEND_LIVE","completionReason":"TIMED_OUT","cumulativeActiveMs:24f7d039-b67d-4ca0-a441-ca8cbada7980":45005,"clockMultiplier:24f7d039-b67d-4ca0-a441-ca8cbada7980":0.4749416666666667,"cumulativeActiveMs:be1157c5-c6a4-4a95-91cc-954c62b7b724":0,"clockMultiplier:be1157c5-c6a4-4a95-91cc-954c62b7b724":1,"emitted_at":1790177103041}
