@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OLD MOSSBACK animation</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/bounty-bay/components/bundle.css">
+<link rel="stylesheet" href="bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 1200px; height: 1000px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">8 — Animation key-pose sheet</div><h1>Six states, ready for layered-sprite tweening in code</h1>
+<div style="display:grid;grid-template-columns:repeat(3,300px);gap:20px 24px"><div style="display:flex;flex-direction:column;gap:6px;width:300px"><div class="ground" style="width:300px;overflow:hidden"><img src="/_blob/72cd26a871dcde1c6565f1edc8ca4087" alt="" style="width:300px;display:block;max-width:none;"></div><b style="font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:17px">Idle</b><p style="font-size:12px;line-height:16px;margin:0">Default while nothing is happening; loops with a slow accent every few cycles.</p></div><div style="display:flex;flex-direction:column;gap:6px;width:300px"><div class="ground" style="width:300px;overflow:hidden"><img src="/_blob/71e407980396d4dbee6dd3ba7ac19f12" alt="" style="width:300px;display:block;max-width:none;"></div><b style="font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:17px">Listening</b><p style="font-size:12px;line-height:16px;margin:0">While you compose or speak; settles and tracks.</p></div><div style="display:flex;flex-direction:column;gap:6px;width:300px"><div class="ground" style="width:300px;overflow:hidden"><img src="/_blob/f47c93d11bf45b24f70670d3a7637acf" alt="" style="width:300px;display:block;max-width:none;"></div><b style="font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:17px">Speaking</b><p style="font-size:12px;line-height:16px;margin:0">Mouth-shape beats synced to voice/text reveal.</p></div><div style="display:flex;flex-direction:column;gap:6px;width:300px"><div class="ground" style="width:300px;overflow:hidden"><img src="/_blob/e1e8751b176ea7e8945a54ebb1baba45" alt="" style="width:300px;display:block;max-width:none;"></div><b style="font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:17px">Weak offer</b><p style="font-size:12px;line-height:16px;margin:0">A small concession barely moves them.</p></div><div style="display:flex;flex-direction:column;gap:6px;width:300px"><div class="ground" style="width:300px;overflow:hidden"><img src="/_blob/9f174c1e06c862174b6e58c8f5733b82" alt="" style="width:300px;display:block;max-width:none;"></div><b style="font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:17px">No deal</b><p style="font-size:12px;line-height:16px;margin:0">The table won’t close; irritation shows.</p></div><div style="display:flex;flex-direction:column;gap:6px;width:300px"><div class="ground" style="width:300px;overflow:hidden"><img src="/_blob/ed7e2bead0d24949bdad2214eee3e433" alt="" style="width:300px;display:block;max-width:none;"></div><b style="font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:17px">Closing</b><p style="font-size:12px;line-height:16px;margin:0">The signature gesture at the moment of the deal.</p></div></div>
+<p style="max-width:1400px">Runtime is layered sprites tweened in code (the approved GoldenOtter animation decision), so each state above is a target pose the tween interpolates toward, not a pre-rendered frame sequence.</p></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1200, "height": 1000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
