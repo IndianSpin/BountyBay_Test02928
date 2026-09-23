@@ -39,13 +39,13 @@ async function api(path: string, account: Account, method = 'GET', body?: unknow
   const text = await res.text();
   let parsed: unknown = text;
   try { parsed = JSON.parse(text); } catch { /* keep raw */ }
-  return { status: res.status, body: parsed as Record<string, any> };
+  return { status: res.status, body: parsed as Record<string, unknown> };
 }
 async function snapshot(account: Account, matchId: string): Promise<View> {
   const r = await api(`/v1/matches/${matchId}`, account);
   return (r.body as { view: View }).view;
 }
-function expectStatus(probe: string, want: number, got: { status: number; body: any }, codeCheck?: (b: any) => boolean): void {
+function expectStatus(probe: string, want: number, got: { status: number; body: Record<string, unknown> }, codeCheck?: (b: Record<string, unknown>) => boolean): void {
   const ok = got.status === want && (!codeCheck || codeCheck(got.body));
   record(probe, ok ? 'PASS' : 'FAIL', `status ${want}`, { status: got.status, code: got.body?.code }, got.body);
 }
@@ -144,11 +144,11 @@ async function main(): Promise<void> {
 
   // settlement math from result
   const resultA = await api(`/v1/matches/${matchId}/result`, a);
-  const dealView = resultA.body.view as any;
+  const dealView = (resultA.body as { view: { settlementTenths: number; participants: { playerId: string; reservationValueTenths?: number }[] } }).view;
   const settlement = dealView.settlementTenths;
-  const pA = dealView.participants.find((p: any) => p.playerId === a.userId);
-  const pB = dealView.participants.find((p: any) => p.playerId === b.userId);
-  record('settlement within both RVs (GR invariant)', settlement >= Math.min(pA.reservationValueTenths, pB.reservationValueTenths) && settlement <= Math.max(pA.reservationValueTenths, pB.reservationValueTenths) ? 'PASS' : 'FAIL', 'seller_min <= settlement <= buyer_max', { settlement, rvA: pA?.reservationValueTenths, rvB: pB?.reservationValueTenths });
+  const pA = dealView.participants.find((p: { playerId: string; reservationValueTenths?: number }) => p.playerId === a.userId);
+  const pB = dealView.participants.find((p: { playerId: string; reservationValueTenths?: number }) => p.playerId === b.userId);
+  record('settlement within both RVs (GR invariant)', settlement >= Math.min(pA?.reservationValueTenths ?? 0, pB?.reservationValueTenths ?? 0) && settlement <= Math.max(pA?.reservationValueTenths ?? 0, pB?.reservationValueTenths ?? 0) ? 'PASS' : 'FAIL', 'seller_min <= settlement <= buyer_max', { settlement, rvA: pA?.reservationValueTenths, rvB: pB?.reservationValueTenths });
   record('result reveals both RVs post-completion (GR-018)', pA?.reservationValueTenths != null && pB?.reservationValueTenths != null ? 'PASS' : 'FAIL', 'both RVs present', { rvA: pA?.reservationValueTenths, rvB: pB?.reservationValueTenths });
 
   // post-terminal commands
@@ -165,7 +165,7 @@ async function main(): Promise<void> {
   // ============================ MATCH 2: reconnect freeze/resume ============================
   const m2 = await newMatch(a, b);
   for (const acct of [a, b]) await api(`/v1/matches/${m2.matchId}/ready`, acct, 'POST', { commandId: randomUUID() });
-  let v2 = await snapshot(a, m2.matchId);
+  const v2 = await snapshot(a, m2.matchId);
   const active2 = v2.activePlayerId === a.userId ? a : b;
   const activeEntry = (v: View) => v.participants.find((p) => p.playerId === v.activePlayerId)!;
 

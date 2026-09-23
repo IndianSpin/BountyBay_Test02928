@@ -8,6 +8,16 @@ OWNER-CANDIDATE?
 
 ## QA-001 — Joiner mid-match refresh lands on "no challenge with that token"
 
+- **STATUS UPDATE (2026-09-23):** fix implemented by W2 as BB-215
+  (commit `04a4919`, branch `w2-frontend-design`) — consumed-token
+  joiners and creators now recover to `/play?resume=<matchId>` via
+  `recoverJoinFailure` instead of the alert. **QA pre-verified the
+  acceptance behavior against that commit** (updated pin in
+  `.agents/qa/tools/specs/qa-interruption.spec.ts` test 2: redirect, no
+  alert, ACTIVE board, single PLAYER_READY — PASS). **Not yet merged to
+  main** (main `3059635` still shows the old behavior); this entry
+  becomes RESOLVED when the manager merges BB-215.
+
 - **REAL:** yes. **REPRODUCIBLE:** yes — observed 3/3 runs (deterministic).
   **MATERIAL:** yes for the joiner's confidence and recovery path.
 - **SEVERITY:** MEDIUM (P1-adjacent UX; no data loss, recoverable).

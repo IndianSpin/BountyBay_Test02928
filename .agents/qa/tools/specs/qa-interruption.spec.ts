@@ -7,6 +7,8 @@
 import { expect, test, type Page } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 
+const API_URL = process.env.E2E_API_PORT ? `http://localhost:${process.env.E2E_API_PORT}` : 'http://localhost:4000';
+
 mkdirSync('/tmp/qa-matrix', { recursive: true });
 
 async function createChallenge(page: Page): Promise<string> {
@@ -119,21 +121,32 @@ test('MATCH STATE INTERRUPTION matrix: refresh at offer/accept/result/rematch (L
   await pageA.getByTestId('ready-button').click();
   await expect(pageA.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
 
-  // -- joiner (B) refresh immediately after ACTIVE: the join-token URL now
-  //    renders "no challenge with that token" (QA-001). Recovery exists via
-  //    the resume link while the match is live; keep this step early so the
-  //    45s QA time budget cannot expire mid-check.
+  // -- joiner (B) refresh immediately after ACTIVE. BB-215 changed this
+  //    behavior: consumed-token joiners now redirect to the resume route
+  //    instead of the old "no challenge with that token" alert (QA-001's
+  //    recommended acceptance test).
   await pageB.reload();
-  await expect(pageB.getByText('no challenge with that token')).toBeVisible({ timeout: 20_000 });
-  await pageB.screenshot({ path: '/tmp/qa-matrix/joiner-refresh-midmatch-error.png' });
-  const joinerResume = pageB.getByRole('link', { name: /Continue your game/ });
-  await expect(joinerResume).toBeVisible({ timeout: 20_000 });
-  await joinerResume.click();
+  await expect(pageB).toHaveURL(/\/play\?resume=/, { timeout: 20_000 });
+  await expect(pageB.getByText('no challenge with that token')).toHaveCount(0);
   await expect(pageB.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
+  await pageB.screenshot({ path: '/tmp/qa-matrix/joiner-refresh-midmatch-redirect.png' });
+  // no duplicate events: the refresh must not re-commit B's READY
+  const readyCount = await pageB.evaluate(async (apiUrl) => {
+    const stored = JSON.parse(localStorage.getItem('bb-dev-auth') ?? '{}') as { token?: string };
+    const headers = { authorization: `Bearer ${stored.token ?? ''}` };
+    const me = await fetch(`${apiUrl}/v1/me`, { headers }).then((r) => r.json()) as { id?: string };
+    const active = await fetch(`${apiUrl}/v1/me/active-match`, { headers }).then((r) => r.json()) as { activeMatch?: { matchId?: string } | null };
+    const matchId = active.activeMatch?.matchId;
+    if (!matchId) return -1;
+    const events = await fetch(`${apiUrl}/v1/matches/${matchId}/events`, { headers }).then((r) => r.json()) as {
+      events: { type: string; actorPlayerId: string | null }[];
+    };
+    return events.events.filter((e) => e.type === 'PLAYER_READY' && e.actorPlayerId === me.id).length;
+  }, API_URL);
+  expect(readyCount).toBe(1);
 
   // -- refresh after MY offer (turn transferred): no duplicate offer, correct banner --
   const active = await crossOffers(pageA, pageB);
-  const waiting = active === pageA ? pageB : pageA;
   // active just offered second? crossOffers leaves the turn back on first actor.
   await expect(active.getByTestId('turn-banner')).toHaveText('YOUR MOVE', { timeout: 15_000 });
   const openingText = await active.locator('.lm-offer--mine').innerText().catch(() => '');
