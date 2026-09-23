@@ -526,3 +526,10 @@ Ruling: implement the screen with a named routing switch
 (show title for new visitors; returning-signed-in behavior defaults to
 SHOW, one-flag change pending the founder's answer). No behavior is
 fixed until the founder rules.
+
+## D-36 — Founder sign-offs #2 (2026-09-24): DD-M2 + IN-3
+
+Founder: "yeh can be signed off" — DD-M2 checkpoint SIGNED OFF →
+DD-M3 (verified information, GR-028) assigned to W1 as BB-226 (after
+BB-222/BB-223); IN-3 checkpoint SIGNED OFF → IN-4 (knowledge system)
+assigned to W3 as BB-227. Both branch from golden-baseline-1.
