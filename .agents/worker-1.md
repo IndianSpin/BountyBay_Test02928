@@ -24,7 +24,42 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — BB-219a (friend-rematch API, PDR-3/QA-004) — READY FOR REVIEW
+## CURRENT TASK — BB-220 (Insights API wiring, D-25) — READY FOR REVIEW
+
+Implemented: `GET /v1/me/insights` (apps/api/src/insights-routes.ts,
+registered in app.ts) — self-only (docs/18 §14). Reads the caller's own
+MatchFeature rows (feature-engine-0.1.0 rows only, completedAt not
+null), assembles MatchProfileInput[] in match-end order, and returns
+`{ profile: LongitudinalProfile | null }` from the pure
+packages/intelligence `buildProfile` engine. `profile: null` when the
+player has no non-aborted completed match (normal empty state, 200 —
+not an error). ABORTED excluded by the engine; the API pre-filters
+playable rows to pick null vs profile. Same-version casts
+(review-route pattern). Coaching state deliberately absent — no store
+yet (IN-5/IN-7); flagging.
+
+Evidence:
+- `pnpm typecheck` — all packages exit 0 (domain/contracts/ai/testing/
+  intelligence/db/web/api Done).
+- `pnpm test` — 27 passed / 12 skipped; Tests 251 passed / 61 skipped.
+- `TEST_DATABASE_URL=postgresql://…:5433/bounty_bay_e2e pnpm test:db`
+  (E2E DB seeded WITHOUT overrides) — 13 files, 70 tests passed
+  (incl. insights.test.ts 5/5). Re-seeded with E2E overrides after.
+- E2E E2E_WEB_PORT=3100 E2E_API_PORT=4100 — insights-api.spec.ts 1/1.
+- Lint: my files clean; the 12 pre-existing failures in
+  `.agents/qa/tools/*` / W2's resource-hud / result-reveal unchanged.
+
+Tests cover: null profile for new players; own-matches-only +
+opponent-id absence on raw payload; exact walk-away dims (agreement 0 /
+noDeal 1 / timeout 0 / walkAway 1); aborted exclusion (incl. abort-only
+history → null); 13-match windows (recent 10 / previous 3 / rolling 5,
+EARLY_SIGNAL band, trend shape invariants); descriptor structural
+invariants + ≤5-match gate → []; buyer/seller role split.
+
+### BB-219a — ACCEPTED and merged (49e6a38 + docs 6080ad8); cancel
+product assumption ratified; migration review passed.
+
+## OLD CURRENT TASK — BB-219a (friend-rematch API, PDR-3/QA-004) — READY FOR REVIEW
 
 Implemented per the design below (unchanged since task start). Evidence:
 
@@ -199,9 +234,8 @@ always include the web typecheck.
   `myPrivateFacts` with the role-scoping note.
 
 ## NEXT STEP
-Awaiting manager verdict on BB-219a (READY FOR REVIEW; migration review
-needed). DD-M3 (verified reveals) gated on manager/founder per DEC-026
-phase order. BB-220 (Insights API wiring) queued after BB-219a per D-25.
+Awaiting manager verdict on BB-220. DD-M3 (verified reveals) gated on
+manager/founder per DEC-026 phase order.
 
 ## PRODUCT ASSUMPTIONS
 - Rematch proposals are deleted on decline/cancel — no audit record is
@@ -214,18 +248,23 @@ phase order. BB-220 (Insights API wiring) queued after BB-219a per D-25.
 - Rematch is FRIEND_LIVE only. RANKED_LIVE/AI/ASYNC sources are rejected
   (409 REMATCH_NOT_AVAILABLE) — rated rematch would need rating rules
   (P1-M2), bots cannot consent.
+- BB-220: insights is self-only; no coaching state served until it has a
+  store (IN-5/IN-7).
 - Hold durations (600 ms accept / 1 s walk-away) from HO-Contracts;
   haptics best-effort; time warnings remain required by GR-023 until a
   canonical rule change says otherwise.
 
 ## DOC PROPOSALS (D-6, no docs/* edited)
-- docs/07_DATA_MODEL.md: Match += `rematch_from_match_id` (UUID?),
-  `rematch_opponent_user_id` (UUID?) — set together ⟺ the row is an
-  open rematch proposal (CREATED, one participant, inviteToken null).
-- docs/08_API_CONTRACTS.md: the five rematch endpoints + response
-  shapes above; error codes += REMATCH_NOT_FOUND/NOT_OPEN/FORBIDDEN/
-  ALREADY_PROPOSED/NOT_AVAILABLE; GET /v1/matches/:id pre-join status
-  `REMATCH_PENDING`; `/v1/me/active-match` exclusion note.
+- docs/08_API_CONTRACTS.md: `GET /v1/me/insights` — authenticated,
+  self-only; returns `{profile: LongitudinalProfile|null}` (version
+  longitudinal-profile-0.1.0, windows lifetime/recent/previous/rolling,
+  trends, descriptors with evidence, roleSplit, confidenceBand,
+  lastMatchEndedAt); profile null until the player has a non-aborted
+  completed match; coaching state deliberately absent until persisted
+  (IN-5/IN-7). MatchFeature rows are the source of truth (written at
+  match completion, DEC-028); same-version rows only.
+- Earlier BB-219a proposals (docs/07 + docs/08 rematch) were applied by
+  the manager in 6080ad8 — done.
 - Flag: remaining repo lint failures in `.agents/qa/tools/*` (8) and
   W2's `resource-hud.tsx` (4) / `result-reveal.tsx` (1) — not mine.
 
