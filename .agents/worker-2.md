@@ -31,16 +31,19 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — BB-216: live-match composition redesign (D-24 founder
-## critique) — starts after the BB-201 checkpoint commit below
-Manager re-sequenced BB-201 → PAUSED (commit + salvage modules), BB-216
-is now the only task. BB-216 source: founder feedback at
-`~/projects/bounty-control/FOUNDER_FEEDBACK_2026-09-23_live-match.md`
-(ten points) + binding composition rules in
-`design-sandbox/DESIGN_ACCEPTANCE.md` §Live-match composition (see
-commit `39bafa5`). Item 10 is W1+QA's — out of my scope. Founder review
-gates BB-216: evidence must include before/after screenshots.
-(Contract details: inbox `~/projects/bounty-control/inbox/worker-2.md`.)
+## CURRENT TASK — BB-216: live-match composition redesign — READY FOR REVIEW
+Committed to `w2-frontend-design` (tip `fa6ad69`, rebased on main
+`346cc25`): `5eb46b7` composition → `07b8b5f` v2 assets → `de49f12`
+pose system → `fa6ad69` D-28 + mobile fix.
+Delivered: D-24 five-object/four-zone composition + D-26 three-level
+chat (bubble fade, quick prompts, bottom sheet) + canvas v2 Closer
+poses (key-state swap + crossfade) + D-28 seal neutralization (illegal
+amount disables the seal; grouped `SEAL OFFER 116,500`).
+Verification: typecheck 0 · unit 251 passed · E2E friend-match/
+hold-accept/timeout 10 passed · canvas-checkpoint green (11 captures
+in `apps/web/test-results/canvas/`) · QA bb-218 repro flips at its
+pin (seal disabled). Deviations + evidence: inbox file. STOPPED for
+founder review — do not start BB-213/BB-215 until BB-216 is ACCEPTed.
 
 ## BB-201 CHECKPOINT (CSS split, PAUSED by manager D-24 — commit below)
 Committed to `w2-frontend-design` as a salvage checkpoint; NOT reviewed.

@@ -74,5 +74,29 @@ discipline: per-area modules (BB-201 split carries over).
 
 ## Result
 
-Filled at the end: changed files, behavior, tests run, deviations,
-unresolved issues.
+**Changed:** live-match.css (composition rewrite + v2 pose system),
+negotiation-board.tsx (zones, pose map, seal gates), chat-panel.tsx
+(3-level), offer-plate / clock-multiplier / chip-meter (quiet forms),
+match-screen.tsx (sendChat override + D-28 mandate-gated canOffer),
+canvas-checkpoint.spec.ts (BB-216 structural contract), 7 pose assets
+in public/game/, this manifest.
+
+**Behavior:** opponent dominates and reacts (key-pose swap), one
+display plaque, one negotiation surface, one action, quiet row;
+compact chat with 6 s bubble fade + quick prompts + mobile bottom
+sheet; illegal amounts disable the seal (D-28) with grouped labels.
+
+**Tests:** typecheck 0 · unit 251 passed · E2E 10 passed (strict seed)
+· canvas-checkpoint green (11 captures) · QA bb-218 repro flips at its
+pin.
+
+**Deviations:** v2 boards keep the v1 UI frame (character-only pass) —
+composition follows the binding DESIGN_ACCEPTANCE rules; v4 idle pose
+not exported (old-otter stand-in); rig in-betweens out of reach from
+static exports (key poses only); seal ember over board's crimson
+(rule 6); clock medallion → quiet chip (rule 3). Full list in the
+inbox READY FOR REVIEW.
+
+**Unresolved:** v4 neutral/idle export from the founder/design pass;
+W3-side quick-prompt response generation for AI opponents (routing
+note); BB-213/BB-215 requeue after acceptance.
