@@ -323,6 +323,18 @@ stays ahead of IN-3"): IN-3's core behavioral profile has no rating
 dependency (docs/18 §9 fields); rating-dependent comparisons and cohorts
 stay deferred until P1-M2 — recorded, not silently dropped.
 
+## D-25 — IN-3 ACCEPTED (2026-09-23)
+
+BB-205 merged (`f26c7f6`): longitudinal-profile-0.1.0 + coaching-state
+0.1.0, pure in packages/intelligence + docs/20. Manager-verified 56/56
+intelligence tests; all packages typecheck clean (sole repo-wide red is
+the known QA-002, W1's BB-214). Rulings on W3's flags: (1) the docs/16
+Insights API wiring for the profile is deferred like D-11 → **BB-220**,
+owner W1, after BB-204/BB-219a; (2) OQ-025 (descriptor thresholds)
+stays open for the founder close-out batch — all ten thresholds are
+provisional, configurable, versioned (recorded in docs/20). W3 stands
+down; IN-4 waits for the founder's IN-3 checkpoint.
+
 ## D-24 — Live-match composition redesign (founder feedback 2026-09-23)
 
 Founder critique (routed via sixth, verbatim in
