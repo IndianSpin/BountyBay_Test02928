@@ -44,8 +44,10 @@ outline on confirmation (EM-02).
 
 `f1e8c99` "Initial baseline" (589 files, all workstreams) on main is
 accepted as the repository baseline. Audit: only `.env.example` files
-committed (no secrets); one temp file slipped in → TD-1. Full typecheck +
-unit + E2E smoke verification is EM-01; result recorded here.
+committed (no secrets); one temp file slipped in → TD-1. Verification
+(manager, 2026-09-23 02:45): per-package typecheck exit 0; unit suite
+216 passed / 47 skipped. DB (51) + E2E (8/10) were worker-reported;
+E2E follow-ups are W1-01. Result: baseline verified.
 
 ## D-2 — Worker mapping (2026-09-23)
 
