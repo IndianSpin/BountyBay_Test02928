@@ -174,3 +174,44 @@ into the manager session). Manager integration decisions:
 - First task **QA-01**: adversarial baseline against main `430b302`
   (two-client E2E, reconnect, acceptance, result accuracy, leakage
   inspection, mobile ~390 px) → baseline artifacts in `.agents/qa/`.
+
+## D-15 — Data agent slot + specialist rules (2026-09-23)
+
+Founder added Agent 6 (analytics / data quality / observability / release
+safety). Manager rulings:
+
+- **Registration:** `.agents/data.md` (worker file) + report lane
+  `.agents/data/` (git-tracked, like QA's lane). First task **DATA-01**:
+  read-only repository inspection + measurement-gap report
+  (docs/11 + current emitters vs north-star metrics: DAU, active
+  days/WAU, D1/D7/D30, matches/player, matches/session, immediate
+  rematch, core funnel) + draft `RELEASE_CHECKLIST.md`. No code or
+  instrumentation changes without manager approval. "Enough measurement
+  to learn — not an analytics empire."
+- **Specialist discipline (both slots):** QA and Data are NOT spare
+  coding capacity. Findings do not automatically become backlog
+  commitments — manager triages (real? reproducible? material to the
+  current milestone? severity? owner?). Idle specialists are acceptable
+  and cheaper than noise.
+- **Main-commit rule (enforced):** QA's `8be2347` was committed directly
+  to main — coordination-only, reviewed, grandfathered once. From now on
+  specialists commit to their own branches (`qa-adversarial`,
+  `data-analytics`); the manager merges after review. The manager-only
+  checkout rule (D-5) applies to everyone except the manager.
+- **Acceptance model (founder):** worker evidence + manager code/
+  architecture review + QA evidence where relevant — risk-based;
+  mandatory independent QA for: match economics, hidden information,
+  timers, acceptance, reconnect, auth, DB migrations, AI legality,
+  result calculation, major player flows. Review pipeline: ASSIGNED →
+  IN PROGRESS → READY FOR REVIEW → TECHNICAL REVIEW → QA WHERE REQUIRED
+  → ACCEPT/REWORK/BLOCK → INTEGRATION QUEUE → MERGE → REGRESSION/RELEASE
+  CHECK → DONE (proportional rigor).
+- **Evidence taxonomy (founder):** TEST EVIDENCE ≠ QA EVIDENCE ≠
+  PRODUCT DATA. Reports keep them distinct; no causal claims from
+  correlations.
+- **Release gate (before meaningful external playtest/release):**
+  workers ready · QA: no unresolved CRITICAL game-flow/integrity defects
+  · DATA: critical analytics + error reporting functioning · manager:
+  integration reviewed · founder: checkpoint where product/design
+  decisions materially matter. Known risks documented explicitly; no
+  absolute bug-free demanded.

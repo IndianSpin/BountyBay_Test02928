@@ -17,7 +17,8 @@ evidence. Only ACCEPTed work merges to main.
 | W2-03 | worker-2 | Structural CSS split (planned, NOT started) | w2-frontend-design | split `globals.css` into per-area modules at next safe checkpoint | Founder approves canvas slices | Selector-level shared ownership eliminated before multi-agent UI work resumes |
 | W1-03 | worker-1 | API timeline wiring (D-11) | w1-dd-mechanics | serve IN-2 timeline via `apps/api/src/match-routes.ts` | W1-01, W1-02, IN-2 ACCEPTed (done) | Timeline reachable from the review route; tests per AGENTS.md rule |
 | W3-01 | worker-3 | IN takeover + IN-2 Game Review V1 | w3-intelligence | inspect + verify IN-1 (baseline), implement timeline + review envelope, checkpoint report | W2-02 (interim D-10) | ACCEPTED and merged — 44/44 tests, typecheck clean, no contract changes |
-| QA-01 | qa | Adversarial baseline (D-14) | qa-adversarial | role spec `.agents/qa/ROLE.md`: two-client E2E, reconnect, acceptance, result accuracy, leakage inspection, mobile ~390 px | main `430b302` | Baseline artifacts in `.agents/qa/` (CURRENT_QA_REPORT, BUGS top-10, REGRESSION_MATRIX, PRODUCT_FINDINGS); CRITICAL/HIGH notified immediately; terminal state REPORTED TO MANAGER |
+| QA-01 | qa | Adversarial baseline (D-14) | qa-adversarial | role spec `.agents/qa/ROLE.md`: two-client E2E, reconnect, acceptance, result accuracy, leakage inspection, mobile ~390 px | main `8be2347` | Baseline artifacts in `.agents/qa/` (CURRENT_QA_REPORT, BUGS top-10, REGRESSION_MATRIX, PRODUCT_FINDINGS); CRITICAL/HIGH notified immediately; terminal state REPORTED TO MANAGER |
+| DATA-01 | data | Measurement-gap + release checklist (D-15) | data-analytics | read-only inspection; docs/11 vs north-star metrics; emit `.agents/data/MEASUREMENT_GAP.md` + `RELEASE_CHECKLIST.md` | — | Gap table (metric → measured → smallest sufficient addition); release gate draft; REPORTED TO MANAGER; no code/instrumentation changes |
 
 ## READY FOR REVIEW
 
