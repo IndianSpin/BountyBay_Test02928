@@ -18,6 +18,7 @@ import cors from '@fastify/cors';
 import type { AuthAdapter } from './auth/adapters';
 import { registerMatchRoutes } from './match-routes';
 import { registerRematchRoutes } from './rematch-routes';
+import { registerInsightsRoutes } from './insights-routes';
 import { registerAiRoutes } from './ai/ai-routes';
 import { AiTurnEngine } from './ai/engine';
 import { attachRealtime } from './realtime';
@@ -266,6 +267,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     economyConfigVersion: DEFAULT_ECONOMY_CONFIG.version,
     timeoutScheduler: timeoutScheduler ?? undefined,
   });
+
+  registerInsightsRoutes(app, { prisma: options.prisma });
 
   // DEC-025: bots are seeded fixtures; any AI match left mid-turn after a
   // restart resumes here. DD Phase 1: over-limit ACTIVE matches time out
