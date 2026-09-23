@@ -11,128 +11,114 @@ canonical rule elsewhere must be proposed here, not applied (D-6).
 REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 
 ## Ownership
-- `packages/intelligence/**` — via handoff from worker-2 (below), not via
-  re-creation.
+- `packages/intelligence/**` — via handoff from worker-2 (D-10
+  CONFIRMED), not via re-creation.
 - docs/19, docs/20. Proposed edits to docs/18 go through the manager.
 - Typecheck/lint of the intelligence package and any package it consumes
   (domain, config, contracts) — flag breakage in others' files, don't fix
   them silently.
 
-## CURRENT TASK — W3-01: IN takeover (founder correction 1)
-**Do not recreate IN-1 from baseline if worker-2 already has valid
-work.** Process:
-1. Wait for worker-2's handoff: exact commit hash + complete/partial/
-   temporary/untested list, recorded in worker-2.md (W2-02).
-2. `git status` in both `~/projects/bay` (manager-only) and your
-   worktree, then inspect that commit (`git show <hash>`, read the
-   intelligence src + tests).
-3. Either **branch from / cherry-pick that exact work**, or **explicitly
-   reject parts of it with reasons** — record your decision in this file.
-4. Run the intelligence unit/property tests + typecheck on the taken-over
-   state; report green/broken here (including any broken wiring inherited
-   from the previous owner: missing workspace wiring, unregenerated
-   Prisma client, db typecheck/lint failures).
-5. Finish IN-1 only where tests show gaps. Do not rewrite what is green.
-6. Implement IN-2: Game Review V1 per docs/18 §3 — deterministic, 1–5
-   meaningful moments, references actual events, works fully without the
-   coaching service.
-7. Terminal state: READY FOR REVIEW with a founder checkpoint report in
-   this file. Do not auto-continue to IN-3.
+## CURRENT TASK — W3-02 / BB-205: IN-3 longitudinal profile
+(contract in ~/projects/bounty-control/inbox/worker-3.md; founder
+sign-off D-21; docs/18 §9; docs/16 IN-3 row)
 
-## NEXT (after IN-2 founder checkpoint)
-IN-3 longitudinal profile. Note: DEC-030's "persistent adaptation"
-reuses your longitudinal profile — but DEC-030 implementation is
-unscheduled; do not build toward it (direction only).
+**Plan (before-code contract):**
+- Objective: versioned pure profile engine over gameplay tendencies
+  (opening aggressiveness, concession frequency/size/reciprocity,
+  decision speed, agreement rate, surplus capture, no-deal tendency,
+  information use, closing behavior, time-pressure performance,
+  buyer/seller split); confidence bands; windowed trends; threshold-only
+  style descriptors; structured coaching state. Never personality
+  claims, never causal attribution.
+- Files: NEW packages/intelligence/src/profile.ts (engine),
+  src/coaching-state.ts (structured state + pure reducers), index.ts
+  exports; NEW tests/profile.test.ts, tests/coaching-state.test.ts;
+  docs/20 gets a "Longitudinal profile (IN-3)" section (my lane).
+- Out of scope: rating cohorts/benchmarks (P1-M2, D-21), IN-4..IN-8,
+  personality claims, DEC-030, any schema change, apps/api + apps/web
+  wiring (the docs/16 "Insights API" is a cross-package need — FLAGGED
+  here for manager routing, like the timeline was).
+- Tests (AGENTS.md): valid (multi-match aggregate, windows, trends,
+  descriptors, coaching reducers), invalid (empty history, duplicate
+  matchId, band/descriptor misuse), boundary (band edges 1/4/5/14/15/
+  29/30; recent/previous window edges; descriptor cap), property
+  (determinism, input-order independence, no causal language in any
+  output).
 
-## STATUS — W3-01 CHECKPOINT: takeover verified, IN-2 implemented
-(MANAGER VERDICT: **ACCEPT** — merged to main. Evidence: 44/44
-intelligence tests, typecheck clean across all packages, diff in-scope,
-no schema/API/domain changes.)
+## NEXT (after IN-3 ACCEPT)
+IN-4 knowledge system (ontology + 20–30 records + mappings) — only after
+ACCEPT; stop at READY FOR REVIEW, do not auto-continue.
 
-**Takeover (IN-1 state):** GREEN. 34/34 inherited unit/property tests
-pass; typecheck clean for intelligence + domain + config + contracts;
-db + api (the two importers) also typecheck. No broken wiring from the
-previous owner at baseline. One defect found: 6 eslint errors (unused
-imports/params in `types.ts` and test files) — fixed in-ownership as
-takeover lint cleanup. IN-1 COMPLETE per docs/18 §16: feature +
-observation engines versioned `feature-engine-0.1.0` /
-`observation-engine-0.1.0`, persisted per match by command-service, served
-by the review route.
+## STATUS — W3-02 READY FOR REVIEW (2026-09-23)
+IN-3 engine implemented per BB-205 / docs/18 §9 / docs/16 IN-3 row.
+Evidence: 56/56 intelligence tests (12 new); full non-db suite 238
+passed / 48 db-gated skipped; typecheck clean across the package +
+domain/config/contracts; lint clean. No schema, no API/web, no domain
+changes. NOT starting IN-4 — awaiting ACCEPT.
 
-**IN-2 implemented** (the two §3 gaps over the inherited curation layer):
-- `src/timeline.ts` — `buildTimeline`: seq-ordered negotiation steps
-  (OFFER/MESSAGE/ACCEPT/WALK_AWAY/TIMEOUT/ABORTED) from the persisted
-  event stream; message content never loaded; TIMEOUT attributed to the
-  timed-out player.
-- `src/review.ts` — `buildGameReview`: envelope `game-review-0.1.0`
-  { version, curationVersion, featureVersion, observationVersion,
-  matchId, playerId, outcome, moments, timeline }; pure over
-  (state, events, config, playerId); throws on non-completed match and
-  non-participant; no coaching/LLM dependency.
-- docs/20: added "Timeline" and "Game Review envelope" specs.
-
-**Tests:** 44/44 intelligence (10 new: timeline valid/boundary, review
-envelope valid ×4 outcomes / invalid ×2 / boundary /
-determinism+self-containment, seeded property: determinism, moment
-bounds, eventRefs ⊆ timeline seqs). Full non-db suite 226 passed.
-
-**FOUNDER CHECKPOINT REPORT — IN-2 Game Review V1**
-- Changed files: packages/intelligence (timeline.ts, review.ts new;
-  index.ts, types.ts, 4 test files) + docs/20. 11 files, +432/−7.
-- Behavior: deterministic post-match review per player — RESULT-first
-  1–5 moments + full event timeline; all copy Level 1 facts; timeline
-  derivable from stored rows (nothing persisted, no schema change).
-- Unresolved: (a) API review route serves moments only — serving the
-  timeline needs apps/api/src/match-routes.ts (worker-1's area) → manager
-  ruling D-11: deferred to W1-03, scheduled after W1-01/W1-02; (b) W2-02
-  handoff statement still owed (D-10: verified against baseline interim;
-  must review W2's statement when it lands).
-- Spec ambiguity: docs/18 §3 "timeline step-through" did not define which
-  events belong in it; docs/20 now defines it (working spec). Manager
-  will note in docs/18 whether the event-kind list belongs there.
-- No canonical spec change made beyond docs/20; no DECISION_LOG change.
-- NOT continuing to IN-3 — awaiting founder sign-off.
-
-## D-10 REVIEW — W2-02 handoff statement (2026-09-23, commit 782e1d8)
-
-**Verdict: CONFIRMED — no rejections.** The statement matches everything
-I verified at takeover; notes below.
-
-- **In-package items (types/features/observations/curate):** confirmed —
-  I read all four modules at baseline f1e8c99 and re-ran the suite
-  (34/34 green in my worktree). Minor record discrepancy: the statement
-  says 28 intelligence tests at baseline; my verified run on the same
-  commit counted 34 across the same 4 test files. Green either way —
-  likely counted before final baseline test additions; flagging for
-  record accuracy, not contesting the handoff.
-- **Persistence / API / web integration (migration, persistAnalysis,
-  loadAnalysis, backfill-analysis.ts, review route, review page):**
-  outside my ownership and not re-verified end-to-end by me. The parts I
-  did inspect match the statement: command-service persists analysis
-  atomically at terminal state and the review route is participant-only /
-  terminal-only / caller-scoped with moments + curationVersion. The 56
-  db+api tests and the migration I take on the statement; the manager
-  verifies merges independently per the IQ standing rules.
-- **Partial / deferred items:** all match what I saw — opponentRating
-  null until P1-M2 (field comment in types.ts), VERIFIED_INFORMATION_USE
-  / AGREEMENT_AFTER_VERIFIED_REVEAL marked NEEDS DEFINITION in docs/20
-  (GR-028/DD-M3/M4 dependency), thresholds as code constants with
-  version strings (DEFAULT_THRESHOLDS), unreciprocated-concession family
-  synthetic-tested only (code comment says live matches always alternate
-  — fires when hold/async mechanics ship).
-- **No duplication:** my IN-2 additions (timeline + envelope) build on
-  the handed-over curation layer; nothing from IN-1 was recreated
-  (D-10 holds).
-- The 6 eslint errors I fixed at takeover were unused imports/params in
-  that code — cleanup, not a functional gap; consistent with the
-  statement's "complete" claim.
+**FOUNDER CHECKPOINT REPORT — IN-3 longitudinal profile**
+- Changed files: NEW packages/intelligence/src/profile.ts
+  (longitudinal-profile-0.1.0: confidence bands, 23 dimensions,
+  lifetime/recent/previous/rolling windows, delta+direction trends,
+  threshold-only style descriptors with evidence, role split) +
+  src/coaching-state.ts (coaching-state-0.1.0: focus/topics/
+  assignments/completions/before-after/repeat-issues, pure transitions)
+  + index.ts + tests/profile.test.ts + tests/coaching-state.test.ts +
+  docs/20 "Longitudinal profile (IN-3)" section (my lane).
+- Behavior: versioned profile over gameplay tendencies; band edges
+  1/4/5/14/15/29/30 exact; trends report metric+windows+delta+direction
+  only — no causal text anywhere; descriptors fire only on numeric
+  thresholds (gate 5 matches, cap 3, priority order), each with numeric
+  evidence; ABORTED matches excluded; role split buyer/seller; no
+  rating key (D-21); no clock reads — deterministic and input-order
+  independent.
+- Tests: valid (single-match, windows, trends DOWN delta −2, descriptors
+  priority+cap+gate, role split, coaching lifecycle immutability),
+  invalid (empty history, all-aborted, duplicate matchId, non-finite
+  endedAt, band(0), duplicate/unknown/double/early completion,
+  non-finite timestamps, unknown focus), boundary (band edges, window
+  shrink, empty-state coaching ops), property (determinism +
+  order-independence, no interpretive vocabulary in output).
+- Unresolved: (a) docs/16 names an "Insights API" for IN-3 — serving
+  the profile needs apps/api wiring (cross-package) → FLAGGED for
+  manager routing (like D-11); (b) OQ-025 descriptor thresholds remain
+  OPEN — all 10 defaults are PROVISIONAL, configurable, versioned;
+  founder close-out would make them canonical.
+- Spec ambiguity: none blocking; docs/18 §9 gave tendencies + bands,
+  the exact dimension list is derived 1:1 from BehaviorFeatures in
+  docs/19 and recorded in docs/20.
+- No canonical spec change beyond docs/20 (W3's working spec).
 
 ## BLOCKERS
-- None for worker-3. W2-02 reviewed and confirmed (above).
-- W1-03 API timeline wiring: scheduled after W1-01/W1-02 (D-11) — not mine.
+- None. (Insights API wiring flagged as cross-package need, not a
+  blocker: manager routes it like D-11 did.)
 
-## PRODUCT ASSUMPTIONS
-- Timeline excludes plumbing events (MATCH_STARTED/PLAYER_READY/pause/
-  disconnect/reconnect/MATCH_COMPLETED) — negotiation steps only.
-  Recorded in docs/20; if this should be canonical docs/18, it goes
-  through the manager.
+## PRODUCT ASSUMPTIONS (record before building)
+- OQ-025 is OPEN on descriptor thresholds — all descriptor defaults
+  below are PROVISIONAL, configurable, versioned; not canonical until
+  the founder closes OQ-025. Proposed defaults: AGGRESSIVE_OPENER
+  (mean openingPositionInZopa ≤ 0.35), CAUTIOUS_OPENER (≥ 0.65),
+  HARD_BARGAINER (mean surplus capture ≥ 0.60), FREQUENT_CONCEDER
+  (mean concessionCount ≥ 3), SILENT_NEGOTIATOR (mean messagesSent = 0
+  and mean offerCount ≥ 3), QUICK_DECIDER (mean decision ≤ 8000 ms),
+  SLOW_DECIDER (≥ 25000 ms), PATIENT_CLOSER (mean crossing→settlement
+  ≥ 60000 ms), QUICK_CLOSER (≤ 5000 ms), TIME_PRESSURED (mean pressure
+  exposure ≥ 0.25). Gate: matchCount ≥ 5 (EARLY SIGNAL); cap: 3
+  descriptors by priority order.
+- ABORTED matches are excluded from the profile entirely (technical
+  termination is not a negotiation; counts would poison aggregates).
+  Recorded in docs/20.
+- Window defaults: recent N = 10, previous N = 10, rolling N = 5 —
+  configurable; all windows derive from the same endedAt-sorted history.
+- Trend direction uses a relative flat epsilon (default 0.001): change
+  is reported as UP/DOWN/FLAT with delta only — no text, no cause.
+- Profile carries NO generated timestamp (pure/deterministic); ordering
+  is from input `endedAt`, the profile reports `lastMatchEndedAt`.
+
+## COMPLETED — W3-01 (record)
+IN takeover + IN-2 Game Review V1: ACCEPTED and merged (D-12). 44/44
+tests, typecheck clean, no contract changes; buildTimeline +
+buildGameReview in packages/intelligence; docs/20 Timeline + envelope
+specs; D-10 handoff review CONFIRMED (c70a448); timeline API wiring
+done by W1-03 (D-11); docs/18 §3 now points to docs/20 for timeline
+event kinds (D-13).

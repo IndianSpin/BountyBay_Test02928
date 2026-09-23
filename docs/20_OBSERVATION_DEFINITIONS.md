@@ -121,3 +121,63 @@ fallback everything else degrades to, never the other way around.
 It throws on a non-completed match (status outside
 `DEAL`/`NO_DEAL`/`ABORTED`) and on a non-participant `playerId`. The
 timeline is derived, never persisted — no schema change rides with IN-2.
+
+## Longitudinal profile (IN-3)
+
+Version `longitudinal-profile-0.1.0`, pure and deterministic, over a
+player's completed non-aborted match analyses in match-end order
+(`endedAt` is the ordering key — the profile reports
+`lastMatchEndedAt`, never a generated timestamp). ABORTED matches are
+excluded: technical termination is not a negotiation. No rating key
+anywhere — rating-dependent comparisons and cohorts stay with P1-M2 /
+IN-8 (D-21).
+
+**Confidence bands** (configurable): 1–4 INSUFFICIENT DATA · 5–14
+EARLY SIGNAL · 15–29 EMERGING PATTERN · 30+ ESTABLISHED.
+
+**Dimensions** (per-window `{count, mean, min, max}`): opening
+aggressiveness (`openingPositionInZopa` — lower = more aggressive),
+`openingDistanceFromRv`, concession frequency/size/reciprocity
+(`concessionCount`, `concessionMeanRelativeSize`,
+`concessionEfficiency`, `unreciprocatedConcessions`,
+`maxConsecutiveUnilateral`, `fastConcessionsAfterResistance`), decision
+speed (`decisionSpeedMs`, `longHolds`), `agreementRate` (per-match 0/1
+— the mean IS the rate), `surplusCapture` (deals only), `noDealRate`,
+`timeoutRate`, `walkAwayRate`, information use (`messagesSent`,
+`pitchedOffers`), time pressure (`timePressureExposure`, `floorTimeMs`),
+closing (`timeFromCrossedToSettlementMs` deals only, `finalGapTenths`,
+`offerCount`, `chipsSpent`).
+
+**Windows and trends**: lifetime / recent N (default 10) / previous N
+(default 10, the N before the recent window) / rolling N (default 5),
+all configurable. Trends emit, per dimension, `{metric, recent,
+previous, delta, direction}` (UP/DOWN/FLAT with relative flat epsilon
+0.001) only where both windows have data — change is reported, never
+attributed to a cause. There is no free-text surface.
+
+**Style descriptors** — gameplay tendencies from explicit numeric
+thresholds only (OQ-025; thresholds below are **PROVISIONAL until the
+founder closes OQ-025**), gate `matchCount ≥ 5`, cap 3 by priority
+order, evidence recorded with every descriptor:
+
+| # | Descriptor | Condition (lifetime mean) |
+|---|---|---|
+| 1 | AGGRESSIVE OPENER | `openingPositionInZopa ≤ 0.35` |
+| 2 | CAUTIOUS OPENER | `openingPositionInZopa ≥ 0.65` |
+| 3 | HARD BARGAINER | `surplusCapture ≥ 0.60` |
+| 4 | FREQUENT CONCEDER | `concessionCount ≥ 3` |
+| 5 | SILENT NEGOTIATOR | `messagesSent = 0` and `offerCount ≥ 3` |
+| 6 | QUICK DECIDER | `decisionSpeedMs ≤ 8000` |
+| 7 | SLOW DECIDER | `decisionSpeedMs ≥ 25000` |
+| 8 | PATIENT CLOSER | `timeFromCrossedToSettlementMs ≥ 60000` |
+| 9 | QUICK CLOSER | `timeFromCrossedToSettlementMs ≤ 5000` |
+| 10 | UNDER TIME PRESSURE | `timePressureExposure ≥ 0.25` |
+
+**Role split**: buyer/seller `matchCount`, `agreementRate`,
+`surplusCapture` (deals only) — a split, never a differential judgment.
+
+**Coaching state** (`coaching-state-0.1.0`): structured data only —
+`focus`, `topics`, `assignments` (DRILL/LESSON/PERSONA_MATCH with
+`assignedAt`/`completedAt`), `beforeAfter` entries, `repeatIssueCounts`
+— with pure transitions (assign, complete, set focus, record
+before/after, record repeat issue); never LLM chat memory.
