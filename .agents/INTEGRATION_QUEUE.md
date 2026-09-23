@@ -27,17 +27,13 @@ ACCEPTed work merges (D-8).
 - **Acceptance:** commit hash recorded in worker-2.md; complete/partial/
   temporary/untested documented; W3 inspects.
 
-### IQ-2 — W1 acceptance fixes (branch `w1-dd-mechanics`, commit TBD)
-- **Depends on:** IQ-1 only for timing (W1 does not touch intelligence).
-- **Depended on by:** W1-02 (DD Phase 1 founder checkpoint); E2E
-  stability for everything else.
-- **Contract changes:** none expected (UI + E2E only; GR-023/GR-024
-  already canonical — any rule change = manager BLOCK pending DEC).
-- **Conflict risk:** `globals.css` shared with W2 (W1 limited to its own
-  `.lm-*` sections); `match-actions.tsx` — if W2 edits it, flag
-  immediately.
-- **Migration:** none.
-- **Proposed order: 1** (smallest, stabilizes E2E).
+### IQ-2 — W1 acceptance fixes (branch `w1-dd-mechanics`) — **MERGED**
+- Merged to main (2026-09-23): commit `0aec467` → merge `bbf318e`.
+  Manager verdict ACCEPT with evidence: test-only diff (2 E2E specs +
+  worker file, no product code), deterministic first-actor fix (no
+  sleeps), unit suite green (manager-run), changed E2E specs 6/6
+  (manager-run, strict mode + seed overrides).
+- Follow-up: W1-03 API timeline wiring (D-11) assigned.
 
 ### IQ-3 — W3 IN-2 Game Review V1 (branch `w3-intelligence`) — **MERGED**
 - Merged to main (2026-09-23): commits `77bb629` + `9f16b9c`. Manager
