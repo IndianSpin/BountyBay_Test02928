@@ -232,22 +232,34 @@ test('repeating the same formal offer is rejected and never switches the turn (G
   // the identical amount is rejected with DUPLICATE_OFFER and the match
   // stays live on the same player's turn.
   const duplicate = await firstMover.evaluate(async (arg: { apiUrl: string; amount: string }) => {
-    const stored = JSON.parse(localStorage.getItem('bb-dev-auth') ?? '{}') as { token?: string };
-    const headers = { authorization: `Bearer ${stored.token ?? ''}` };
-    const activeRes = await fetch(`${arg.apiUrl}/v1/me/active-match`, { headers });
-    const active = (await activeRes.json()) as { activeMatch?: { matchId?: string } | null };
-    const matchId = active.activeMatch?.matchId;
-    if (!matchId) {
-      // Diagnostic body: QA-002 — no `.code` here by design; the caller
-      // treats this shape as a test-infrastructure failure, not an API one.
-      return { status: 0, body: { activeStatus: activeRes.status, active, hasToken: Boolean(stored.token) } };
+    // Bounded poll on the active-match lookup (pre-golden-baseline flake
+    // fix): in full-file sequence the first read can race the page's dev
+    // identity/token settling. Retry with a short inter-attempt pause,
+    // bounded attempts, and a failure payload that carries every attempt's
+    // last state — never an unbounded or sleep-based wait.
+    const MAX_ATTEMPTS = 5;
+    let last = { activeStatus: 0, active: null as { activeMatch?: { matchId?: string } | null } | null, hasToken: false };
+    for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt += 1) {
+      const stored = JSON.parse(localStorage.getItem('bb-dev-auth') ?? '{}') as { token?: string };
+      const headers = { authorization: `Bearer ${stored.token ?? ''}` };
+      const activeRes = await fetch(`${arg.apiUrl}/v1/me/active-match`, { headers });
+      const active = (await activeRes.json()) as { activeMatch?: { matchId?: string } | null };
+      last = { activeStatus: activeRes.status, active, hasToken: Boolean(stored.token) };
+      const matchId = active.activeMatch?.matchId;
+      if (!matchId) {
+        await new Promise((resolve) => setTimeout(resolve, 250));
+        continue;
+      }
+      const res = await fetch(`${arg.apiUrl}/v1/matches/${matchId}/offers`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', ...headers },
+        body: JSON.stringify({ commandId: crypto.randomUUID(), amountTenths: Math.round(Number(arg.amount) * 10) }),
+      });
+      return { status: res.status, body: (await res.json()) as { code?: string } };
     }
-    const res = await fetch(`${arg.apiUrl}/v1/matches/${matchId}/offers`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', ...headers },
-      body: JSON.stringify({ commandId: crypto.randomUUID(), amountTenths: Math.round(Number(arg.amount) * 10) }),
-    });
-    return { status: res.status, body: (await res.json()) as { code?: string } };
+    // Diagnostic body: QA-002 — no `.code` here by design; the caller
+    // treats this shape as a test-infrastructure failure, not an API one.
+    return { status: 0, body: { ...last, attempts: MAX_ATTEMPTS } };
   }, { apiUrl: API_URL, amount: rvs[firstMoverIndex]! });
   expect(duplicate.status).toBe(400);
   // Narrow the diagnostic union: `.code` exists only on the API-response
