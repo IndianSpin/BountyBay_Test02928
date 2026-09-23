@@ -124,3 +124,18 @@ structural split (W2-03) before multi-agent UI work resumes.
 - Secondary pages before founder approves the canvas slices.
 - Voice pitches (DD Phase 5), analytics platform (P1-M9), payments (never
   in V1), real money (never).
+
+## GOLDEN BASELINE 1 (2026-09-23)
+- **Commit/tag:** `golden-baseline-1` on main (HEAD at cut time).
+- **Regression (manager-run):** typecheck exit 0 · unit 251 passed ·
+  lint exit 0 (first fully clean tree) · db 70/70 · E2E strict 13/17
+  and 12/17 across two runs.
+- **Known defects (documented, owned):** (1) DETERMINISTIC late-suite
+  play-entry stall — after the 51.6s timeout spec, the next three specs
+  fail at dev-play-button → /play navigation (all pass standalone) —
+  BB-221 (QA root-cause). (2) INTERMITTENT insights-api spec at
+  position 5 (passed run 1, failed run 2) — folded into BB-221.
+- **Design:** canvas v2 (founder export) · **Schema:** through
+  pdr3_rematch (all migrations applied) · **Known product issues:** none
+  open above LOW.
+- New tasks branch from this tag.
