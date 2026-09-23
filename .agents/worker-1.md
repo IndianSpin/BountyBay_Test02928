@@ -24,7 +24,21 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — STANDING DOWN (manager: queue empty)
+## CURRENT TASK — GR-007 flake fix (manager-routed, pre-golden-baseline) — READY FOR REVIEW
+
+Flake: the direct-API helper in friend-match.spec.ts (GR-007 test)
+read `/v1/me/active-match` once with no retry — in full-file sequence
+the first read can race the page's dev identity/token settling and
+return no matchId while the match is ACTIVE (~50% in sequence, passes
+standalone). Fix: bounded poll inside the page.evaluate — up to 5
+attempts, 250 ms between attempts, token re-read each attempt, and a
+failure payload carrying the last attempt's state + attempt count (no
+unbounded waits, no sleeps-as-fixes). Proven: full friend-match spec
+file 3× green (deal / chat / GR-007 each time). Same un-retried pattern
+exists in canvas-checkpoint.spec.ts:155 — that spec is CAPTURE_CANVAS-
+gated (capture utility, not regression baseline); noted, not touched.
+
+## OLD CURRENT TASK — STANDING DOWN (manager: queue empty)
 
 BB-220 ACCEPTED and merged (e508816 + docs a221009, D-30); the
 coaching-state call confirmed (no fake empty state; store + endpoints
