@@ -25,6 +25,12 @@ IN-1/2 (DEC-028) in flight, handoff W2 → W3 under way. DEC-030
   session. Takes over `packages/intelligence` from W2's handoff commit
   (inspect → branch/cherry-pick or reject with reasons; never duplicate
   IN-1). Completes IN-2 Game Review V1.
+- **QA — adversarial/red team (D-14):** independent tester, NOT a
+  developer. Branch `qa-adversarial` cut from `430b302`; worktree
+  `~/projects/bay-qa`; read-only outside `.agents/qa/**` + its worker
+  file. Ports 3200/4200, isolated DB `bounty_bay_qa` (5433). Findings →
+  `.agents/qa/`; manager triages into the task board. First task: QA-01
+  adversarial baseline against main `430b302`.
 
 ## WORKSTREAM DEPENDENCIES
 - IN-2 verified-fact/pitch features wait for DD-M3/M4/M5 (GR-025/GR-028).
@@ -62,10 +68,10 @@ FOR REVIEW**. The manager returns exactly one of: **ACCEPT** / **REWORK**
 work merges to main.
 
 ## NEXT INTEGRATION POINT
-W2 IN handoff commit (hash recorded in worker-2.md) → W3 inspect +
-cherry-pick → W1 acceptance fixes (E2E) → founder reviews (canvas slices,
-DD Phase 1, IN-2) → CSS structural split (W2-03) before multi-agent UI
-work resumes.
+W2 IN handoff commit (`782e1d8`, ACCEPTED) → W3 inspect + cherry-pick
+(done, D-10 CONFIRMED) → W1 acceptance fixes (E2E) → QA-01 adversarial
+baseline → founder reviews (canvas slices, DD Phase 1, IN-2) → CSS
+structural split (W2-03) before multi-agent UI work resumes.
 
 ## MAJOR RISKS
 1. `globals.css` shared-file ownership until W2-03 split (temporary,

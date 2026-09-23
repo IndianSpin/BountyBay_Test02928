@@ -145,3 +145,32 @@ file only), no schema/API/domain changes. Merged `w3-intelligence` →
 main. Merge order re-evaluated: W3 first (no dependencies on W1;
 proposal order updated in INTEGRATION_QUEUE). Founder checkpoint for
 IN-2 remains open. W2-02 handoff statement still owed (D-10).
+
+## D-14 — QA worker slot (adversarial testing & product red team)
+
+Founder added an independent QA/red-team role (spec pasted 2026-09-23
+into the manager session). Manager integration decisions:
+
+- QA is a **separate worker slot** (founder choice), not the manager
+  session.
+- Branch `qa-adversarial` cut from main `430b302`; worktree
+  `~/projects/bay-qa` (deps installed 2026-09-23).
+- QA findings live in **`.agents/qa/` inside the repo** (founder
+  choice) — NOT in `~/projects/bounty-control/` as the pasted spec
+  said. Other stale spec paths corrected in `.agents/qa/ROLE.md`
+  (design reference is `design-sandbox/bounty-bay-canvas/`; there is
+  no `design/current/`).
+- Ports **3200/4200** allocated (3000/4000 = W2, 3100/4100 = W1 E2E,
+  D-4). Isolated DB **`bounty_bay_qa`** created on host 5433
+  (manager-authorized, non-destructive CREATE DATABASE). QA may run
+  `db:deploy`/`db:seed` against `bounty_bay_qa` ONLY; the D-4
+  shadow-incident policy applies to every other DB.
+- QA is read-only in the repo outside `.agents/qa/**` + `.agents/qa.md`.
+  It does not self-fix: DISCOVER → REPRODUCE → DOCUMENT → REPORT; the
+  manager triages findings into the task board. CRITICAL/HIGH findings
+  are notified to the manager immediately.
+- QA terminal state is **REPORTED TO MANAGER** — its reports are review
+  evidence (INTEGRATION_QUEUE standing rule), never merged code.
+- First task **QA-01**: adversarial baseline against main `430b302`
+  (two-client E2E, reconnect, acceptance, result accuracy, leakage
+  inspection, mobile ~390 px) → baseline artifacts in `.agents/qa/`.

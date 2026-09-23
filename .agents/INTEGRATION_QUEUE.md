@@ -13,6 +13,9 @@ ACCEPTed work merges (D-8).
 - DB migrations: manager review before merge; no destructive actions
   against non-disposable DBs (D-4).
 - Canonical doc changes ride with their code or via manager (D-6).
+- QA reports (`.agents/qa/`) are review evidence: the manager reads them
+  before ACCEPT/REWORK verdicts on affected flows. QA never merges code
+  itself (D-14).
 
 ## Current candidates
 
