@@ -17,6 +17,7 @@ import rateLimit from '@fastify/rate-limit';
 import cors from '@fastify/cors';
 import type { AuthAdapter } from './auth/adapters';
 import { registerMatchRoutes } from './match-routes';
+import { registerRematchRoutes } from './rematch-routes';
 import { registerAiRoutes } from './ai/ai-routes';
 import { AiTurnEngine } from './ai/engine';
 import { attachRealtime } from './realtime';
@@ -158,10 +159,15 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   /**
    * GET /v1/me/active-match — resume support (DEC-025, docs/08): the first
    * of the caller's live matches (CREATED/READY/ACTIVE/PAUSED), newest first.
+   * PDR-3: open rematch proposals are excluded — a proposal is not a
+   * playable match, and resuming into one would show a misleading screen.
    */
   app.get('/v1/me/active-match', async (request, _reply) => {
     const participant = await options.prisma.matchParticipant.findFirst({
-      where: { userId: request.userId!, match: { status: { in: ['CREATED', 'READY', 'ACTIVE', 'PAUSED'] } } },
+      where: {
+        userId: request.userId!,
+        match: { status: { in: ['CREATED', 'READY', 'ACTIVE', 'PAUSED'] }, rematchFromMatchId: null },
+      },
       orderBy: { match: { createdAt: 'desc' } },
       include: {
         match: { select: { id: true, mode: true, status: true, aiPersonaKey: true, inviteToken: true } },
@@ -251,6 +257,14 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     engine,
     gameRulesVersion: GAME_RULES_VERSION,
     economyConfigVersion: DEFAULT_ECONOMY_CONFIG.version,
+  });
+
+  registerRematchRoutes(app, {
+    service,
+    prisma: options.prisma,
+    gameRulesVersion: GAME_RULES_VERSION,
+    economyConfigVersion: DEFAULT_ECONOMY_CONFIG.version,
+    timeoutScheduler: timeoutScheduler ?? undefined,
   });
 
   // DEC-025: bots are seeded fixtures; any AI match left mid-turn after a

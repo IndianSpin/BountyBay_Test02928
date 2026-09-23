@@ -24,7 +24,77 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — BB-214 hotfix + BB-217 domain answer + BB-204 (DD-M2 dossiers)
+## CURRENT TASK — BB-219a (friend-rematch API, PDR-3/QA-004) — READY FOR REVIEW
+
+Implemented per the design below (unchanged since task start). Evidence:
+
+- `pnpm typecheck` — all packages exit 0:
+  domain/contracts/ai/testing/intelligence/db/web/api typecheck: Done.
+- `pnpm test` — 27 passed / 11 skipped; Tests 251 passed / 56 skipped.
+- `TEST_DATABASE_URL=postgresql://…:5433/bounty_bay_e2e pnpm test:db` —
+  Test Files 12 passed, Tests 65 passed (incl. rematch.test.ts 6/6).
+  NOTE: run with the E2E DB seeded WITHOUT overrides (seed upsert restores
+  defaults); the command-service replay test compares the stored row
+  against DEFAULT_ECONOMY_CONFIG and fails on override-seeded values
+  (45000/25000 vs 90000/30000) — pre-existing workflow, not a code bug.
+  Re-seeded with E2E overrides again afterwards.
+- E2E (E2E_WEB_PORT=3100 E2E_API_PORT=4100): 12 passed, 1 skipped
+  (canvas-checkpoint, CAPTURE_CANVAS-gated) — incl. rematch-api.spec.ts 2/2.
+- Lint: my files clean. Remaining repo lint failures are NOT mine (flag):
+  `.agents/qa/tools/battery.ts` (7), `.agents/qa/tools/specs/qa-interruption.
+  spec.ts` (1), W2's `resource-hud.tsx` (4), W2's `result-reveal.tsx` (1).
+
+Design (per PDR-3 "rematch = mutual consent"): a rematch proposal is a
+Match row — status CREATED, one participant (the proposer), no invite
+token, plus two new nullable columns (`rematchFromMatchId` = source match,
+`rematchOpponentUserId` = the only user who may accept). No new table; the
+accept path materializes the domain match with FIXED roles (each player
+keeps their previous-match role), fresh RVs, `pickFirstPlayer`, then
+auto-readies both players inside the same transaction → the new match is
+ACTIVE immediately ("on acceptance a new match starts"). Unrated: mode
+FRIEND_LIVE, ratingVersion null (GR-019). No domain changes — rematch is
+API/service lifecycle orchestration; the new match is an ordinary match.
+
+Endpoints (all participant-scoped, POST bodies are `{commandId}`):
+- `POST /v1/matches/:matchId/rematch` — propose; source must be
+  FRIEND_LIVE, two-participant, terminal; one open proposal per source
+  match (guarded inside the service transaction under the source-row
+  lock). 201 `{matchId, role, reservationValueTenths, scenario}`.
+- `POST /v1/matches/:matchId/rematch/accept` — fixed opponent only →
+  new ACTIVE match; response `{matchId, role, reservationValueTenths,
+  status}`; the deadline scheduler is re-armed for the new match.
+- `POST /v1/matches/:matchId/rematch/decline` — opponent only; deletes
+  the proposal row (no domain state existed; cascade-safe).
+- `POST /v1/matches/:matchId/rematch/cancel` — proposer retraction
+  (natural completion of mutual consent; PRODUCT ASSUMPTION, flag if the
+  manager disagrees).
+- `GET /v1/matches/:matchId/rematch` — `{incoming: {matchId,
+  createdAt}|null, outgoing: …|null}` for the BB-219b in-session prompt.
+- `GET /v1/matches/:id` pre-join branch returns
+  `status: 'REMATCH_PENDING'` for proposal rows (never the misleading
+  "share the link" panel — PDR-3's guard). `/v1/me/active-match`
+  excludes open proposals (a proposal is not a playable match).
+
+New codes: `REMATCH_NOT_FOUND` (404), `REMATCH_NOT_OPEN` (409),
+`REMATCH_FORBIDDEN` (403), `REMATCH_ALREADY_PROPOSED` (409),
+`REMATCH_NOT_AVAILABLE` (409 — non-friend mode / not terminal).
+Service methods in packages/db (`createRematchProposal`,
+`acceptRematch`, `deleteRematchProposal`); fixed-role RV assignment via
+new `assignFixedRole` in match-assignment.ts. Migration
+`20260923022459_pdr3_rematch` — additive nullable columns, created +
+applied against the isolated E2E DB only; **manager migration review
+required before merge**; dev DB untouched (it still lacks DD-M2 too).
+
+Tests: `apps/api/tests/rematch.test.ts` (RUN_DB_TESTS=1) — propose→
+accept→ACTIVE happy path with role/scenario/unrated invariants,
+fixed-opponent enforcement, non-participant/non-terminal/mode guards,
+duplicate-proposal guard, decline/cancel + re-propose, accept-after-
+resolve, rematch-of-a-rematch. E2E `rematch-api.spec.ts` (API-level,
+no board — UI is BB-219b for W2).
+
+### BB-204 — ACCEPTED (787aa86); BB-214/BB-217/BB-217b — ACCEPTED
+
+## OLD CURRENT TASK — BB-214 hotfix + BB-217 domain answer + BB-204 (DD-M2 dossiers)
 
 ### BB-214 (QA-002 HIGH) — FIXED (uncommitted, rides with BB-204)
 
@@ -129,14 +199,35 @@ always include the web typecheck.
   `myPrivateFacts` with the role-scoping note.
 
 ## NEXT STEP
-Awaiting manager verdict on BB-214/BB-217/BB-204 (single checkpoint).
-DD-M3 (verified reveals) gated on manager/founder per DEC-026 phase
-order.
+Awaiting manager verdict on BB-219a (READY FOR REVIEW; migration review
+needed). DD-M3 (verified reveals) gated on manager/founder per DEC-026
+phase order. BB-220 (Insights API wiring) queued after BB-219a per D-25.
 
 ## PRODUCT ASSUMPTIONS
-None new; hold durations (600 ms accept / 1 s walk-away) from HO-Contracts;
-haptics best-effort; time warnings remain required by GR-023 until a
-canonical rule change says otherwise.
+- Rematch proposals are deleted on decline/cancel — no audit record is
+  kept (no domain state existed; either side may then propose again).
+- Accept auto-readies both players (PDR-3 "on acceptance a new match
+  starts"): no second ready-up screen before the rematch begins.
+- Open proposals are excluded from `/v1/me/active-match` and the
+  proposer's pre-join view is `REMATCH_PENDING`, never the share-link
+  panel (PDR-3's "no misleading rematch affordance").
+- Rematch is FRIEND_LIVE only. RANKED_LIVE/AI/ASYNC sources are rejected
+  (409 REMATCH_NOT_AVAILABLE) — rated rematch would need rating rules
+  (P1-M2), bots cannot consent.
+- Hold durations (600 ms accept / 1 s walk-away) from HO-Contracts;
+  haptics best-effort; time warnings remain required by GR-023 until a
+  canonical rule change says otherwise.
+
+## DOC PROPOSALS (D-6, no docs/* edited)
+- docs/07_DATA_MODEL.md: Match += `rematch_from_match_id` (UUID?),
+  `rematch_opponent_user_id` (UUID?) — set together ⟺ the row is an
+  open rematch proposal (CREATED, one participant, inviteToken null).
+- docs/08_API_CONTRACTS.md: the five rematch endpoints + response
+  shapes above; error codes += REMATCH_NOT_FOUND/NOT_OPEN/FORBIDDEN/
+  ALREADY_PROPOSED/NOT_AVAILABLE; GET /v1/matches/:id pre-join status
+  `REMATCH_PENDING`; `/v1/me/active-match` exclusion note.
+- Flag: remaining repo lint failures in `.agents/qa/tools/*` (8) and
+  W2's `resource-hud.tsx` (4) / `result-reveal.tsx` (1) — not mine.
 
 ---
 

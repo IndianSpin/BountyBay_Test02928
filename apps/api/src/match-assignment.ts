@@ -39,6 +39,14 @@ export function assignJoinerRole(input: MatchAssignmentInput, creatorRole: Role)
   return { ...input, role, reservationValueTenths: reservationValueFor(role) };
 }
 
+/**
+ * PDR-3 (QA-004): fixed-role assignment for rematches. The role is carried
+ * from the previous match — only the RV is freshly drawn.
+ */
+export function assignFixedRole(input: MatchAssignmentInput, role: Role): Assignment {
+  return { ...input, role, reservationValueTenths: reservationValueFor(role) };
+}
+
 /** AI opponent RV (DEC-025): the same disjoint human ranges, so ZOPA > 0 is guaranteed. */
 export function assignAiOpponentRole(role: Role): number {
   return reservationValueFor(role);
