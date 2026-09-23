@@ -31,7 +31,15 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — BB-216: live-match composition redesign — READY FOR REVIEW
+## CURRENT TASK — post-BB-216 queue COMPLETE — READY FOR REVIEW
+BB-213 dossier wiring (`a628293`) · BB-215 joiner refresh recovery
+(`04a4919`) · BB-219b mutual-consent rematch (`f705e9b`) + lint debt
+(`a628293`, `2b5989f`). Tip `f705e9b`. Gates: typecheck 0, unit 251,
+lint clean, acceptance specs green (join-refresh, rematch-consent 2/2),
+regression green. GR-007 in-sequence flake flagged to W1 (their
+helper's active-match read, not touched). Waiting for ACCEPT/REWORK.
+
+## DONE — BB-216: live-match composition redesign — ACCEPTED + merged (5935792)
 Committed to `w2-frontend-design` (tip `fa6ad69`, rebased on main
 `346cc25`): `5eb46b7` composition → `07b8b5f` v2 assets → `de49f12`
 pose system → `fa6ad69` D-28 + mobile fix.
