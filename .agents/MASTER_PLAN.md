@@ -3,10 +3,9 @@
 Coordination artifact. Canonical product truth lives in `docs/` only.
 
 ## CURRENT PRODUCT MILESTONE
-P1 (DEC-025): P1-M1 (AI practice) done. Canvas redesign slices (DEC-029)
-all three shipped — status **READY FOR FOUNDER REVIEW** (NOT accepted).
-No propagation of the canvas visual language to other screens until the
-founder approves.
+P1 (DEC-025): P1-M1 (AI practice) done. **Canvas slices APPROVED by the
+founder** ("canvas slide ok", D-18). Next UI work: CSS structural split
+(BB-201) then secondary pages (BB-202) under DESIGN_ACCEPTANCE rules.
 
 ## CURRENT ENGINEERING MILESTONE
 Baseline `f1e8c99` verified (typecheck clean, 216 unit passed; DB/E2E
@@ -41,14 +40,45 @@ IN-1/2 (DEC-028) in flight, handoff W2 → W3 under way. DEC-030
   with isolated `bounty_bay_e2e` DB (5433). Dev DB (5432) shared
   read-mostly; any migration needs manager review first.
 
-## DESIGN STATUS (correction 3)
-Canvas slices LIVE MATCH / ACCEPTANCE / RESULT REVEAL are **READY FOR
-FOUNDER REVIEW** — not accepted. W2 may only: prepare the IN handoff,
-clean obvious debug logging, fix regressions, provide screenshots and
-testing instructions. **No new UI feature work.** Secondary pages
-(onboarding, profile, replay, review, landing) stay untouched.
+## DESIGN STATUS (D-18: canvas APPROVED)
+Canvas slices LIVE MATCH / ACCEPTANCE / RESULT REVEAL are founder-
+approved. All further UI follows `design-sandbox/DESIGN_ACCEPTANCE.md`
+(W2 builds against it, QA tests against it). W2 is unblocked: pulls
+tasks from its inbox (BB-201 CSS split first).
 
-## MANAGEMENT CADENCE (correction 7)
+## TASK PIPELINE (D-16)
+IDEA → SPECIFIED → READY → ASSIGNED → IN PROGRESS → READY FOR REVIEW →
+TECH REVIEW → QA → ACCEPTED → INTEGRATED → OBSERVED → DONE. DONE =
+integrated + independently tested + observable behavior. Every assigned
+task is a contract (BB-###: OBJECTIVE / WHY / OWNER / DEPENDENCIES /
+IN SCOPE / OUT OF SCOPE / ACCEPTANCE CRITERIA / REQUIRED EVIDENCE /
+STOP CONDITION). Workers pull from
+`~/projects/bounty-control/inbox/<role>.md` — never self-assign.
+
+## STOP CONDITIONS (automatic)
+Workers stop and report when: acceptance criteria met · a product
+decision is encountered · changes would enter another agent's ownership
+· design version is stale · API/schema assumption differs from the
+baseline · X files beyond expected scope are changing · tests expose an
+unrelated systemic failure.
+
+## INTEGRATION & GOLDEN BASELINE
+Integration windows: worker checkpoint → manager review → QA if required
+→ ACCEPT → integration batch → full regression → **golden baseline**
+commit (tests, E2E, known defects, design version, schema state
+recorded). New tasks branch from the golden baseline. Current golden
+candidate: main after W1-03 + BB-201 integrate and QA-01 completes —
+until then, tasks branch from main HEAD with a recorded base SHA.
+
+## QUALITY DASHBOARD (each cycle, Markdown table)
+Delivery (accepted/attempted) · Rework rate (% REWORK) · QA
+critical/high defects · Test pass/flaky · Collisions (overlapping files/
+contracts) · Scope (tasks expanded) · Debt (new vs resolved) · Design
+(export version) · Product (current hypothesis) · Data (measurable now).
+Signal: high rework rate → task specs or worker quality are off; zero
+rework → manager not reviewing hard enough.
+
+## MANAGEMENT CADENCE (correction 7 + D-9)
 Run a coordination cycle whenever:
 - a worker becomes READY FOR REVIEW;
 - a worker reports BLOCKED;

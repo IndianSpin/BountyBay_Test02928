@@ -215,3 +215,79 @@ safety). Manager rulings:
   integration reviewed · founder: checkpoint where product/design
   decisions materially matter. Known risks documented explicitly; no
   absolute bug-free demanded.
+
+## D-16 — Factory operating model adopted (2026-09-23)
+
+Founder brief "small factory" adopted. Seven registered roles; zero
+ambiguity about who may change what:
+
+| Role | Session | Responsibility | Continuous? |
+|---|---|---|---|
+| Manager (lead) | `jeremydommnich-08` | priorities, architecture, tasking, acceptance, integration | No |
+| Worker 1 domain | `gameplay-depth-anti-stalling` | mechanics, authoritative rules | When assigned |
+| Worker 2 frontend | `bounty-bay-p1-roadmap` | approved UI implementation | When assigned |
+| Worker 3 intelligence | `jeremydommnich-c7` | review/coaching/AI | When assigned |
+| QA / red team | `jeremydommnich-95` | break what workers make | No |
+| Data / release | `jeremydommnich-42` | measurement, telemetry, release safety | No |
+| Sixth specialist | `jeremydommnich-1d` | tooling & environments (D-17) | Only in bounded area |
+
+Adopted mechanics (details in MASTER_PLAN):
+- **Task pipeline:** IDEA → SPECIFIED → READY → ASSIGNED → IN PROGRESS →
+  READY FOR REVIEW → TECH REVIEW → QA → ACCEPTED → INTEGRATED →
+  OBSERVED → DONE. DONE = integrated + independently tested + observable
+  behavior (not "Claude says it works").
+- **Task contracts** (BB-### with OBJECTIVE / WHY / OWNER / DEPENDENCIES
+  / IN SCOPE / OUT OF SCOPE / ACCEPTANCE CRITERIA / REQUIRED EVIDENCE /
+  STOP CONDITION) — every assigned task.
+- **Pull-based tasking:** inboxes `~/projects/bounty-control/inbox/`;
+  workers check at safe checkpoints, never self-assign roadmaps.
+- **Integration windows + golden baselines:** batch merges → full
+  regression → golden baseline commit; new tasks branch from it.
+- **Learning ledger:** `~/projects/bounty-control/LEARNINGS.md`; every
+  escaped defect improves a test/standard/checklist/design rule/
+  architectural rule. Promotion: observation → pattern → team rule →
+  automated check.
+- **Design acceptance:** `design-sandbox/DESIGN_ACCEPTANCE.md` (W2 and
+  QA both use it).
+- **Product hypotheses:** every feature beyond foundational engineering
+  states PRODUCT HYPOTHESIS (We believe / For / This should change /
+  Primary metric / Guardrail / Reconsider-if) before work.
+- **Retrospective** every 5–10 accepted tasks; **quality dashboard** each
+  cycle; **stop conditions** and **context refresh** per MASTER_PLAN.
+
+## D-17 — Sixth specialist: tooling & environments (`jeremydommnich-1d`)
+
+Resolves the duplicate-lead conflict (L-005) per the founder's factory
+model ("Sixth specialist: whatever role you currently assigned — only in
+its bounded area"). Bounded area: dev/QA **environments and tooling** —
+DB provisioning and seeds for specialist lanes (non-destructive, D-4),
+worktree hygiene, Playwright/CI-adjacent setup, environment-variable
+documentation. NOT: product code, control-plane ownership, task
+assignment, canonical docs. Reports via
+`~/projects/bounty-control/inbox/sixth.md`. Its QA-slot setup (D-14,
+8be2347, bounty_bay_qa seed) is adopted as-is and credited.
+
+## D-18 — Canvas verdict: APPROVED (2026-09-23)
+
+Founder: "canvas slide ok" — LIVE MATCH / ACCEPTANCE / RESULT REVEAL
+slices are accepted. Unblocks: W2-03 CSS split (BB-201), secondary-page
+canvas treatment (BB-202), DESIGN_ACCEPTANCE enforcement. W2's
+restriction period is over; it pulls tasks from its inbox.
+
+## D-19 — DATA-01 ACCEPTED (2026-09-23)
+
+Reports reviewed and committed (read-only, evidence-based): north-star
+metrics mostly derivable from authoritative rows (gap = queries +
+definitions); true gaps = signup/handle/result_viewed/rematch/client_
+exception events; biggest gap = technical observability (logger off, no
+error handler, no env/release tags). Implementation (DA-P1-*) NOT
+scheduled — backlog with ownership rulings pending. `data-analytics`
+branch + `~/projects/bay-data` worktree cut for future work.
+
+## PDR-2 — PRODUCT DECISION REQUIRED: GR-012 walk-away doc-vs-behavior
+
+QA found docs and domain disagree about walk-away turn gating. Per
+AGENTS.md: conflict reported, not resolved. **Status:** awaiting founder
+ruling on whether docs/02's GR-012 wording or the domain implementation
+is correct; no code or doc changes made.
+
