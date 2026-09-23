@@ -60,6 +60,43 @@ canonical rule change says otherwise.
 
 ---
 
+## PDR-2 — evidence: GR-012 walk-away doc-vs-behavior (founder to rule)
+
+**The discrepancy.** `docs/02_GAME_RULES.md` GR-012: "Either active
+player may choose **Walk Away**." The domain gates walk-away to the
+player whose turn it is: `applyWalkAway` requires
+`state.activePlayerId === player.playerId`, else `NOT_YOUR_TURN`
+(GR-014) — pinned by `match.test.ts` "is not available when it is not
+your turn". So the doc can be read as "either player while the match is
+active" while the behavior is "only the turn-holder". Since DD Phase 1,
+a post-limit walk is additionally superseded by the timeout (GR-023
+guard rejects WALK_AWAY with `TIMED_OUT`), which GR-012 also does not
+mention.
+
+**Evidence for the turn-gated reading (what the system does today):**
+- Domain: `packages/domain/src/match.ts` `applyWalkAway` — NOT_YOUR_TURN
+  for the non-active player (test-pinned, plus the property suite).
+- UI: the ⋯ menu shows Walk away on both players' screens (LMD-07), but
+  pressing it on the opponent's turn yields the game-language error — the
+  server refuses.
+- docs/04 UF-02 step 9: "Active player accepts, concedes, or walks away"
+  — consistent with the domain, unlike GR-012's phrasing.
+
+**Recommendation (for the manager to present):** keep the domain
+behavior (turn-gated) and, if the founder agrees, amend GR-012 wording to
+"The active player — the one whose turn it is — may choose Walk Away,"
+plus a cross-ref that after the hard decision-time limit the walk is
+superseded by the timeout transition (GR-023/GR-024). Reasons: (1) the
+non-active player terminating the match mid-opponent-turn is an
+abuse/race vector with no product rationale found in the canvas or
+flows; (2) UF-02 and the tests already agree with the domain; (3) the
+alternative — allowing either player to walk at any time — is a genuine
+game-rule change touching GR-014 semantics, so it needs the same
+founder ruling, not a wording fix. **No code or doc change made** (per
+the PDR-2 plan).
+
+---
+
 ## W1-02 — DD Phase 1 (anti-stalling) founder checkpoint report
 
 §39-style completion report for DD-M2 milestone work (DEC-026/027, docs/17).
