@@ -480,3 +480,16 @@ uses a stand-in asset until the founder exports it; rig in-betweens
 later — tech-debt item TD-4, no scheduling. W2's queue now: BB-213
 (dossier wiring, one-line board insertion) → BB-215 (joiner refresh
 recovery, QA-001) → BB-219b (rematch UI, PDR-3).
+
+## D-32 — W2 queue + W1 flake fix ACCEPTED (2026-09-23)
+
+Merged: BB-213 (dossier wiring), BB-215 (joiner refresh → /play?resume
+redirect), BB-219b (mutual-consent rematch UI) — `44c39da`; gate:
+typecheck 0, unit 251, lint remaining = QA tool files only. The
+join-refresh acceptance spec could not be E2E-verified by the manager
+this cycle (harness denied the seed step; environment boot issue) — QA's
+pin-update re-run is the independent E2E confirmation before the golden
+baseline. Merged: W1's GR-007 flake fix (bounded 5×250 ms retry on the
+active-match read, diagnostics preserved) — `56f9141`, conflict resolved
+manager-side. Next integration step: after QA's re-run, full regression
+→ GOLDEN BASELINE.
