@@ -73,8 +73,13 @@ game-integrity invariants and hidden-information leakage; keep the
 regression matrix current; notify manager of CRITICAL/HIGH immediately.
 
 ## STATUS
-QA-01 (BB-206) COMPLETE — REPORTED TO MANAGER 2026-09-23, commit on
-`qa-adversarial` (see `.agents/qa/CURRENT_QA_REPORT.md`, base `92a5e61`).
+QA-01 (BB-206) **ACCEPTED by the manager** — merged to main as `acf86c0`
+(triage D-23: QA-002 → W1 hotfix BB-214; QA-001 → BB-215 for W2;
+QA-004 → PDR-3 for the founder; L-007 makes typecheck mandatory in the
+manager gate). Worktree synced to main `39bafa5`. **Standing down.**
+Next: BB-218 (founder live-match critique, item-10 state re-verify) —
+queued in the inbox, gated on W1's BB-217 written answer; start only
+after it lands.
 
 Verified clean on current main: unit 226/47sk, DB+API 56/56, E2E 9/9,
 adversarial battery 27/27 P0 PASS, browser-surface leak scan clean,
