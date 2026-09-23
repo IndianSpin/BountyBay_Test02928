@@ -12,7 +12,9 @@ import { viewMatchFor } from '@bounty-bay/domain';
 import { personaByKey } from '@bounty-bay/ai';
 import {
   curateReview,
+  GAME_REVIEW_VERSION,
   REVIEW_CURATION_VERSION,
+  buildTimeline,
   type BehaviorFeatures,
   type MatchObservation,
 } from '@bounty-bay/intelligence';
@@ -286,9 +288,11 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
 
   /**
    * GET /v1/matches/:matchId/review — deterministic post-match analysis
-   * (DEC-028, IN-1; docs/08). Participant-only, terminal-only, and
+   * (DEC-028, IN-1/IN-2; docs/08). Participant-only, terminal-only, and
    * role-scoped: only the caller's own features and observations are ever
-   * serialized — the opponent's behavior is their private data.
+   * serialized — the opponent's behavior is their private data. The
+   * timeline is the shared public event stream (both participants see the
+   * same steps); message content is never loaded (docs/18 §14).
    */
   app.get<{ Params: { matchId: string } }>('/v1/matches/:matchId/review', async (request, reply) => {
     const { matchId } = request.params;
@@ -308,9 +312,15 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       analysis.features as unknown as BehaviorFeatures,
       analysis.observations as unknown as MatchObservation[],
     );
+    // W1-03 (D-11): the server-built shared timeline rides the same
+    // versioned envelope as buildGameReview (game-review-0.1.0). Derived
+    // from the authoritative event stream — no second source of truth.
+    const events = await service.listEvents(matchId);
+    const timeline = buildTimeline(snapshot.state, events);
     return {
       matchId,
-      version: analysis.version,
+      version: GAME_REVIEW_VERSION,
+      featureVersion: analysis.version,
       observationVersion: analysis.observationVersion,
       curationVersion: REVIEW_CURATION_VERSION,
       player: {
@@ -319,6 +329,8 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
         observations: analysis.observations,
         moments,
       },
+      outcome: (analysis.features as unknown as BehaviorFeatures).outcome,
+      timeline,
     };
   });
 
