@@ -81,8 +81,15 @@ BB-218 **ACCEPTED and merged** (`e4053db`, D-28): QA-005 confirmed as
 the real defect behind founder item 10 — the seal CTA stays ENABLED for
 beyond-mandate amounts (advisory only). D-28 rules the neutralization +
 grouped seal label into W2's BB-216. Rendering verified correct; QA-002
-confirmed resolved. Worktree synced to main (`346cc25`). **Standing
-down** — nothing queued; next QA work only on manager inbox pull.
+confirmed resolved. Worktree synced to main (`346cc25`). **Pin update task (2026-09-23):** `qa-interruption.spec.ts` test 2 now
+pins BB-215's NEW joiner-refresh behavior (redirect → `/play?resume`,
+no alert, ACTIVE, no duplicate events — QA-001's acceptance test).
+`battery.ts` + `qa-interruption.spec.ts` are lint-clean (repo-wide
+remaining errors are W1's WIP). Pin PRE-VERIFIED against BB-215 commit
+`04a4919` (PASS). IMPORTANT: BB-215 is NOT yet in main (`3059635`) —
+re-run on current main still shows the old alert behavior; reported to
+the manager. **Standing down** — next QA work only on manager inbox
+pull.
 
 Verified clean on current main: unit 226/47sk, DB+API 56/56, E2E 9/9,
 adversarial battery 27/27 P0 PASS, browser-surface leak scan clean,
