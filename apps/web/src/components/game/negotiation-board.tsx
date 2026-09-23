@@ -86,22 +86,26 @@ export default function NegotiationBoard(props: {
   const activeClockSide: 'mine' | 'theirs' = view.myTurn ? 'mine' : 'theirs';
   const atFloor = (view.myTurn ? me : opponent).clockMultiplier <= 0.3005;
 
-  // Character reactions (FaceKit cells; D-24 #2, D-26 #3): conversation
-  // first — while the opponent's latest message bubbles beside them they
-  // hold the speaking pose; then the negotiation state speaks.
+  // Character reactions (canvas v2, GO2-Animation key states; D-24 #2,
+  // D-26 #3): key-pose swap per state — the rig in-betweening lives in
+  // the canvas, the exported poses are what ships. Conversation first:
+  // while the opponent's latest message bubbles beside them they hold
+  // the speaking pose; then the negotiation state speaks.
   const lastMessage = props.messages.length > 0 ? props.messages[props.messages.length - 1]! : null;
   const opponentPose =
-    view.status !== 'ACTIVE'
-      ? 'idle'
-      : !view.myTurn
-        ? 'thinking'
-        : lastMessage !== null && lastMessage.actor === 'opponent'
-          ? 'speaking'
-          : crossed
-            ? 'smug'
-            : inReach
-              ? 'deal'
-              : 'engaged';
+    view.status === 'PAUSED'
+      ? 'offline'
+      : view.status !== 'ACTIVE'
+        ? 'idle'
+        : !view.myTurn
+          ? 'thinking'
+          : lastMessage !== null && lastMessage.actor === 'opponent'
+            ? 'speaking'
+            : crossed
+              ? 'smug'
+              : opponent.latestOfferTenths !== null
+                ? 'offer'
+                : 'idle';
 
   const proposed = props.composer.value.trim() !== '' ? props.composer.value : undefined;
 
@@ -140,7 +144,9 @@ export default function NegotiationBoard(props: {
               <img src={`/game/ai-${ai.personaKey}.svg`} alt="" />
             </div>
           ) : (
-            <div className="lm-opponent__sprite" data-pose={opponentPose} />
+            /* canvas v2 (GO2): the Closer poses ship as single SVGs; the
+               key remounts a crossfade on every reaction change */
+            <img key={opponentPose} className="lm-opponent__pose" src={`/game/otter-${opponentPose}.svg`} alt="" />
           )}
         </div>
         <ChatPanel

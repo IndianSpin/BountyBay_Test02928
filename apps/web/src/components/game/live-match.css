@@ -50,39 +50,28 @@
 
 .lm-opponent-zone { position: static; } /* children anchor to .lm-world */
 
+/* The Closer (canvas v2, GO/GO2): the opponent dominates — height is the
+   scale driver, slightly larger than the old sprite, feet behind the table.
+   Key poses ship as single SVGs (otter-{pose}.svg); the board swaps them
+   per state and the remount crossfades (GO2-Animation key-pose level). */
 .lm-opponent {
   position: absolute;
   left: 50%;
-  top: 34px;
-  width: min(34vw, 480px);
-  aspect-ratio: 600 / 900;
+  top: -8px;
+  height: min(66vh, 640px);
+  aspect-ratio: 520 / 560;
   transform: translateX(-50%);
   pointer-events: none;
 }
-.lm-opponent__sprite {
-  width: 100%;
+.lm-opponent__pose {
   height: 100%;
-  background-image: url('/game/ch-goldenotter.svg');
-  background-size: auto 100%;
-  background-position-x: -1200px; /* cell 2: engaged at the table (LMR-D-01) */
-  background-repeat: no-repeat;
-  transition: background-position-x 240ms ease;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+  animation: lm-pose-in 320ms ease both;
 }
-/* FaceKit pose cells (600px each): 0 idle · 1 thinking · 2 engaged ·
-   4 speaking/presenting · 6 surprised · 7 pleased · 8 smug ·
-   9 frustrated · 14 deal-possible lean-in */
-.lm-opponent__sprite[data-pose='idle'] { background-position-x: 0; }
-.lm-opponent__sprite[data-pose='thinking'] { background-position-x: -600px; }
-.lm-opponent__sprite[data-pose='engaged'] { background-position-x: -1200px; }
-.lm-opponent__sprite[data-pose='speaking'] { background-position-x: -2400px; }
-.lm-opponent__sprite[data-pose='surprised'] { background-position-x: -3600px; }
-.lm-opponent__sprite[data-pose='pleased'] { background-position-x: -4200px; }
-.lm-opponent__sprite[data-pose='smug'] { background-position-x: -4800px; }
-.lm-opponent__sprite[data-pose='frustrated'] { background-position-x: -5400px; }
-.lm-opponent__sprite[data-pose='deal'] { background-position-x: -8400px; }
 
 /* AI opponents: the persona portrait, large and diegetically framed */
-.lm-opponent--ai .lm-opponent__sprite { background-image: none; }
 .lm-opponent--ai .lm-opponent__portrait {
   position: absolute;
   left: 50%;
@@ -517,6 +506,10 @@
   0% { transform: translateY(10px) scale(.9); opacity: 0; }
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
+@keyframes lm-pose-in {
+  0% { transform: translateY(6px) scale(.985); opacity: .35; }
+  100% { transform: none; opacity: 1; }
+}
 
 /* keyboard focus is always visible (docs/09) */
 .lm-world button:focus-visible,
@@ -533,7 +526,7 @@
 
   /* zone 1 · opponent dominates the top ~45% */
   .lm-opponent-zone { position: relative; z-index: 1; flex: none; }
-  .lm-opponent { position: relative; left: auto; top: auto; transform: none; width: 62vw; max-width: 320px; margin: 8px auto 0; }
+  .lm-opponent { position: relative; left: auto; top: auto; transform: none; height: 42dvh; max-height: 340px; margin: 4px auto 0; }
   .lm-opponent--ai .lm-opponent__portrait { position: relative; left: auto; top: auto; transform: none; width: 44vw; max-width: 200px; margin: 10px auto 0; }
   .lm-plaque { position: relative; left: auto; top: auto; transform: none; margin: 6px auto 0; max-width: 88vw; }
   .lm-plaque__name { font-size: 14px; line-height: 18px; }
@@ -612,5 +605,5 @@
   .lm-shockwave { animation: none; }
   .lm-offer--theirs, .lm-offer--mine, .lm-chat-bubble { animation: none; }
   .lm-chat-bubble--fade { transition: none; }
-  .lm-opponent__sprite { transition: none; }
+  .lm-opponent__pose { animation: none; }
 }
