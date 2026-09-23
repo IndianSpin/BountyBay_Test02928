@@ -58,6 +58,7 @@ evidence. Only ACCEPTed work merges to main.
 ## BACKLOG
 - DEC-030 negotiation agent implementation (unscheduled).
 - TD-1 remove `apps/web/debug-reveal.tmp.mjs`.
-- TD-3 `deal-table.tsx` dead component on disk, not rendered (W2).
+- TD-3 CLOSED (deal-table.tsx removed by BB-216).
+- TD-4 BB-216 deviations: stand-in v4 pose + missing rig in-betweens (future asset work).
 - Analytics platform (P1-M9), founder tooling UIs, Daily Deal (gated),
   voice (DD-M5, deferred), spectators/replay (DD-M7, deferred).
