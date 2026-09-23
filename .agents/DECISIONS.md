@@ -469,3 +469,14 @@ changes. Coaching state correctly excluded (no persistence yet —
 IN-5/IN-7; serving emptyCoachingState() would be fake data). docs/08
 updated. W1 stands down pending the founder's DD-M2 checkpoint
 (DEC-026 phase gate → DD-M3).
+
+## D-31 — BB-216 APPROVED by founder; merged (2026-09-23)
+
+Founder verdict "1" (approve) on the live-match composition + chat
+redesign. Merged (`5935792`). Post-merge gate: typecheck exit 0, unit
+suite green. Accepted deviations (W2's flags): v4 neutral/idle pose
+uses a stand-in asset until the founder exports it; rig in-betweens
+(blinks, micro-nods, concession reactions) need real animated assets
+later — tech-debt item TD-4, no scheduling. W2's queue now: BB-213
+(dossier wiring, one-line board insertion) → BB-215 (joiner refresh
+recovery, QA-001) → BB-219b (rematch UI, PDR-3).
