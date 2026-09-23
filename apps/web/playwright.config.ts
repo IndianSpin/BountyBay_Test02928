@@ -1,7 +1,10 @@
 import { defineConfig } from '@playwright/test';
 import path from 'node:path';
 
-const DATABASE_URL = process.env.E2E_DATABASE_URL ?? 'postgresql://bounty:bounty@localhost:5433/bounty_bay';
+// BB-211 (D-20): a bare `pnpm test:e2e` must never silently target the
+// shared dev database. The default is the isolated E2E database; targeting
+// anything else is always an explicit E2E_DATABASE_URL choice.
+const DATABASE_URL = process.env.E2E_DATABASE_URL ?? 'postgresql://bounty:bounty@localhost:5433/bounty_bay_e2e';
 // Alternate ports let the suite run alongside a live dev session
 // (E2E_WEB_PORT=3100 E2E_API_PORT=4100) instead of requiring it to stop.
 // Note: Next refuses a second dev server per project while one runs, so

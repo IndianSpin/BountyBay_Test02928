@@ -24,45 +24,33 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — W1-03: IN-2 timeline wiring in the review route — READY FOR REVIEW
+## CURRENT TASK — BB-211: playwright fail-safe default DB — READY FOR REVIEW
 
-Results (2026-09-23, worktree @ main 92a5e61):
+Results (2026-09-23, worktree @ main 2039622):
 
-- `apps/api/src/match-routes.ts` — `GET /v1/matches/:matchId/review` now
-  returns the `game-review-0.1.0` envelope (D-11): `version` =
-  `GAME_REVIEW_VERSION`; `featureVersion` = the stored feature-engine
-  version; `observationVersion` / `curationVersion` unchanged; added
-  top-level `outcome` (from the stored features) and `timeline` via
-  `buildTimeline(snapshot.state, events)` over the authoritative event
-  stream (shared, public — message content never loaded, docs/18 §14).
-  `player.features/observations/moments` shape unchanged (web UI
-  contract); no schema change; apps/api single-owner respected.
-- Tests (`apps/api/tests/intelligence-review.test.ts`, run against the
-  isolated E2E DB via `TEST_DATABASE_URL` — the shared dev DB is never
-  touched): envelope fields (version/featureVersion/outcome), timeline
-  seq-ordering, OFFER entries carry amount/role/actor, exactly one
-  ACCEPT, timeline identical for both participants (shared), role-
-  scoping re-scoped to the `player` object (the timeline legitimately
-  contains both actors' public ids), new WALK_AWAY no-deal timeline
-  test (`outcome: NO_DEAL_WALKED` + WALK_AWAY entry). 4/4 pass.
-  Existing 409/403/401 invalid cases unchanged and passing.
-- Verified: api typecheck clean; unit suite 226 passed; `review-flow`
-  E2E green on the additive response (UI reads `player.*` only).
-
-**Doc proposal for the manager (D-6, docs/08 §GET …/review):** the
-example response needs `"version": "game-review-0.1.0"` plus new
-`"featureVersion"`, `"outcome"`, and `"timeline": [ { seq, at, kind,
-actorPlayerId, role, amountTenths?, isOpening?, concessionCostChips? } ]`
-fields; note that the timeline is shared public data while `player` stays
-role-scoped. I did not edit docs/* myself.
+- `apps/web/playwright.config.ts`: the bare default `E2E_DATABASE_URL`
+  fallback changed from the shared dev DB (`bounty_bay`) to the isolated
+  `bounty_bay_e2e` (D-20); targeting anything else is now always an
+  explicit env choice. No other config behavior changed (reuse mode,
+  ports, seed overrides untouched).
+- `README.md`: bare `pnpm test:e2e` instructions updated — one-time e2e
+  DB creation/migrate/seed (with the short-limit env overrides), explicit
+  `E2E_DATABASE_URL` override note, and the 3100/4100 vs
+  `E2E_REUSE_SERVERS=1` port guidance.
+- `.env.example` carries no E2E defaults — nothing to change.
+- Evidence: bare run (no `E2E_DATABASE_URL`; alt ports only) of the
+  friend-match deal spec — passed 11.2 s; afterwards exactly 1 match in
+  `bounty_bay_e2e` (last 5 min) and 0 in `bounty_bay`. Reuse mode is
+  unaffected (no server boot → the default is never consulted; suites
+  green earlier under `E2E_REUSE_SERVERS=1` with explicit env).
 
 ## NEXT STEP
-Awaiting manager verdict on W1-03 (ACCEPT / REWORK / BLOCK). DD-M2
-(private dossiers) still gated on founder sign-off (DEC-026). W1-02
-report remains in the founder review queue.
+Awaiting manager verdict on BB-211 (ACCEPT / REWORK / BLOCK). DD-M2
+(private dossiers) gated on founder sign-off (DEC-026) — not started.
+W1-02 remains in the founder review queue.
 
 ## STATUS
-W1-03 READY FOR REVIEW (evidence above). W1-01 ACCEPTED (merged bbf318e).
+BB-211 READY FOR REVIEW (evidence above). W1-01/W1-03 ACCEPTED.
 W1-02 in the founder queue.
 
 ## PRODUCT ASSUMPTIONS
