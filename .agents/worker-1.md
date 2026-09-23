@@ -24,50 +24,46 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — W1-01: acceptance slice follow-ups — READY FOR REVIEW
+## CURRENT TASK — W1-03: IN-2 timeline wiring in the review route — READY FOR REVIEW
 
-Results (2026-09-23, worktree `~/projects/bay-w1` @ 1bb81bf):
+Results (2026-09-23, worktree @ main 92a5e61):
 
-1. **hold-accept flake — root-caused and fixed.** The settle logic polled
-   for `accept-button` visible on exactly one page; the second mover's
-   page shows a transient stale accept (their pre-broadcast view briefly
-   keeps `myTurn` + opponent standing offer), so the settle could pick the
-   wrong page and then fail on the 5 s visibility assert. Fix (no sleeps):
-   `hold-accept.spec.ts` records the first actor during the openings loop
-   and asserts the accept seal on the first mover's page only — the turn
-   deterministically returns there after both openings (GR-014). Verified
-   3× isolated + 2× repeats: 6/6 and 10/10 green.
-2. **time-warning testid — not a code regression.** Board wiring (W2's
-   `negotiation-board.tsx` renders `TimeWarning` from the active
-   participant's tier), the DD heartbeat re-projection
-   (`apps/api/src/realtime.ts` pushStates), and the E2E DB seed
-   (45 s / 25 s / 10 s, active row) are all correct in the baseline. The
-   main-checkout failure was a stale dev-server artifact (the 3000 server
-   predated the slice code). `timeout.spec.ts` passes in the worktree
-   (52.6 s, full suite). No W2 file needed edits — nothing flagged.
-3. **Debug artifacts** — none present in the baseline (`grep` 0 hits in
-   `use-hold.ts` / `match-actions.tsx`); W2's logs landed post-baseline in
-   the main checkout only. Nothing to remove here.
-4. Same stale-turn race class also removed from `friend-match.spec.ts`
-   (GR-007 test) via first-actor tracking, plus diagnostics added to its
-   direct-API evaluate (`activeStatus`/`hasToken` in the failure body) in
-   case a recurrence needs attribution.
+- `apps/api/src/match-routes.ts` — `GET /v1/matches/:matchId/review` now
+  returns the `game-review-0.1.0` envelope (D-11): `version` =
+  `GAME_REVIEW_VERSION`; `featureVersion` = the stored feature-engine
+  version; `observationVersion` / `curationVersion` unchanged; added
+  top-level `outcome` (from the stored features) and `timeline` via
+  `buildTimeline(snapshot.state, events)` over the authoritative event
+  stream (shared, public — message content never loaded, docs/18 §14).
+  `player.features/observations/moments` shape unchanged (web UI
+  contract); no schema change; apps/api single-owner respected.
+- Tests (`apps/api/tests/intelligence-review.test.ts`, run against the
+  isolated E2E DB via `TEST_DATABASE_URL` — the shared dev DB is never
+  touched): envelope fields (version/featureVersion/outcome), timeline
+  seq-ordering, OFFER entries carry amount/role/actor, exactly one
+  ACCEPT, timeline identical for both participants (shared), role-
+  scoping re-scoped to the `player` object (the timeline legitimately
+  contains both actors' public ids), new WALK_AWAY no-deal timeline
+  test (`outcome: NO_DEAL_WALKED` + WALK_AWAY entry). 4/4 pass.
+  Existing 409/403/401 invalid cases unchanged and passing.
+- Verified: api typecheck clean; unit suite 226 passed; `review-flow`
+  E2E green on the additive response (UI reads `player.*` only).
 
-Full suite in the worktree: **9/9 E2E passed** (unit 226 passed; db+api
-suite not re-run — it truncates the shared dev DB and is out of the E2E
-scope; unchanged since the 51-pass run).
+**Doc proposal for the manager (D-6, docs/08 §GET …/review):** the
+example response needs `"version": "game-review-0.1.0"` plus new
+`"featureVersion"`, `"outcome"`, and `"timeline": [ { seq, at, kind,
+actorPlayerId, role, amountTenths?, isOpening?, concessionCostChips? } ]`
+fields; note that the timeline is shared public data while `player` stays
+role-scoped. I did not edit docs/* myself.
 
-## NEXT STEP — W1-02: DD Phase 1 founder checkpoint
-
-Written below (next section). DD-M2 (private dossiers) starts only after
-founder sign-off (DEC-026). W1-03 (IN-2 timeline wiring in match-routes,
-D-11) is queued AFTER W1-01/W1-02 and is NOT started early per EM.
+## NEXT STEP
+Awaiting manager verdict on W1-03 (ACCEPT / REWORK / BLOCK). DD-M2
+(private dossiers) still gated on founder sign-off (DEC-026). W1-02
+report remains in the founder review queue.
 
 ## STATUS
-W1-01 READY FOR REVIEW (evidence above). Awaiting manager verdict.
-
-## BLOCKERS
-None for W1-01. W1-03 not started (by instruction).
+W1-03 READY FOR REVIEW (evidence above). W1-01 ACCEPTED (merged bbf318e).
+W1-02 in the founder queue.
 
 ## PRODUCT ASSUMPTIONS
 None new; hold durations (600 ms accept / 1 s walk-away) from HO-Contracts;

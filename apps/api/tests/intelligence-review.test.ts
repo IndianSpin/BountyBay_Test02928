@@ -151,8 +151,11 @@ describe.skipIf(!RUN)('Game Review API (PostgreSQL)', () => {
     const body = review.json() as {
       matchId: string;
       version: string;
+      featureVersion: string;
       observationVersion: string;
       curationVersion: string;
+      outcome: string;
+      timeline: { seq: number; kind: string; actorPlayerId: string | null; role: string | null; amountTenths?: number }[];
       player: {
         playerId: string;
         features: Record<string, unknown>;
@@ -160,9 +163,12 @@ describe.skipIf(!RUN)('Game Review API (PostgreSQL)', () => {
         moments: { kind: string; headline: string; detail: string | null; eventRefs: number[] }[];
       };
     };
-    expect(body.version).toBe('feature-engine-0.1.0');
+    // W1-03 (D-11): the review response rides the game-review-0.1.0 envelope.
+    expect(body.version).toBe('game-review-0.1.0');
+    expect(body.featureVersion).toBe('feature-engine-0.1.0');
     expect(body.observationVersion).toBe('observation-engine-0.1.0');
     expect(body.curationVersion).toBe('review-curation-0.1.0');
+    expect(body.outcome).toBe('DEAL');
     expect(body.player.playerId).toBe(buyer.userId);
     expect(body.player.features.outcome).toBe('DEAL');
     expect(body.player.features.agreementReached).toBe(true);
@@ -178,12 +184,69 @@ describe.skipIf(!RUN)('Game Review API (PostgreSQL)', () => {
     for (const moment of body.player.moments.slice(1)) {
       expect(moment.eventRefs.length).toBeGreaterThan(0);
     }
-    // role-scoping: the seller's id and analysis never appear in the buyer's review
-    expect(JSON.stringify(body)).not.toContain(seller.userId);
+
+    // W1-03: the server-built timeline — sequence-ordered, negotiation
+    // actions only, and SHARED (both participants see the same steps).
+    // (The fixture's first mover is random, so one or two offers may land.)
+    expect(body.timeline.length).toBeGreaterThanOrEqual(2);
+    for (let i = 1; i < body.timeline.length; i++) {
+      expect(body.timeline[i]!.seq).toBeGreaterThan(body.timeline[i - 1]!.seq);
+    }
+    const offerEntries = body.timeline.filter((e) => e.kind === 'OFFER');
+    expect(offerEntries.length).toBeGreaterThanOrEqual(1);
+    for (const entry of offerEntries) {
+      expect(entry.amountTenths).toBeGreaterThan(0);
+      expect(entry.role).not.toBeNull();
+      expect(entry.actorPlayerId).not.toBeNull();
+    }
+    expect(body.timeline.filter((e) => e.kind === 'ACCEPT')).toHaveLength(1);
 
     const sellerReview = await app.inject({ method: 'GET', url: `/v1/matches/${matchId}/review`, headers: auth(seller.token) });
     expect(sellerReview.statusCode).toBe(200);
-    expect((sellerReview.json() as { player: { playerId: string } }).player.playerId).toBe(seller.userId);
+    const sellerBody = sellerReview.json() as { player: { playerId: string }; timeline: { seq: number; kind: string }[] };
+    expect(sellerBody.player.playerId).toBe(seller.userId);
+    expect(sellerBody.timeline).toEqual(body.timeline); // the timeline is shared public data
+
+    // role-scoping: the opponent's id never appears in the CALLER'S OWN
+    // analysis object (features/observations/moments are private data).
+    // The shared timeline below may contain both actors — identity there
+    // is public game data (the same steps both participants see).
+    expect(JSON.stringify(body.player)).not.toContain(seller.userId);
+  });
+
+  it('timeline covers no-deal outcomes (WALK_AWAY) under the same envelope', async () => {
+    const buyer = await signin('dev_review_walk_buyer');
+    const seller = await signin('dev_review_walk_seller');
+    const created = await app.inject({
+      method: 'POST',
+      url: '/v1/challenges',
+      headers: auth(buyer.token),
+      payload: { commandId: randomUUID() },
+    });
+    expect(created.statusCode).toBe(201);
+    const { token: inviteToken, matchId } = created.json() as { token: string; matchId: string };
+    expect((await app.inject({ method: 'POST', url: `/v1/challenges/${inviteToken}/join`, headers: auth(seller.token), payload: { commandId: randomUUID() } })).statusCode).toBe(200);
+    for (const account of [buyer, seller]) {
+      const res = await app.inject({ method: 'POST', url: `/v1/matches/${matchId}/ready`, headers: auth(account.token), payload: { commandId: randomUUID() } });
+      expect(res.statusCode).toBe(200);
+    }
+
+    // The active player walks away (GR-012).
+    for (const account of [buyer, seller]) {
+      const res = await app.inject({ method: 'GET', url: `/v1/matches/${matchId}`, headers: auth(account.token) });
+      const view = (res.json() as { view: { myTurn: boolean } }).view;
+      if (!view.myTurn) continue;
+      const walk = await app.inject({ method: 'POST', url: `/v1/matches/${matchId}/walk-away`, headers: auth(account.token), payload: { commandId: randomUUID() } });
+      expect(walk.statusCode).toBe(200);
+      break;
+    }
+
+    const review = await app.inject({ method: 'GET', url: `/v1/matches/${matchId}/review`, headers: auth(buyer.token) });
+    expect(review.statusCode).toBe(200);
+    const body = review.json() as { version: string; outcome: string; timeline: { kind: string }[] };
+    expect(body.version).toBe('game-review-0.1.0');
+    expect(body.outcome).toBe('NO_DEAL_WALKED');
+    expect(body.timeline.some((e) => e.kind === 'WALK_AWAY')).toBe(true);
   });
 
   it('accepts review observability events and rejects malformed ones (DEC-028 §41)', async () => {
