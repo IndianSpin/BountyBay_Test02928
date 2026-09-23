@@ -335,6 +335,24 @@ stays open for the founder close-out batch — all ten thresholds are
 provisional, configurable, versioned (recorded in docs/20). W3 stands
 down; IN-4 waits for the founder's IN-3 checkpoint.
 
+## D-27 — DD-M2 ACCEPTED (2026-09-23)
+
+BB-214 + BB-217/217b + BB-204 merged (`787aa86`, two REWORK rounds:
+api typecheck error; role-blind isolation test — both caught by the
+manager gate, L-008/L-009). Manager-verified: full typecheck exit 0
+repo-wide, unit 239, dossier-isolation 2/2 ×3 runs, migration additive
+(PASS), diff in-scope. Answers recorded: offer 110 vs RV 78.9 is
+ILLEGAL (GR-003/GR-006, OUTSIDE_RESERVATION_VALUE — the composer's
+advisory names the viewer's own limit; "116,500" is correct rendering
+of 1,165,000 tenths via the single formatter — the screenshot showed
+an invalid hero CTA, a UI-neutralization item for BB-216, not a data
+bug). Turn structure: implementation matches GR-013 exactly; no
+deviation; optional GR-013 clarification wording held for founder
+pinning. PDR-2 evidence checked against the ruling — consistent.
+Docs/07 + docs/08 updated (manager). TD-1 removed. DD-M3 (verified
+reveals) gated per DEC-026 phase order. W1 next: BB-219a (rematch API)
+then BB-220 (Insights API).
+
 ## D-26 — Chat & communication feedback folded in (2026-09-23)
 
 Founder feedback #2 (chat/communication, verbatim in
