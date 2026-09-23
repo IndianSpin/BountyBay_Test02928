@@ -34,6 +34,41 @@ accessibility bindings.
 10. **No rules changed for visuals:** domain authority is absolute
     (AGENTS.md).
 
+## Chat & communication (founder feedback #2, 2026-09-23 — binding)
+
+**Principle: the opponent IS the conversation; the chat UI is only the
+mechanism. Make conversation big, make the chat box small.**
+
+1. **Visual budget:** opponent/world 50–60% · offers/state 20–25% ·
+   primary action 10–15% · chat UI itself 5–10%.
+2. **Desktop composer:** ~48–56 px tall × 320–420 px wide — never a
+   horizontal slab. Three levels: Ambient (latest opponent message as a
+   speech bubble NEXT TO the character; Talk available) → Compose
+   (compact composer on tap) → History (drawer/sheet with the full
+   transcript on demand).
+3. **Latest message lives with the character:** bubbles physically
+   appear around the opponent, fade into history after ~5–8 s, reinforced
+   by animation (eyebrow raise / lean forward / hand gesture / dismissive
+   flick). Human opponents: same treatment with their selected
+   character. A hold is a social event — "I'm comfortable where I am"
+   with a lean back.
+4. **Mobile:** bottom sheet at 35–50% screen height while typing; the
+   game stays visually dominant; sheet collapses on send.
+5. **Four mechanisms:** free text · quick negotiation prompts (WHY? /
+   TOO FAR / I'M HOLDING / YOU NEED TO MOVE / WE'RE CLOSE / IS THAT
+   FINAL? / WHAT WOULD GET THIS DONE?) rendered as character dialogue,
+   never "buttons vomiting system messages" · character reactions/
+   emotes (skeptical, amused, annoyed, thinking, confident, deal? —
+   character-specific) · voice: LATER (not scheduled).
+6. **COMM vs FORMAL OFFER stays canonical** (GR-025 territory): only
+   MAKE OFFER changes authoritative state. The permanent instructional
+   sentence is REMOVED — subtle composer hint instead ("Talk to
+   GoldenOtter…" + ⓘ); the teaching moves to the tutorial (not yet
+   implemented).
+7. **Turn structure (domain-checked, GR-013):** a turn may be TALK or
+   MAKE/CHANGE OFFER or ACCEPT/WALK; chat does not consume formal turn
+   state.
+
 ## Live-match composition (founder feedback 2026-09-23 — binding)
 
 The live match screen must be readable in this order: **Opponent → their

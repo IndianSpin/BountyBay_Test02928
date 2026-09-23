@@ -335,6 +335,24 @@ stays open for the founder close-out batch — all ten thresholds are
 provisional, configurable, versioned (recorded in docs/20). W3 stands
 down; IN-4 waits for the founder's IN-3 checkpoint.
 
+## D-26 — Chat & communication feedback folded in (2026-09-23)
+
+Founder feedback #2 (chat/communication, verbatim in
+`bounty-control/FOUNDER_FEEDBACK_2026-09-23_chat-communication.md`)
+routed via sixth. Rulings: (1) it is the communication **sub-scope of
+BB-216** — W2 implements it inside the composition redesign; rules added
+to DESIGN_ACCEPTANCE.md §Chat & communication. (2) Turn-structure
+question (TALK without consuming formal turn; social vs offer turn)
+folds into W1's BB-217 written answer as a second question — GR-013
+already says "messages do not switch turns"; W1 confirms implementation
+compatibility and flags any deviation. (3) Quick-prompt → character
+dialogue is V1-deterministic (persona line mapping, DEC-025 flavor
+lines) — no W3 engine work now; LLM generation would be DEC-030-era.
+(4) Voice: NOT scheduled (founder: "later"; DD-M5 deferred). (5) The
+permanent "numbers in chat are not offers" sentence is removed in
+BB-216; the rule is canonical (GR-025) and moves to the future
+tutorial with a subtle composer hint meanwhile.
+
 ## D-24 — Live-match composition redesign (founder feedback 2026-09-23)
 
 Founder critique (routed via sixth, verbatim in
