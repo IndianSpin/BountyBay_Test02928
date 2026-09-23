@@ -1465,6 +1465,11 @@ export const ScenarioScalarFieldEnum = {
   description: 'description',
   buyerBatnaNarrative: 'buyerBatnaNarrative',
   sellerBatnaNarrative: 'sellerBatnaNarrative',
+  sharedContext: 'sharedContext',
+  buyerPrivateContext: 'buyerPrivateContext',
+  sellerPrivateContext: 'sellerPrivateContext',
+  buyerPrivateFacts: 'buyerPrivateFacts',
+  sellerPrivateFacts: 'sellerPrivateFacts',
   status: 'status',
   createdAt: 'createdAt'
 } as const
@@ -1772,6 +1777,20 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
 
 
 /**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
  * Reference to a field of type 'ScenarioStatus'
  */
 export type EnumScenarioStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ScenarioStatus'>
@@ -1838,20 +1857,6 @@ export type EnumCompletionReasonFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'CompletionReason[]'
  */
 export type ListEnumCompletionReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CompletionReason[]'>
-    
-
-
-/**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-/**
- * Reference to a field of type 'QueryMode'
- */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 

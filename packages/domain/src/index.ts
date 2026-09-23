@@ -12,6 +12,7 @@
 export * from './amount';
 export * from './clock';
 export * from './concession';
+export * from './dossier';
 export * from './economy';
 export * from './match';
 export * from './projection';

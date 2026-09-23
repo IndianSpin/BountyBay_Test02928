@@ -62,6 +62,40 @@ export function statusFor(code: DomainErrorCode): number {
   return HTTP_STATUS[code] ?? 400;
 }
 
+/** Fields of the Scenario row that scenario decoration reads (DD-M2). */
+export interface ScenarioContentRow {
+  id: string;
+  version: number;
+  title: string;
+  description: string;
+  buyerBatnaNarrative: string;
+  sellerBatnaNarrative: string;
+  sharedContext: string | null;
+  buyerPrivateContext: string | null;
+  sellerPrivateContext: string | null;
+  buyerPrivateFacts: unknown;
+  sellerPrivateFacts: unknown;
+}
+
+/**
+ * DD-M2 (GR-028): role-scoped scenario view — the viewer's own private
+ * context and facts only. The opponent's dossier is never serialized to
+ * any participant payload, with the same severity as the reservation
+ * value (SI-001). `myNarrative` remains the legacy BATNA narrative.
+ */
+export function scenarioForRole(scenario: ScenarioContentRow, role: 'BUYER' | 'SELLER'): Record<string, unknown> {
+  return {
+    id: scenario.id,
+    version: scenario.version,
+    title: scenario.title,
+    description: scenario.description,
+    myNarrative: role === 'BUYER' ? scenario.buyerBatnaNarrative : scenario.sellerBatnaNarrative,
+    sharedContext: scenario.sharedContext ?? null,
+    myPrivateContext: role === 'BUYER' ? scenario.buyerPrivateContext : scenario.sellerPrivateContext,
+    myPrivateFacts: (role === 'BUYER' ? scenario.buyerPrivateFacts : scenario.sellerPrivateFacts) ?? [],
+  };
+}
+
 export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOptions): void {
   const { service, prisma, broadcast } = options;
 
@@ -153,7 +187,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       token,
       role: assignment.role,
       reservationValueTenths: assignment.reservationValueTenths,
-      scenario: { id: scenario.id, title: scenario.title, description: scenario.description },
+      scenario: scenarioForRole(scenario, assignment.role),
     });
   });
 
@@ -202,20 +236,14 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       if (user) handles[participant.userId] = user.handle;
     }
 
-    // Scenario content (08, DEC-024 follow-up): title/description are shared;
-    // the viewer's OWN BATNA narrative is included; the opponent's narrative
-    // is NEVER serialized to any participant payload (RV-grade scoping).
+    // Scenario content (08, DEC-024 follow-up, DD-M2 GR-028): title/
+    // description and sharedContext are shared; the viewer's OWN BATNA
+    // narrative, private context, and private facts are included; the
+    // opponent's narrative and dossier are NEVER serialized to any
+    // participant payload (RV-grade scoping, SI-001).
     const scenarioRow = await prisma.scenario.findFirst({ where: { id: row.scenarioId, version: row.scenarioVersion } });
     const me = row.participants.find((p) => p.userId === request.userId)!;
-    const scenario = scenarioRow
-      ? {
-          id: scenarioRow.id,
-          version: scenarioRow.version,
-          title: scenarioRow.title,
-          description: scenarioRow.description,
-          myNarrative: me.role === 'BUYER' ? scenarioRow.buyerBatnaNarrative : scenarioRow.sellerBatnaNarrative,
-        }
-      : null;
+    const scenario = scenarioRow ? scenarioForRole(scenarioRow, me.role) : null;
 
     if (!snapshot) {
       // Pre-join challenge: the domain match does not exist yet.
@@ -261,19 +289,12 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       if (user) handles[participant.playerId] = user.handle;
     }
     // Scenario content with the same scoping rule as the snapshot: only the
-    // viewer's own BATNA narrative is ever serialized.
+    // viewer's own BATNA narrative, private context, and private facts are
+    // ever serialized (DD-M2 GR-028).
     const row = await prisma.match.findUniqueOrThrow({ where: { id: matchId }, include: { participants: true } });
     const meRow = row.participants.find((p) => p.userId === request.userId)!;
     const scenarioRow = await prisma.scenario.findFirst({ where: { id: row.scenarioId, version: row.scenarioVersion } });
-    const scenario = scenarioRow
-      ? {
-          id: scenarioRow.id,
-          version: scenarioRow.version,
-          title: scenarioRow.title,
-          description: scenarioRow.description,
-          myNarrative: meRow.role === 'BUYER' ? scenarioRow.buyerBatnaNarrative : scenarioRow.sellerBatnaNarrative,
-        }
-      : null;
+    const scenario = scenarioRow ? scenarioForRole(scenarioRow, meRow.role) : null;
     const serverNow = Date.now();
     return {
       view: viewMatchFor(snapshot.state, request.userId!, serverNow, snapshot.config),

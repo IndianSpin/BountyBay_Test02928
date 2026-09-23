@@ -13,7 +13,7 @@ import type { Role } from '@bounty-bay/domain';
 import type { FastifyInstance } from 'fastify';
 import { randomUUID } from 'node:crypto';
 import { assignAiOpponentRole, assignCreatorRole, pickFirstPlayer } from '../match-assignment';
-import { statusFor } from '../match-routes';
+import { scenarioForRole, statusFor } from '../match-routes';
 import type { MatchBroadcaster } from '../realtime';
 import type { AiTurnEngine } from './engine';
 
@@ -91,7 +91,7 @@ export function registerAiRoutes(app: FastifyInstance, options: AiRoutesOptions)
       role: assignment.role,
       reservationValueTenths: assignment.reservationValueTenths,
       aiReady: true,
-      scenario: { id: scenario.id, title: scenario.title, description: scenario.description },
+      scenario: scenarioForRole(scenario, assignment.role),
     });
   });
 }

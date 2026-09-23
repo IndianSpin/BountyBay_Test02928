@@ -13,7 +13,7 @@
 import { concessionCostChips, concessionMagnitude, parseAmountTenths } from '@bounty-bay/domain';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { io, type Socket } from 'socket.io-client';
-import { formatPercent, formatTenthsGrouped } from '../../lib/format';
+import { formatTenthsGrouped } from '../../lib/format';
 import NegotiationBoard from '../../components/game/negotiation-board';
 import MerchantScene from '../../components/game/scene';
 import type { TurnState } from '../../components/game/turn-banner';
@@ -335,9 +335,6 @@ export default function MatchScreen({ matchId, token, userId, opponentJoined, on
       </main>
     );
   }
-
-  const myEconomy = terminal ? view.economy?.players[userId] : null;
-  const myShare = terminal ? (view.myRole === 'BUYER' ? view.economy?.buyerSurplusShare : view.economy?.sellerSurplusShare) : null;
 
   return (
     <main>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { formatTenthsGrouped } from '../../lib/format';
 import { useHold } from './use-hold';
 

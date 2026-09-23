@@ -237,7 +237,11 @@ test('repeating the same formal offer is rejected and never switches the turn (G
     const activeRes = await fetch(`${arg.apiUrl}/v1/me/active-match`, { headers });
     const active = (await activeRes.json()) as { activeMatch?: { matchId?: string } | null };
     const matchId = active.activeMatch?.matchId;
-    if (!matchId) return { status: 0, body: { activeStatus: activeRes.status, active, hasToken: Boolean(stored.token) } };
+    if (!matchId) {
+      // Diagnostic body: QA-002 — no `.code` here by design; the caller
+      // treats this shape as a test-infrastructure failure, not an API one.
+      return { status: 0, body: { activeStatus: activeRes.status, active, hasToken: Boolean(stored.token) } };
+    }
     const res = await fetch(`${arg.apiUrl}/v1/matches/${matchId}/offers`, {
       method: 'POST',
       headers: { 'content-type': 'application/json', ...headers },
@@ -246,7 +250,9 @@ test('repeating the same formal offer is rejected and never switches the turn (G
     return { status: res.status, body: (await res.json()) as { code?: string } };
   }, { apiUrl: API_URL, amount: rvs[firstMoverIndex]! });
   expect(duplicate.status).toBe(400);
-  expect(duplicate.body.code).toBe('DUPLICATE_OFFER');
+  // Narrow the diagnostic union: `.code` exists only on the API-response
+  // branch (the 400 above already rules out the status-0 branch).
+  expect((duplicate.body as { code?: string }).code).toBe('DUPLICATE_OFFER');
   await expect(firstMover.getByTestId('match-status')).toContainText('ACTIVE');
   await expect(firstMover.getByTestId('turn-banner')).toHaveText('YOUR MOVE');
 
