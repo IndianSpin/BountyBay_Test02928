@@ -292,19 +292,23 @@ CREATED/READY/ACTIVE/PAUSED, newest first.
 
 `{ "activeMatch": null }` when none.
 
-### GET /v1/matches/:matchId/review (IN-1, DEC-028)
+### GET /v1/matches/:matchId/review (IN-1/IN-2, DEC-028)
 
 Deterministic post-match Game Review data. Participant-only; 409
 `MATCH_NOT_ACTIVE` until the match is terminal. Role-scoped: only the
 caller's own features and observations are ever serialized (§14 of
-docs/18; the opponent's behavior is their private data).
+docs/18; the opponent's behavior is their private data). The `timeline`
+is the shared public event stream — both participants see the same
+steps; message content is never loaded.
 
 ```json
 {
   "matchId": "uuid",
-  "version": "feature-engine-0.1.0",
+  "version": "game-review-0.1.0",
+  "featureVersion": "feature-engine-0.1.0",
   "observationVersion": "observation-engine-0.1.0",
   "curationVersion": "review-curation-0.1.0",
+  "outcome": "DEAL",
   "player": {
     "playerId": "uuid",
     "features": { "...": "docs/19 behavior feature definitions" },
@@ -328,10 +332,24 @@ docs/18; the opponent's behavior is their private data).
         "source": "deterministic"
       }
     ]
-  }
+  },
+  "timeline": [
+    {
+      "seq": 4,
+      "at": "iso-time",
+      "kind": "OFFER",
+      "actorPlayerId": "uuid",
+      "role": "BUYER",
+      "amountTenths": 6000,
+      "isOpening": false,
+      "concessionCostChips": 2
+    }
+  ]
 }
 ```
 
 Claims are Level 1 objective facts only in IN-1; benchmarks (L2) arrive
 with IN-8, research (L3) and coaching hypotheses (L4) with IN-4/IN-5.
-`eventRefs` are match event sequences for timeline linkage (IN-2 UI).
+`eventRefs` are match event sequences for timeline linkage; timeline
+kinds and rules are defined in docs/20 (negotiation steps only, no
+plumbing events).
