@@ -107,10 +107,11 @@ sake.
 Worker-3 verified IN-1 directly against baseline `f1e8c99` (which is
 worker-2's committed IN work — the tree was clean at baseline, so no work
 was lost) because W2-02 was not yet recorded. Ruling: acceptable interim
-— NOT a license to skip the handoff. W2-02 must still land (handoff
-statement: complete/partial/temporary/untested + files + tests + commit
-hash); worker-3 must then review the statement and confirm or explicitly
-reject specifics. No duplicate IN-1 implementation has occurred.
+— NOT a license to skip the handoff. W2-02 landed 2026-09-23 (commit
+`782e1d8`: complete/partial/temporary/untested statement + testing
+instructions; scope-compliant, coordination file only). Manager ACCEPTed
+the record; worker-3's confirmation-or-rejection review is in progress.
+No duplicate IN-1 implementation has occurred.
 
 ## D-11 — Timeline API wiring deferred
 
