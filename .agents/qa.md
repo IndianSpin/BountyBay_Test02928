@@ -73,8 +73,17 @@ game-integrity invariants and hidden-information leakage; keep the
 regression matrix current; notify manager of CRITICAL/HIGH immediately.
 
 ## STATUS
-QA-01 (BB-206) COMPLETE — REPORTED TO MANAGER 2026-09-23, commit on
-`qa-adversarial` (see `.agents/qa/CURRENT_QA_REPORT.md`, base `92a5e61`).
+QA-01 (BB-206) **ACCEPTED by the manager** — merged to main as `acf86c0`
+(triage D-23: QA-002 → W1 hotfix BB-214; QA-001 → BB-215 for W2;
+QA-004 → PDR-3 for the founder; L-007 makes typecheck mandatory in the
+manager gate). Worktree synced to main `39bafa5`. **Standing down.**
+BB-218 DONE (2026-09-23, base `903119e`): founder state reproduced —
+illegal amount stays an ENABLED hero CTA with advisory-only warning
+(QA-005, MEDIUM, W2 BB-216 scope); refusal alert + server 400 correct;
+"116,500" rendering verified correct (no tenths bug); QA-002 verified
+RESOLVED by BB-214. Spec + evidence under `.agents/qa/tools/specs/
+qa-bb218.spec.ts` and `.agents/qa/evidence/`. REPORTED TO MANAGER —
+standing down.
 
 Verified clean on current main: unit 226/47sk, DB+API 56/56, E2E 9/9,
 adversarial battery 27/27 P0 PASS, browser-surface leak scan clean,
