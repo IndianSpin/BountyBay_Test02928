@@ -385,3 +385,14 @@ Error codes: `REMATCH_NOT_FOUND` / `REMATCH_NOT_OPEN` /
 `REMATCH_FORBIDDEN` / `REMATCH_ALREADY_PROPOSED` /
 `REMATCH_NOT_AVAILABLE`. `GET /v1/matches/:id` pre-join returns status
 `REMATCH_PENDING` for proposals; `/v1/me/active-match` excludes them.
+
+## GET `/v1/me/insights` (IN-3)
+
+The caller's own longitudinal negotiation profile
+(`longitudinal-profile-0.1.0`, built by packages/intelligence from the
+caller's own feature-engine rows; completed non-aborted matches only).
+
+Response: `{ "profile": LongitudinalProfile | null }` — 200 with
+`null` when the player has no eligible completed match (not an error).
+Self-only (docs/18 §14): the opponent's behavior never appears.
+Coaching state is deliberately absent until IN-5/IN-7 persist it.
