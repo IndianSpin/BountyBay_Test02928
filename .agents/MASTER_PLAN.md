@@ -25,20 +25,22 @@ IN-1/2 (DEC-028) in flight, handoff W2 → W3 under way. DEC-030
   (inspect → branch/cherry-pick or reject with reasons; never duplicate
   IN-1). Completes IN-2 Game Review V1.
 - **QA — adversarial/red team (D-14):** independent tester, NOT a
-  developer. Branch `qa-adversarial` cut from `430b302`; worktree
-  `~/projects/bay-qa`; read-only outside `.agents/qa/**` + its worker
-  file. Ports 3200/4200, isolated DB `bounty_bay_qa` (5433). Findings →
-  `.agents/qa/`; manager triages into the task board. First task: QA-01
-  adversarial baseline against main `430b302`.
+  developer. Branch `qa-adversarial` (current base = main `045049a`);
+  worktree `~/projects/bay-qa`; read-only outside `.agents/qa/**` + its
+  worker file. Ports 3200/4200 (+4300 strict-mode API), isolated DB
+  `bounty_bay_qa` (host 5433). Findings → `.agents/qa/`; manager triages
+  into the task board. Current task: BB-206 (QA-01 re-verify + MATCH
+  STATE INTERRUPTION matrix).
 
 ## WORKSTREAM DEPENDENCIES
 - IN-2 verified-fact/pitch features wait for DD-M3/M4/M5 (GR-025/GR-028).
 - P1-M2 (rating) precedes IN-3/IN-8.
 - DEC-030 agent implementation (unscheduled) depends on IN-2 + DD Phase 1
   sign-off; consumes GR-028 dossiers; hooks IN-6/IN-3.
-- Ports/DB: W2 dev servers on 3000/4000; W1 E2E on alt ports 3100/4100
-  with isolated `bounty_bay_e2e` DB (5433). Dev DB (5432) shared
-  read-mostly; any migration needs manager review first.
+- Ports/DB (D-4, corrected): single postgres on host 5433 (docker
+  5433→5432; Supabase holds 5432) with DBs bounty_bay / bounty_bay_e2e /
+  bounty_bay_qa; W2 dev servers 3000/4000; W1 E2E 3100/4100; QA
+  3200/4200+4300. Any migration needs manager review first.
 
 ## DESIGN STATUS (D-18: canvas APPROVED)
 Canvas slices LIVE MATCH / ACCEPTANCE / RESULT REVEAL are founder-

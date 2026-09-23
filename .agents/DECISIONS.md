@@ -48,10 +48,16 @@ resolved; founder to confirm at next checkpoint.
 ## D-4 — Ports and database safety
 
 W2 owns dev servers 3000/4000. W1 E2E uses alt ports 3100/4100 with the
-isolated `bounty_bay_e2e` DB (5433, seed overrides `E2E_*`). Dev DB (5432)
-shared; any Prisma migration or destructive DB action needs manager review
-first (shadow-database incident policy). No destructive reset/drop against
-non-disposable databases, ever.
+isolated `bounty_bay_e2e` DB (seed overrides `E2E_*`). QA lane: ports
+3200/4200 (+ 4300 for QA's strict-mode tsx API) with `bounty_bay_qa`.
+**Single project postgres instance on host 5433** (docker maps
+5433→5432; host 5432 is a Supabase stack) with databases: `bounty_bay`
+(dev), `bounty_bay_e2e`, `bounty_bay_qa`. Canonical QA-01 DB =
+`bounty_bay_qa`; `bounty_bay_qa2`/`bounty_bay_qa_shadow` are disposable
+artifacts (shadow = Prisma migration artifact), not canonical — cleanup
+only via manager-reviewed drop. Any Prisma migration or destructive DB
+action needs manager review first (shadow-database incident policy).
+No destructive reset/drop against non-disposable databases, ever.
 
 ## D-5 — Git model (protocol)
 
@@ -283,6 +289,21 @@ exception events; biggest gap = technical observability (logger off, no
 error handler, no env/release tags). Implementation (DA-P1-*) NOT
 scheduled — backlog with ownership rulings pending. `data-analytics`
 branch + `~/projects/bay-data` worktree cut for future work.
+
+## D-20 — Environment corrections + BB-210 ACCEPTED (2026-09-23)
+
+Sixth specialist's environment matrix (BB-210, `bounty-control/
+ENVIRONMENTS.md`) reviewed and ACCEPTED. Corrections adopted:
+(1) D-4 rewritten — single postgres on host 5433, DB list, QA canonical
+DB; (2) port 4300 recorded as QA's strict-mode API port; (3) playwright
+config default DB targets the shared dev DB → **BB-211** queued for W1
+after BB-203 (fail-safe default: refuse bare E2E or default to the e2e
+DB; until then, all E2E runs must pass `E2E_DATABASE_URL`/seed
+overrides); (4) `bounty_bay_qa2`/`bounty_bay_qa_shadow` = disposable
+artifacts, not canonical; (5) **BB-212** assigned to sixth: `pnpm
+install` in `~/projects/bay-w2` (W2 blocked on BB-201) + verify node_
+modules in bay-w1/w3/qa; (6) bay-data without node_modules is fine while
+read-only.
 
 ## PDR-2 — PRODUCT DECISION REQUIRED: GR-012 walk-away doc-vs-behavior
 
