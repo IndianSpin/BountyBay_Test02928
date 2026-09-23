@@ -93,9 +93,43 @@ bounds, eventRefs ⊆ timeline seqs). Full non-db suite 226 passed.
 - No canonical spec change made beyond docs/20; no DECISION_LOG change.
 - NOT continuing to IN-3 — awaiting founder sign-off.
 
+## D-10 REVIEW — W2-02 handoff statement (2026-09-23, commit 782e1d8)
+
+**Verdict: CONFIRMED — no rejections.** The statement matches everything
+I verified at takeover; notes below.
+
+- **In-package items (types/features/observations/curate):** confirmed —
+  I read all four modules at baseline f1e8c99 and re-ran the suite
+  (34/34 green in my worktree). Minor record discrepancy: the statement
+  says 28 intelligence tests at baseline; my verified run on the same
+  commit counted 34 across the same 4 test files. Green either way —
+  likely counted before final baseline test additions; flagging for
+  record accuracy, not contesting the handoff.
+- **Persistence / API / web integration (migration, persistAnalysis,
+  loadAnalysis, backfill-analysis.ts, review route, review page):**
+  outside my ownership and not re-verified end-to-end by me. The parts I
+  did inspect match the statement: command-service persists analysis
+  atomically at terminal state and the review route is participant-only /
+  terminal-only / caller-scoped with moments + curationVersion. The 56
+  db+api tests and the migration I take on the statement; the manager
+  verifies merges independently per the IQ standing rules.
+- **Partial / deferred items:** all match what I saw — opponentRating
+  null until P1-M2 (field comment in types.ts), VERIFIED_INFORMATION_USE
+  / AGREEMENT_AFTER_VERIFIED_REVEAL marked NEEDS DEFINITION in docs/20
+  (GR-028/DD-M3/M4 dependency), thresholds as code constants with
+  version strings (DEFAULT_THRESHOLDS), unreciprocated-concession family
+  synthetic-tested only (code comment says live matches always alternate
+  — fires when hold/async mechanics ship).
+- **No duplication:** my IN-2 additions (timeline + envelope) build on
+  the handed-over curation layer; nothing from IN-1 was recreated
+  (D-10 holds).
+- The 6 eslint errors I fixed at takeover were unused imports/params in
+  that code — cleanup, not a functional gap; consistent with the
+  statement's "complete" claim.
+
 ## BLOCKERS
-- W2-02 handoff statement still owed by worker-2 (not blocking; D-10).
-- W1-03 API timeline wiring: scheduled after W1-01/W1-02 (D-11).
+- None for worker-3. W2-02 reviewed and confirmed (above).
+- W1-03 API timeline wiring: scheduled after W1-01/W1-02 (D-11) — not mine.
 
 ## PRODUCT ASSUMPTIONS
 - Timeline excludes plumbing events (MATCH_STARTED/PLAYER_READY/pause/
