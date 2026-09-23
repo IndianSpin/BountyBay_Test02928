@@ -71,7 +71,6 @@ export default function ChatPanel({
     setFaded(false);
     const timer = setTimeout(() => setFaded(true), BUBBLE_FADE_MS);
     return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastKey]);
 
   function send(text?: string): void {
