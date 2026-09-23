@@ -88,6 +88,8 @@ describe.skipIf(!RUN)('Dossier serialization isolation (PostgreSQL)', () => {
       payload: { commandId: randomUUID() },
     });
     expect(joined.statusCode).toBe(200);
+    const joinerRole = (joined.json() as { role: 'BUYER' | 'SELLER' }).role;
+    expect(joinerRole).not.toBe(createdBody.role);
     for (const account of [buyer, seller]) {
       const ready = await app.inject({
         method: 'POST',
@@ -98,23 +100,26 @@ describe.skipIf(!RUN)('Dossier serialization isolation (PostgreSQL)', () => {
       expect(ready.statusCode).toBe(200);
     }
 
-    // Snapshot: buyer sees buyer facts; the seller's dossier is absent
-    // from the RAW bytes (penetration test, not parsed-field test).
-    const buyerSnapshot = await app.inject({ method: 'GET', url: `/v1/matches/${createdBody.matchId}`, headers: auth(buyer.token) });
-    expect(buyerSnapshot.statusCode).toBe(200);
-    const buyerRaw = String(buyerSnapshot.body);
-    for (const fact of buyerFacts) expect(buyerRaw).toContain(fact.text);
-    expect(buyerRaw).toContain(buyerContext);
-    for (const fact of sellerFacts) expect(buyerRaw).not.toContain(fact.text);
-    expect(buyerRaw).not.toContain(sellerContext);
+    // Raw-payload penetration proof, ROLE-AWARE: expectations derive from
+    // the ACTUAL assigned role of each account (creator = createdBody.role,
+    // joiner = the opposite). Both accounts are checked, so the test covers
+    // both role draws deterministically regardless of the random draw.
+    const factsFor = (role: 'BUYER' | 'SELLER'): RowFact[] => (role === 'BUYER' ? buyerFacts : sellerFacts);
+    const contextFor = (role: 'BUYER' | 'SELLER'): string => (role === 'BUYER' ? buyerContext : sellerContext);
+    const otherRole = (role: 'BUYER' | 'SELLER'): 'BUYER' | 'SELLER' => (role === 'BUYER' ? 'SELLER' : 'BUYER');
 
-    // Mirror direction: seller's snapshot carries only the seller dossier.
-    const sellerSnapshot = await app.inject({ method: 'GET', url: `/v1/matches/${createdBody.matchId}`, headers: auth(seller.token) });
-    expect(sellerSnapshot.statusCode).toBe(200);
-    const sellerRaw = String(sellerSnapshot.body);
-    for (const fact of sellerFacts) expect(sellerRaw).toContain(fact.text);
-    for (const fact of buyerFacts) expect(sellerRaw).not.toContain(fact.text);
-    expect(sellerRaw).not.toContain(buyerContext);
+    const roleOf = (account: Account): 'BUYER' | 'SELLER' => (account.userId === buyer.userId ? createdBody.role : joinerRole);
+
+    for (const account of [buyer, seller]) {
+      const role = roleOf(account);
+      const snapshot = await app.inject({ method: 'GET', url: `/v1/matches/${createdBody.matchId}`, headers: auth(account.token) });
+      expect(snapshot.statusCode).toBe(200);
+      const raw = String(snapshot.body);
+      for (const fact of factsFor(role)) expect(raw).toContain(fact.text);
+      expect(raw).toContain(contextFor(role));
+      for (const fact of factsFor(otherRole(role))) expect(raw).not.toContain(fact.text);
+      expect(raw).not.toContain(contextFor(otherRole(role)));
+    }
 
     // The AI-match route serves the same role-scoped shape.
     const ai = await signin('dev_dossier_ai');
