@@ -24,7 +24,18 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — GR-007 flake fix (manager-routed, pre-golden-baseline) — READY FOR REVIEW
+## CURRENT TASK — STANDING DOWN (manager: queue empty)
+
+GR-007 flake fix ACCEPTED and merged (56f9141; bounded retry, no
+sleep-masking, diagnostics preserved). Canvas-checkpoint:155 left as-is
+per the manager (capture-gated). Worker-1 queue is empty. DD-M3
+(verified reveals) still waits on the founder's DD-M2 sign-off
+(DEC-026 phase gate) — the manager presents at the next batch. Awaiting
+the next assignment; no work in flight.
+
+### GR-007 flake fix — ACCEPTED and merged (56f9141)
+
+## OLD CURRENT TASK — GR-007 flake fix (manager-routed, pre-golden-baseline) — READY FOR REVIEW
 
 Flake: the direct-API helper in friend-match.spec.ts (GR-007 test)
 read `/v1/me/active-match` once with no retry — in full-file sequence
