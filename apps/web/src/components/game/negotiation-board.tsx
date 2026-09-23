@@ -17,6 +17,7 @@ import ChatPanel from './chat-panel';
 import ChipMeter from './chip-meter';
 import ClockMultiplier from './clock-multiplier';
 import ConfidentialPosition from './confidential-position';
+import Dossier from './dossier';
 import GapMeter from './gap-meter';
 import MatchActions from './match-actions';
 import OfferComposer, { type ComposerModel } from './offer-composer';
@@ -203,6 +204,18 @@ export default function NegotiationBoard(props: {
             testId="my-standing"
           />
         </div>
+        {/* BB-213: W1's private dossier (DD-M2) wired into the private zone.
+            Role-scoped by the API — only the viewer's own dossier renders. */}
+        {scenario !== null && (
+          <div className="lm-dossier">
+            <Dossier
+              sharedContext={scenario.sharedContext}
+              privateContext={scenario.myPrivateContext}
+              facts={scenario.myPrivateFacts}
+              role={view.myRole}
+            />
+          </div>
+        )}
       </section>
 
       {/* ZONE 3 · action: the composer and the ONE seal */}

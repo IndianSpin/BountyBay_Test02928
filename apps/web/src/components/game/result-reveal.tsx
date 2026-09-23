@@ -33,7 +33,6 @@ export default function ResultReveal({
   matchId: string;
 }) {
   const view = snapshot.view;
-  const me = view.participants.find((p) => p.playerId === userId)!;
   const opponent = view.participants.find((p) => p.playerId !== userId)!;
   const ai = snapshot.aiOpponents[0] ?? null;
   const deal = view.status === 'DEAL';
