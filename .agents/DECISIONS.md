@@ -431,3 +431,17 @@ BB-204) and BB-219b (result-screen rematch UI — W2, after BB-216).
 
 ## PDR-1 — RESOLVED: Negotiation-agent architecture approved as direction (DEC-030)
 
+
+## D-28 — BB-218 ACCEPTED; QA-005 folded into BB-216 (2026-09-23)
+
+QA's founder-state probe confirmed the item-10 diagnosis: the offer
+plate lets an illegal beyond-mandate amount be composed with SEAL OFFER
+staying ENABLED (advisory-only warning in the cost strip); tap → 400
+OUTSIDE_RESERVATION_VALUE → generic alert; turn unchanged; input keeps
+the value. Rendering confirmed correct ("116,500" is a true grouped
+value — no tenths bug; the seal button echoing raw ungrouped input
+"SEAL OFFER 116500" is a minor INFO folded into BB-216). QA-002
+verified resolved by BB-214 (typecheck 0 on main). Ruling: QA-005's
+fix (CTA neutralization — disable/auto-correct illegal amounts like
+the duplicate-offer case + grouped seal label) rides with W2's BB-216
+composition redesign; no separate task.
