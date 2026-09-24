@@ -955,3 +955,19 @@ tag order, release id, zero RV leakage confirmed. Release-gate item
 "basic analytics confirmed": READY (hosted-truth = Postgres per
 BB-246 note). BB-248's feedback_submitted waits on its route, as
 designed.
+
+## D-72 — BB-245 ACCEPTED (2026-09-24)
+
+Clerk integration merged: auth.protect() on /play /profile /replay /
+review /bay when keys enabled (landing + sign-in/up public); verified
+identity everywhere (networkless verifyClerkToken; no client-supplied
+ids trusted; socket user:register validated against the verified
+subject; factory refuses production boot without the JWT key); socket
+handshake refuses dev-minted tokens under Clerk config; one Player row
+per Clerk sub + handle-choice form (server-side format/uniqueness;
+assignment never client-trusted) — profile-client.tsx touch
+grandfathered with flag, W2 review at leisure; dev-auth production
+lockout pinned incl. playwright env pinning; secrets audit clean.
+Gate: tc 0, unit 301, lint 0, db 94, strict E2E 2× 28. REMAINING for
+the auth gate: live Clerk end-to-end verification on the preview/
+alpha deploy — needs the deploy keys (founder access item).
