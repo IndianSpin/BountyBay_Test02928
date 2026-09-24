@@ -53,6 +53,10 @@ export default defineConfig({
         PORT: String(WEB_PORT),
         NEXT_PUBLIC_API_URL: API_URL,
         NEXT_PUBLIC_BB_ENV: 'e2e',
+        // BB-245: the E2E stack always runs dev-mode auth regardless of any
+        // local .env.local Clerk keys (process env wins over .env files).
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: '',
+        CLERK_SECRET_KEY: '',
       },
     },
   ],

@@ -24,7 +24,57 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — BB-251 + BB-253 — READY FOR REVIEW; then BB-245 (Clerk, alpha)
+## CURRENT TASK — BB-245 (Clerk integration, D-64 external alpha) — READY FOR REVIEW
+
+Completed against the founder's 10 requirements + the manager's
+remaining-scope list:
+
+1. **Proxy auth.protect()** — apps/web/src/proxy.ts: with Clerk keys
+   enabled, /play, /profile, /replay, /review, /bay call
+   `auth.protect()` (routes are public by default per the CLI note);
+   the title/landing + /sign-in + /sign-up stay public (the
+   unauthenticated entry path). Without keys the pass-through is
+   unchanged (dev/E2E unaffected).
+2. **Verified identity only** — the adapter's Clerk path
+   (verifyClerkToken, networkless, jwtKey) was already the identity
+   source; audited every API route + socket path: no client-supplied
+   ids trusted anywhere (the socket's user:register claimed id is
+   validated against the verified subject). Garbage-token rejection
+   covered by adapters.test.ts.
+3. **Socket.IO Clerk handshake** — verification is adapter-driven; new
+   realtime test: an app built with the Clerk adapter refuses a
+   dev-minted token at the handshake (connect_error) — no second trust
+   path.
+4. **One Player record + handle choice** — ensureUserBySubject maps the
+   Clerk sub to exactly one row (existing); profile-client.tsx now has
+   a handle form posting /v1/me/handle (format/uniqueness enforced
+   server-side; assignment never client-trusted). OWNERSHIP NOTE: the
+   profile page is a shared web file — small additive UI, flag if you
+   want it routed to W2.
+5. **Dev-auth production lockout** — existing hasRoute test (route
+   unregistered in production) + adapter factory refuses to boot in
+   production without CLERK_JWT_PUBLIC_KEY. Playwright webServer env
+   now pins NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='' + CLERK_SECRET_KEY=''
+   so the E2E stack stays dev-mode even if a local .env.local appears.
+6. **Secrets audit** — the only NEXT_PUBLIC_ vars in code are the
+   publishable key, the API URL, and BB_ENV/BB_RELEASE tags; the
+   secret key is server-side only. Nothing committed (keys are
+   gitignored .env.local, never printed).
+
+Deployment env checklist (preview/Vercel+Railway, per
+DEPLOY_RUNBOOK_ALPHA1.md): web needs NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
++ CLERK_SECRET_KEY (proxy); API needs CLERK_JWT_PUBLIC_KEY (refuses to
+boot in production without it) + CORS_ORIGIN/SOCKET_CORS_ORIGINS =
+the Vercel origin.
+
+Evidence: `pnpm typecheck` — 9/9 exit 0. `pnpm test` — 301 passed /
+81 skipped. `pnpm test:db` (isolated E2E DB, seeded without overrides;
+restored after) — 17 files, 94 tests passed. Strict E2E 2× (3100/4100)
+— 28 passed / 1 canvas-gated skip each. `pnpm lint` — exit 0.
+
+### BB-250/251/253 — ACCEPTED and merged (48d489a); QA-009 closed.
+
+## OLD CURRENT TASK — BB-251 + BB-253 — READY FOR REVIEW; then BB-245 (Clerk, alpha)
 
 ### BB-251 (BB-247 alpha gaps) — done
 Server-side funnel signals per .agents/data/BB-247-ALPHA-GAP.md:
