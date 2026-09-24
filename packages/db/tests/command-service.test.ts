@@ -7,7 +7,7 @@
  * Plus SI-004: idempotency and race handling.
  */
 
-import { makeEconomyConfig } from '@bounty-bay/config';
+import { DEFAULT_ECONOMY_CONFIG, makeEconomyConfig } from '@bounty-bay/config';
 import { replayMatch, type CreateMatchInput, type DomainEvent } from '@bounty-bay/domain';
 import { randomUUID } from 'node:crypto';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -19,7 +19,7 @@ import { Prisma, type PrismaClient } from '../src/generated/prisma/client';
 const RUN = process.env.RUN_DB_TESTS === '1';
 const DATABASE_URL = process.env.TEST_DATABASE_URL ?? 'postgresql://bounty:bounty@localhost:5433/bounty_bay';
 
-const CONFIG_VERSION = 'economy-0.2.0';
+const CONFIG_VERSION = DEFAULT_ECONOMY_CONFIG.version; // follows the product default (DEC-031 #3: economy-0.3.0)
 const SCENARIO_ID = '00000000-0000-4000-8000-000000000001'; // seed: Harbor Tug
 const SCENARIO_VERSION = 1;
 

@@ -158,7 +158,7 @@ describe('feature engine: no-deal outcomes', () => {
   });
 
   it('timeout: TIMED_OUT completion is classified', () => {
-    const config = makeEconomyConfig(); // economy-0.2.0: hard limit 90s
+    const config = makeEconomyConfig({ hardDecisionTimeLimitMs: 90_000 }); // pinned 90s limit — the product default moved (DEC-031 #3)
     const match = play(
       (commit, api) => {
         readyBoth(commit);
@@ -234,7 +234,7 @@ describe('feature engine: versioning + determinism', () => {
       commit({ kind: 'WALK_AWAY', playerId: BUYER_ID, now: START_NOW + 1000 });
     });
     const buyer = featuresOf(match, BUYER_ID);
-    expect(buyer.economyConfigVersion).toBe('economy-0.2.0');
+    expect(buyer.economyConfigVersion).toBe('economy-0.3.0');
     expect(buyer.gameRulesVersion).toBe('game-rules-0.1.0');
     expect(buyer.scenarioVersion).toBe(1);
     expect(buyer.role).toBe('BUYER');

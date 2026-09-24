@@ -64,9 +64,11 @@ async function main(): Promise<void> {
     },
   });
 
-  // Legacy row: values immutable; clear the active flag so new matches use 0.2.0.
+  // Legacy rows: values immutable; clear their active flags so new matches
+  // use the DEFAULT_ECONOMY_CONFIG version (economy-0.1.0, economy-0.2.0,
+  // … — every row except the current default).
   await prisma.gameBalanceConfig.updateMany({
-    where: { version: 'economy-0.1.0' },
+    where: { version: { not: c.version } },
     data: { activeForNewMatches: false },
   });
   await prisma.gameBalanceConfig.updateMany({

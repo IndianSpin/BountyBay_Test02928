@@ -70,8 +70,11 @@ describe('REVEAL (DD-M3, GR-028)', () => {
   });
 
   it('is subject to the GR-023 hard decision-time guard (TIMED_OUT after the limit)', () => {
+    // Pin an explicit 90s limit — the guard behavior must not drift with
+    // the product default (DEC-031 #3 moved it to 420s).
+    const pinned = makeEconomyConfig({ hardDecisionTimeLimitMs: 90_000, timeWarningLowMs: 30_000, timeWarningCriticalMs: 10_000 });
     // Buyer reveals at t=0 (legal), handing the turn to the seller.
-    const { state, config } = startedMatch({}, makeEconomyConfig(), 0);
+    const { state, config } = startedMatch({}, pinned, 0);
     const afterBuyer = mustOk(applyCommand(state, revealCmd(BUYER_ID, 'fact-b1', 0), config)).state;
     // The seller's turn started at 0; the guard fires once elapsed >= limit.
     const expired = mustFail(applyCommand(afterBuyer, revealCmd(SELLER_ID, 'fact-s1', 90_000), config));

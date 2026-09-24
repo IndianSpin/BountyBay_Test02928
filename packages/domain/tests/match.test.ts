@@ -66,7 +66,7 @@ describe('GR-001/GR-002 factory validation', () => {
     const state = create();
     expect(state.firstPlayerId).toBe(BUYER_ID);
     expect(state.gameRulesVersion).toBe('game-rules-0.1.0');
-    expect(state.economyConfigVersion).toBe('economy-0.2.0');
+    expect(state.economyConfigVersion).toBe('economy-0.3.0');
     for (const p of state.participants) {
       expect(p.initialChipBudget).toBe(100);
       expect(p.chipsSpent).toBe(0);

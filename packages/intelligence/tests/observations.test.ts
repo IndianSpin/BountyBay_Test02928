@@ -84,7 +84,7 @@ describe('observation engine', () => {
   });
 
   it('timeout fires TIMEOUT plus failed-ZOPA and missed-offer on the timed-out player', () => {
-    const config = makeEconomyConfig();
+    const config = makeEconomyConfig({ hardDecisionTimeLimitMs: 90_000 }); // pinned 90s limit — the product default moved (DEC-031 #3)
     const match = play(
       (commit, api) => {
         readyBoth(commit);
