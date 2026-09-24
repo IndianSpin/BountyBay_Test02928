@@ -1,6 +1,6 @@
 # Bounty Bay design canvas — export
 
-Exported from the claude.ai Design canvas "Bounty Bay — Product Design v2" (refreshed 2026-09-24: 40 pages, 293 boards on the canvas; 272 current boards here — superseded ones moved out, see below).
+Exported from the claude.ai Design canvas "Bounty Bay — Product Design v2" (refreshed 2026-09-24: 45 pages, 307 boards on the canvas; 286 current boards here — superseded ones moved out, see below).
 
 > **Status: design reference, NOT canonical.** `AGENTS.md` source-of-truth order still applies: `docs/` wins over anything here. Where this folder and `docs/` disagree, stop and report — do not infer intent. Visual/frontend guidance is governed by `docs/09_UI_DESIGN_SYSTEM.md`.
 
@@ -8,6 +8,7 @@ Exported from the claude.ai Design canvas "Bounty Bay — Product Design v2" (re
 
 | # | Pages / boards | What it is | Target visuals |
 |---|---|---|---|
+| 0 | **SH0–SH4** (`SH-*`) — **awaiting founder review** | Game shell / player journey proposal: The Bay → choose battle → matchmaking → intro → live table with chess clock → result → rematch → back to The Bay, one player (BOB) and one match (THE RUBY COMPASS vs KESTREL) throughout. Includes Bay IA, battle-selection hierarchy, navigation model, chess-clock spec and 20 PRODUCT DECISIONS REQUIRED. **Not approved — do not implement yet.** | `renders/SH-*.jpg` |
 | 1 | **PV0–PV4** (`PV-*`) | PvP product vision (founder direction, D-48): thesis, loop, information boundary, attention per state, communication, live sequence, showdown, juice ladder, swap sides, rivalry. Experience/flow direction — **not new game rules**. | `renders/PV-*.jpg` |
 | 2 | **OS** (`OS-*`) | Opening / title screen. | `renders/OS-*.jpg` |
 | 3 | **C2** (`GO2-*`) | GoldenOtter v4 — the approved character quality benchmark. | `renders/GO2-*.jpg` |
@@ -55,6 +56,35 @@ Boards are mockups, not production components. They need the canvas runtime (not
 - All items listed under "Open decisions" in `motion-spec.md` are PRODUCT DECISIONS, not rules.
 
 ## Pages and boards
+
+### SH0 · Game shell: journey, rules check, decisions
+
+- `boards/SH-Journey.dc.html` — SH0 · Journey at a glance · render: `renders/SH-Journey.jpg`
+- `boards/SH-RulesCheck.dc.html` — SH0 · Rules check — brief vs docs · render: `renders/SH-RulesCheck.jpg`
+- `boards/SH-Decisions.dc.html` — SH0 · 10 — Product decisions required (20) · render: `renders/SH-Decisions.jpg`
+
+### SH1 · Desktop journey storyboard
+
+- `boards/SH-Desk-1.dc.html` — SH1 · 1 — Desktop 01–09 · render: `renders/SH-Desk-1.jpg`
+- `boards/SH-Desk-2.dc.html` — SH1 · 1 — Desktop 10–16 · render: `renders/SH-Desk-2.jpg`
+
+### SH2 · Mobile journey storyboard
+
+- `boards/SH-Mob-1.dc.html` — SH2 · 2 — Mobile 01–08 · render: `renders/SH-Mob-1.jpg`
+- `boards/SH-Mob-2.dc.html` — SH2 · 2 — Mobile 09–16 · render: `renders/SH-Mob-2.jpg`
+
+### SH3 · The Bay IA, battle selection, navigation
+
+- `boards/SH-BayIA.dc.html` — SH3 · 3 — Information architecture of The Bay · render: `renders/SH-BayIA.jpg`
+- `boards/SH-Battle.dc.html` — SH3 · 4 — Battle-selection hierarchy · render: `renders/SH-Battle.jpg`
+- `boards/SH-Nav.dc.html` — SH3 · 9 — Navigation model · render: `renders/SH-Nav.jpg`
+
+### SH4 · Intro, chess clock, attention, result → rematch
+
+- `boards/SH-Intro.dc.html` — SH4 · 5 — Match-intro choreography · render: `renders/SH-Intro.jpg`
+- `boards/SH-Clock.dc.html` — SH4 · 6 — Chess-clock interaction · render: `renders/SH-Clock.jpg`
+- `boards/SH-Attention.dc.html` — SH4 · 7 — Live-match attention hierarchy · render: `renders/SH-Attention.jpg`
+- `boards/SH-Result.dc.html` — SH4 · 8 — Result and rematch transition · render: `renders/SH-Result.jpg`
 
 ### PV0 · PvP thesis, rules check, decisions
 
