@@ -299,6 +299,9 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
     const scenarioRow = await prisma.scenario.findFirst({ where: { id: row.scenarioId, version: row.scenarioVersion } });
     const scenario = scenarioRow ? scenarioForRole(scenarioRow, meRow.role) : null;
     const serverNow = Date.now();
+    // DA-P1 §3.3: at-most-once per (match, player) per process (the
+    // emitter dedupes); success path only.
+    options.analytics?.emit('result_viewed', { matchId, playerId: request.userId! });
     return {
       view: viewMatchFor(snapshot.state, request.userId!, serverNow, snapshot.config),
       economyConfig: snapshot.config,

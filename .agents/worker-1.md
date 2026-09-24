@@ -24,48 +24,53 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — BB-222 + BB-223 — READY FOR REVIEW (single checkpoint)
+## CURRENT TASK — BB-229 (DA-P1 api, W1 half of DA-P1-SPEC.md) — READY FOR REVIEW
 
-### BB-222 (QA-006) — done, with a second root cause found and fixed
-1. Cap raised: dev-signin 30→300/min (app.ts). Production-proof test
-   added to routes.test.ts: `hasRoute` false when NODE_ENV=production
-   even with exposeDevAuth (the route registration is the structural
-   fail-closed gate; the cap is dev-only by construction).
-2. **Second root cause (the true GR-007 flake): identity divergence
-   from a double sign-in.** Instrumented the GR-007 evaluate diagnostic
-   (token user id + page path). Evidence from a failing run: HTTP 200,
-   valid token, activeMatch null — the evaluate's token user
-   (`dev-37894dce…`) was minted in the SAME millisecond as the match's
-   joiner and had zero participant rows, while both offers were
-   committed by the real participants. Cause: two concurrent
-   `ensureDevIdentity` calls (dev fast-refresh remount racing the first
-   sign-in) both observed empty storage, both signed in, and whichever
-   `setItem` landed last won localStorage while the page's in-memory
-   token state held the other → the page played as one identity while
-   the evaluate read a stranger identity. Fix (OWNERSHIP FLAG:
-   apps/web/src/lib/dev-auth.ts is outside my listed web slices —
-   small dev-only fix, flag for the manager/W2): single-flight
-   in-flight dedup in ensureDevIdentity — concurrent callers share one
-   sign-in; divergence impossible; also reduces suite signin volume.
-   Proof: friend-match file 8/8 green (was ~50% failure); full strict
-   suite 2× green (16 passed / 1 canvas-gated skip, 0 signin 429s).
+Implemented per the spec exactly (§4 is W2's, untouched):
+- §1 tags: analytics.ts `DeploymentTags` + `createAnalyticsEmitter(sink?,
+  tags?)` stamps environment/release/service after analytics_event,
+  before emitted_at (defaults development/local); app.ts
+  `BuildAppOptions.deployment?/logger?` + `resolveEnvironment()`
+  (BB_ENV → NODE_ENV production → development) + emitter moved up next
+  to `const auth` (single instance, closed over by all routes);
+  `/health` += environment/release; server.ts logger flag
+  (production or ENABLE_JSON_LOGS=1) + unhandledRejection/
+  uncaughtException handlers; playwright.config.ts webServer envs
+  BB_ENV=e2e / NEXT_PUBLIC_BB_ENV=e2e; root .env.example += 4 names.
+- §2 error contract: `setErrorHandler` — unhandled route errors only
+  (Zod 400s/domain 4xx/404 untouched); logs err + userId + matchId +
+  tags; sanitized 500 body `{code: 'INTERNAL_ERROR', message: 'internal
+  server error'}` (no error.message echo, docs/10). The two realtime.ts
+  catch-fixes applied verbatim (disconnect-freeze, heartbeat).
+  timeout-scheduler console.error unchanged per spec.
+- §3 events: signup_completed (dev-signin route + requireAuth,
+  `created`-gated — exactly once per human, bots impossible);
+  handle_created (POST /v1/me/handle + dev-signin setHandle paths);
+  result_viewed (analytics.ts second dedup set seenResults on
+  matchId|playerId; match-routes GET result success path only);
+  analyticsEventSchema enum += rematch_clicked/play_again_clicked/
+  client_exception + meta + client_environment/client_release, emit
+  spreads all through. AnalyticsEventName union extended accordingly.
 
-### BB-223 (QA-007) — done
-insights-api.spec.ts subjects now unique per run (uuid suffix).
-Acceptance: spec green 2× against the deliberately dirty e2e DB
-(second run inherits the first run's residue). Audited rematch-api +
-dossier-api: all assertions relative to fresh match ids — residue-safe.
+Tests: `analytics.test.ts` (pure: tag order/defaults, result_viewed
+dedup, tier dedup) + `da-p1.test.ts` (DB: /health tags; sanitized 500 +
+404 untouched; signup exactly-once incl. both call sites; handle_created
+×2; result_viewed dedup over two GETs; client event passthrough + enum
+rejection). stdout captured via vi.spyOn per test.
 
-### Evidence (this checkpoint)
+Evidence:
 - `pnpm typecheck` — all 9 packages exit 0.
-- `pnpm test` — 251 passed / 62 skipped.
-- `TEST_DATABASE_URL=…bounty_bay_e2e pnpm test:db` (E2E DB seeded
-  without overrides; restored after) — 13 files, 71 tests passed
-  (incl. new production-gate test).
-- Strict E2E suite (3100/4100) 2× — 16 passed / 1 skipped each, 0
-  signin 429s. friend-match.spec.ts additionally 8/8 across two loops.
-- Lint: my files clean; remaining failures are pre-existing
-  `.agents/qa/tools/*` (not mine).
+- `pnpm test` — 268 passed / 68 skipped.
+- `TEST_DATABASE_URL=…bounty_bay_e2e pnpm test:db` (seeded without
+  overrides; restored after) — 15 files, 81 tests passed (incl. da-p1
+  6/6, analytics 4/4).
+- Strict E2E suite (3100/4100) — 19 passed / 1 canvas-gated skip.
+- `pnpm lint` — exit 0, repo-wide.
+
+### BB-222/BB-223 — ACCEPTED and merged (c83d126); dev-auth.ts fix
+grandfathered, file stays W2-owned going forward (D-41). Golden
+baseline re-cut: golden-baseline-2 (tag). BB-226 (DD-M3) branches from
+golden-baseline-2 after BB-229.
 
 ### GR-007 flake fix — ACCEPTED and merged (56f9141)
 
