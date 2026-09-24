@@ -844,3 +844,21 @@ apps/api/src/rematch-routes.ts (W1's file) — grandfathered with flag;
 W1 review requested. Deviations recorded: SWAP SIDES = PDR-14 (UI
 accepts as-is), rating block absent (P1-M2), 12s window decorative
 (proposals persist — window PDR open).
+
+## D-64 — EXTERNAL ALPHA directive (2026-09-24): priority shift
+
+Founder directive: real volunteer testers are available. Milestone
+**ALPHA-1**: a real person opens a URL, creates an account, enters
+The Bay, plays a complete match, and we can observe it. **No product
+scope expansion until this works.** All non-alpha roadmap work
+(DD-M4/M5/M6/M7, IN-7/8, P1-M2..M9 extras, PV-Swap/Rivalry, SH slots)
+is PAUSED until the alpha release gate passes. Hosted architecture
+per directive: Vercel (Next) + Railway (Fastify+Socket.IO, Postgres,
+Redis). Auth = complete the EXISTING Clerk integration (no second
+provider; 10 requirements in the directive). Release gate per the
+directive's list. Tasking: BB-244 (W2, P0 UI regression root-cause +
+fix), BB-245 (W1, Clerk integration), BB-246 (sixth, deployment
+runbook + env matrix), BB-247 (Data, alpha analytics verification),
+BB-248 (feedback capture, W1 api + W2 ui after P0), BB-249 (QA,
+hosted realtime matrix + release-gate passes). BB-243 (suite stall)
+continues — it feeds release confidence.
