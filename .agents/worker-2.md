@@ -31,7 +31,17 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — BB-232 composition overflow fix — READY FOR REVIEW
+## CURRENT TASK — BB-234 PV live-match rebuild + BB-235 — READY FOR REVIEW
+Branch `w2-pv-livematch`, tip `aa775a9`. PV-Seq/Attention/Comms/Juice/
+Mobile implemented: opponent card staging, rail-end plaques + trails,
+MY MAX · SEALED vault card, warm-close from public data, quick-line
+poses, percentage pose alignment (fixed-600px bug gone), PV mobile
+sheet. BB-235 folded in (GREYLOT sheet). Gates: typecheck 0, unit 280,
+lint clean, E2E 19/19, canvas green. Captures in screenshots/current/
+(L-012). BB-230 complete+green, awaiting its acceptance slot.
+BB-232 founder verdict still pending.
+
+## DONE — BB-232 composition overflow fix — MERGED (D-50)
 Branch `w2-fit-composition`, tip `e876271`. Dossier disclosure +
 mobile re-fit + PV-Mobile state-adaptive action zone; world-level fit
 assertions in canvas-checkpoint. Measured: mobile 844/844 (was +368),
