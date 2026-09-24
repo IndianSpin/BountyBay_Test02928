@@ -24,14 +24,48 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — STANDING DOWN (manager: queue empty)
+## CURRENT TASK — BB-222 + BB-223 — READY FOR REVIEW (single checkpoint)
 
-GR-007 flake fix ACCEPTED and merged (56f9141; bounded retry, no
-sleep-masking, diagnostics preserved). Canvas-checkpoint:155 left as-is
-per the manager (capture-gated). Worker-1 queue is empty. DD-M3
-(verified reveals) still waits on the founder's DD-M2 sign-off
-(DEC-026 phase gate) — the manager presents at the next batch. Awaiting
-the next assignment; no work in flight.
+### BB-222 (QA-006) — done, with a second root cause found and fixed
+1. Cap raised: dev-signin 30→300/min (app.ts). Production-proof test
+   added to routes.test.ts: `hasRoute` false when NODE_ENV=production
+   even with exposeDevAuth (the route registration is the structural
+   fail-closed gate; the cap is dev-only by construction).
+2. **Second root cause (the true GR-007 flake): identity divergence
+   from a double sign-in.** Instrumented the GR-007 evaluate diagnostic
+   (token user id + page path). Evidence from a failing run: HTTP 200,
+   valid token, activeMatch null — the evaluate's token user
+   (`dev-37894dce…`) was minted in the SAME millisecond as the match's
+   joiner and had zero participant rows, while both offers were
+   committed by the real participants. Cause: two concurrent
+   `ensureDevIdentity` calls (dev fast-refresh remount racing the first
+   sign-in) both observed empty storage, both signed in, and whichever
+   `setItem` landed last won localStorage while the page's in-memory
+   token state held the other → the page played as one identity while
+   the evaluate read a stranger identity. Fix (OWNERSHIP FLAG:
+   apps/web/src/lib/dev-auth.ts is outside my listed web slices —
+   small dev-only fix, flag for the manager/W2): single-flight
+   in-flight dedup in ensureDevIdentity — concurrent callers share one
+   sign-in; divergence impossible; also reduces suite signin volume.
+   Proof: friend-match file 8/8 green (was ~50% failure); full strict
+   suite 2× green (16 passed / 1 canvas-gated skip, 0 signin 429s).
+
+### BB-223 (QA-007) — done
+insights-api.spec.ts subjects now unique per run (uuid suffix).
+Acceptance: spec green 2× against the deliberately dirty e2e DB
+(second run inherits the first run's residue). Audited rematch-api +
+dossier-api: all assertions relative to fresh match ids — residue-safe.
+
+### Evidence (this checkpoint)
+- `pnpm typecheck` — all 9 packages exit 0.
+- `pnpm test` — 251 passed / 62 skipped.
+- `TEST_DATABASE_URL=…bounty_bay_e2e pnpm test:db` (E2E DB seeded
+  without overrides; restored after) — 13 files, 71 tests passed
+  (incl. new production-gate test).
+- Strict E2E suite (3100/4100) 2× — 16 passed / 1 skipped each, 0
+  signin 429s. friend-match.spec.ts additionally 8/8 across two loops.
+- Lint: my files clean; remaining failures are pre-existing
+  `.agents/qa/tools/*` (not mine).
 
 ### GR-007 flake fix — ACCEPTED and merged (56f9141)
 
@@ -238,8 +272,10 @@ always include the web typecheck.
   `myPrivateFacts` with the role-scoping note.
 
 ## NEXT STEP
-Await the next manager assignment (queue empty; DD-M3 gated on the
-founder's DD-M2 checkpoint per DEC-026).
+Await verdict on BB-222/BB-223. Next queue (D-36/inbox): BB-229 (DA-P1
+api task per .agents/data/DA-P1-SPEC.md — unblocked by the manager)
+then BB-226 (DD-M3 verified information, GR-028 — branches from
+golden-baseline-1 once cut).
 
 ## PRODUCT ASSUMPTIONS
 - Rematch proposals are deleted on decline/cancel — no audit record is

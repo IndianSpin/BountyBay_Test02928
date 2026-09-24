@@ -20,8 +20,11 @@ test('insights: a completed friend match feeds the caller’s longitudinal profi
   const authOf = (token: string) => ({ authorization: `Bearer ${token}` });
   const cmd = () => ({ commandId: crypto.randomUUID() });
 
-  const buyer = await signin('e2e_insights_buyer');
-  const seller = await signin('e2e_insights_seller');
+  // QA-007: unique subjects per run — fixed subjects would persist in the
+  // e2e DB across runs and break the count assertions on a dirty DB.
+  const runId = crypto.randomUUID().slice(0, 8);
+  const buyer = await signin(`e2e_insights_buyer_${runId}`);
+  const seller = await signin(`e2e_insights_seller_${runId}`);
 
   // No completed matches yet → the empty state, not an error.
   const before = await api.get('/v1/me/insights', { headers: authOf(buyer.token) });

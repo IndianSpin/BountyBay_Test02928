@@ -57,6 +57,18 @@ describe.skipIf(!RUN)('API routes (PostgreSQL)', () => {
     expect(res.json().message).toContain('bot subjects');
   });
 
+  it('dev sign-in is never registered in production, even when exposeDevAuth is true (QA-006)', async () => {
+    const saved = process.env.NODE_ENV;
+    process.env.NODE_ENV = 'production';
+    try {
+      const prodApp = await buildApp({ auth: dev, prisma: createPrismaClient(DATABASE_URL), exposeDevAuth: true });
+      expect(prodApp.hasRoute({ method: 'POST', url: '/v1/auth/dev/signin' })).toBe(false);
+      await prodApp.close();
+    } finally {
+      process.env.NODE_ENV = saved;
+    }
+  });
+
   it('a bot user can never authenticate, even with a validly signed token (DEC-025)', async () => {
     const token = dev.signToken('bot:closer');
     const res = await app.inject({ method: 'GET', url: '/v1/me', headers: { authorization: `Bearer ${token}` } });
