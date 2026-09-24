@@ -393,3 +393,11 @@ Gate: golden-check result 76/76 both viewports; E2E result set 15/15
 friend-match two-browser test — the known environmental family, for
 QA triage); web unit 4/4; both typechecks 0; lint clean. API 4000
 restarted on the merged main (the coordinated restart is done).
+
+---
+
+UPDATE: **BB-266 ACCEPTED — merged (D-89)**. All three items landed;
+the join-route cap was a real gap (grandfathered W2 API endpoint with
+the W1-review flag noted). Profile row stays YELLOW until QA re-walks.
+Standing down — G-3/G-4 resume when the design session lands the
+final golden pages.
