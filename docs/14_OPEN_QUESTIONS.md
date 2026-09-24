@@ -181,3 +181,16 @@ input and validates structured output.
 IN-8/§33 of docs/18. Open: consent posture for using player data in
 observational research datasets; de-identification and exclusion
 workflows. No research publication workflow until separately requested.
+
+## OQ-029 — Rating division names
+"Merchant" names in SH3 are placeholders. Open until the rating system
+(P1-M2) names real divisions.
+
+## OQ-030 — The Bay future slots (SH3)
+Rival challenges · Today's Deal · Monthly Bounty · Live Tables — slots
+on The Bay only (DEC-031 #6). Each needs a PRODUCT HYPOTHESIS before
+any build.
+
+## OQ-031 — Character selection field
+Human portrait choice (DEC-031 #5) ships when the character-selection
+field lands; default GoldenOtter meanwhile.

@@ -423,3 +423,43 @@ product. The deeper agent — deterministic strategic engine + opponent
 modelling + tactical repertoire + LLM actor — is core IP, and keeping the
 decision layer deterministic keeps strategy measurable, testable, and
 domain-validated.
+
+## DEC-031 — SH0-SH4 player journey review: manager rulings (2026-09-24)
+
+Founder delivered the complete player journey (SH0-SH4) and stopped for
+review with six open points. Rulings:
+
+1. **At 0:00 — keep the rules as they are.** Timeout = no-deal,
+   attributed, zero bounty for both (GR-023/GR-024). Neither
+   auto-accepting the last offer nor sudden-death is adopted: both
+   would let a stalled player convert the opponent's generosity into a
+   deal, and both weaken the decision-time budget's meaning. SH4's "no
+   frame reaches 0:00" is correct — the threat, not the outcome, is
+   the design.
+2. **HOLD — confirmed as SH4 draws it.** No HOLD button. Holding your
+   number = talking while your own clock runs (GR-007 + GR-013,
+   consistent with docs/17). A formal pass would be a free stall.
+3. **Clock — adopt 7:00 as the V1 default, with a scaled decay
+   window.** New active config row `economy-0.3.0`: hardDecision-
+   TimeLimitMs 420,000, clockFloorMs 120,000 (decay window scales with
+   the clock so players don't sit at the 30% floor for six minutes).
+   All values provisional/configurable (OQ-015..017); E2E override
+   seeds unchanged. Implementation: BB-238 (W1).
+4. **Ready checks — one confirm, as drawn.** TAKE YOUR SEAT; joining
+   the queue counts as the first confirmation. UF-02 is updated to the
+   single-confirm flow (manager-applied).
+5. **Player avatars — SH's drawing wins.** D-45 ("humans are Golden
+   Otter") is amended: GoldenOtter remains the DEFAULT human avatar,
+   but humans get a portrait choice so opponents are visually distinct
+   — the registry built in BB-225 is the seam; BOB's Pip Quill
+   portrait in SH is the drawn example. Character selection UI ships
+   when the field lands (queued, not scheduled).
+6. **The Bay slots — slots only.** Rating divisions (Merchant names
+   are placeholders), rival challenges, Today's Deal, Monthly Bounty,
+   Live Tables: registered in docs/14 as open questions with their SH
+   board pointers. NOT scheduled; each needs a PRODUCT HYPOTHESIS
+   before building (D-16).
+
+Reason: the journey is adopted as the canonical product frame; each
+ruling keeps the domain rules authoritative, the interface honest, and
+the unbuilt features hypothesis-gated.
