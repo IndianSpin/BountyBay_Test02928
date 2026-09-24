@@ -24,7 +24,20 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — BB-238 (clock ruling DEC-031 #3) — READY FOR REVIEW
+## CURRENT TASK — STANDING DOWN (manager: queue empty)
+
+BB-238 ACCEPTED and merged (40b1eca, D-62): economy-0.3.0 live — 7:00
+hard decision-time limit + 120s decay window per DEC-031 #3. The
+strict-suite entry-flow flag was triaged to QA as BB-243
+(BB-221-pattern instrumentation); QA names the poisoning spec, fix
+owner follows (not me yet). No work in flight; awaiting the next
+assignment.
+
+### BB-238 — ACCEPTED and merged (40b1eca, D-62).
+
+### BB-226 — ACCEPTED and merged (3ff2766).
+
+## OLD CURRENT TASK — BB-238 (clock ruling DEC-031 #3) — READY FOR REVIEW
 
 economy-0.3.0: hardDecisionTimeLimitMs 420,000 (7:00) + clockFloorMs
 120,000 (scaled decay window — players don't sit at the 30% floor for
@@ -399,10 +412,10 @@ always include the web typecheck.
   `myPrivateFacts` with the role-scoping note.
 
 ## NEXT STEP
-Await verdict on BB-222/BB-223. Next queue (D-36/inbox): BB-229 (DA-P1
-api task per .agents/data/DA-P1-SPEC.md — unblocked by the manager)
-then BB-226 (DD-M3 verified information, GR-028 — branches from
-golden-baseline-1 once cut).
+Await the next manager assignment (queue empty). The strict-suite
+entry-flow flake is QA's BB-243; if the fix lands on me, the shared E2E
+helpers stay W2-owned — coordinate any helper edits through the
+manager.
 
 ## PRODUCT ASSUMPTIONS
 - Rematch proposals are deleted on decline/cancel — no audit record is
