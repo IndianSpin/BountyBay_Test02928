@@ -746,3 +746,14 @@ QA-008 — dev-build clipping is the documented dev-auth banner
 verification ran against pre-BB-234 main; the PV rebuild supersedes
 the captured composition — the composition spec will be re-pointed
 when QA next verifies.
+
+## D-55 — QA re-check verdict + QA-005/008 (2026-09-24)
+
+Full report merged: composition spec 2/2 PASS (all controls inside the
+production frame both viewports; dossier disclosure + adaptive sheet
+correct; crossed/deal states complete). QA-005 RESOLVED (seal
+neutralization verified live; bb-218 spec re-pinned). QA-008 LOW,
+dev-only: the 32px in-flow dev-auth banner pushes dev builds slightly
+below the fold — triaged to BB-236 (render the banner as a fixed
+overlay so founder screenshot reviews see the production frame; owner
+W2, small). Turbopack font flake = environment, no action.
