@@ -807,3 +807,13 @@ CHALLENGE SOMEONE / PRACTICE). Gate: tc 0, unit 301, lint 0, E2E
 22/22 (worker-run). Coordination note routed: W2 updated the shared
 createChallenge helpers in W1's spec files (one commit, bodies
 untouched) — W1 notified. Captures: screenshots/current/bay-*.png.
+
+## D-61 — BB-242 merged (2026-09-24)
+
+Manifest-driven sprite animation merged: live-match characters animate
+at 12 fps (idle/think/speak/offer/react mapped to pose-system key
+states; one-shots honor holdLast; viewport-correct stepping;
+reduced-motion = static pose; manifest cached once — future clip
+updates need zero code). accept/nodeal/rematch/concede staged for
+BB-239's result sequence. Gate: tc 0, unit 301, lint 0, E2E 11/11.
+TD-4 CLOSED (assets + integration both landed).
