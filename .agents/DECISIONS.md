@@ -944,3 +944,14 @@ exit. Exit = both journeys GREEN + no P0 + 7:00 clock correct +
 meaningful table talk + review/rematch/play-again/profile work +
 desktop/mobile QA → GOLDEN BASELINE → features resume. Alpha deploy
 work continues as infrastructure (not features).
+
+## D-71 — BB-251 formally ACCEPTED (2026-09-24)
+
+Data's live verification: all nine alpha funnel signals emitting with
+exact fields and no dupes; the headline AI-practice match_started +
+match_completed proven on a real engine-driven match (the
+previously-invisible first-alpha path now observable); bay_viewed,
+tag order, release id, zero RV leakage confirmed. Release-gate item
+"basic analytics confirmed": READY (hosted-truth = Postgres per
+BB-246 note). BB-248's feedback_submitted waits on its route, as
+designed.

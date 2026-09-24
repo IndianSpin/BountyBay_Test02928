@@ -147,6 +147,22 @@ W1 implements right after per manager. Alpha observation path note
 for BB-246: BB_ENV=production + BB_RELEASE=<sha> must be set by the
 deploy; stream = Railway log capture, truth = hosted Postgres.
 
+### STATUS — BB-251 VERIFICATION COMPLETE (2026-09-24) — REPORTED TO MANAGER
+
+D-70 stabilization pass on main `644ff28`: report
+`.agents/data/BB-251-VERIFICATION.md` (UNCOMMITTED — manager pickup).
+Diff conformance PASS; my typecheck clean + 301 unit passed; live
+end-to-end verified every new signal with exact counts: friend flow
+(challenge_created → challenge_joined → match_started → match_completed
+→ result_viewed ×1) AND the headline fix — **AI-practice engine
+completion now emits match_started (mode AI) + match_completed
+(ACCEPTED, full fields)** — the previously-invisible first-alpha path.
+bay_viewed accepted (200). Privacy: 0 RV occurrences. No defects
+found → recommend formal ACCEPT. Scope boundaries stated: BB-253
+security not re-verified; web BB-230 call-site browser check remains
+QA-adjacent; feedback_submitted waits on BB-248's route (name
+reserved, correct).
+
 ## BLOCKERS
 - None. (Old DATA-01 blockers resolved: worktree/branch exist; D-37
   settled the ownership split.)
