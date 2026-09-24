@@ -619,3 +619,31 @@ review requested: confirm the mapping (or reassign). One-commit
 registry edit either way. Also flagged: asset-export request —
 GREYLOT needs the v3 heron pose set (only a v1-era portrait exists);
 the six cast sheets are v2-era art, v3 files upgrade in place.
+
+## D-44 — BB-229 merged (formal ACCEPT after Data §5)
+
+DA-P1 api half merged. Manager gate: tc 0 · unit 268 · lint 0 ·
+analytics+da-p1 10/10 (manager-run). Data runs §5 verification on main
+(emitted-line inspection, privacy check) — formal ACCEPT recorded on
+its report.
+
+## D-45 — PDR-5 RESOLVED by founder (2026-09-24)
+
+Founder CONFIRMED W2's persona→character mapping as shipped (anchor=
+GREYLOT, grinder=HOGSHEAD, wall=OLD MOSSBACK, mirror=PIP QUILL,
+closer=GOLDENOTTER; VESPERINE/ZIPPA await future personas; humans stay
+GoldenOtter). No registry edit. Asset-export request stands (GREYLOT v3
+heron poses; six cast sheets v3 upgrades — founder-shipped when ready).
+
+## D-46 — BB-216 mobile/desktop overflow defect (sixth's probe)
+
+Sixth measured (live probe, report-only): the approved BB-216
+composition overflows both reference viewports — mobile 390x844 is
+~46% taller than viewport with ALL action controls below the fold and
+clipped by .lm-world overflow:hidden; desktop 1440x900 slices the
+bottom strip ~90px. QA's earlier 390px PASS was pre-redesign (stale).
+Severity: HIGH (founder-visible; mobile interaction compromised).
+Triage: BB-232 for W2 — fix the composition to fit both viewports
+(protected-zone rule), BEFORE BB-230; capture-tooling adjustment
+(fullPage / taller viewport captures) folded into the same task;
+QA mobile re-check after the fix.
