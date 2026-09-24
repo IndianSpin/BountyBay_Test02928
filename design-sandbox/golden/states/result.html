@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GOLDEN · Result — deal at 74</title>
+<link rel="stylesheet" href="../golden.css">
+<style>
+/* The result is a SCENE, not a panel: the table, the deal and the person stay; the reward flies to counters. */
+.sheet { display: none; }
+.rs-char { left: 77%; bottom: 17%; height: 72%; aspect-ratio: 2 / 3; transform: translateX(-50%); }
+.rs-menu { position: absolute; left: 20px; top: 20px; width: 46px; height: 46px; border-radius: 50%; border: 3px solid var(--outline-ink);
+  background: linear-gradient(#F6CC74, var(--brand-gold)); color: var(--ink-on-gold); font-size: 22px; font-weight: 800; box-shadow: 0 4px 0 var(--brand-gold-deep); }
+.rs-hud { position: absolute; left: 50%; top: 18px; transform: translateX(-50%); display: flex; gap: 12px; align-items: center; }
+.rs-hud .counter.rating { border-color: var(--player); }
+.rs-hud .counter.rating .ico { background: radial-gradient(circle at 35% 30%, #FFD2BF, var(--player) 60%, var(--player-deep)); color: var(--ink-on-ember); }
+.rs-div { display: flex; flex-direction: column; gap: 4px; width: 210px; padding: 6px 12px; border-radius: 14px; background: rgba(16,26,32,.86); border: 2px solid var(--brand-gold); }
+.rs-div .row { display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; letter-spacing: .08em; color: var(--brand-gold); }
+
+.rs-head { position: absolute; left: 44%; top: 9.5%; transform: translateX(-50%); text-align: center; width: 640px; }
+.rs-head .kicker { color: var(--positive); }
+.rs-head h1 { margin: 2px 0 0; font-family: var(--font-world); font-weight: 800; font-size: 52px; line-height: 1.02; color: #FFF6E4; text-shadow: 0 4px 0 rgba(0,0,0,.45); }
+.rs-split { position: absolute; left: 44%; top: calc(9.5% + 136px); transform: translateX(-50%); display: flex; gap: 14px; align-items: center; }
+.rs-split .me, .rs-split .them { font-family: var(--font-world); font-weight: 800; font-size: 30px; padding: 4px 16px; border-radius: 12px; border: 3px solid var(--outline-ink); }
+.rs-split .me { background: var(--player); color: var(--ink-on-ember); }
+.rs-split .them { background: var(--opponent); color: #fff; font-size: 22px; }
+
+.rs-table { position: absolute; left: 31%; width: 34%; top: 51%; height: 120px; pointer-events: none; }
+.rs-table > * , .rs-table [data-testid] { pointer-events: auto; }
+.rs-range { position: absolute; left: 0; right: 0; top: 62px; height: 26px; border-radius: 8px; background: rgba(0,0,0,.4); border: 3px solid var(--outline-ink); overflow: hidden; }
+.rs-range .seg { position: absolute; top: 0; bottom: 0; width: 0; transition: width 1s var(--ease-out); }
+.rs-range .seg.them { left: 0; background: linear-gradient(90deg, var(--opponent-deep), var(--opponent)); }
+.rs-range .seg.me { right: 0; background: linear-gradient(90deg, var(--player), var(--player-deep)); }
+.rs-range.filled .seg.them { width: 36.6%; }
+.rs-range.filled .seg.me { width: 63.4%; }
+.rs-settle { position: absolute; left: 36.6%; top: 44px; width: 4px; height: 62px; background: #FFF; transform: translateX(-50%); box-shadow: 0 0 10px #fff; }
+.rs-settle b { position: absolute; top: 64px; left: 50%; transform: translateX(-50%); font-family: var(--font-num); font-size: 16px; color: #fff; text-shadow: 0 1px 3px #000; }
+.rs-card { position: absolute; top: -58px; width: 96px; height: 92px; border-radius: 12px; border: 3px solid var(--outline-ink); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; color: #fff; box-shadow: 0 6px 0 rgba(0,0,0,.4); transform: translateX(-50%); }
+.rs-card .kicker { font-size: 10px; }
+.rs-card .num { font-size: 36px; line-height: 1; }
+.rs-card.me { left: 100%; background: linear-gradient(#FF9A76, var(--player) 60%, var(--player-deep)); }
+.rs-card.them { left: 0; background: linear-gradient(#A68BE3, var(--opponent) 60%, var(--opponent-deep)); }
+.rs-card.tl-show { animation: g-flip .55s var(--ease-pop) both; }
+@keyframes g-flip { 0% { transform: translateX(-50%) rotateY(90deg) scale(.8); } 100% { transform: translateX(-50%) rotateY(0) scale(1); } }
+.rs-stamp { left: 36.6%; top: 18px; }
+
+.rs-ledger { position: absolute; left: 22px; top: 300px; width: 300px; padding: 14px 16px; }
+.rs-ledger h3 { margin: 0 0 6px; font-family: var(--font-world); font-weight: 800; font-size: 18px; }
+.rs-ledger .row { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-top: 1px dashed rgba(36,28,16,.25); font-size: 13px; }
+.rs-ledger .row b { font-family: var(--font-num); font-size: 16px; }
+.rs-ledger .row.net { border-top: 2px solid var(--ink-on-parchment); font-weight: 800; }
+.rs-ledger .row.net b { font-size: 22px; color: #2A7A45; }
+.rs-ledger .small { font-size: 11px; color: var(--ink-muted-on-parchment); }
+
+.rs-rematch { position: absolute; right: 22px; top: 54%; width: 290px; padding: 12px 14px; border-color: var(--opponent); }
+.rs-rematch .kicker { color: var(--opponent-deep); }
+.rs-rematch p { margin: 4px 0 0; font-weight: 700; font-size: 16px; }
+.rs-rematch .ring { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--ink-muted-on-parchment); }
+.rs-rematch .ring i { width: 26px; height: 26px; border-radius: 50%; border: 4px solid var(--brand-gold); border-right-color: #E9DCC0; }
+
+.rs-actions { position: absolute; left: 50%; bottom: 4.5%; transform: translateX(-50%); display: flex; gap: 14px; align-items: center; }
+.rs-actions .btn-gold { min-width: 300px; min-height: 68px; font-size: 24px; }
+
+.rs-promo { position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); padding: 14px 30px; border-radius: 18px; background: #2B1A12; border: 4px solid var(--brand-gold);
+  box-shadow: 0 0 0 6px rgba(217,166,83,.35), 0 0 60px 20px rgba(217,166,83,.45); text-align: center; }
+.rs-promo .kicker { color: var(--brand-gold); }
+.rs-promo div.world { font-size: 40px; color: #FFE7A6; }
+
+@media (max-width: 600px) {
+  .sheet { display: block; position: absolute; left: 0; right: 0; bottom: 0; height: 58%; background: var(--surface-world-deep); border-top: 3px solid #8A6A3A; }
+  .table-fg { height: 14%; bottom: 58%; background-image: url('../../../apps/web/public/game/table-fp-m.svg'); }
+  .rs-char { left: 69%; bottom: 58%; height: 40%; }
+  .rs-menu { left: 10px; top: 10px; width: 38px; height: 38px; font-size: 18px; }
+  .rs-hud { left: 16px; right: 16px; transform: none; top: calc(42% + 12px); justify-content: space-between; gap: 8px; }
+  .rs-hud .counter .v { font-size: 16px; } .rs-hud .counter .ico { width: 24px; height: 24px; font-size: 13px; }
+  .rs-hud [data-testid=treasury-counter], .rs-hud [data-testid=division-bar] { display: none !important; }
+  .rs-table { left: 5%; width: 60%; top: 33%; height: 80px; }
+  .rs-card.them { transform: none; left: 0; } .rs-card.me { transform: none; left: auto; right: 0; }
+  .rs-card.tl-show { animation: none; }
+  .rs-card { width: 64px; height: 64px; top: -44px; } .rs-card .num { font-size: 24px; } .rs-card .kicker { font-size: 8px; }
+  .rs-range { top: 30px; height: 20px; } .rs-settle { top: 18px; height: 44px; } .rs-settle b { top: 44px; font-size: 13px; }
+  .rs-stamp { left: 50%; top: -92px; font-size: 20px; padding: 3px 12px; border-width: 3px; }
+  .rs-head { left: 16px; right: 16px; width: auto; transform: none; top: calc(42% + 72px); text-align: left; }
+  .rs-head h1 { font-size: 30px; }
+  .rs-split { left: 16px; transform: none; top: calc(42% + 152px); }
+  .rs-split .me { font-size: 22px; } .rs-split .them { font-size: 16px; }
+  .rs-ledger { left: 16px; right: 16px; width: auto; top: auto; bottom: 146px; padding: 8px 12px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; }
+  .rs-ledger .opt2 { display: none; }
+  .rs-ledger h3 { display: none; }
+  .rs-ledger .row { font-size: 12px; padding: 3px 0; } .rs-ledger .row b { font-size: 14px; } .rs-ledger .row.net b { font-size: 16px; }
+  .rs-ledger .opt { display: none; }
+  .rs-rematch { left: 10px; right: auto; top: 10px; width: 180px; padding: 7px 9px; }
+  .rs-rematch .kicker { font-size: 9px; } .rs-rematch .ring { font-size: 10px; margin-top: 4px; } .rs-rematch .ring i { width: 18px; height: 18px; border-width: 3px; }
+  .rs-rematch p { font-size: 12px; }
+  .rs-actions { left: 16px; right: 16px; transform: none; bottom: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .rs-actions .btn-gold { grid-column: 1 / 3; grid-row: 1; min-width: 0; min-height: 58px; font-size: 20px; }
+  .rs-actions .btn-quiet { min-height: 46px; font-size: 14px; }
+  .rs-promo div.world { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+<main class="stage" data-testid="market-world">
+  <div class="scene-bg dim"></div>
+  <div class="sprite rs-char" data-testid="result-person" data-sprite="goldenotter:listen" role="img" aria-label="KESTREL as Golden Otter"></div>
+  <div class="table-fg"></div>
+  <div class="sheet"></div>
+  <button class="rs-menu" aria-label="Match menu" data-testid="match-menu">⋯</button>
+
+  <!-- reward HUD: counters the reward flies into -->
+  <div class="rs-hud" data-testid="result-hud">
+    <div class="counter" data-testid="reward-bounty-counter"><span class="ico">B</span><span><div class="l">BOUNTY THIS DEAL</div><div class="v" data-testid="bountyV">0.0</div></span></div>
+    <div class="counter rating" data-testid="rating-counter"><span class="ico">★</span><span><div class="l">BOUNTY RATING</div><div class="v" data-testid="ratingV">1,482</div></span></div>
+    <div class="counter" data-testid="treasury-counter" data-pending="treasury"><span class="pending-tag">PENDING · GE-004</span><span class="ico">⚓</span><span><div class="l">TREASURY</div><div class="v" data-testid="treasuryV">1,203.4</div></span></div>
+    <div class="rs-div" data-testid="division-bar" data-pending="divisions"><span class="pending-tag">PENDING · PDR-13</span><div class="row"><span>MERCHANT III</span><span>→ II</span></div><div class="bar"><i style="width:82%"></i></div></div>
+  </div>
+
+  <!-- the deal on the table -->
+  <div class="rs-table">
+    <div data-testid="result-limits">
+      <div class="rs-card them tl-hidden" data-testid="result-limit-theirs"><span class="kicker">HER LIMIT</span><span class="num">59</span></div>
+      <div class="rs-card me tl-hidden" data-testid="result-limit-mine"><span class="kicker">YOUR LIMIT</span><span class="num">100</span></div>
+    </div>
+    <div class="rs-range" data-testid="result-range" role="img" aria-label="Deal zone 59 to 100, settled at 74: you 63 percent, KESTREL 37 percent"><span class="seg them"></span><span class="seg me"></span></div>
+    <div class="rs-settle"><b>74</b></div>
+    <div class="stamp rs-stamp tl-hidden" data-testid="result-stamp">DEAL · 74</div>
+  </div>
+
+  <div class="rs-head tl-hidden" data-testid="result-headline"><div class="kicker">DEAL · THE RUBY COMPASS · 74</div><h1>You took 63% of the deal.</h1></div>
+  <div class="rs-split tl-hidden" data-testid="result-split"><span class="me">YOU 63%</span><span class="them">KESTREL 37%</span></div>
+
+  <section class="parch rs-ledger tl-hidden" data-testid="result-ledger">
+    <h3>The ledger</h3>
+    <div class="row"><span>Surplus captured</span><b>63%</b></div>
+    <div class="row"><span>Clock multiplier <span class="small">you · her</span></span><b>×84% · ×91%</b></div>
+    <div class="row opt"><span>Decision time used</span><b>0:27 · 0:15</b></div>
+    <div class="row"><span>Concession chips spent</span><b>12</b></div>
+    <div class="row opt2" id="grossRow"><span>Gross bounty <span class="small">100 × 63% × 84%</span></span><b>53.3</b></div>
+    <div class="row net"><span>Net result</span><b>41.3</b></div>
+    <div class="row opt"><span class="small">Rated · rating change</span><b>+18</b></div>
+  </section>
+
+  <section class="parch rs-rematch tl-hidden" data-testid="rematch-prompt">
+    <span class="kicker">KESTREL WANTS THE OTHER SIDE</span>
+    <p>“Good deal. Same compass — I buy this time?”</p>
+    <span class="ring"><i></i>offer stands 0:12 · then it becomes a letter</span>
+  </section>
+
+  <div class="rs-promo tl-hidden" data-testid="promotion-banner" data-pending="divisions"><span class="pending-tag">PENDING · PDR-13</span><div class="kicker">PROMOTED</div><div class="world">MERCHANT II</div></div>
+
+  <div class="rs-actions tl-hidden" data-testid="result-actions">
+    <button class="btn btn-quiet" data-testid="analyze-deal">Review the deal</button>
+    <button class="btn btn-gold" data-testid="rematch-button"><span class="stack">SWAP SIDES · REMATCH<span class="btn-sub">she buys · you sell · same compass</span></span></button>
+    <button class="btn btn-quiet" data-testid="back-to-bay">Back to The Bay</button>
+  </div>
+</main>
+<script src="../golden.js"></script>
+<script>Golden.boot('result');</script>
+</body>
+</html>

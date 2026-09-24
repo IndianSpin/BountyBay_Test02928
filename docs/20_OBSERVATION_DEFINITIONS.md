@@ -300,3 +300,68 @@ fall back deterministically to a fallback drill with no persona.
 against the founder-REVIEWED seed citations (a fabricated reference
 fails the build). Daily/skill drills and streaks are OUT until core
 drills prove useful (OQ-026); drill UI is later.
+
+## AI table talk (BB-254, AI_BEHAVIOR_CONTRACT)
+
+Version `table-talk-0.1.0`, deterministic, pure. One AI turn runs the
+contract's pipeline: OBSERVE (legal view only) → UPDATE BELIEFS →
+legal economic action (passed in from the persona layer, returned
+unchanged) → CHOOSE SOCIAL INTENT (probe / challenge / justify /
+request reciprocity / hold / signal finality / conditional close /
+pressure / disclose / bluff-where-permitted) → GENERATE TABLE TALK →
+RETURN CONTROL.
+
+- **Hidden information never enters:** the observation input has no
+  reservation-value fields and opponent message CONTENT is never read
+  (presence only). Fixtures reference only public match facts — both
+  players' offers are public within a live match.
+- **The language layer never makes or changes a move:** the economic
+  action arrives from the persona layer and passes through untouched;
+  domain validation stays in packages/domain.
+- **Deterministic fixture set:** 3+ fixtures per intent, selected by a
+  hash of (matchId, roundNumber, intent) — no RNG, no LLM. Bluff
+  fixtures are vague claims about resolve, never fabricated verifiable
+  facts.
+- **Non-response impossible:** generation failure (throw, timeout
+  stub, empty string) is caught and replaced by a deterministic
+  fallback line per intent, with a generic line of last resort.
+- Beliefs are coarse three-state judgments (opponent flexibility:
+  UNKNOWN/FLEXIBLE/HOLDING; time posture: UNKNOWN/PATIENT/PRESSED)
+  over legal-view observations only.
+- **Seam:** packages/ai personas are read-only for this module — the
+  caller passes the persona decision in; wiring who calls runAiTurn is
+  a manager-routed seam (flagged in worker-3.md). PRODUCT_HEALTH's
+  JOURNEY B "AI table talk" row is flipped by the manager on ACCEPT.
+
+## Post-match progress (BB-258)
+
+Version `post-match-progress-0.1.0`, deterministic, pure. Computed on
+demand after a completed (non-aborted) match from the stored IN-3
+profile inputs + IN-6 practice data — nothing persists, no schema
+change. This is the payload spec for the result screen (the UI seam is
+W2's, coordinated via the manager).
+
+**Payload** (`buildPostMatchProgress(input, practiceStore)`):
+- `profile` — the IN-3 longitudinal profile recomputed INCLUDING the
+  match just played;
+- `trainingHistory` — `matchCount`, `confidenceBand`, and the
+  `bandTransition` this match caused (FIRST_MATCH / ADVANCED / SAME);
+- `personalRecords` — best surplus capture, fastest close (crossing→
+  settlement), longest hold (longest single decision), largest single
+  concession — each as `{value, matchId}` so the UI can link the
+  record to the match that set it;
+- `skillObservations` — this match's observations mapped through the
+  practice store: drills, persona, and micro-lessons per observation
+  (magnitude included when the engine emitted one);
+- `activeTrainingGoal` — the structured coaching focus (`{topicId,
+  label}`) or null;
+- `aiMastery` — overall AI row + per-persona (anchor/grinder/closer/
+  wall/mirror): matchCount, deals, dealRate, avgSurplusCapture (deals
+  only), currentDealStreak (consecutive deals vs that persona counting
+  back from their most recent match; interleaved opponents do not
+  reset it).
+
+Guards: ABORTED current match, non-finite `endedAt`, and duplicate
+matchIds are rejected. Human-PvP matches carry `personaKey: null` and
+contribute to the profile but not to AI mastery. Every timestamp in
+the payload is input data — the module reads no clocks.

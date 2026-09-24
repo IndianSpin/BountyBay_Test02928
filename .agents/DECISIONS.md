@@ -944,3 +944,184 @@ exit. Exit = both journeys GREEN + no P0 + 7:00 clock correct +
 meaningful table talk + review/rematch/play-again/profile work +
 desktop/mobile QA → GOLDEN BASELINE → features resume. Alpha deploy
 work continues as infrastructure (not features).
+
+## D-71 — BB-251 formally ACCEPTED (2026-09-24)
+
+Data's live verification: all nine alpha funnel signals emitting with
+exact fields and no dupes; the headline AI-practice match_started +
+match_completed proven on a real engine-driven match (the
+previously-invisible first-alpha path now observable); bay_viewed,
+tag order, release id, zero RV leakage confirmed. Release-gate item
+"basic analytics confirmed": READY (hosted-truth = Postgres per
+BB-246 note). BB-248's feedback_submitted waits on its route, as
+designed.
+
+## D-72 — BB-245 ACCEPTED (2026-09-24)
+
+Clerk integration merged: auth.protect() on /play /profile /replay /
+review /bay when keys enabled (landing + sign-in/up public); verified
+identity everywhere (networkless verifyClerkToken; no client-supplied
+ids trusted; socket user:register validated against the verified
+subject; factory refuses production boot without the JWT key); socket
+handshake refuses dev-minted tokens under Clerk config; one Player row
+per Clerk sub + handle-choice form (server-side format/uniqueness;
+assignment never client-trusted) — profile-client.tsx touch
+grandfathered with flag, W2 review at leisure; dev-auth production
+lockout pinned incl. playwright env pinning; secrets audit clean.
+Gate: tc 0, unit 301, lint 0, db 94, strict E2E 2× 28. REMAINING for
+the auth gate: live Clerk end-to-end verification on the preview/
+alpha deploy — needs the deploy keys (founder access item).
+
+## D-73 — Golden Reference system directive (2026-09-24)
+
+Founder answer to the RW-* classification question: RW stays
+reference-only; instead, build the GOLDEN REFERENCE system — tooling
+that makes the VISUAL column honest (fits D-70): (1) ONE golden
+reference in the repo, in code — one page per journey state at
+1440×900 + 390×844, built with the app's own colors/fonts, real
+character art + animation sheets, fixed reference data (BOB vs
+KESTREL, deal at 74), animations on a timeline file — mockup and
+prototype at once; (2) a per-state contract as DATA (elements,
+positions, no-overlap, min sizes, forbidden, animation timeline); (3)
+a dev-only state gallery rendering any state from reference data; (4)
+a gate that can say no — opens the golden page AND the app's version
+of each state at both sizes: layout-contract hard fail on missing/
+overlap/clipped, side-by-side images on every UI change, animation
+order/timing check — runs on every frontend change; review rule: no
+screen done without its side-by-side image; (5) one source of truth:
+the golden-journey contract points at the golden reference only; the
+canvas explains why. Tasking: BB-256 (W2). Coin Master reward layer
+ships the same way when its time comes.
+
+## D-74 — BB-254 ACCEPTED; BB-255 ACCEPTED (2026-09-24)
+
+Table-talk pipeline merged (six-stage deterministic, fixtures, no
+RNG/LLM, non-response impossible, packages/ai untouched); journey
+walk merged (both journeys GREEN except the two known REDs, QA
+evidence + spec committed). Matrix updated: AI table talk = YELLOW
+(engine merged, wiring pending BB-257).
+
+## D-75 — FIRST HOSTED ALPHA DEPLOYMENT (2026-09-24)
+
+Founder milestone: deploy the current integrated main so external
+testers can use Bounty Bay. Deployment/stabilization only — no
+product features. Ten phases mapped: P1 audit + dependency map →
+sixth (BB-259, builds on BB-246's runbook); P2 environment contract
+→ sixth (verify actual repo names, no aliases); P3 Vercel → founder
+connects GitHub repo (sixth preps settings; preview first); P4
+Railway backend → founder creates project (sixth preps; sockets
+direct to Railway, CORS pinned, migrations via railway run); P5 Clerk
+hosted flow → QA after deploy; P6 public URL contract → W1 (BB-260:
+localhost/127.0.0.1 audit + classification + challenge-URL origin);
+P7 hosted Golden Journey → QA (BB-249 extended: both users, refresh,
+disconnect/reconnect, mobile + desktop); P8 observability → Data
+(BB-261: release/env/route/player/match/time/error fields; no
+secrets/private info/tokens); P9 analytics → Data (minimum set incl.
+review_opened + rematch_started — review_opened exists from IN-1);
+P10 release report → manager; STOP for founder review before any
+invite; never auto-invite.
+
+## D-76 — BB-257 ACCEPTED (2026-09-24)
+
+Table talk wired: persona decides the legal economic action ONLY
+(chatAllowed false; unexpected chat → logged + WALK_AWAY, never
+wedged); runAiTurn consumes legal-view observations (own/opponent
+offers, concession run, decision window, message PRESENCE only,
+held-last-turn, crossed) with the economic action passed through
+unchanged; talk commits before the move; restart-safe belief hash;
+fallback covers non-response. ai_turn_intent analytics line per turn
+(pseudonymous) — EVENT_CATALOG note recorded. Gate: tc 0, unit 309,
+lint 0, db 94, strict E2E 28. Matrix: table-talk row flips GREEN on
+QA's re-walk (their call).
+
+## D-77 — BB-260 ACCEPTED (2026-09-24)
+
+Phase 6 done: full localhost/127.0.0.1 audit classified (dev-only
+fallbacks documented vs deployment bugs); challenge share URLs now
+build from NEXT_PUBLIC_APP_URL with runtime-origin dev fallback; no
+localhost ships to players when configured. Deploy note: the runbook
+matrix gains NEXT_PUBLIC_APP_URL = hosted web origin (sibling of
+NEXT_PUBLIC_API_URL). Gate: tc 0, unit 309, lint 0.
+
+## D-78 — BB-258 ACCEPTED (2026-09-24)
+
+Post-match-progress-0.1.0 merged: deterministic result-screen payload
+(profile recomputed with the current match, band transitions, personal
+records with setting matchId, skill→drill/persona/lesson mappings,
+active training goal, AI mastery overall + per-persona). Guards: no
+ABORTED, no non-finite endedAt, no dup matchIds; nothing persists.
+Matrix: profile row → YELLOW (engine merged; the result-screen seam is
+W2's — BB-262 queued after BB-256).
+
+## D-79 — SCREEN-STATE & INTERACTION AUDIT (2026-09-24)
+
+Founder directive: exhaustive consumer-product map BEFORE any broad
+visual repair — no random one-by-one fixes. First deliverable (then
+STOP for founder review): (1) docs/SCREEN_STATE_REGISTRY.md (every
+user-visible state with stable IDs across all 22+ areas incl. error/
+loading/disconnect states, per the founder's field list); (2)
+docs/CTA_CONTRACTS.md (every visible control: ID, label, source,
+preconditions, action, success/failure destination, loading/disabled,
+analytics event, test, status — no consumer CTA without a contract;
+BROKEN CONTRACT stated honestly); (3) Visual Consistency Map
+(APPROVED/PARTIAL/LEGACY/DEBUG/BROKEN/UNSTYLED/MISSING DESIGN per
+state + the styling-family audit); (4) missing-design list; (5)
+duplicate/legacy implementation list; (6) Golden Journey health map;
+(7) top-15 defects by upstream impact; (8) proposed repair sequence.
+Section G harness (/dev/screens) + H screenshot regression + I design
+comparison absorb BB-256's pieces — BB-256 PAUSES; its gate re-enters
+via the repair sequence after founder review. Ownership: BB-263 (W2)
+registry/CTA/visual-map from implementation; BB-264 (QA) QA-status/
+defects/journey-health/CTA-destination verification; manager assembles
+the canonical docs + top-15 + sequence, then stops for the founder.
+
+## D-80 — AI table talk GREEN (2026-09-24)
+
+QA re-walk: a live match vs The Wall completed legally with exactly
+one persisted MESSAGE_SENT whose body is an exact PROBE fixture —
+the pipeline supplies deterministic talk, the persona owns the
+economic action, non-response impossible. Matrix row: GREEN. Journey
+B has one remaining YELLOW (profile surface, BB-262).
+
+## D-81 — Golden reference handoff scheduled (2026-09-24)
+
+Founder design session delivered design-sandbox/golden/: per-state
+golden pages (live-match/result/bay), contracts as DATA, golden-check
+CLI, reference-match fixture, and a 7-task handoff. Scheduled:
+G-1 gallery route /dev/states (dev-only, 404 in production) · G-2
+result screen to golden (replace the modal panel — the SH4 failure)
+· G-3 live match to golden · G-4 The Bay to golden — all W2, queued
+after the audit review; G-5 QA golden-check in the Journey A pass +
+side-by-sides on every UI verdict; G-6 manager repoints
+CANONICAL_CONTRACTS §2 + DESIGN_ACCEPTANCE rule + PRODUCT_HEALTH
+VISUAL derived from the checker, not judgment (the handoff correctly
+notes the current result screen violates SH4 while the matrix says
+VISUAL=G — the checker ends that optimism); G-7 extension pattern.
+Pending layers stay hidden (data-pending) until founder rules.
+
+## D-82 — Audit first deliverable assembled; STOP for founder (2026-09-24)
+
+The eight items are in place: (1) docs/SCREEN_STATE_REGISTRY.md
+(SS-01..SS-23, field-complete); (2) docs/CTA_CONTRACTS.md + QA's
+CTA_AUDIT.md — all 15 audit-target CTAs verified, NO BROKEN
+CONTRACT; (3) docs/VISUAL_CONSISTENCY_MAP.md (five styling families,
+12 live + 12 orphaned legacy selectors, MISSING DESIGN list); (4)
+missing-design list (review, replay, sign-in/up, designed profile,
+profile/training surface, challenge sheet); (5) duplicate/legacy list
+(M5 LEGACY review/replay, MIXED play hub, orphaned selectors,
+profile-client dead-path); (6) journey health map (A: GREEN except
+SH4 result VISUAL R — QA-confirmed dark scrim; B: GREEN except
+profile surface Y); (7) docs/TOP15_DEFECTS.md (7 open, 8 resolved);
+(8) proposed repair sequence: SH4 result to golden (BB-265/G-2) →
+BB-258 profile surface → BB-236 dev banner → PDR-2 → join-route cap
+watch → review nulls → mobile N cells. Per D-79: STOPPED for founder
+review — no repairs until approved.
+
+## D-83 — Repair sequence APPROVED by founder (2026-09-24)
+
+Founder: "continue with proposed repair sequence." BB-265 (G-1..G-4)
+OPENED. Order: SH4 result to golden → BB-258 profile surface (BB-262)
+→ BB-236 dev banner → PDR-2 item → join-route cap watch → review
+nulls → mobile N cells. W2 executes the frontend chain with founder
+reviews at each golden-state completion; QA attaches side-by-sides
+(G-5) once golden-check exists.

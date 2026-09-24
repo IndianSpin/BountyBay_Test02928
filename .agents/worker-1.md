@@ -24,7 +24,109 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — BB-251 + BB-253 — READY FOR REVIEW; then BB-245 (Clerk, alpha)
+## CURRENT TASK — BB-260 (Phase 6 localhost/URL audit, D-75) — READY FOR REVIEW
+
+Audit table (runtime code; tests/E2E configs excluded — those are
+dev-only by construction):
+
+| Occurrence | Class | Disposition |
+|---|---|---|
+| 10× `NEXT_PUBLIC_API_URL ?? 'http://localhost:4000'` (bay/page, profile-client, review, replay, match-screen, play/page, result-reveal, use-api-token, analytics lib, dev-auth) | Valid-development-only fallback | Left as-is; deployments set NEXT_PUBLIC_API_URL (runbook matrix) — no localhost ships to players when configured. |
+| 2× challenge share URLs `window.location.origin` (play/page.tsx resume + create paths) | Deployment bug (contract: configured hosted origin) | FIXED — share URLs now use `NEXT_PUBLIC_APP_URL` (new env, added to .env.example) with the runtime origin as the local-dev fallback only. |
+| API server bind `0.0.0.0` | Correct | — |
+| `apps/web/playwright.config.ts` + E2E specs localhost ports | Test-only | Left as-is. |
+
+No localhost URLs remain in browser runtime outside the documented
+dev-fallback pattern; the share URLs carry the hosted origin.
+
+Evidence: `pnpm --filter web typecheck` exit 0; `pnpm test` — 309
+passed / 81 skipped; `pnpm lint` exit 0; friend-match spec 3/3 (share
+URLs intact via the fallback path in E2E).
+
+### BB-257 — ACCEPTED and merged (b66b89b); table talk live.
+
+## OLD CURRENT TASK — BB-257 (table-talk wiring, AI_BEHAVIOR_CONTRACT §3) — READY FOR REVIEW
+
+Wired the merged BB-254 pipeline (packages/intelligence runAiTurn,
+table-talk-0.1.0) into AiTurnEngine.performAiTurn: the persona layer
+now decides the legal economic action ONLY (decide with chatAllowed
+false; an unexpected chat array → logged + WALK_AWAY, never wedged);
+runAiTurn receives legal-view observations (own + opponent public
+offers, concession run, opponent decision window, message PRESENCE
+only — never message content, never RVs), updates per-match beliefs
+(in-memory map, restart-safe since the talk hash derives from
+matchId/round/eventSequence), and returns the talk + intent. The talk
+commits as a MESSAGE before the economic move (same ordering as the
+old flavor-chat path); the pipeline's fallback makes non-response
+impossible. Intent observability: new `ai_turn_intent` analytics line
+per turn {matchId, playerId(bot), personaKey, intent, roundNumber}
+(pseudonymous; EVENT_CATALOG proposal in the doc list).
+observeAiTurn builds the observations from the event stream (decision
+window = latest opponent offer minus the prior event).
+
+Evidence: `pnpm typecheck` — 9/9 exit 0. `pnpm test` — 309 passed /
+81 skipped. `pnpm test:db` (isolated E2E DB, seeded without overrides;
+restored after) — 17 files, 94 tests passed (ai-match-routes 4/4,
+alpha-gap 4/4 incl. the engine-completion flow with talk in the
+stream). Strict E2E (3100/4100) — 28 passed / 1 canvas-gated skip
+(practice-vs-ai chat assertions still green with the new talk source).
+`pnpm lint` — exit 0.
+
+DOC PROPOSAL: EVENT_CATALOG += ai_turn_intent (BB-257).
+
+### BB-245 — READY FOR REVIEW as committed (054d683; awaiting verdict).
+
+## OLD CURRENT TASK — BB-245 (Clerk integration, D-64 external alpha) — READY FOR REVIEW
+
+Completed against the founder's 10 requirements + the manager's
+remaining-scope list:
+
+1. **Proxy auth.protect()** — apps/web/src/proxy.ts: with Clerk keys
+   enabled, /play, /profile, /replay, /review, /bay call
+   `auth.protect()` (routes are public by default per the CLI note);
+   the title/landing + /sign-in + /sign-up stay public (the
+   unauthenticated entry path). Without keys the pass-through is
+   unchanged (dev/E2E unaffected).
+2. **Verified identity only** — the adapter's Clerk path
+   (verifyClerkToken, networkless, jwtKey) was already the identity
+   source; audited every API route + socket path: no client-supplied
+   ids trusted anywhere (the socket's user:register claimed id is
+   validated against the verified subject). Garbage-token rejection
+   covered by adapters.test.ts.
+3. **Socket.IO Clerk handshake** — verification is adapter-driven; new
+   realtime test: an app built with the Clerk adapter refuses a
+   dev-minted token at the handshake (connect_error) — no second trust
+   path.
+4. **One Player record + handle choice** — ensureUserBySubject maps the
+   Clerk sub to exactly one row (existing); profile-client.tsx now has
+   a handle form posting /v1/me/handle (format/uniqueness enforced
+   server-side; assignment never client-trusted). OWNERSHIP NOTE: the
+   profile page is a shared web file — small additive UI, flag if you
+   want it routed to W2.
+5. **Dev-auth production lockout** — existing hasRoute test (route
+   unregistered in production) + adapter factory refuses to boot in
+   production without CLERK_JWT_PUBLIC_KEY. Playwright webServer env
+   now pins NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY='' + CLERK_SECRET_KEY=''
+   so the E2E stack stays dev-mode even if a local .env.local appears.
+6. **Secrets audit** — the only NEXT_PUBLIC_ vars in code are the
+   publishable key, the API URL, and BB_ENV/BB_RELEASE tags; the
+   secret key is server-side only. Nothing committed (keys are
+   gitignored .env.local, never printed).
+
+Deployment env checklist (preview/Vercel+Railway, per
+DEPLOY_RUNBOOK_ALPHA1.md): web needs NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
++ CLERK_SECRET_KEY (proxy); API needs CLERK_JWT_PUBLIC_KEY (refuses to
+boot in production without it) + CORS_ORIGIN/SOCKET_CORS_ORIGINS =
+the Vercel origin.
+
+Evidence: `pnpm typecheck` — 9/9 exit 0. `pnpm test` — 301 passed /
+81 skipped. `pnpm test:db` (isolated E2E DB, seeded without overrides;
+restored after) — 17 files, 94 tests passed. Strict E2E 2× (3100/4100)
+— 28 passed / 1 canvas-gated skip each. `pnpm lint` — exit 0.
+
+### BB-250/251/253 — ACCEPTED and merged (48d489a); QA-009 closed.
+
+## OLD CURRENT TASK — BB-251 + BB-253 — READY FOR REVIEW; then BB-245 (Clerk, alpha)
 
 ### BB-251 (BB-247 alpha gaps) — done
 Server-side funnel signals per .agents/data/BB-247-ALPHA-GAP.md:

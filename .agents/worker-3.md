@@ -1,10 +1,11 @@
 # Worker 3 — analytics / coaching / content infrastructure (IN track)
 
-Session: `jeremydommnich-c7` · Branch: `w3-retrieval-coach` (cut from
-`golden-baseline-2` per manager instruction) · Worktree: `~/projects/bay-w3`
-(one-time `pnpm install`; work there — the original `~/projects/bay`
-checkout is manager-only). Prior branches: `w3-intelligence` (W3-01/02),
-`w3-knowledge-base` (W3-03) — all merged.
+Session: `jeremydommnich-c7` · Branch: `w3-table-talk` (cut from main
+644ff28 — no golden baseline named; BB-254's contract files live on
+main) · Worktree: `~/projects/bay-w3` (one-time `pnpm install`; work
+there — the original `~/projects/bay` checkout is manager-only). Prior
+branches: `w3-intelligence` (W3-01/02), `w3-knowledge-base` (W3-03),
+`w3-retrieval-coach` (W3-04/05) — all merged.
 
 Update this file BEFORE starting a substantial task and AFTER each
 checkpoint. You own docs/19 and docs/20 as working specs; any change to a
@@ -20,85 +21,87 @@ REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
   (domain, config, contracts) — flag breakage in others' files, don't fix
   them silently.
 
-## CURRENT TASK — W3-05 / BB-237: IN-6 practice system
-(contract in ~/projects/bounty-control/inbox/worker-3.md; docs/18 §8;
-D-56 founder sign-off → IN-6 unblocked)
+## CURRENT TASK — W3-07 / BB-258: post-match progress payload
+(contract in ~/projects/bounty-control/inbox/worker-3.md; D-76 BB-257
+merged → dependency satisfied)
 
 **Plan (before-code contract):**
-- Objective: deterministic practice system in packages/intelligence —
-  drill schema (WHAT WOULD YOU DO?: scenario state, private info,
-  options, teaching objective, concept tags, explanation, sources,
-  optional benchmark — null until IN-8), with the
-  no-universal-answer rule enforced structurally (≥2 options, pairwise
-  distinct outcomes; the schema has no correctness field); micro-lessons
-  1–5 minutes callable from review observation types; practice
-  recommendations mapping all 26 observation types to drills + the five
-  DEC-025 personas (canonical: UNRECIPROCATED_CONCESSIONS → PLAY THE
-  WALL = persona 'wall'); starter set of 10 drills + 5 micro-lessons,
-  every one cited from the founder-REVIEWED knowledge seeds (sources
-  validated against KB citation texts).
-- Files: NEW src/drills.ts (schema + validation + stores/lookups),
-  src/drill-seeds.ts (starter drills + lessons + recommendation table);
-  index.ts exports; NEW tests/drills.test.ts + drill-seeds.test.ts;
-  docs/20 "Practice system (IN-6)" section (my lane).
-- Out of scope: daily/skill drills and streaks (OQ-026 gate), any UI
-  (drill UI later), LLM beyond the stub convention, benchmarks (IN-8 —
-  the benchmark field exists, always null in the starter set).
-- Tests (AGENTS.md): valid (every seed validates; options ≥2 with
-  distinct outcomes; minutes 1–5; tags in ontology; sources = real KB
-  citations; canonical mapping present; all 26 types covered by
-  recommendations), invalid (single-option drill rejected, duplicate
-  outcomes rejected, minutes out of range, unknown tag, fabricated
-  source, duplicate drill id, lesson >5 min), boundary (unknown
-  observation type lookup → fallback drill, empty practice plan),
-  property (deterministic lookups, validated set stable across builds).
+- Objective: engine-side computation + payload spec for the second
+  Journey B RED — deterministic post-match progress for the result
+  screen, built from the existing IN-3 profile + IN-6 practice data:
+  training history (profile matchCount + confidence band +
+  band transition), personal records (best surplus capture, fastest
+  close, longest hold, largest single concession — each with the
+  matchId they came from), skill observations (this match's
+  observations mapped to drills/persona/lessons via the practice
+  store), active training goal (coaching-state focus + label), AI
+  mastery (per-persona matches/deals/deal rate/avg surplus capture/
+  current deal streak, plus an overall AI row).
+- Files: NEW src/post-match-progress.ts (post-match-progress-0.1.0);
+  index.ts exports; NEW tests/post-match-progress.test.ts; docs/20
+  "Post-match progress (BB-258)" section = the payload spec (my lane).
+- Out of scope: the UI seam (W2's, coordinated via the manager),
+  persistence (the payload is computed on demand from stored rows —
+  no schema change), rating/cohorts (P1-M2/IN-8), any LLM.
+- Tests (AGENTS.md): valid (full payload per contract; band
+  transitions FIRST_MATCH/ADVANCED/SAME; records carry correct
+  matchIds; skill observations map through the practice store; mastery
+  rates + streaks; active goal from coaching state), invalid (aborted
+  current match, duplicate matchId, non-finite endedAt), boundary
+  (first match, human-PvP match, empty coaching state), property
+  (determinism; no clock reads — every timestamp is input data).
 
-## NEXT (after IN-6 ACCEPT)
-IN-7 improvement tracking — only after ACCEPT; stop at READY FOR
-REVIEW.
+## NEXT (after BB-258 ACCEPT)
+IN-7 improvement tracking (pull-based; founder IN-6 checkpoint +
+manager contract).
 
-## STATUS — W3-05 READY FOR REVIEW (2026-09-24)
-IN-6 practice system implemented per BB-237 / docs/18 §8. Evidence:
-92/92 intelligence tests (11 new); full non-db suite 301 passed / 73
-db-gated skipped; typecheck clean; lint clean. No schema/API/domain
-changes. NOT starting IN-7 — awaiting ACCEPT.
+## STATUS — W3-07 READY FOR REVIEW (2026-09-24)
+Post-match progress payload implemented per BB-258. Evidence: 107/107
+intelligence tests (7 new); full non-db suite 316 passed / 81 db-gated
+skipped; typecheck clean; lint clean. No schema/API/domain changes.
+NOT starting IN-7 — awaiting ACCEPT.
 
-**FOUNDER CHECKPOINT REPORT — IN-6 practice system**
-- Changed files: NEW src/drills.ts (practice-system-0.1.0: drill +
-  micro-lesson schemas, structural no-universal-answer rule — ≥2
-  options with pairwise distinct outcomes, no correctness field —
-  source validation against KB citations, lesson minutes 1–5,
-  store with drillsById / lessonsByObservation /
-  recommendForObservation / practicePlan, full 26-type recommendation
-  coverage enforced, deterministic fallback), src/drill-seeds.ts
-  (10 WHAT WOULD YOU DO drills + 5 micro-lessons + 26-row
-  recommendation table; canonical UNRECIPROCATED_CONCESSIONS → PLAY
-  THE WALL ('wall'); every source resolved via a cite() helper that
-  throws on fabricated references), index.ts; NEW tests/drills.test.ts
-  + drill-seeds.test.ts; docs/20 "Practice system (IN-6)" section (my
-  lane).
-- Behavior: drills train isolated decisions with scenario state +
-  private info + distinct-outcome options; micro-lessons 1–5 min
-  callable from review observation types; recommendations map every
-  weakness to drills + the five DEC-025 personas; daily/streaks
-  correctly absent (OQ-026 gate); benchmark field present, null until
-  IN-8; pure — no I/O, no LLM.
-- Tests: valid (store lookups, canonical mapping, full coverage,
-  seed integrity incl. schema-shape assertion that options carry only
-  id/label/outcome/teachingNote), invalid (single-option drill,
-  duplicate outcomes, unknown tag, fabricated source, benchmark
-  non-null, bad minutes, unknown drill id, missing fallback, missing
-  coverage), boundary (unknown-type fallback, empty plan, duplicate
-  collapse), property (deterministic store builds and lookups).
-- Unresolved: none blocking. Drill scenarios use Bounty Bay-flavored
-  numbers (tenths/chips) as illustrative practice states — playability
-  in the eventual drill UI is the later wiring task's concern.
+**FOUNDER CHECKPOINT REPORT — post-match progress (BB-258)**
+- Changed files: NEW src/post-match-progress.ts
+  (post-match-progress-0.1.0: buildPostMatchProgress — profile
+  recomputed including the current match; trainingHistory with band
+  transitions FIRST_MATCH/ADVANCED/SAME; personalRecords with matchIds;
+  skillObservations mapped through the practice store; activeTrainingGoal
+  from structured coaching state; aiMastery overall + per-persona with
+  deal rates, avg surplus capture, streaks), index exports; NEW
+  tests/post-match-progress.test.ts; docs/20 "Post-match progress
+  (BB-258)" section = the payload spec for the result screen (my lane).
+- Behavior: deterministic, clock-free (every timestamp is input data);
+  guards reject ABORTED current match, non-finite endedAt, duplicate
+  matchIds; human-PvP matches (personaKey null) count toward the
+  profile but not AI mastery; nothing persists — computed on demand.
+- Tests: valid (full payload, band transitions ×3, records carry the
+  right matchIds, skill observations → drills/persona/lessons, mastery
+  rates + streaks, active goal from focus), invalid (aborted, NaN,
+  duplicate id), boundary (first match, empty history, human-PvP, no
+  focus), property (determinism on identical inputs, no clock reads).
+- Unresolved / flags: (a) the UI seam is W2's — the payload spec in
+  docs/20 is what the result screen should show; surface coordination
+  goes through the manager; (b) PRODUCT_HEALTH "Profile/training
+  update" row is the manager's to flip on ACCEPT (engine now exists).
 - No canonical spec change beyond docs/20 (W3's working spec).
 
-## BLOCKERS
-- None.
-
 ## PRODUCT ASSUMPTIONS (record before building)
+- (BB-254) The module never holds hidden information: its input types
+  have no reservation-value fields, and opponent message CONTENT is
+  never read — only presence (message count). Fixtures may reference
+  only public match facts (both players' offers are public within a
+  live match).
+- (BB-254) Bluff fixtures are vague claims about resolve ("I can hold
+  this line") — never fabricated verifiable facts, never fake numbers.
+- (BB-254) The economic action is always passed IN from the persona
+  layer and returned unchanged — the language layer cannot make or
+  alter a move; domain validation stays where it is (packages/domain).
+- (BB-254) Deterministic fixture selection: index = hash(matchId,
+  roundNumber, intent) mod fixture count — same match + turn + intent
+  always yields the same line, with no RNG dependency.
+- (BB-254) Beliefs are coarse three-state judgments over legal-view
+  observations only; they never imply knowledge of the opponent's RV.
 - Seed review metadata change (DRAFT → REVIEWED, reviewed_by founder)
   does not bump record versions — claims and provenance unchanged;
   only the review fields per D-42.
@@ -125,6 +128,9 @@ changes. NOT starting IN-7 — awaiting ACCEPT.
   error).
 
 ## COMPLETED (record)
+- W3-06 AI table talk: ACCEPTED + merged (D-74, 05bff7f); six-stage
+  deterministic pipeline, matrix YELLOW pending BB-257 wiring (now
+  wired, D-76).
 - W3-01 IN-2 Game Review V1: ACCEPTED + merged (D-12); timeline API
   wiring by W1-03 (D-11).
 - W3-02 IN-3 longitudinal profile: ACCEPTED + merged (D-25, f26c7f6);
@@ -135,4 +141,7 @@ changes. NOT starting IN-7 — awaiting ACCEPT.
 - W3-04 IN-5 retrieval + coach: ACCEPTED + merged (D-47, 5f1d894);
   mappings 26/26 + deterministic composer; founder checkpoint SIGNED
   OFF (D-56).
+- W3-05 IN-6 practice system: ACCEPTED + merged (D-59, 2745924);
+  drill schema with structural no-universal-answer rule + cite() guard;
+  founder IN-6 checkpoint pending.
 

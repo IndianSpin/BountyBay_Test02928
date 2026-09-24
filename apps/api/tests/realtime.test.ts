@@ -11,7 +11,7 @@ import { io as connectSocket, type Socket as ClientSocket } from 'socket.io-clie
 import type { FastifyInstance } from 'fastify';
 import { buildApp } from '../src/app';
 import { cleanupDevUsers } from './helpers';
-import { createDevAuthAdapter } from '../src/auth/adapters';
+import { createClerkAuthAdapter, createDevAuthAdapter } from '../src/auth/adapters';
 
 const RUN = process.env.RUN_DB_TESTS === '1';
 const DATABASE_URL = process.env.TEST_DATABASE_URL ?? 'postgresql://bounty:bounty@localhost:5433/bounty_bay';
@@ -242,5 +242,38 @@ describe.skipIf(!RUN)('realtime layer (socket.io + PostgreSQL)', () => {
     } finally {
       process.env.SOCKET_CORS_ORIGINS = saved;
     }
+  });
+
+  it('rejects socket tokens the configured adapter cannot verify — Clerk handshake path (BB-245)', { timeout: 20_000 }, async () => {
+    // An app configured with the Clerk adapter must refuse dev-minted
+    // tokens at the socket handshake: verification is adapter-driven,
+    // never a second trust path (alpha requirement 6/7).
+    const clerkApp = await buildApp({
+      auth: createClerkAuthAdapter('-----BEGIN PUBLIC KEY-----\nnot-a-real-key\n-----END PUBLIC KEY-----\n'),
+      prisma: createPrismaClient(DATABASE_URL),
+      exposeDevAuth: false,
+      timeoutScheduler: null,
+    });
+    await clerkApp.listen({ port: 0, host: '127.0.0.1' });
+    const address = clerkApp.server.address() as { port: number };
+    const clerkUrl = `http://127.0.0.1:${address.port}`;
+    const signin = await app.inject({ method: 'POST', url: '/v1/auth/dev/signin', payload: { subject: 'dev_socket_clerk' } });
+    const { token } = signin.json() as { token: string };
+
+    const outcome = await new Promise<'connect_error' | 'connected'>((resolve) => {
+      const socket = connectSocket(clerkUrl, {
+        auth: { token },
+        transports: ['websocket'],
+        reconnection: false,
+        timeout: 4000,
+      });
+      socket.on('connect', () => {
+        socket.disconnect();
+        resolve('connected');
+      });
+      socket.on('connect_error', () => resolve('connect_error'));
+    });
+    expect(outcome).toBe('connect_error');
+    await clerkApp.close();
   });
 });

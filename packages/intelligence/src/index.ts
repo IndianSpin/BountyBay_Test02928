@@ -13,3 +13,5 @@ export * from './mappings';
 export * from './coach';
 export * from './drills';
 export * from './drill-seeds';
+export * from './table-talk';
+export * from './post-match-progress';
