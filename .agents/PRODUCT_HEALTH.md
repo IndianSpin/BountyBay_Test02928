@@ -33,7 +33,7 @@ Profile/training update → Play Again/Bay
 | Practice entry (Bay) | G | G | G | G | G | G |
 | Select AI persona | G | G | G | G | G | G |
 | AI match start | G | G | G | G | G | G |
-| AI table talk (per AI_BEHAVIOR_CONTRACT) | R | R | R | N | N | R (known, BB-254) |
+| AI table talk (per AI_BEHAVIOR_CONTRACT) | Y | Y | R | N | N | Y (engine merged BB-254; wiring = BB-257 W1) |
 | AI result | G | G | G | G | G | G |
 | Profile/training update | R | R | N | N | N | R (known, BB-254) |
 | Play Again / back to Bay | G | G | G | G | G | G |
@@ -57,10 +57,13 @@ Profile/training update → Play Again/Bay
   (BB-254 follow-up), observed not re-litigated.
 
 ## Current RED items (upstream-first repair order)
-1. **AI table talk** — current = static flavor lines; the founder's AI
-   acceptance standard requires OBSERVE→BELIEFS→ACTION→INTENT→TALK→
-   RETURN with a deterministic fixture set + fallback → BB-254 (W3).
+1. **AI table talk WIRING** — the six-stage pipeline is merged
+   (BB-254) but nothing calls it; wire runAiTurn into the AI turn
+   engine → BB-257 (W1). Journey row flips GREEN after QA re-walk.
 2. **Profile/training update after AI match** — nothing surfaces the
-   IN-3/IN-6 progress post-match → repair task after BB-254 (W3).
-3. Journey QA passes on integrated main (QA duty) — all N cells until
-   then.
+   IN-3/IN-6 progress post-match → BB-258 (W3, after BB-257).
+3. **Golden reference system** — the founder's per-state reference
+   pages + data contracts + gallery + gate → BB-256 (W2). Makes the
+   VISUAL column honestly verifiable.
+4. Mobile N cells (Game Review / Rematch / back-to-Bay at 390px) —
+   next QA pass.

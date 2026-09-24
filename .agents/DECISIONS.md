@@ -971,3 +971,32 @@ lockout pinned incl. playwright env pinning; secrets audit clean.
 Gate: tc 0, unit 301, lint 0, db 94, strict E2E 2× 28. REMAINING for
 the auth gate: live Clerk end-to-end verification on the preview/
 alpha deploy — needs the deploy keys (founder access item).
+
+## D-73 — Golden Reference system directive (2026-09-24)
+
+Founder answer to the RW-* classification question: RW stays
+reference-only; instead, build the GOLDEN REFERENCE system — tooling
+that makes the VISUAL column honest (fits D-70): (1) ONE golden
+reference in the repo, in code — one page per journey state at
+1440×900 + 390×844, built with the app's own colors/fonts, real
+character art + animation sheets, fixed reference data (BOB vs
+KESTREL, deal at 74), animations on a timeline file — mockup and
+prototype at once; (2) a per-state contract as DATA (elements,
+positions, no-overlap, min sizes, forbidden, animation timeline); (3)
+a dev-only state gallery rendering any state from reference data; (4)
+a gate that can say no — opens the golden page AND the app's version
+of each state at both sizes: layout-contract hard fail on missing/
+overlap/clipped, side-by-side images on every UI change, animation
+order/timing check — runs on every frontend change; review rule: no
+screen done without its side-by-side image; (5) one source of truth:
+the golden-journey contract points at the golden reference only; the
+canvas explains why. Tasking: BB-256 (W2). Coin Master reward layer
+ships the same way when its time comes.
+
+## D-74 — BB-254 ACCEPTED; BB-255 ACCEPTED (2026-09-24)
+
+Table-talk pipeline merged (six-stage deterministic, fixtures, no
+RNG/LLM, non-response impossible, packages/ai untouched); journey
+walk merged (both journeys GREEN except the two known REDs, QA
+evidence + spec committed). Matrix updated: AI table talk = YELLOW
+(engine merged, wiring pending BB-257).
