@@ -757,3 +757,9 @@ dev-only: the 32px in-flow dev-auth banner pushes dev builds slightly
 below the fold — triaged to BB-236 (render the banner as a fixed
 overlay so founder screenshot reviews see the production frame; owner
 W2, small). Turbopack font flake = environment, no action.
+
+## D-56 — IN-5 founder sign-off (2026-09-24)
+
+Founder typed "accept" for the IN-5 checkpoint (received in W3's
+session; code was already merged under D-47). IN-6 (practice system)
+unblocked → BB-237 for W3.
