@@ -194,7 +194,7 @@ export function ChallengeCreatedView({ state }: { state: GoldenState }) {
         <section className="gb-card">
           <p className="gb-k">THE INVITATION</p>
           <div className="gb-cc__share" {...beatAttrs(state, 'cc-share', 'gb-cc__share')}>
-            http://localhost:3000/play?join=2f9c…kestrel-awaits
+            http://localhost:3000/play?challenge=2f9c…kestrel-awaits
           </div>
           <p className="gb-honest" {...beatAttrs(state, 'cc-wait', 'gb-honest')}>
             Send the link — the opponent slot below stays empty until they answer.

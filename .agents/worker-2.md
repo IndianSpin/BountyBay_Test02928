@@ -276,3 +276,24 @@ Plan (founder's five points, Journey A first):
    fix (probing live mobile states for a current overflow now).
 7. Repoint CANONICAL_CONTRACTS §2 + add the review-rule line to
    DESIGN_ACCEPTANCE (flag both for manager blessing).
+
+---
+
+UPDATE: **STARTED — BB-263** (D-79; BB-256 paused at c78e0d2 — golden
+pages WIP, GATE re-enters post-review). Screen-State Registry + CTA
+Contracts + Visual Consistency Map from the actual repository into
+.agents/audit/; no repairs (founder reviews the assembled docs first).
+
+---
+
+UPDATE: **REPORTED TO MANAGER — BB-263** — the audit deliverables are
+in .agents/audit/: screen-state-registry.md (SS-01…SS-23,
+field-complete, orphan/dead-path inventory), cta-contracts.md
+(Journey A + B tables + guard rules + open gaps), visual-
+consistency-map.md (per-state status, 5 styling families,
+exact-class-token sweep of the legacy family, MISSING DESIGN list).
+Key findings: review+replay are M5 LEGACY with no illustrated board
+and no CSS module (BB-244-rule violation); play hub is MIXED;
+12 legacy selectors are the live legacy set, ~12 more are orphaned;
+sign-in/up raw-text in dev; profile-client/dev-landing/auth-status/
+resource-hud are orphans/dead-paths. No repairs made (D-79).
