@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* global process, console, window, innerWidth, innerHeight, document, getComputedStyle */
 /**
  * GOLDEN CHECK — can say "no" to a screen that does not match the design.
  *
@@ -39,10 +40,10 @@ const ONLY = arg('states', '') ? String(arg('states')).split(',') : null;
 // ------------------------------------------------------------------ playwright (the app's dev dependency)
 async function loadChromium() {
   for (const from of [path.join(REPO, 'apps/web/package.json'), path.join(REPO, 'package.json')]) {
-    try { return createRequire(from)('@playwright/test').chromium; } catch {}
-    try { return createRequire(from)('playwright').chromium; } catch {}
+    try { return createRequire(from)('@playwright/test').chromium; } catch { /* try the next location */ }
+    try { return createRequire(from)('playwright').chromium; } catch { /* try the next location */ }
   }
-  try { return (await import('playwright')).chromium; } catch {}
+  try { return (await import('playwright')).chromium; } catch { /* fall through to the error */ }
   throw new Error('Playwright not found — run `pnpm install` (apps/web has @playwright/test) and `pnpm --filter web exec playwright install chromium`.');
 }
 
