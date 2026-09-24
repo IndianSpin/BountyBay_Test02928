@@ -300,3 +300,35 @@ fall back deterministically to a fallback drill with no persona.
 against the founder-REVIEWED seed citations (a fabricated reference
 fails the build). Daily/skill drills and streaks are OUT until core
 drills prove useful (OQ-026); drill UI is later.
+
+## AI table talk (BB-254, AI_BEHAVIOR_CONTRACT)
+
+Version `table-talk-0.1.0`, deterministic, pure. One AI turn runs the
+contract's pipeline: OBSERVE (legal view only) → UPDATE BELIEFS →
+legal economic action (passed in from the persona layer, returned
+unchanged) → CHOOSE SOCIAL INTENT (probe / challenge / justify /
+request reciprocity / hold / signal finality / conditional close /
+pressure / disclose / bluff-where-permitted) → GENERATE TABLE TALK →
+RETURN CONTROL.
+
+- **Hidden information never enters:** the observation input has no
+  reservation-value fields and opponent message CONTENT is never read
+  (presence only). Fixtures reference only public match facts — both
+  players' offers are public within a live match.
+- **The language layer never makes or changes a move:** the economic
+  action arrives from the persona layer and passes through untouched;
+  domain validation stays in packages/domain.
+- **Deterministic fixture set:** 3+ fixtures per intent, selected by a
+  hash of (matchId, roundNumber, intent) — no RNG, no LLM. Bluff
+  fixtures are vague claims about resolve, never fabricated verifiable
+  facts.
+- **Non-response impossible:** generation failure (throw, timeout
+  stub, empty string) is caught and replaced by a deterministic
+  fallback line per intent, with a generic line of last resort.
+- Beliefs are coarse three-state judgments (opponent flexibility:
+  UNKNOWN/FLEXIBLE/HOLDING; time posture: UNKNOWN/PATIENT/PRESSED)
+  over legal-view observations only.
+- **Seam:** packages/ai personas are read-only for this module — the
+  caller passes the persona decision in; wiring who calls runAiTurn is
+  a manager-routed seam (flagged in worker-3.md). PRODUCT_HEALTH's
+  JOURNEY B "AI table talk" row is flipped by the manager on ACCEPT.
