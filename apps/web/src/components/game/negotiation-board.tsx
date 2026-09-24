@@ -13,6 +13,7 @@ import { formatTenthsGrouped } from '../../lib/format';
  * all state and game logic live in the container.
  */
 
+import { PERSONA_CHARACTER, castCharacter } from './character-registry';
 import ChatPanel from './chat-panel';
 import ChipMeter from './chip-meter';
 import ClockMultiplier from './clock-multiplier';
@@ -62,6 +63,10 @@ export default function NegotiationBoard(props: {
   const opponent = view.participants.find((p) => p.playerId !== view.myPlayerId)!;
   const opponentHandle = handles[opponent.playerId] ?? 'Goldenotter';
   const ai = props.snapshot.aiOpponents[0] ?? null;
+  // BB-225: the opponent's character presentation. AI personas resolve
+  // through the registry; humans are GoldenOtter until character
+  // selection exists (the registry is that seam).
+  const opponentCharacter = castCharacter(ai !== null ? (PERSONA_CHARACTER[ai.personaKey as keyof typeof PERSONA_CHARACTER] ?? 'goldenotter') : 'goldenotter');
 
   const buyer = view.participants.find((p) => p.role === 'BUYER')!;
   const seller = view.participants.find((p) => p.role === 'SELLER')!;
@@ -141,15 +146,21 @@ export default function NegotiationBoard(props: {
           stats={props.opponentStats}
           side="theirs"
         />
-        <div className={`lm-opponent ${ai ? 'lm-opponent--ai' : ''}`} aria-hidden="true">
-          {ai ? (
-            <div className="lm-opponent__portrait">
-              <img src={`/game/ai-${ai.personaKey}.svg`} alt="" />
-            </div>
-          ) : (
+        <div className={`lm-opponent lm-opponent--${opponentCharacter.kind}`} aria-hidden="true">
+          {opponentCharacter.kind === 'files' && (
             /* canvas v2 (GO2): the Closer poses ship as single SVGs; the
                key remounts a crossfade on every reaction change */
-            <img key={opponentPose} className="lm-opponent__pose" src={`/game/otter-${opponentPose}.svg`} alt="" />
+            <img key={opponentPose} className="lm-opponent__pose" src={`${opponentCharacter.src}-${opponentPose}.svg`} alt="" />
+          )}
+          {opponentCharacter.kind === 'sheet' && (
+            /* cast-v2 sheets: a cell per key state (600px grid); the
+               position transition slides between poses */
+            <div className="lm-opponent__sheet" data-pose={opponentPose} style={{ backgroundImage: `url('${opponentCharacter.src}')` }} />
+          )}
+          {opponentCharacter.kind === 'avatar' && (
+            /* single-portrait character (GREYLOT until the v3 pose set
+               is exported): static, keyed crossfade only */
+            <img key={opponentPose} className="lm-opponent__pose lm-opponent__avatar" src={opponentCharacter.src} alt="" />
           )}
         </div>
         <ChatPanel

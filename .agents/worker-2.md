@@ -31,7 +31,15 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — BB-224 opening/title screen — READY FOR REVIEW
+## CURRENT TASK — BB-225 cast pose-system — READY FOR REVIEW
+Branch `w2-cast-poses`, tip `d1e405e`. Registry of 8 characters
+(files/sheet/avatar) + persona mapping; AI opponents now front as
+cast characters; humans keep GoldenOtter (registry = selection seam).
+Gates: typecheck 0, unit 264, lint clean, cast-poses + practice +
+friend regression green. Screenshots bb225/ before+after per persona.
+Asset-export request list in the inbox. BB-230 queued after.
+
+## DONE — BB-224 opening/title screen — ACCEPTED (e9a3128, founder approved)
 Branch `w2-title-screen` (from `golden-baseline-1` + cast-v3 export),
 tip `211556b`. OS-* boards implemented (wharf + v4 otter, one PLAY
 NOW, 8-face teaser strip, desktop + mobile); PDR-4 as the named
