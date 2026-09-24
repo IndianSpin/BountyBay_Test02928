@@ -31,7 +31,16 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — BB-234 PV live-match rebuild + BB-235 — READY FOR REVIEW
+## CURRENT TASK — BB-241 The Bay hub (SH3) — READY FOR REVIEW
+Branch `w2-pv-livematch`, tip `bcfe65b`. Three hubs + shared bar
+(desktop top / mobile bottom), the Bay per SH-BayIA (one gold table,
+letters empty state, three SOON placeholder slots, practice room,
+ME card), PLAY NOW → /bay, battle hierarchy on Play. Gates: typecheck
+0, unit 301, lint clean, E2E 22/22, bay spec 2/2. Captures
+bay-{desktop,mobile}.png in current/ (L-012). W1's spec entry helpers
+migrated in one commit — flagged. BB-242 (animation) next.
+
+## DONE — BB-234 PV live-match rebuild + BB-235 — MERGED (founder-approved)
 Branch `w2-pv-livematch`, tip `aa775a9`. PV-Seq/Attention/Comms/Juice/
 Mobile implemented: opponent card staging, rail-end plaques + trails,
 MY MAX · SEALED vault card, warm-close from public data, quick-line
