@@ -181,3 +181,46 @@ order, evidence recorded with every descriptor:
 `assignedAt`/`completedAt`), `beforeAfter` entries, `repeatIssueCounts`
 — with pure transitions (assign, complete, set focus, record
 before/after, record repeat issue); never LLM chat memory.
+
+## Knowledge base (IN-4)
+
+Version `knowledge-base-0.1.0`, pure in packages/intelligence. The §4
+ontology is typed constants (9 categories, structured tag vocabulary —
+a tag may span categories, e.g. ANCHORING is both an opening tactic and
+a decision bias); records cite tags only from this vocabulary.
+
+**Record schema (§5, enforced by deterministic validation):** id,
+title, summary, ontology_tags, claim, practical_implication,
+conditions, limitations, evidence_level (A–D), source_type
+(OPEN_ACCESS_PAPER / LICENSED_MATERIAL / BIBLIOGRAPHIC_REFERENCE /
+CURATED_SUMMARY), authors, year, publication, doi/url, citation_text,
+license/access metadata, review_status (DRAFT/REVIEWED/SUPERSEDED),
+reviewed_by, created_at (explicit data — no clock reads), version.
+
+**Grade discipline (structural, not advisory):** A/B claim empirical
+support, so the source must be OPEN_ACCESS_PAPER or LICENSED_MATERIAL;
+C marks established practitioner frameworks; D marks practitioner
+heuristics or contested claims. The coaching register phrasing is fixed
+per grade: A/B "Research suggests…", C "A widely used negotiation
+framework recommends…", D "One practitioner approach is…" — always
+with the citation attached.
+
+**Provenance (mandatory):** authors + year + publication +
+citation_text on every record; doi/url optional and never invented
+(seeds carry DOIs only where confidently known). No indiscriminate book
+ingestion — books appear as bibliographic references with curated
+summaries only.
+
+**Conflicts preserved:** records sharing a tag with different claims
+are kept side by side with their conditions and limitations (exposed as
+`conflicts` on the base); the store never merges or resolves them.
+
+**Seeds:** 27 curated records (3 meta-analytic A, 11 empirical B, 12
+practitioner-framework C, 1 contested practitioner D), all `DRAFT` /
+`reviewed_by: null` pending human/founder review before IN-5 retrieval
+may cite them. One explicit conflict pair is seeded (first-offer
+anchoring vs "never open first").
+
+Observation→concept mappings (docs/18 §6) are NOT part of BB-227 scope
+(docs/16's IN-4 row lists them; the contract scopes §4–5) — recorded in
+worker-3.md for manager routing: mappings ride with IN-5 retrieval.

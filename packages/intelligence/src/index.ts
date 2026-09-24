@@ -6,3 +6,6 @@ export * from './timeline';
 export * from './review';
 export * from './profile';
 export * from './coaching-state';
+export * from './ontology';
+export * from './knowledge';
+export * from './knowledge-seeds';
