@@ -25,9 +25,18 @@ interface MeInfo {
   games?: number;
 }
 
+interface RematchLetter {
+  proposalMatchId: string;
+  sourceMatchId: string | null;
+  fromHandle: string | null;
+  scenarioTitle: string | null;
+  createdAt: string;
+}
+
 export default function BayPage() {
   const { token, ready } = useApiToken();
   const [me, setMe] = useState<MeInfo>({});
+  const [letters, setLetters] = useState<RematchLetter[]>([]);
 
   useEffect(() => {
     if (!ready || !token) return;
@@ -40,6 +49,25 @@ export default function BayPage() {
       })
       .catch(() => {
         /* the chip is garnish */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [ready, token]);
+
+  // SH4 frame 16: the sealed letters — open rematch proposals addressed
+  // to me (NOT NOW turns the in-session offer into this letter).
+  useEffect(() => {
+    if (!ready || !token) return;
+    let cancelled = false;
+    fetch(`${API_URL}/v1/me/rematch-letters`, { headers: { authorization: `Bearer ${token}` } })
+      .then((res) => (res.ok ? (res.json() as Promise<{ letters: RematchLetter[] }>) : null))
+      .then((body) => {
+        if (!body || cancelled) return;
+        setLetters(body.letters);
+      })
+      .catch(() => {
+        /* letters are best-effort */
       });
     return () => {
       cancelled = true;
@@ -70,13 +98,30 @@ export default function BayPage() {
       {/* SLOT 2 · letters — unfinished business (social) */}
       <section className="bay-slot bay-letters" aria-label="Unfinished business" data-testid="bay-letters">
         <div className="bay-slot__icon bay-slot__icon--letter" aria-hidden="true" />
-        <div className="bay-slot__copy">
-          <p className="bay-slot__k">LETTERS · UNFINISHED BUSINESS</p>
-          <p className="bay-slot__line">
-            Challenges, rematch offers and reviews land here as sealed letters.
-          </p>
-          <p className="bay-slot__honest">No sealed letters — rematch offers live on the result screen until the letter post opens.</p>
-        </div>
+        {letters.length > 0 ? (
+          <div className="bay-letters__row">
+            {letters.map((letter) => (
+              <Link
+                key={letter.proposalMatchId}
+                className="bay-letter"
+                href={`/play?resume=${letter.sourceMatchId ?? letter.proposalMatchId}`}
+                data-testid="bay-letter"
+              >
+                <span className="bay-letter__k">{letter.fromHandle ?? 'Someone'} wants a rematch</span>
+                <span className="bay-letter__line">
+                  {letter.scenarioTitle ?? 'Same table'} · sealed letter · unrated
+                </span>
+                <span className="bay-letter__answer">ANSWER</span>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="bay-slot__copy">
+            <p className="bay-slot__k">LETTERS · UNFINISHED BUSINESS</p>
+            <p className="bay-slot__line">Challenges, rematch offers and reviews land here as sealed letters.</p>
+            <p className="bay-slot__honest">No sealed letters yet — a rematch offer you set aside becomes a letter.</p>
+          </div>
+        )}
       </section>
 
       {/* SLOT 3–5 · today, this month, watch — labelled placeholders only */}

@@ -31,7 +31,17 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — BB-242 manifest-driven animation — READY FOR REVIEW
+## CURRENT TASK — BB-239 SH4 result sequence — READY FOR REVIEW
+Branch `w2-pv-livematch`, tip `47f2ea7`. The person stays in frame on
+the result (outcome clips + spoken line), the 12s offer ring, NOT NOW
+→ the Bay letter (new GET /v1/me/rematch-letters seam), ANSWER
+completes the loop; motion-spec choreography (pin slam, plaque slide,
+cross snap, concede one-shot). Gates: typecheck 0, unit 301, lint
+clean, E2E 17/17 + SH4 loop 4/4. Captures sh4-*.png in current/.
+Deviations: SWAP SIDES = PDR-14 (same-roles today), rating block =
+P1-M2, 0:12 decorative. BB-230 acceptance slot still open.
+
+## DONE — BB-242 manifest-driven animation — MERGED (D-61, TD-4 closed)
 Branch `w2-pv-livematch`, tip `ae53e7b`. 12 fps WebP clips per the
 manifest over the static poses (one-shots hold; reduced motion =
 static only; percentage stepping). Gates: typecheck 0, unit 301,

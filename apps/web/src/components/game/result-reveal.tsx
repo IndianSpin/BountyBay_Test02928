@@ -12,6 +12,8 @@
 import { useEffect, useState } from 'react';
 import { formatPercent, formatTenthsGrouped } from '../../lib/format';
 import { trackEvent } from '../../lib/analytics';
+import { PERSONA_CHARACTER, castCharacter, type CastCharacter, type CharacterPose } from './character-registry';
+import AnimatedOpponent from './sprite-player';
 import ZopaBar from '../../components/zopa-bar';
 import type { MatchSnapshot } from '../../components/game/types';
 
@@ -152,12 +154,9 @@ export default function ResultReveal({
   }
 
   async function declineRematch(): Promise<void> {
-    if (incoming === null) return;
-    await fetch(`${API_URL}/v1/matches/${incoming.matchId}/rematch/decline`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', ...authHeaders },
-      body: JSON.stringify({ commandId: crypto.randomUUID() }),
-    }).catch(() => null);
+    // SH4 frame 15: NOT NOW dismisses the in-session prompt but the
+    // proposal stands — it becomes the letter at The Bay (the proposal
+    // row persists; the letter's ANSWER re-opens this prompt).
     setIncoming(null);
   }
 
@@ -184,6 +183,18 @@ export default function ResultReveal({
   function skip(): void {
     setBeat(FINAL_BEAT);
   }
+
+  // SH4 frame 14: the deal ends, the person doesn't leave — the
+  // opponent stays in frame and speaks; the outcome drives their clip.
+  const opponentCharacter = castCharacter(
+    ai !== null ? (PERSONA_CHARACTER[ai.personaKey as keyof typeof PERSONA_CHARACTER] ?? 'goldenotter') : 'goldenotter',
+  );
+  const resultPose = deal ? 'accept' : 'nodeal';
+  const outcomeLine = deal
+    ? 'Good deal. Same compass — next time, I buy.'
+    : view.completionReason === 'TIMED_OUT'
+      ? 'The clock had its say.'
+      : 'No deal tonight. The compass will keep.';
 
   const headline = deal
     ? `YOU CAPTURED ${Math.round((myShare ?? 0) * 100)}%`
@@ -248,6 +259,11 @@ export default function ResultReveal({
           </h3>
         )}
 
+        {/* SH4: the person is still here — in frame, speaking */}
+        {beatNumber(beat, FINAL_BEAT) && (
+          <ResultPerson character={opponentCharacter} pose={incoming !== null ? 'rematch' : resultPose} line={outcomeLine} />
+        )}
+
         {/* beat 6: the ledger and the actions */}
         {beatNumber(beat, FINAL_BEAT) && (
           <div className="lm-ledger anim-rise" data-testid="result-ledger">
@@ -275,13 +291,19 @@ export default function ResultReveal({
             )}
             {friendMode && incoming !== null && (
               <div className="lm-rematch-prompt" data-testid="rematch-prompt">
-                <p>{opponentHandle} wants a rematch — same table, fresh numbers.</p>
+                {/* SH4 frame 15: the offer stands 0:12, then becomes a
+                    letter at The Bay (the proposal row persists). */}
+                <span className="lm-rematch-ring" aria-hidden="true" />
+                <p>
+                  {opponentHandle} wants a rematch — same table, fresh numbers.
+                  <span className="lm-rematch-window">offer stands 0:12 — then it becomes a letter at The Bay</span>
+                </p>
                 <div className="lm-rematch-prompt__row">
                   <button type="button" className="lm-rematch-accept" data-testid="rematch-accept" onClick={acceptRematch}>
                     Accept
                   </button>
                   <button type="button" className="lm-rematch-decline" data-testid="rematch-decline" onClick={declineRematch}>
-                    Decline
+                    Not now
                   </button>
                 </div>
               </div>
@@ -303,13 +325,13 @@ export default function ResultReveal({
               )}
               {rematchPhase === 'declined' && <p className="lm-rematch-status">The rematch is no longer open.</p>}
               <a className="lm-result-link" href={`/review/${matchId}`} data-testid="analyze-deal">
-                Analyze deal
+                Review the deal
               </a>
               <a className="lm-result-link" href={`/replay/${matchId}`} data-testid="replay-link">
                 Replay
               </a>
-              <a className="lm-result-link" href="/play">
-                Play again
+              <a className="lm-result-link" href="/bay" data-testid="back-to-bay">
+                Back to The Bay
               </a>
             </div>
           </div>
@@ -317,5 +339,30 @@ export default function ResultReveal({
       </div>
       {beat < FINAL_BEAT && <p className="lm-skip-hint">Tap to see everything at once</p>}
     </section>
+  );
+}
+
+/** SH4: the opponent in frame on the result — the static pose crop plus
+ *  the outcome clip (accept/nodeal/rematch) played over it. */
+function ResultPerson({ character, pose, line }: { character: CastCharacter; pose: string; line: string }) {
+  // the static fallback poses that exist for every character kind
+  // (the rematch sheet cell is 13 on the 15-cell sheets)
+  const staticPose: CharacterPose = pose === 'accept' ? 'smug' : 'idle';
+  const cell = pose === 'rematch' ? 13 : (character.cells[staticPose] ?? 0);
+  return (
+    <div className="lm-result-person" data-testid="result-person">
+      <div className="lm-result-person__face" aria-hidden="true">
+        {character.kind === 'files' ? (
+          <img src={`${character.src}-${staticPose}.svg`} alt="" className="lm-result-person__img" />
+        ) : (
+          <div
+            className="lm-result-person__sheet"
+            style={{ backgroundImage: `url('${character.src}')`, backgroundPositionX: `calc(((${cell} + .5) / 15 * 100%))` }}
+          />
+        )}
+        <AnimatedOpponent character={character.key} pose={pose} />
+      </div>
+      <p className="lm-result-person__line">{line}</p>
+    </div>
   );
 }

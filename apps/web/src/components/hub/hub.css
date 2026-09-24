@@ -193,6 +193,37 @@
 .bay-row { display: flex; gap: 16px; max-width: 880px; margin: 0 auto; }
 .bay-row .bay-slot { flex: 1; flex-direction: column; align-items: flex-start; margin: 0; }
 
+/* SH4 frame 16: the sealed letter — a rematch offer set aside */
+.bay-letters__row { display: flex; gap: 12px; flex-wrap: wrap; }
+.bay-letter {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px 16px;
+  min-width: 240px;
+  background: linear-gradient(160deg, #F3E7C9, #D9C69A);
+  border: 2px solid var(--brand-gold);
+  border-radius: 10px;
+  color: var(--ink-on-parchment);
+  text-decoration: none;
+  box-shadow: 0 5px 0 rgba(42,26,46,.25);
+}
+.bay-letter__k { font-family: var(--font-world); font-weight: 800; font-size: 14px; }
+.bay-letter__line { font-size: 12px; color: var(--ink-muted-on-parchment); }
+.bay-letter__answer {
+  align-self: flex-start;
+  margin-top: 4px;
+  font-family: var(--font-world);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--positive);
+  color: var(--ink-on-positive);
+  box-shadow: 0 2px 0 var(--positive-deep);
+}
+
 /* PERSONAL · the ME card */
 .bay-me {
   max-width: 880px;
