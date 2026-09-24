@@ -922,3 +922,25 @@ runbook snippet (allowRequest actively refuses disallowed browser
 origins — non-browser clients without Origin stay allowed). Gate:
 tc 0, unit 301, lint 0, alpha-gap+realtime 7/7 (manager-run). W1 next:
 BB-245 (Clerk).
+
+## D-70 — STABILIZATION MODE (2026-09-24)
+
+Founder directive: NO NEW FEATURES. Health of two complete journeys
+(A: Human PvP, B: AI Practice) is the only objective. Integrated
+Product Rule: DONE = impl + manager review + integration + tests + QA
+executes the affected Golden Journey + screenshots. Active coding
+limit: max 3 agents changing product behavior (W1 game truth/state/
+timer, W2 Golden Journey frontend, W3 AI/post-match/profile).
+PRODUCT HEALTH MATRIX (.agents/PRODUCT_HEALTH.md) is the primary
+dashboard — FUNCTIONAL / STATE CORRECTNESS / VISUAL / RESPONSIVE /
+CTA-NAVIGATION / QA × GREEN/YELLOW/RED/NOT TESTED, journey order.
+Four canonical contracts created (GAME_STATE_CONTRACT,
+GOLDEN_UI_JOURNEY, AI_BEHAVIOR_CONTRACT, CTA_ROUTE_CONTRACT). AI
+acceptance standard (OBSERVE → UPDATE BELIEFS → LEGAL ECONOMIC ACTION
+→ SOCIAL INTENT → TABLE TALK → RETURN CONTROL; deterministic fixture
+set; graceful fallback) → BB-254 (W3). Claude Design FROZEN at the
+current approved Golden Journey; no new screens/characters/modes until
+exit. Exit = both journeys GREEN + no P0 + 7:00 clock correct +
+meaningful table talk + review/rematch/play-again/profile work +
+desktop/mobile QA → GOLDEN BASELINE → features resume. Alpha deploy
+work continues as infrastructure (not features).
