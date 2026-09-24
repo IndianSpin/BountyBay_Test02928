@@ -12,6 +12,19 @@ test('The Bay renders the SH3 hub: gold table, labelled slots, practice route', 
   await page.goto('/bay');
   await expect(page.getByTestId('bay')).toBeVisible({ timeout: 20_000 });
 
+  // BB-244 guard: the route's CSS module is bundled on a COLD visit —
+  // the world background paints and no link renders the browser default.
+  const styled = await page.evaluate(() => {
+    const bay = document.querySelector('.bay');
+    const links = Array.from(document.querySelectorAll('a'));
+    return {
+      bayPainted: bay !== null && getComputedStyle(bay).backgroundImage !== 'none',
+      defaultLinks: links.filter((a) => getComputedStyle(a).color === 'rgb(0, 0, 238)').length,
+    };
+  });
+  expect(styled.bayPainted).toBe(true);
+  expect(styled.defaultLinks).toBe(0);
+
   // the hub bar: three places, one active
   await expect(page.getByTestId('hub-bar')).toBeVisible();
   await expect(page.getByTestId('hub-bay')).toBeVisible();

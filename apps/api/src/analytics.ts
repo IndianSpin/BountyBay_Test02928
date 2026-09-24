@@ -31,7 +31,8 @@ export type AnalyticsEventName =
   | 'handle_created'
   | 'rematch_clicked'
   | 'play_again_clicked'
-  | 'client_exception';
+  | 'client_exception'
+  | 'bay_viewed';
 
 export type AnalyticsFields = Record<string, string | number | boolean | null>;
 

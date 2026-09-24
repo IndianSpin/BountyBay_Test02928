@@ -31,7 +31,36 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — BB-239 SH4 result sequence — READY FOR REVIEW
+## CURRENT TASK — BB-244 P0 unstyled-render regression — READY FOR REVIEW
+Branch `w2-pv-livematch`, tip after this commit.
+
+ROOT CAUSE (evidence-first, BB-244): the /bay route rendered raw
+HTML because `apps/web/src/app/bay/page.tsx` never imported its CSS
+module (`components/hub/hub.css`). Cold-loading /bay bundles only
+globals + fonts (probe: 2 stylesheets vs 3 on /play), so the hub bar
+collapsed to `display: block`, the world gradient never painted, and
+every hub/table link fell back to the browser default
+`rgb(0, 0, 238)` — exactly the founder's collapsed nav / purple links
+/ vertical section dump. /play imports hub.css and was styled; its
+only default link was the auth-error panel's "Back to the harbor"
+(no `.home-sub a` rule in globals). The "Auth not configured" E2E
+late-suite state is the same surface: the auth-error states always
+rendered through globals — they now also get explicit link styling.
+
+THE FIX (not a redesign): (1) bay/page.tsx imports hub.css; (2) a
+globals rule styles `.home-sub a` / `.panel a`; (3) bay.spec gains a
+cold-visit styling guard (the world paints; zero default-colored
+links) so the class of bug cannot regress; (4) audited the remaining
+routes (play/title/replay/review/profile/sign-in) — all covered by
+globals or their imports. BB-252 rode along: `bay_viewed` in the API
+enum + emitter union + the client name + the Bay mount event (the
+manager named play/page.tsx; the semantic surface is bay/page.tsx —
+flagged in the report).
+
+Gates: typecheck 0 · unit 301 · lint clean · full E2E 22/22 (strict)
+· bay.spec guard 2/2.
+
+## DONE — BB-239 SH4 result sequence — READY FOR REVIEW (47f2ea7, with the choreography fold-in)
 Branch `w2-pv-livematch`, tip `47f2ea7`. The person stays in frame on
 the result (outcome clips + spoken line), the 12s offer ring, NOT NOW
 → the Bay letter (new GET /v1/me/rematch-letters seam), ANSWER
