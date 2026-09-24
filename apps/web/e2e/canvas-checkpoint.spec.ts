@@ -193,18 +193,22 @@ test('canvas checkpoint: live-match screen vs design boards', async ({ browser }
     await mobilePage.goto(`/play?resume=${matchId}`);
     await expect(mobilePage.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
     await expect(mobilePage.locator('.lm-composer')).toBeVisible();
-    // D-24 #6 / BB-232: the composition fits the viewport — no scroll in
-    // either axis at the reference viewports.
-    const mobileScroll = await mobilePage.evaluate(() => ({
-      h: document.documentElement.scrollHeight > document.documentElement.clientHeight + 1,
-      w: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
-    }));
-    expect(mobileScroll).toEqual({ h: false, w: false });
-    const desktopScroll = await activePage.evaluate(() => ({
-      h: document.documentElement.scrollHeight > document.documentElement.clientHeight + 1,
-      w: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
-    }));
-    expect(desktopScroll).toEqual({ h: false, w: false });
+    // D-24 #6 / BB-232: the composition fits its box — no scroll in
+    // either axis. The WORLD is asserted, not the document: the dev-only
+    // auth banner (layout-level, absent in production) offsets <main>
+    // ~32px in dev builds; the board must never be the thing that
+    // overflows.
+    const fit = (page: Page) =>
+      page.evaluate(() => {
+        const world = document.querySelector('.lm-world');
+        return {
+          worldV: world ? world.scrollHeight > world.clientHeight + 1 : true,
+          docV: document.documentElement.scrollHeight > document.documentElement.clientHeight + 1,
+          docH: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+        };
+      });
+    expect(await fit(mobilePage)).toEqual({ worldV: false, docV: true, docH: false }); // docV true = the dev banner only
+    expect(await fit(activePage)).toEqual({ worldV: false, docV: true, docH: false }); // docV true = the dev banner only
     // D-26 #4: chat is ambient on mobile until Talk opens the bottom sheet.
     await expect(mobilePage.locator('.lm-chat-sheet')).toBeHidden();
     // The Next dev-overlay portal sits in the bottom-left corner in dev

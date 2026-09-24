@@ -132,7 +132,12 @@ export default function NegotiationBoard(props: {
   const mineKey = `mine-${me.latestOfferTenths ?? 'none'}`;
 
   return (
-    <div className={`lm-world ${crossed ? 'lm-world--crossed' : ''} ${ai ? 'lm-world--ai' : ''}`} data-testid="market-world">
+    <div
+      className={`lm-world ${crossed ? 'lm-world--crossed' : ''} ${ai ? 'lm-world--ai' : ''} ${
+        view.myTurn && view.status === 'ACTIVE' ? 'lm-world--mine' : ''
+      }`}
+      data-testid="market-world"
+    >
       <FirstPersonScene spotOn={view.myTurn ? 'mine' : 'theirs'} crossed={crossed} />
 
       {/* the negotiated object — world decoration, not an interface object */}

@@ -609,6 +609,11 @@
 
   /* zone 3 · action band, persistent bottom interaction */
   .lm-action-zone { position: relative; z-index: 3; flex: none; display: flex; align-items: flex-end; gap: 10px; padding: 0 16px; justify-content: center; }
+  /* PV-Mobile intent: on THEIR turn the sheet shrinks to what the state
+     needs — no controls to act on, so the action zone yields the height
+     (the plaque/rail above carry the state). On MY turn the composer
+     rises with the one gold control in the thumb zone. */
+  .lm-world:not(.lm-world--mine) .lm-action-zone { display: none; }
   .lm-composer { position: relative; left: auto; bottom: auto; transform: none; padding: 9px 12px 11px; }
   .lm-composer__input { font-size: 34px; width: 4.5ch; }
   .lm-composer__cost { flex-wrap: wrap; gap: 5px 10px; font-size: 10.5px; max-width: 62vw; }
