@@ -88,7 +88,27 @@ describe('review curation', () => {
   });
 
   it('exports its version constant', () => {
-    expect(REVIEW_CURATION_VERSION).toBe('review-curation-0.1.0');
+    expect(REVIEW_CURATION_VERSION).toBe('review-curation-0.2.0');
+  });
+
+  it('fills the RESULT moment eventRefs from the terminal event when supplied (BB-267)', () => {
+    const match = play((commit, api) => {
+      readyBoth(commit);
+      commit({ kind: 'OFFER', playerId: BUYER_ID, offerId: api.offer(1), amountTenths: 500, now: START_NOW + 1000 });
+      const standing = api.offer(2);
+      commit({ kind: 'OFFER', playerId: 'seller-0001', offerId: standing, amountTenths: 600, now: START_NOW + 2000 });
+      commit({ kind: 'ACCEPT', playerId: BUYER_ID, offerId: standing, now: START_NOW + 3000 });
+    });
+    const buyer = analyzeMatch(match.state, match.events, match.config).players[BUYER_ID]!;
+    const terminal = match.events.find((e) => e.type === 'OFFER_ACCEPTED')!;
+
+    const withRef = curateReview(buyer.features, buyer.observations, terminal.sequence);
+    expect(withRef[0]!.kind).toBe('RESULT');
+    expect(withRef[0]!.eventRefs).toEqual([terminal.sequence]);
+
+    // without the parameter the RESULT moment keeps [] (backward compatible)
+    const withoutRef = curateReview(buyer.features, buyer.observations);
+    expect(withoutRef[0]!.eventRefs).toEqual([]);
   });
 
   it('types are all ObservationType and RESULT', () => {

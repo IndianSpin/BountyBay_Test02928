@@ -59,7 +59,9 @@ version.
 ## Review curation (IN-2)
 
 Deterministic selection of the 1–5 most important moments for the Game
-Review UI. Version `review-curation-0.1.0`.
+Review UI. Version `review-curation-0.2.0` (0.2.0: the RESULT moment
+carries the terminal event reference when the caller supplies it —
+BB-267).
 
 - **Moment 1 is always RESULT** — the outcome, surplus share, chips
   remaining, or the no-deal/timeout statement (docs/18 result hierarchy).
@@ -81,6 +83,21 @@ Review UI. Version `review-curation-0.1.0`.
 - **Copy is fixed per type** and built from measurements only — Level 1
   objective facts, no interpretation, no banned vocabulary (best move,
   blunder, mistake, should have, psychology).
+- **Result facts are filled from the authoritative match state (BB-267,
+  QA INFO):** the QA report named three "null" envelope fields —
+  `surplusShareBp`, `settled`, `timeUsedMs` — those names do not exist
+  in the envelope; the canonical fields are `surplusShareCaptured`
+  (settlement surplus share, DEAL only), `settlementTenths`
+  (settlement amount, DEAL only), and `totalActiveMs` (active thinking
+  time, every match). All three are computed by the feature engine
+  from the stored terminal state + event stream and are non-null
+  whenever the data exists; they are null only where the data
+  genuinely does not exist (no deal → no settlement/surplus). The
+  RESULT moment also carries `settlementTenths` +
+  `surplusShareCaptured` in its measurements for DEALs, and its
+  `eventRefs` now carry the terminal event sequence (accept / walk /
+  timeout / abort) so the result links to the timeline like every
+  other moment.
 
 ## Timeline (IN-2)
 
