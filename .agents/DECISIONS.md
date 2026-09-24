@@ -1052,3 +1052,25 @@ active training goal, AI mastery overall + per-persona). Guards: no
 ABORTED, no non-finite endedAt, no dup matchIds; nothing persists.
 Matrix: profile row → YELLOW (engine merged; the result-screen seam is
 W2's — BB-262 queued after BB-256).
+
+## D-79 — SCREEN-STATE & INTERACTION AUDIT (2026-09-24)
+
+Founder directive: exhaustive consumer-product map BEFORE any broad
+visual repair — no random one-by-one fixes. First deliverable (then
+STOP for founder review): (1) docs/SCREEN_STATE_REGISTRY.md (every
+user-visible state with stable IDs across all 22+ areas incl. error/
+loading/disconnect states, per the founder's field list); (2)
+docs/CTA_CONTRACTS.md (every visible control: ID, label, source,
+preconditions, action, success/failure destination, loading/disabled,
+analytics event, test, status — no consumer CTA without a contract;
+BROKEN CONTRACT stated honestly); (3) Visual Consistency Map
+(APPROVED/PARTIAL/LEGACY/DEBUG/BROKEN/UNSTYLED/MISSING DESIGN per
+state + the styling-family audit); (4) missing-design list; (5)
+duplicate/legacy implementation list; (6) Golden Journey health map;
+(7) top-15 defects by upstream impact; (8) proposed repair sequence.
+Section G harness (/dev/screens) + H screenshot regression + I design
+comparison absorb BB-256's pieces — BB-256 PAUSES; its gate re-enters
+via the repair sequence after founder review. Ownership: BB-263 (W2)
+registry/CTA/visual-map from implementation; BB-264 (QA) QA-status/
+defects/journey-health/CTA-destination verification; manager assembles
+the canonical docs + top-15 + sequence, then stops for the founder.
