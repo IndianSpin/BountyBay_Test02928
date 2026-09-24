@@ -1116,3 +1116,12 @@ profile surface Y); (7) docs/TOP15_DEFECTS.md (7 open, 8 resolved);
 BB-258 profile surface → BB-236 dev banner → PDR-2 → join-route cap
 watch → review nulls → mobile N cells. Per D-79: STOPPED for founder
 review — no repairs until approved.
+
+## D-83 — Repair sequence APPROVED by founder (2026-09-24)
+
+Founder: "continue with proposed repair sequence." BB-265 (G-1..G-4)
+OPENED. Order: SH4 result to golden → BB-258 profile surface (BB-262)
+→ BB-236 dev banner → PDR-2 item → join-route cap watch → review
+nulls → mobile N cells. W2 executes the frontend chain with founder
+reviews at each golden-state completion; QA attaches side-by-sides
+(G-5) once golden-check exists.
