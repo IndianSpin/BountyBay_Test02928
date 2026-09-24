@@ -1082,3 +1082,19 @@ one persisted MESSAGE_SENT whose body is an exact PROBE fixture —
 the pipeline supplies deterministic talk, the persona owns the
 economic action, non-response impossible. Matrix row: GREEN. Journey
 B has one remaining YELLOW (profile surface, BB-262).
+
+## D-81 — Golden reference handoff scheduled (2026-09-24)
+
+Founder design session delivered design-sandbox/golden/: per-state
+golden pages (live-match/result/bay), contracts as DATA, golden-check
+CLI, reference-match fixture, and a 7-task handoff. Scheduled:
+G-1 gallery route /dev/states (dev-only, 404 in production) · G-2
+result screen to golden (replace the modal panel — the SH4 failure)
+· G-3 live match to golden · G-4 The Bay to golden — all W2, queued
+after the audit review; G-5 QA golden-check in the Journey A pass +
+side-by-sides on every UI verdict; G-6 manager repoints
+CANONICAL_CONTRACTS §2 + DESIGN_ACCEPTANCE rule + PRODUCT_HEALTH
+VISUAL derived from the checker, not judgment (the handoff correctly
+notes the current result screen violates SH4 while the matrix says
+VISUAL=G — the checker ends that optimism); G-7 extension pattern.
+Pending layers stay hidden (data-pending) until founder rules.
