@@ -17,13 +17,12 @@ Target: a motivated user should be able to enter their first playable negotiatio
 
 ## UF-02 — Ranked live human
 
-1. User selects `Ranked Human`.
+1. User selects `Ranked Human` — joining the queue counts as the first confirmation (DEC-031 #4).
 2. Server enters matchmaking queue.
-3. Match found; both players confirm/readiness.
-4. Server selects scenario, roles, private RVs, first mover, balance-config version.
-5. Role reveal screen shows asset/context, role, RV, short BATNA narrative, rules summary.
-6. Both acknowledge ready.
-7. Match activates; first mover clock begins.
+3. Match found; server selects scenario, roles, private RVs, first mover, balance-config version.
+4. Role reveal screen shows asset/context, role, RV, short BATNA narrative, rules summary.
+5. Both confirm with TAKE YOUR SEAT (single confirm; DEC-031 #4).
+6. Match activates; first mover clock begins.
 8. Players alternate valid numerical offers; chat may occur anytime.
 9. Active player accepts, concedes, or walks away.
 10. Match ends.

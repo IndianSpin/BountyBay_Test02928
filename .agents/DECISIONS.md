@@ -773,3 +773,15 @@ showdown/result-sequence design set. Classification: design direction
 for the result flow (PV-Showdown expanded). NOT yet tasked — queued
 behind the founder's PV verdict; W2's reveal-UI and BB-236 remain
 first in its queue.
+
+## D-58 — SH journey rulings applied (2026-09-24)
+
+DEC-031 recorded canonically; OQ-029..031 registered; UF-02 updated to
+the single TAKE YOUR SEAT confirm (DEC-031 #4). D-45 AMENDED (DEC-031
+#5): GoldenOtter remains the DEFAULT human avatar; the SH journey's
+Pip Quill portrait for BOB is the drawn example of human portrait
+choice — the BB-225 registry is the seam; character-selection UI ships
+when the field lands (OQ-031). Clock ruling tasking: BB-238 (W1) —
+economy-0.3.0 active row (hardDecisionTimeLimitMs 420,000, clockFloorMs
+120,000, provisional per OQ-015..017; E2E overrides unchanged). SH
+showdown/result sequence: BB-239 (W2) queued after its current queue.
