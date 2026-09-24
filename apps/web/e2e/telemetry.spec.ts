@@ -8,8 +8,6 @@ import { expect, test, type Page } from '@playwright/test';
  * All assertions intercept POST /v1/analytics/event.
  */
 
-const API_URL = process.env.E2E_API_PORT ? `http://localhost:${process.env.E2E_API_PORT}` : 'http://localhost:4000';
-
 interface CapturedEvent {
   name: string;
   matchId?: string;
