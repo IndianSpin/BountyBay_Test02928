@@ -1125,3 +1125,15 @@ OPENED. Order: SH4 result to golden → BB-258 profile surface (BB-262)
 nulls → mobile N cells. W2 executes the frontend chain with founder
 reviews at each golden-state completion; QA attaches side-by-sides
 (G-5) once golden-check exists.
+
+## D-84 — BB-265 G-1+G-2 merged; lint scope ruling (2026-09-24)
+
+G-1 gallery route + G-2 SH4 result scene merged (`d2e9df7`): golden-
+check 76/76 both viewports, modal eliminated, E2E 15/15, typecheck 0.
+Lint scope ruling: design-sandbox/** (founder design tooling) excluded
+from eslint — the golden scripts are the design session's files, not
+product code. W1's mechanically-updated result assertions flagged for
+blessing. Founder review of the SH4 result is next. NOTE: the
+founder's design session is actively editing design-sandbox/golden/*
+in the manager checkout (uncommitted) — left untouched; committed on
+the founder's sync.
