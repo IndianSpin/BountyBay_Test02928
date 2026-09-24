@@ -795,3 +795,15 @@ table over the five personas, cite() helper throwing on fabricated
 references, daily/streaks correctly gated (OQ-026). Gate: tc 0, unit
 301, lint 0. W3 stands down; IN-7 (improvement tracking) waits for the
 founder's IN-6 checkpoint.
+
+## D-60 — BB-241 merged (founder review pending, 2026-09-24)
+
+The Bay per SH3 merged: three hubs + shared bar (tunnel shows no hub
+nav), one gold table with honest copy (no fabricated liquidity),
+letters slot as honest empty state, SOON placeholders with zero
+controls (OQ-030), practice room live, ME card with P1-M2 division
+slot. PLAY NOW → The Bay; SH-Battle hierarchy (PLAY A PERSON /
+CHALLENGE SOMEONE / PRACTICE). Gate: tc 0, unit 301, lint 0, E2E
+22/22 (worker-run). Coordination note routed: W2 updated the shared
+createChallenge helpers in W1's spec files (one commit, bodies
+untouched) — W1 notified. Captures: screenshots/current/bay-*.png.

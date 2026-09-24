@@ -50,3 +50,6 @@ evidence. Only ACCEPTed work merges to main. Manager gate includes
 - Analytics platform (P1-M9), founder tooling UIs, Daily Deal (gated),
   voice (DD-M5 deferred), spectators/replay (DD-M7 deferred), DA-P1
   analytics foundation (Data, unscheduled).
+
+## TD-4 UPDATE (2026-09-24)
+Assets now EXIST (founder animation export). Implementation = BB-242.
