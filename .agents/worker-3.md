@@ -68,6 +68,14 @@ db-gated skipped; typecheck clean; lint clean. No changes to
 packages/ai (personas read-only, untouched), no schema/API/domain
 changes. NOT starting IN-7 — awaiting ACCEPT.
 
+**MANAGER VERDICT: ACCEPT** — merged `05bff7f` (D-74). Gate: tc 0,
+unit 309, lint 0. Matrix row corrected by the manager: AI table talk =
+YELLOW (engine merged, wiring pending) — goes GREEN after W1's BB-257
+(AiTurnEngine is the caller — W1's domain) and QA's re-walk. Standing
+by: BB-258 (profile/training update after AI matches) is next, GATED
+on BB-257 ACCEPT — contract already in the inbox; not started until
+the dependency merges.
+
 **FOUNDER CHECKPOINT REPORT — AI table talk (BB-254)**
 - Changed files: NEW src/table-talk.ts (table-talk-0.1.0: the
   six-stage deterministic turn pipeline — OBSERVE legal-view-only
