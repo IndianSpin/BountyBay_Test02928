@@ -817,3 +817,13 @@ reduced-motion = static pose; manifest cached once — future clip
 updates need zero code). accept/nodeal/rematch/concede staged for
 BB-239's result sequence. Gate: tc 0, unit 301, lint 0, E2E 11/11.
 TD-4 CLOSED (assets + integration both landed).
+
+## D-62 — BB-238 ACCEPTED (2026-09-24)
+
+economy-0.3.0 merged: hardDecisionTimeLimitMs 420,000 (7:00),
+clockFloorMs 120,000 (DEC-031 #3). Seed now deactivates every
+non-default row; E2E overrides land on 0.3.0 unchanged. Gate: tc 0,
+unit 301, lint 0, db 86 (worker-run). NOTE: W1 flagged late-suite
+strict-E2E failures in the shared post-BB-241 entry flow (pages on the
+TITLE screen with the dev-auth notice at positions 19-26; standalone
+green) — triaged to BB-243 (QA instrumentation), not BB-238.
