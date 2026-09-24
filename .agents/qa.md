@@ -95,8 +95,13 @@ one per failing test at positions 15–17). QA-006 (HIGH) + QA-007
 (insights fixed-subject pollution, LOW) in `BUGS.md` with fix options
 and owners. Evidence + instrumented API committed. Environment restored
 per L-010. Fixes assigned to W1 (BB-222 dev-signin cap in dev only, BB-223 unique
-subjects); L-011 logged. **Standing down** — next QA work only on
-manager inbox pull.
+subjects); L-011 logged.
+
+**BB-232 mobile re-check ACCEPTED (D-55, merged):** composition verified
+clean on 390×844 + 1440×900 (spec 2/2 PASS, permanent coverage); QA-008
+(LOW, dev-build-only banner/overlay clipping) triaged to BB-236 (W2);
+QA-005 formally RESOLVED (D-28 verified live). **Standing down** — next
+QA work only on manager inbox pull.
 
 Verified clean on current main: unit 226/47sk, DB+API 56/56, E2E 9/9,
 adversarial battery 27/27 P0 PASS, browser-surface leak scan clean,
