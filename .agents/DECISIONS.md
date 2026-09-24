@@ -647,3 +647,14 @@ Triage: BB-232 for W2 — fix the composition to fit both viewports
 (protected-zone rule), BEFORE BB-230; capture-tooling adjustment
 (fullPage / taller viewport captures) folded into the same task;
 QA mobile re-check after the fix.
+
+## D-47 — IN-5 ACCEPTED (2026-09-24)
+
+BB-231 merged: seeds founder-REVIEWED, observation-concept-mappings
+0.1.0 (26/26 coverage, weights/conditions, deterministic lookup),
+coaching-composer 0.1.0 (L1-L4 per field, grade register, deterministic
+selection, free-form REJECTED, §13 fallbacks). Gate: tc 0, unit 276,
+lint 0. W3's flag: mapping relevance weights are provisional editorial
+judgments (versioned) — founder close-out batch item, same class as
+OQ-025. W3 stands down; IN-6 (practice system) waits for the founder's
+IN-5 checkpoint.
