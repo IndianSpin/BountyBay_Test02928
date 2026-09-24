@@ -533,3 +533,16 @@ Founder: "yeh can be signed off" — DD-M2 checkpoint SIGNED OFF →
 DD-M3 (verified information, GR-028) assigned to W1 as BB-226 (after
 BB-222/BB-223); IN-3 checkpoint SIGNED OFF → IN-4 (knowledge system)
 assigned to W3 as BB-227. Both branch from golden-baseline-1.
+
+## D-37 — DA-P1 scheduled (2026-09-24, founder: "implement the recommendations")
+
+Release-critical telemetry scheduled with ownership split (single-owner
+rule respected): BB-228 (Data) writes the DA-P1 implementation spec —
+exact environment/release tag format + injection points, Fastify
+error-handler contract, client_exception event schema, the small
+server-side events (signup_completed / handle_created / result_viewed
+with in-process dedup) and web events (rematch_clicked /
+play_again_clicked), plus the acceptance checklist. BB-229 (W1)
+implements the api side per spec; BB-230 (W2) the web side. Data
+verifies and updates RELEASE_CHECKLIST.md. No new dependencies beyond
+Fastify built-ins.
