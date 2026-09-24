@@ -658,3 +658,16 @@ lint 0. W3's flag: mapping relevance weights are provisional editorial
 judgments (versioned) — founder close-out batch item, same class as
 OQ-025. W3 stands down; IN-6 (practice system) waits for the founder's
 IN-5 checkpoint.
+
+## D-48 — Founder PV-* product-vision export (2026-09-24)
+
+16 new boards committed: PV-Thesis ("Outnegotiate real people" —
+moves as claims, talk free so it can lie, chips price concessions,
+showdown as the reveal moment, swap sides, person-across-the-table as
+the largest element, interface shrinks to state, animations amplify
+human acts) + PV-Attention/Comms/Cred-*/Decisions/Info/Juice/Loop/
+Mobile/Rivalry/RulesCheck/Seq-1/2/Showdown/Swap. Classification:
+PRODUCT-level design direction (vision), not new game rules. Routing:
+W2 reads PV-Thesis + PV-Mobile + PV-Seq-1/2 + PV-Loop before finalizing
+BB-232. PV-Swap (side-swap) and PV-Rivalry are vision items — NO tasks
+until the founder schedules them.
