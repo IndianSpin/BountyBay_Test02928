@@ -580,3 +580,16 @@ result_viewed at-most-once-per-process in-emitter dedup, documented;
 of buildApp; (7) /v1/analytics/event enum extension = additive API
 contract change → INTEGRATION_QUEUE. BB-229 (W1, api) and BB-230 (W2,
 web) proceed per spec; Data verifies post-merge.
+
+## D-41 — BB-222/BB-223 ACCEPTED; golden-baseline-2 (2026-09-24)
+
+Merged (`c83d126`). Manager gate: typecheck 0 · unit 251 · lint 0
+post-merge · strict E2E 16/16 (manager-run, override-seeded e2e DB).
+Second root cause confirmed valuable: the GR-007 ~50% flake was ALSO a
+double-sign-in identity race in dev-auth.ts (fast-refresh remount) —
+single-flight fix, 10 lines, dev-only. Ownership ruling: the fix is
+grandfathered as flagged; dev-auth.ts remains W2-owned going forward.
+BB-223 residue-safe subjects verified 2× against a dirty DB. Known
+defects of golden-baseline-1: RESOLVED. Re-cut as **golden-baseline-2**
+with a clean full regression. W1 next: BB-229 (DA-P1 api) then BB-226
+(DD-M3).
