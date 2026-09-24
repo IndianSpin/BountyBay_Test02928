@@ -67,12 +67,39 @@ body {
 }
 
 .dev-banner {
+  /* BB-236: a fixed overlay — dev builds render the same frame as
+     production (no inline banner shifting the layout). Bottom-left
+     pill on desktop, thin bottom strip on mobile; pointer-events
+     none so it can never block a control or a golden probe. The
+     golden result stage paints above it (z-index 300). */
+  position: fixed;
+  left: 22px;
+  bottom: 16px;
+  z-index: 200;
   margin: 0;
-  padding: 8px 16px;
-  font-size: 0.85rem;
+  max-width: 300px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
   text-align: center;
   background: #7a4d1a;
   color: #fff7e8;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .dev-banner {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: none;
+    border-radius: 0;
+    padding: 2px 8px;
+    font-size: 0.65rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .auth-status {

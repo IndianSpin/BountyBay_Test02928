@@ -15,9 +15,13 @@ import {
   GAME_REVIEW_VERSION,
   REVIEW_CURATION_VERSION,
   buildTimeline,
+  buildPostMatchProgress,
+  emptyCoachingState,
+  FEATURE_ENGINE_VERSION,
   type BehaviorFeatures,
   type MatchObservation,
 } from '@bounty-bay/intelligence';
+import type { PersonaKey } from '@bounty-bay/ai';
 import type { FastifyInstance } from 'fastify';
 import type { MatchBroadcaster } from './realtime';
 import type { AiTurnEngine } from './ai/engine';
@@ -239,7 +243,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
   });
 
   /** POST /v1/challenges/:token/join — joins if valid and available (08). */
-  app.post<{ Params: { token: string } }>('/v1/challenges/:token/join', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (request, reply) => {
+  app.post<{ Params: { token: string } }>('/v1/challenges/:token/join', { config: { rateLimit: { max: gameRouteCap(30), timeWindow: '1 minute' } } }, async (request, reply) => {
     const parsed = walkAwayRequestSchema.safeParse(request.body);
     if (!parsed.success) return reply.code(400).send({ code: 'INVALID_REQUEST', message: 'commandId is required' });
 
@@ -416,6 +420,63 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       outcome: (analysis.features as unknown as BehaviorFeatures).outcome,
       timeline,
     };
+  });
+
+  /** GET /v1/matches/:matchId/progress — the BB-258 post-match progress
+   *  payload (post-match-progress-0.1.0, docs/20 "Post-match progress"):
+   *  training history, personal records, skill observations, the active
+   *  training goal, and AI mastery — computed on demand from the stored
+   *  IN-3 feature rows + IN-6 practice data (nothing persists, no schema
+   *  change). Participant-only, terminal-only. Coaching state is
+   *  deliberately empty (emptyCoachingState): coaching has no
+   *  persistence yet (IN-5/IN-7) — the active goal is honestly null
+   *  until it exists. Human-PvP history rows carry personaKey null and
+   *  contribute to the profile but never to AI mastery.
+   */
+  app.get<{ Params: { matchId: string } }>('/v1/matches/:matchId/progress', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (request, reply) => {
+    const { matchId } = request.params;
+    if (!(await requireParticipant(matchId, request.userId!))) return rejectNotParticipant(reply);
+    const snapshot = await service.loadSnapshot(matchId);
+    if (!snapshot || snapshot.state.economy === null) {
+      return reply.code(409).send({ code: 'MATCH_NOT_ACTIVE', message: 'progress is available after the match completes' });
+    }
+    const analysis = await service.loadAnalysis(matchId, request.userId!);
+    if (!analysis) {
+      return reply.code(409).send({ code: 'MATCH_NOT_ACTIVE', message: 'analysis has not been computed' });
+    }
+    const features = analysis.features as unknown as BehaviorFeatures;
+    if (features.outcome === 'ABORTED') {
+      return reply.code(409).send({ code: 'MATCH_ABORTED', message: 'no progress for an aborted match' });
+    }
+    const matchRow = await prisma.match.findUnique({ where: { id: matchId }, select: { aiPersonaKey: true } });
+    const historyRows = await prisma.matchFeature.findMany({
+      where: {
+        playerId: request.userId!,
+        version: FEATURE_ENGINE_VERSION,
+        matchId: { not: matchId },
+        match: { completedAt: { not: null } },
+      },
+      orderBy: { match: { completedAt: 'asc' } },
+      select: { matchId: true, features: true, match: { select: { completedAt: true, aiPersonaKey: true } } },
+    });
+    const progress = buildPostMatchProgress({
+      playerId: request.userId!,
+      currentMatch: {
+        matchId,
+        endedAt: snapshot.state.completedAt!,
+        features,
+        observations: analysis.observations as unknown as MatchObservation[],
+        personaKey: (matchRow?.aiPersonaKey as PersonaKey | null) ?? null,
+      },
+      history: historyRows.map((row) => ({
+        matchId: row.matchId,
+        endedAt: row.match.completedAt!.getTime(),
+        features: row.features as unknown as BehaviorFeatures,
+        personaKey: (row.match.aiPersonaKey as PersonaKey | null) ?? null,
+      })),
+      coachingState: emptyCoachingState(),
+    });
+    return { progress };
   });
 
   /** GET /v1/matches/:matchId/events?afterSequence=N — replay/reconnect (08). */

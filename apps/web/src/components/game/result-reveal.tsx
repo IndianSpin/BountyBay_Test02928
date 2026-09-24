@@ -14,7 +14,7 @@
 import { useEffect, useState } from 'react';
 import { trackEvent } from '../../lib/analytics';
 import { PERSONA_CHARACTER, castCharacter } from './character-registry';
-import GoldenResultScene, { type ResultSceneData } from './golden-result';
+import GoldenResultScene, { type ResultProgress, type ResultSceneData } from './golden-result';
 import type { MatchSnapshot } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
@@ -163,6 +163,25 @@ export default function ResultReveal({
     setRematchPhase('idle');
   }
 
+  // BB-262 (docs/20): the post-match progress payload rides the AI
+  // result — training history, records, observations, goal, mastery.
+  const [progress, setProgress] = useState<ResultProgress | undefined>(undefined);
+  useEffect(() => {
+    if (ai === null) return;
+    let cancelled = false;
+    fetch(`${API_URL}/v1/matches/${matchId}/progress`, { headers: authHeaders })
+      .then((res) => (res.ok ? (res.json() as Promise<{ progress: ResultProgress }>) : null))
+      .then((body) => {
+        if (!cancelled && body !== null) setProgress(body.progress);
+      })
+      .catch(() => {
+        /* the progress surface is garnish */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [ai, matchId, token]);
+
   // SH4 frame 14: the deal ends, the person doesn't leave — the
   // opponent stays in frame and speaks; the outcome drives their clip.
   const opponentCharacter = castCharacter(
@@ -208,6 +227,7 @@ export default function ResultReveal({
         }
       : null,
     onPlayAgain: ai !== null ? onRematch : undefined,
+    progress,
     links: { review: `/review/${matchId}`, replay: `/replay/${matchId}`, backToBay: '/bay' },
   };
 

@@ -56,7 +56,25 @@ export interface ResultSceneData {
     | null;
   /** AI practice: the plain play-again reset path */
   onPlayAgain?: () => void;
+  /** BB-262: the post-match progress payload (AI results) — renders the
+   *  training surface; absent on the golden fixture page (the checker
+   *  measures the base composition). */
+  progress?: ResultProgress;
   links: { review: string; replay: string; backToBay: string };
+}
+
+/** The BB-258 payload as the result screen consumes it (docs/20). */
+export interface ResultProgress {
+  trainingHistory: { matchCount: number; confidenceBand: string; bandTransition: string };
+  personalRecords: {
+    bestSurplusCapture: { value: number; matchId: string } | null;
+    fastestCloseMs: { value: number; matchId: string } | null;
+    longestHoldMs: { value: number; matchId: string } | null;
+    largestConcessionTenths: { value: number; matchId: string } | null;
+  };
+  skillObservations: { type: string; magnitude: number | null; personaKey: string | null }[];
+  activeTrainingGoal: { topicId: string; label: string } | null;
+  aiMastery: { overall: { matchCount: number; deals: number; dealRate: number | null; currentDealStreak: number } };
 }
 
 const fmt = (v: number, d = 1): string => v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -339,6 +357,74 @@ export default function GoldenResultScene({ data }: { data: ResultSceneData }) {
         </p>
       )}
       {data.rematch !== null && data.rematch.phase === 'declined' && <p className="gr-status">The rematch is no longer open.</p>}
+      {data.progress && <ProgressPanel progress={data.progress} matchId={data.links.review.replace('/review/', '')} />}
+    </section>
+  );
+}
+
+/**
+ * BB-262: the post-match progress surface (docs/20) — training history,
+ * personal records, this match's skill observations, the active goal,
+ * and AI mastery. Renders only with a real payload (AI results); the
+ * golden fixture page has none, so the checker measures the base
+ * composition untouched.
+ */
+function ProgressPanel({ progress, matchId }: { progress: ResultProgress; matchId: string }) {
+  const record = (label: string, value: string, id: string | null, suffix: string) =>
+    id !== null ? (
+      <div className="gr-prog__row">
+        <span>{label}</span>
+        <b>
+          {value}
+          {suffix}
+          {id !== matchId && (
+            <a className="gr-prog__link" href={`/review/${id}`}>
+              record
+            </a>
+          )}
+        </b>
+      </div>
+    ) : null;
+  const obsLabel = (type: string): string =>
+    type
+      .toLowerCase()
+      .split('_')
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ');
+  const transition =
+    progress.trainingHistory.bandTransition === 'FIRST_MATCH'
+      ? 'First rated mark.'
+      : progress.trainingHistory.bandTransition === 'ADVANCED'
+        ? 'Confidence band advanced.'
+        : 'Same band.';
+  const overall = progress.aiMastery.overall;
+  return (
+    <section className="gr-prog" data-testid="progress-panel" aria-label="Training progress">
+      <h3>Training progress</h3>
+      <p className="gr-prog__band">
+        <span className="gr-kicker">BAND</span> {progress.trainingHistory.confidenceBand} · {progress.trainingHistory.matchCount} matches · {transition}
+      </p>
+      <div className="gr-prog__records">
+        {record('Best surplus', `${Math.round((progress.personalRecords.bestSurplusCapture?.value ?? 0) * 100)}%`, progress.personalRecords.bestSurplusCapture?.matchId ?? null, '')}
+        {record('Fastest close', `${((progress.personalRecords.fastestCloseMs?.value ?? 0) / 1000).toFixed(1)}s`, progress.personalRecords.fastestCloseMs?.matchId ?? null, '')}
+        {record('Longest hold', `${((progress.personalRecords.longestHoldMs?.value ?? 0) / 1000).toFixed(0)}s`, progress.personalRecords.longestHoldMs?.matchId ?? null, '')}
+        {record('Biggest step', `${(progress.personalRecords.largestConcessionTenths?.value ?? 0).toFixed(1)}`, progress.personalRecords.largestConcessionTenths?.matchId ?? null, '')}
+      </div>
+      {progress.skillObservations.length > 0 && (
+        <div className="gr-prog__chips" aria-label="This match taught">
+          {progress.skillObservations.slice(0, 4).map((obs, i) => (
+            <span key={`${obs.type}-${i}`} className="gr-prog__chip">
+              {obsLabel(obs.type)}
+              {obs.magnitude !== null && obs.magnitude !== undefined ? ` ×${obs.magnitude}` : ''}
+            </span>
+          ))}
+        </div>
+      )}
+      {progress.activeTrainingGoal !== null && <p className="gr-prog__goal">Focus: {progress.activeTrainingGoal.label}</p>}
+      <p className="gr-prog__mastery">
+        <span className="gr-kicker">AI MASTERY</span> {overall.deals} deals of {overall.matchCount}
+        {overall.dealRate !== null ? ` · ${Math.round(overall.dealRate * 100)}%` : ''} · streak {overall.currentDealStreak}
+      </p>
     </section>
   );
 }

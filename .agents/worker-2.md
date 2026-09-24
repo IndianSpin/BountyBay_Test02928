@@ -357,3 +357,39 @@ failure is gone; gallery route live; E2E 15/15. W1's friend-match
 spec-body update flagged for W1's blessing. design-sandbox/** is now
 eslint-excluded (founder tooling). G-3 (live match to golden) opens
 after the founder's G-2 review — standing down until then.
+
+---
+
+UPDATE: **STARTED — BB-266** (D-86; G-3/G-4 hold until the final golden
+pages land). Scope: BB-262 progress surface on the rebuilt result,
+BB-236 dev-banner overlay, join-route cap watch.
+
+---
+
+UPDATE: **READY FOR REVIEW — BB-266** (functionality repairs).
+
+(1) BB-262 progress surface: `GET /v1/matches/:id/progress` (participant-
+only, terminal-only, ABORTED → 409) computes the BB-258 payload from
+the stored IN-3 feature rows + observations + practice data; coaching
+state deliberately empty (no persistence until IN-5/IN-7 — the goal
+is honestly null). The golden result scene gains the progress panel
+(training history/band transition, records with record-links, skill
+chips, goal, AI mastery) — rendered ONLY with a real payload (AI
+results), so the checker measures the base composition untouched.
+API test: full AI deal → payload shape (FIRST_MATCH, records,
+byPersona.closer, null goal) + stranger 403.
+
+(2) BB-236 banner: the dev-auth banner is a fixed overlay (bottom-
+left pill / mobile bottom strip, pointer-events none) — dev builds
+render the same frame as production; the golden stage paints above it
+(z-index 300) so it never covers the composition.
+
+(3) Join-route cap watch: REAL GAP found + fixed — the join route
+still had the flat 30/min while its siblings use gameRouteCap
+(BB-250); now gameRouteCap(30) (prod pin unchanged, dev 10x).
+
+Gate: golden-check result 76/76 both viewports; E2E result set 15/15
+(two consecutive green batches; one earlier batch flake in W1's
+friend-match two-browser test — the known environmental family, for
+QA triage); web unit 4/4; both typechecks 0; lint clean. API 4000
+restarted on the merged main (the coordinated restart is done).

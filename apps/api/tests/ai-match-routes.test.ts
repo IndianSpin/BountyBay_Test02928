@@ -202,6 +202,73 @@ describe.skipIf(!RUN)('AI practice routes (PostgreSQL)', () => {
     expect(afterActive.json().activeMatch).toBeNull();
   });
 
+
+  it('post-match progress: the BB-258 payload after an AI deal (docs/20)', { timeout: 30_000 }, async () => {
+    const human = await signin('dev_ai_progress');
+    const stranger = await signin('dev_ai_progress_peek');
+
+    const created = await app.inject({
+      method: 'POST',
+      url: '/v1/matches/ai',
+      headers: auth(human.token),
+      payload: { commandId: randomUUID(), persona: 'closer' },
+    });
+    expect(created.statusCode).toBe(201);
+    const matchId = created.json().matchId as string;
+    const myRv = created.json().reservationValueTenths as number;
+
+    // participant-only: a stranger gets the participant rejection.
+    const peek = await app.inject({ method: 'GET', url: `/v1/matches/${matchId}/progress`, headers: auth(stranger.token) });
+    expect(peek.statusCode).toBe(403);
+
+    const ready = await app.inject({
+      method: 'POST',
+      url: `/v1/matches/${matchId}/ready`,
+      headers: auth(human.token),
+      payload: { commandId: randomUUID() },
+    });
+    expect(ready.statusCode).toBe(200);
+
+    await pollUntil(async () => {
+      const res = await app.inject({ method: 'GET', url: `/v1/matches/${matchId}`, headers: auth(human.token) });
+      return res.json().view.status === 'ACTIVE';
+    }, 5_000);
+    await pollUntil(async () => {
+      const res = await app.inject({ method: 'GET', url: `/v1/matches/${matchId}`, headers: auth(human.token) });
+      return res.json().view.myTurn;
+    }, 10_000, 400);
+
+    const offer = await app.inject({
+      method: 'POST',
+      url: `/v1/matches/${matchId}/offers`,
+      headers: auth(human.token),
+      payload: { commandId: randomUUID(), offerId: randomUUID(), amountTenths: myRv },
+    });
+    expect(offer.statusCode).toBe(200);
+    await pollUntil(async () => {
+      const res = await app.inject({ method: 'GET', url: `/v1/matches/${matchId}`, headers: auth(human.token) });
+      return res.json().view.status === 'DEAL';
+    }, 15_000, 400);
+
+    const progress = await app.inject({ method: 'GET', url: `/v1/matches/${matchId}/progress`, headers: auth(human.token) });
+    expect(progress.statusCode).toBe(200);
+    const p = progress.json().progress;
+    expect(p.version).toBe('post-match-progress-0.1.0');
+    expect(p.matchId).toBe(matchId);
+    // training history: first completed match → FIRST_MATCH transition
+    expect(p.trainingHistory.matchCount).toBeGreaterThanOrEqual(1);
+    expect(p.trainingHistory.bandTransition).toBe('FIRST_MATCH');
+    expect(p.trainingHistory.confidenceBand).toBeTypeOf('string');
+    // a deal sets the best-surplus record and the AI mastery row
+    expect(p.personalRecords.bestSurplusCapture).not.toBeNull();
+    expect(p.aiMastery.overall.matchCount).toBe(1);
+    expect(p.aiMastery.overall.deals).toBe(1);
+    expect(p.aiMastery.byPersona.closer.matchCount).toBe(1);
+    expect(p.skillObservations).toBeTypeOf('object');
+    // coaching has no persistence yet — the goal is honestly null
+    expect(p.activeTrainingGoal).toBeNull();
+  });
+
   it('the turn engine commits exactly one AI move across double scheduling and a "restart"', { timeout: 30_000 }, async () => {
     const human = await signin('dev_ai_route_restart');
     const created = await app.inject({

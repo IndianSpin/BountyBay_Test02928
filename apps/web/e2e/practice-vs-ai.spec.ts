@@ -49,4 +49,7 @@ test('a full practice match vs the Closer ends in a labeled deal', async ({ page
   // BB-265 G-2: the deal fact lives on the table stamp in the scene.
   await expect(page.getByTestId('result-stamp')).toContainText('DEAL');
   await expect(page.getByTestId('replay-link')).toBeVisible();
+  // BB-262: the post-match progress surface rides the AI result.
+  await expect(page.getByTestId('progress-panel')).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByTestId('progress-panel')).toContainText('AI MASTERY');
 });
