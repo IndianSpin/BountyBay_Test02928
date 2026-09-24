@@ -88,14 +88,15 @@ no alert, ACTIVE, no duplicate events — QA-001's acceptance test).
 remaining errors are W1's WIP). Pin PRE-VERIFIED against BB-215 commit
 `04a4919` (PASS). IMPORTANT: BB-215 is NOT yet in main (`3059635`) —
 re-run on current main still shows the old alert behavior; reported to
-the manager. **BB-221 DONE (2026-09-23, base `golden-baseline-1`):** strict-mode
+the manager. **BB-221 ACCEPTED and merged (`c29541f`):** strict-mode
 late-suite stall root-caused with instrumentation — dev-signin 30/min
 rate limit self-exhausted by the suite (~49 calls; requests #31+ → 429,
 one per failing test at positions 15–17). QA-006 (HIGH) + QA-007
 (insights fixed-subject pollution, LOW) in `BUGS.md` with fix options
 and owners. Evidence + instrumented API committed. Environment restored
-per L-010. REPORTED TO MANAGER. **Standing down** — next QA work only
-on manager inbox pull.
+per L-010. Fixes assigned to W1 (BB-222 dev-signin cap in dev only, BB-223 unique
+subjects); L-011 logged. **Standing down** — next QA work only on
+manager inbox pull.
 
 Verified clean on current main: unit 226/47sk, DB+API 56/56, E2E 9/9,
 adversarial battery 27/27 P0 PASS, browser-surface leak scan clean,
