@@ -102,13 +102,16 @@ clean on 390×844 + 1440×900 (spec 2/2 PASS, permanent coverage); QA-008
 (LOW, dev-build-only banner/overlay clipping) triaged to BB-236 (W2);
 QA-005 formally RESOLVED (D-28 verified live).
 
-**BB-243 DONE (2026-09-24, base `686680a`):** late-suite entry-flow
+**BB-243 ACCEPTED (D-65, merged):** late-suite entry-flow
 stall root-caused — POST /v1/matches/:id/ready capped at 30/min; the
 27-test suite makes ~35 ready POSTs → 10× 429 late-suite → matches never
 start → staging stall (QA-009 HIGH in BUGS.md; fix proposal: dev-only
 caps on match-command endpoints, W1; audit challenges/offers caps next).
-Two deterministic instrumented runs + evidence committed. REPORTED TO
-MANAGER. **Standing down** — next QA work only on manager inbox pull.
+Fix assigned as BB-250 to W1 (dev-only generous caps on match-command
+endpoints, production pinned, per-endpoint cap audit into the baseline
+checklist). **Standing down** until the hosted stack exists for BB-249
+(release-gate QA over the actual hosted connection — local E2E not
+sufficient).
 
 Verified clean on current main: unit 226/47sk, DB+API 56/56, E2E 9/9,
 adversarial battery 27/27 P0 PASS, browser-surface leak scan clean,
