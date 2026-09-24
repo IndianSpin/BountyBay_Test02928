@@ -735,3 +735,14 @@ component (SEAL OFFER kept), pitch-on-offer awaits GR-025 API field,
 SHOW CARD = DD-M3 UI (later W2 task), emotes = PD-10, voice = OQ-021,
 opponent deals count needs profile API extension, signature gestures
 approximated by pose swap. Founder review next.
+
+## D-54 — BB-232 QA re-check ACCEPTED (2026-09-24)
+
+QA verified the BB-232 composition clean in both reference viewports
+(post-redesign, the stale pre-redesign PASS is superseded) and added a
+permanent composition spec (qa-composition.spec.ts). One LOW finding:
+QA-008 — dev-build clipping is the documented dev-auth banner
+(~32px, absent in production), no action. Merge order note: this
+verification ran against pre-BB-234 main; the PV rebuild supersedes
+the captured composition — the composition spec will be re-pointed
+when QA next verifies.
