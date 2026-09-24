@@ -827,3 +827,20 @@ unit 301, lint 0, db 86 (worker-run). NOTE: W1 flagged late-suite
 strict-E2E failures in the shared post-BB-241 entry flow (pages on the
 TITLE screen with the dev-auth notice at positions 19-26; standalone
 green) — triaged to BB-243 (QA instrumentation), not BB-238.
+
+## D-63 — BB-239 merged (founder review pending, 2026-09-24)
+
+SH4 result sequence + choreography merged: opponent stays in frame with
+outcome clips + authored spoken line; SH4 12s offer ring + "then it
+becomes a letter" copy; NOT NOW persists the proposal; BACK TO THE BAY
++ Review the deal; minimal read-only seam GET /v1/me/rematch-letters
+feeds the Bay letters slot (ANSWER resumes → in-session prompt →
+mutual-consent rematch; full SH4 loop E2E'd 4/4). Choreography: offer
+pin slam with ring + hit-stop, plaque slide with 8% bounce, crossing
+snaps the rail, large concessions play the concede one-shot; reduced
+motion cuts to end states. Gate: tc 0, unit 301, lint 0, E2E 17/17.
+CROSS-TERRITORY NOTE: W2 authored the rematch-letters seam in
+apps/api/src/rematch-routes.ts (W1's file) — grandfathered with flag;
+W1 review requested. Deviations recorded: SWAP SIDES = PDR-14 (UI
+accepts as-is), rating block absent (P1-M2), 12s window decorative
+(proposals persist — window PDR open).
