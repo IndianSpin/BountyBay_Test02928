@@ -33,7 +33,7 @@ Profile/training update → Play Again/Bay
 | Practice entry (Bay) | G | G | G | G | G | G |
 | Select AI persona | G | G | G | G | G | G |
 | AI match start | G | G | G | G | G | G |
-| AI table talk (per AI_BEHAVIOR_CONTRACT) | Y | Y | R | N | N | Y (engine merged BB-254; wiring = BB-257 W1) |
+| AI table talk (per AI_BEHAVIOR_CONTRACT) | G | G | G | G | G | G (BB-257 re-walk) |
 | AI result | G | G | G | G | G | G |
 | Profile/training update | Y | Y | R | N | N | Y (engine merged BB-258; result-screen seam = BB-262 W2) |
 | Play Again / back to Bay | G | G | G | G | G | G |
@@ -57,11 +57,14 @@ Profile/training update → Play Again/Bay
   (BB-254 follow-up), observed not re-litigated.
 
 ## Current RED items (upstream-first repair order)
-1. **AI table talk WIRING** — the six-stage pipeline is merged
-   (BB-254) but nothing calls it; wire runAiTurn into the AI turn
-   engine → BB-257 (W1). Journey row flips GREEN after QA re-walk.
-2. **Profile/training update after AI match** — nothing surfaces the
+1. **Profile/training update after AI match** — nothing surfaces the
    IN-3/IN-6 progress post-match → BB-258 (W3, after BB-257).
+2. ~~AI table talk WIRING~~ — RESOLVED: BB-257 merged, QA re-walked
+   (2026-09-24): live match vs The Wall persisted one talk line
+   ("Before I answer, tell me: is that your best position?" — an exact
+   TALK_FIXTURES.PROBE fixture) as a MESSAGE_SENT event; economic
+   action stayed persona-owned; the deal completed legally. Row
+   flipped GREEN.
 3. **Golden reference system** — the founder's per-state reference
    pages + data contracts + gallery + gate → BB-256 (W2). Makes the
    VISUAL column honestly verifiable.
