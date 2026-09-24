@@ -297,3 +297,18 @@ and no CSS module (BB-244-rule violation); play hub is MIXED;
 12 legacy selectors are the live legacy set, ~12 more are orphaned;
 sign-in/up raw-text in dev; profile-client/dev-landing/auth-status/
 resource-hud are orphans/dead-paths. No repairs made (D-79).
+
+---
+
+UPDATE: **HOLDING — BB-265 (G-1..G-4) queued, founder review of the
+audit first** (per manager). Contract read. Note: the founder's
+golden system (design-sandbox/golden/ + /dev/states/[state] +
+golden-check CLI) supersedes my BB-256 WIP (components/golden/,
+app/golden/, golden.css at c78e0d2) — flagged to the manager:
+proposal is to retire my WIP in favor of the founder's system and
+carry forward only the sprite-player hydration fix when BB-265
+starts. Standing down.
+Ruling confirmed by the manager: BB-256 WIP retires on BB-265 start
+(founder's system authoritative); sprite-player hydration fix carries
+forward; no other reconciliation. Standing down until the audit's
+founder review.
