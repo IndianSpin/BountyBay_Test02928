@@ -44,3 +44,12 @@ E2E_DATABASE_URL="postgresql://bounty:bounty@localhost:5433/bounty_bay_qa" \
   pnpm --filter web exec playwright test e2e/qa-interruption.spec.ts e2e/qa-browser-leak.spec.ts
 rm apps/web/e2e/qa-*.spec.ts
 ```
+
+## 3. Instrumentation notes
+
+- Playwright's `page.on('websocket')` attaches to the FIRST websocket a
+  page opens — in dev that is the Next.js HMR socket, not Socket.IO.
+  Filter by `ws.url().includes('/socket.io')`; and prefer the DB event
+  log (`match_events` rows) over wire capture for talk/event evidence —
+  it is authoritative, timing-independent, and immune to the HMR mask
+  (BB-257 lesson).
