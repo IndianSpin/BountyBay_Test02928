@@ -113,6 +113,12 @@ checklist). **Standing down** until the hosted stack exists for BB-249
 (release-gate QA over the actual hosted connection — local E2E not
 sufficient).
 
+**BB-255 ACCEPTED (merged, matrix adopted):** both Golden Journeys
+walked GREEN on integrated main with STATE CORRECTNESS at every state;
+honest N cells + the two known REDs recorded (BB-254). **Standing
+down** — next QA duty: BB-256 gate once W2's golden reference exists,
+plus the re-walk after BB-257 wiring.
+
 Verified clean on current main: unit 226/47sk, DB+API 56/56, E2E 9/9,
 adversarial battery 27/27 P0 PASS, browser-surface leak scan clean,
 GR-015 freeze/resume correct, interruption matrix + mobile 390 run.
