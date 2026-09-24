@@ -15,6 +15,7 @@ import { randomUUID } from 'node:crypto';
 import { assignFixedRole, pickFirstPlayer } from './match-assignment';
 import { scenarioForRole } from './match-routes';
 import type { TimeoutScheduler } from './timeout-scheduler';
+import type { AnalyticsEmitter } from './analytics';
 
 export interface RematchRoutesOptions {
   service: MatchCommandService;
@@ -23,6 +24,8 @@ export interface RematchRoutesOptions {
   economyConfigVersion: string;
   /** PDR-3: the accepted rematch starts ACTIVE — arm its decision-time deadline. */
   timeoutScheduler?: TimeoutScheduler;
+  /** BB-251 (BB-247 §2.4): the accept path opens with MATCH_STARTED. */
+  analytics?: AnalyticsEmitter;
 }
 
 export function registerRematchRoutes(app: FastifyInstance, options: RematchRoutesOptions): void {
@@ -138,6 +141,9 @@ export function registerRematchRoutes(app: FastifyInstance, options: RematchRout
       }
 
       void options.timeoutScheduler?.refresh(matchId); // the new match is ACTIVE — arm the deadline (GR-023)
+      // BB-251 (BB-247 §2.4): the accepted rematch's stream opens with
+      // MATCH_STARTED — the second-match funnel signal.
+      options.analytics?.emit('match_started', { matchId, playerId: null, mode: 'FRIEND_LIVE' });
       return {
         matchId,
         role: joinerRole,

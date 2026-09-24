@@ -24,7 +24,72 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — STANDING DOWN (manager: queue empty)
+## CURRENT TASK — BB-251 + BB-253 — READY FOR REVIEW; then BB-245 (Clerk, alpha)
+
+### BB-251 (BB-247 alpha gaps) — done
+Server-side funnel signals per .agents/data/BB-247-ALPHA-GAP.md:
+challenge_created (challenge 201 path), challenge_joined (join success
+path), match_started (commitAndBroadcast on MATCH_STARTED — covers
+friend READY×2 + AI human READY; plus rematch accept via a new
+analytics param on RematchRoutesOptions), and the headline fix:
+AiTurnEngine gains analytics? and emits match_completed +
+time_tier_entered beside its broadcast site (AI-practice completions
+were invisible). bay_viewed added to the client event enum (the two
+web lines are W2's per D-66). feedback_submitted added to
+AnalyticsEventName as the BB-248 contract (server-emitted only — the
+client enum deliberately rejects it; tested).
+Tests: apps/api/tests/alpha-gap.test.ts (4): friend funnel lines with
+fields, rematch-accept match_started, engine-driven AI completion
+(closer-accept flow, polled myTurn first — first mover is random),
+bay_viewed passthrough + feedback_submitted client rejection.
+
+### BB-253 (FF-1, D-67) — done
+realtime.ts: env-pinned socket origins (SOCKET_CORS_ORIGINS ?? CORS_ORIGIN;
+unset = dev-permissive, never '*'). DEVIATION from the runbook's 2-line
+snippet, flagged: the cors option alone only withholds headers, which
+non-browser clients ignore — added an allowRequest hook that actively
+refuses disallowed browser origins (no-Origin requests stay allowed for
+non-browser clients). Test: non-allowlisted origin → connect_error,
+allowlisted origin → connected (real socket.io client).
+
+### Evidence
+- `pnpm typecheck` — all 9 packages exit 0.
+- `pnpm test` — 301 passed / 80 skipped.
+- `pnpm test:db` (isolated E2E DB, seeded without overrides; restored
+  after) — 17 files, 93 tests passed (alpha-gap 4/4, realtime 4/4,
+  rematch 7/7, da-p1 6/6, routes 13/13 incl. the cap pins).
+- Strict E2E suite 2× (3100/4100) — 28 passed / 1 canvas-gated skip
+  each, 0 command 429s (BB-250 acceptance holds; the late-suite
+  failures are gone).
+- `pnpm lint` — exit 0.
+
+### BB-250 — ACCEPTED? (awaiting verdict; committed 48826e4)
+
+### BB-245 — next (alpha-critical, D-64): manager's remaining-scope
+list received (auth.protect() on game/player routes; Clerk verify path;
+Socket.IO Clerk handshake; Clerk user → one Player + handle flow;
+dev-auth production lockout test). .env.local has the dev Clerk keys
+(gitignored — never print/commit).
+
+## OLD CURRENT TASK — BB-250 (QA-009 rate caps) then BB-245 (Clerk, alpha)
+
+### BB-250 (first, small)
+The strict E2E suite makes ~35 ready calls vs the 30/min production
+cap → late-suite 429s. BB-222 pattern: development caps are 10× the
+production caps on ready/offers/accept/walk-away/messages/challenges;
+production values unchanged and pinned by a test (hasRoute config
+assertion under NODE_ENV=production). Per-endpoint cap audit folded
+into the golden-baseline checklist (note for the manager).
+
+### BB-245 (after; alpha-critical, D-64)
+Complete the existing Clerk integration per the founder's 10
+requirements (contract in the inbox): local + Vercel; unauthenticated
+→ landing/sign-in; protected routes; ONE authoritative Player record;
+unique handle choice/assignment; identity from verified auth only;
+Socket.IO server-side verification; dev identity impossible in
+production; Next 16 proxy.ts; no secrets in NEXT_PUBLIC_*.
+
+## OLD CURRENT TASK — STANDING DOWN (manager: queue empty)
 
 BB-238 ACCEPTED and merged (40b1eca, D-62): economy-0.3.0 live — 7:00
 hard decision-time limit + 120s decay window per DEC-031 #3. The

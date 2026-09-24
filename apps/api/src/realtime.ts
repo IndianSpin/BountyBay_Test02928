@@ -53,7 +53,31 @@ export function attachRealtime(app: FastifyInstance, options: RealtimeOptions): 
   const heartbeats = new Map<string, NodeJS.Timeout>();
 
   app.addHook('onReady', () => {
-    io = new SocketServer(app.server, { path: '/socket.io' });
+    // FF-1 (D-67, DEPLOY_RUNBOOK_ALPHA1.md §1): env-pinned socket origins.
+    // Production sets SOCKET_CORS_ORIGINS (or falls back to CORS_ORIGIN) —
+    // never '*'. Unset = dev-permissive (mirrors the HTTP CORS plugin's
+    // dev default) so local work and the E2E suite keep working. The
+    // allowRequest hook actively refuses disallowed browser origins —
+    // the cors option alone only withholds headers, which non-browser
+    // clients ignore. Requests without an Origin header stay allowed
+    // (non-browser clients; browsers always send it).
+    const socketOrigins = (process.env.SOCKET_CORS_ORIGINS ?? process.env.CORS_ORIGIN ?? '')
+      .split(',')
+      .map((o) => o.trim())
+      .filter(Boolean);
+    io = new SocketServer(app.server, {
+      path: '/socket.io',
+      cors: { origin: socketOrigins.length > 0 ? socketOrigins : true, methods: ['GET', 'POST'] },
+      ...(socketOrigins.length > 0
+        ? {
+            allowRequest: (req, done) => {
+              const origin = req.headers.origin;
+              if (!origin || socketOrigins.includes(origin)) return done(null, true);
+              done('origin not allowed', false);
+            },
+          }
+        : {}),
+    });
 
     io.use(async (socket, next) => {
       const token = typeof socket.handshake.auth?.token === 'string' ? (socket.handshake.auth.token as string) : null;

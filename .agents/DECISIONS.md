@@ -909,3 +909,16 @@ the Bay mount (semantic surface = bay/page.tsx — corrected from the
 earlier play-page naming; Data to confirm in its verification). Gate:
 tc 0, unit 301, lint 0, E2E 22/22. P0 gate: CLEARED — first alpha
 gate passed.
+
+## D-69 — BB-250/251/253 ACCEPTED (2026-09-24)
+
+Merged: dev-only generous gameplay rate caps (production pins
+preserved — QA-009 fixed; 2× strict suite 28 passed, 0 command 429s),
+alpha funnel signals per BB-247 (challenge_created/joined,
+match_started incl. rematch-accept, bay_viewed enum, feedback_submitted
+server-only contract, and the headline AI-practice match_completed
+fix), Socket origin pinning with the improved deviation over the
+runbook snippet (allowRequest actively refuses disallowed browser
+origins — non-browser clients without Origin stay allowed). Gate:
+tc 0, unit 301, lint 0, alpha-gap+realtime 7/7 (manager-run). W1 next:
+BB-245 (Clerk).

@@ -4,6 +4,7 @@
  */
 
 import { createPrismaClient } from '@bounty-bay/db';
+import { randomUUID } from 'node:crypto';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { FastifyInstance } from 'fastify';
 import { buildApp } from '../src/app';
@@ -66,6 +67,81 @@ describe.skipIf(!RUN)('API routes (PostgreSQL)', () => {
       await prodApp.close();
     } finally {
       process.env.NODE_ENV = saved;
+    }
+  });
+
+  it('production gameplay rate caps are pinned; development caps are generous (QA-009, BB-250)', async () => {
+    // hasRoute returns only a boolean (no config), so the pins are proven
+    // behaviorally: in production the exact per-minute caps fire one
+    // request past the pinned value; in development the same volume never
+    // 429s (10× caps via gameRouteCap).
+    const saved = process.env.NODE_ENV;
+    process.env.NODE_ENV = 'production';
+    try {
+      const prodApp = await buildApp({ auth: dev, prisma: createPrismaClient(DATABASE_URL), exposeDevAuth: false });
+      // The dev adapter shares the test secret, so a dev-minted token from
+      // the main app authenticates against the production-mode app too.
+      const signin = await app.inject({ method: 'POST', url: '/v1/auth/dev/signin', payload: { subject: 'dev_cap_probe' } });
+      const { token } = signin.json() as { token: string };
+      const headers = { authorization: `Bearer ${token}` };
+
+      // challenges: pinned 20/min — the 21st request 429s.
+      let matchId: string | null = null;
+      let last = 0;
+      for (let i = 0; i < 21; i += 1) {
+        const res = await prodApp.inject({ method: 'POST', url: '/v1/challenges', headers, payload: { commandId: randomUUID() } });
+        last = res.statusCode;
+        if (res.statusCode === 201) matchId = (res.json() as { matchId: string }).matchId;
+      }
+      expect(last).toBe(429);
+      expect(matchId).not.toBeNull();
+
+      // The remaining pinned caps: the limiter counts requests regardless
+      // of the domain outcome, so fire cap+1 requests at each route.
+      const pinned = [
+        { url: `/v1/matches/${matchId}/ready`, max: 30, body: { commandId: randomUUID() } },
+        { url: `/v1/matches/${matchId}/offers`, max: 60, body: { commandId: randomUUID(), amountTenths: 100 } },
+        { url: `/v1/matches/${matchId}/accept`, max: 30, body: { commandId: randomUUID(), offerId: randomUUID() } },
+        { url: `/v1/matches/${matchId}/walk-away`, max: 30, body: { commandId: randomUUID() } },
+        { url: `/v1/matches/${matchId}/messages`, max: 30, body: { commandId: randomUUID(), body: 'probe' } },
+      ];
+      for (const { url, max, body } of pinned) {
+        let status = 0;
+        for (let i = 0; i < max + 1; i += 1) {
+          const res = await prodApp.inject({
+            method: 'POST',
+            url,
+            headers: { 'content-type': 'application/json', ...headers },
+            payload: { ...body, commandId: randomUUID() },
+          });
+          status = res.statusCode;
+        }
+        expect(status, `${url} hits its production cap`).toBe(429);
+      }
+      await prodApp.close();
+    } finally {
+      process.env.NODE_ENV = saved;
+    }
+
+    // Development: the same volume never 429s (gameRouteCap ×10). Use the
+    // two QA-009-critical routes; the others share the same helper.
+    const devSignin = await app.inject({ method: 'POST', url: '/v1/auth/dev/signin', payload: { subject: 'dev_cap_probe_dev' } });
+    const devHeaders = { authorization: `Bearer ${(devSignin.json() as { token: string }).token}` };
+    let devMatchId: string | null = null;
+    for (let i = 0; i < 21; i += 1) {
+      const res = await app.inject({ method: 'POST', url: '/v1/challenges', headers: devHeaders, payload: { commandId: randomUUID() } });
+      expect(res.statusCode).not.toBe(429);
+      if (res.statusCode === 201) devMatchId = (res.json() as { matchId: string }).matchId;
+    }
+    expect(devMatchId).not.toBeNull();
+    for (let i = 0; i < 31; i += 1) {
+      const res = await app.inject({
+        method: 'POST',
+        url: `/v1/matches/${devMatchId}/ready`,
+        headers: devHeaders,
+        payload: { commandId: randomUUID() },
+      });
+      expect(res.statusCode).not.toBe(429);
     }
   });
 

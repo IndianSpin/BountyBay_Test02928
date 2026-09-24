@@ -280,7 +280,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       void timeoutRef.current?.refresh(matchId);
     },
   });
-  const engine = new AiTurnEngine({ service, prisma: options.prisma, broadcast });
+  const engine = new AiTurnEngine({ service, prisma: options.prisma, broadcast, analytics });
   const timeoutScheduler =
     options.timeoutScheduler === undefined
       ? new TimeoutScheduler({ service, prisma: options.prisma, broadcast, analytics })
@@ -345,6 +345,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     gameRulesVersion: GAME_RULES_VERSION,
     economyConfigVersion: DEFAULT_ECONOMY_CONFIG.version,
     timeoutScheduler: timeoutScheduler ?? undefined,
+    analytics,
   });
 
   registerInsightsRoutes(app, { prisma: options.prisma });

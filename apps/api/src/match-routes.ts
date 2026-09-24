@@ -46,6 +46,16 @@ const HTTP_STATUS: Record<string, number> = {
   REVEAL_ALREADY_MADE: 409,
 };
 
+/**
+ * QA-009 (BB-250): the strict E2E suite's combined call volume exhausts the
+ * gameplay route caps (~35 readies per run vs the 30/min production cap).
+ * Development caps are 10× the production caps; the production values are
+ * the pinned abuse-protection numbers and never change (pinned by test).
+ */
+export function gameRouteCap(productionMax: number): number {
+  return process.env.NODE_ENV === 'production' ? productionMax : productionMax * 10;
+}
+
 export interface MatchRoutesOptions {
   service: MatchCommandService;
   prisma: PrismaClient;
@@ -171,6 +181,11 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       if (outcome.events.some((e) => e.type === 'MATCH_COMPLETED')) {
         options.analytics?.emit('match_completed', matchCompletedFields(snapshot.state));
       }
+      // BB-251 (BB-247 §2.4): covers friend READY×2 AND AI-practice human
+      // READY (the same route). Match-level event — playerId null.
+      if (outcome.events.some((e) => e.type === 'MATCH_STARTED')) {
+        options.analytics?.emit('match_started', { matchId, playerId: null, mode: snapshot.state.mode });
+      }
       for (const entry of tierEntriesFor(snapshot.state, snapshot.config, serverNow)) {
         options.analytics?.emit('time_tier_entered', entry);
       }
@@ -181,7 +196,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
   // -- challenge lifecycle ---------------------------------------------------
 
   /** POST /v1/challenges — creates an unrated friend challenge (UF-04). */
-  app.post('/v1/challenges', { config: { rateLimit: { max: 20, timeWindow: '1 minute' } } }, async (request, reply) => {
+  app.post('/v1/challenges', { config: { rateLimit: { max: gameRouteCap(20), timeWindow: '1 minute' } } }, async (request, reply) => {
     const parsed = walkAwayRequestSchema.safeParse(request.body); // { commandId }
     if (!parsed.success) return reply.code(400).send({ code: 'INVALID_REQUEST', message: 'commandId is required' });
 
@@ -205,6 +220,14 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       createdAt: Date.now(),
     });
     if (!created.ok) return reply.code(statusFor(created.code)).send(created);
+
+    // BB-251 (BB-247 §2.2): friend-challenge funnel.
+    options.analytics?.emit('challenge_created', {
+      matchId,
+      playerId: request.userId!,
+      mode: 'FRIEND_LIVE',
+      role: assignment.role,
+    });
 
     return reply.code(201).send({
       matchId,
@@ -234,6 +257,14 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       firstPlayerId: pickFirstPlayer(creator.userId, request.userId!),
     });
     if (!joined.ok) return reply.code(statusFor(joined.code)).send(joined);
+
+    // BB-251 (BB-247 §2.3): friend-challenge funnel.
+    options.analytics?.emit('challenge_joined', {
+      matchId: row.id,
+      playerId: request.userId!,
+      mode: row.mode,
+      role: assignment.role,
+    });
 
     return {
       matchId: row.id,
@@ -399,7 +430,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
   // -- match commands ---------------------------------------------------------
 
   /** POST /v1/matches/:matchId/ready */
-  app.post<{ Params: { matchId: string } }>('/v1/matches/:matchId/ready', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (request, reply) => {
+  app.post<{ Params: { matchId: string } }>('/v1/matches/:matchId/ready', { config: { rateLimit: { max: gameRouteCap(30), timeWindow: '1 minute' } } }, async (request, reply) => {
     const { matchId } = request.params;
     if (!(await requireParticipant(matchId, request.userId!))) return rejectNotParticipant(reply);
     const parsed = walkAwayRequestSchema.safeParse(request.body);
@@ -410,7 +441,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
   });
 
   /** POST /v1/matches/:matchId/offers — 08 success shape. */
-  app.post<{ Params: { matchId: string } }>('/v1/matches/:matchId/offers', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (request, reply) => {
+  app.post<{ Params: { matchId: string } }>('/v1/matches/:matchId/offers', { config: { rateLimit: { max: gameRouteCap(60), timeWindow: '1 minute' } } }, async (request, reply) => {
     const { matchId } = request.params;
     if (!(await requireParticipant(matchId, request.userId!))) return rejectNotParticipant(reply);
     const parsed = offerRequestSchema.safeParse(request.body);
@@ -440,7 +471,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
   });
 
   /** POST /v1/matches/:matchId/accept — atomically completes the match (GR-010). */
-  app.post<{ Params: { matchId: string } }>('/v1/matches/:matchId/accept', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (request, reply) => {
+  app.post<{ Params: { matchId: string } }>('/v1/matches/:matchId/accept', { config: { rateLimit: { max: gameRouteCap(30), timeWindow: '1 minute' } } }, async (request, reply) => {
     const { matchId } = request.params;
     if (!(await requireParticipant(matchId, request.userId!))) return rejectNotParticipant(reply);
     const parsed = acceptRequestSchema.safeParse(request.body);
@@ -458,7 +489,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
   });
 
   /** POST /v1/matches/:matchId/walk-away — no deal, idempotent (GR-012). */
-  app.post<{ Params: { matchId: string } }>('/v1/matches/:matchId/walk-away', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (request, reply) => {
+  app.post<{ Params: { matchId: string } }>('/v1/matches/:matchId/walk-away', { config: { rateLimit: { max: gameRouteCap(30), timeWindow: '1 minute' } } }, async (request, reply) => {
     const { matchId } = request.params;
     if (!(await requireParticipant(matchId, request.userId!))) return rejectNotParticipant(reply);
     const parsed = walkAwayRequestSchema.safeParse(request.body);
@@ -469,7 +500,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
   });
 
   /** POST /v1/matches/:matchId/messages — chat; no turn/clock effect (GR-013). */
-  app.post<{ Params: { matchId: string } }>('/v1/matches/:matchId/messages', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (request, reply) => {
+  app.post<{ Params: { matchId: string } }>('/v1/matches/:matchId/messages', { config: { rateLimit: { max: gameRouteCap(30), timeWindow: '1 minute' } } }, async (request, reply) => {
     const { matchId } = request.params;
     if (!(await requireParticipant(matchId, request.userId!))) return rejectNotParticipant(reply);
     const parsed = messageRequestSchema.safeParse(request.body);
