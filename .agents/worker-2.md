@@ -31,7 +31,14 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — BB-244 P0 unstyled-render regression — READY FOR REVIEW
+## CURRENT TASK — STANDING DOWN (per D-68 alpha plan)
+BB-244 ACCEPTED + merged (D-68: P0 gate cleared — the measured root
+cause was the /bay missing CSS-module import; fixed with the cold-visit
+styling guard + the route audit). BB-252 confirmed (bay_viewed on
+bay/page.tsx). Standing down until BB-245/BB-251 land and the hosted
+stack exists; BB-239's founder review continues in parallel.
+
+## DONE — BB-244 P0 unstyled-render regression — ACCEPTED + merged (D-68)
 Branch `w2-pv-livematch`, tip after this commit.
 
 ROOT CAUSE (evidence-first, BB-244): the /bay route rendered raw
