@@ -122,6 +122,31 @@ aborted verification matches left in that DB. Web half (rematch_clicked
 / play_again_clicked / client_exception capture) remains with BB-230 —
 RELEASE_CHECKLIST web TODOs stay open until then.
 
+### STATUS — BB-247 COMPLETE (2026-09-24) — REPORTED TO MANAGER
+
+Alpha analytics verification (D-64): deliverable
+`.agents/data/BB-247-ALPHA-GAP.md` (UNCOMMITTED — manager pickup).
+Gap table of the nine alpha signals vs current code (main `acf1cc1`,
+BB-229/230/233 verified in-tree) + exact schemas for the five gaps
+(bay_viewed, challenge_created, challenge_joined, match_started,
+feedback_submitted contract for BB-248) + derivation SQL (DAU, unique
+testers, matches/tester, completion, immediate rematch per approved
+10-min window) + W1 acceptance checklist. No dashboards.
+
+Headline finding: **AI-practice completions emit no match_completed** —
+`apps/api/src/ai/engine.ts` has zero analytics references (grep
+evidence); the likely first-alpha path (volunteer plays AI practice)
+would be invisible on signal 6. Spec adds an optional analytics param
+to AiTurnEngine with the exact emit beside its broadcast site. Also:
+match_started has two commit paths (friend READY×2 AND AI human READY
+share commitAndBroadcast; rematch accept is a separate site needing
+the analytics param). bay_viewed = play-page mount (authenticated,
+existing route + one web enum line) — landing views stay unmeasured.
+
+W1 implements right after per manager. Alpha observation path note
+for BB-246: BB_ENV=production + BB_RELEASE=<sha> must be set by the
+deploy; stream = Railway log capture, truth = hosted Postgres.
+
 ## BLOCKERS
 - None. (Old DATA-01 blockers resolved: worktree/branch exist; D-37
   settled the ownership split.)
