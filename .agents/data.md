@@ -29,92 +29,72 @@ DAU · active days per WAU · D1/D7/D30 · matches/player · matches/session
 measurement to learn — not an analytics empire.** Do not push for
 instrumentation at the expense of product delivery.
 
-## CURRENT TASK — DATA-01: repository inspection + measurement-gap report
-Read-only. No code or instrumentation changes without explicit manager
-approval.
-1. Inspect the repo: docs/11 (analytics/experiments), the API analytics
-   emitter (`POST /v1/analytics/event`, stdout sink), structured-log
-   emitters (`match_completed`, `match_timed_out`, `time_tier_entered`),
-   docs/18 §15 observability, the Prisma schema for anything
-   analytics-shaped.
-2. Produce `.agents/data/MEASUREMENT_GAP.md`: current event taxonomy vs
-   the north-star metrics above — table of metric → measured today? →
-   what is missing to measure it (smallest sufficient addition). Do NOT
-   design a platform; P1-M9 (analytics platform) is deferred.
-3. Produce `.agents/data/RELEASE_CHECKLIST.md` (draft): what must be
-   true before a meaningful external playtest/release — analytics +
-   error reporting functioning, per the founder's release gate.
-4. Report findings in this file (STATUS section) with evidence, not
-   opinions. Terminal state: REPORTED TO MANAGER.
+## CURRENT TASK — BB-228: DA-P1 implementation spec (D-37) — COMPLETE
+Write the implementation spec for BB-229 (W1, api) / BB-230 (W2, web):
+environment/release tag format + injection points, Fastify error-handler
+contract, client_exception schema, server events (signup_completed /
+handle_created / result_viewed w/ in-process dedup), web events
+(rematch_clicked / play_again_clicked), acceptance checklist. Fastify
+built-ins only; implementable without guessing. Then verify the
+implementations and update RELEASE_CHECKLIST.md (after their merge).
 
-## Constraints
+## Constraints (standing)
 - No new dependencies without manager approval.
-- No schema/API changes in this task (read-only).
-- Do not keep yourself busy: if the foundation is sufficient, say so —
-  idle is acceptable and cheaper than noise.
+- No schema/API changes without approval (spec-only unless assigned;
+  the enum extension in DA-P1-SPEC §3.4 is for W1 to implement).
+- Never commit to main (D-5/D-15); lane files land via manager pickup
+  or my data-analytics branch.
+- Do not keep yourself busy: report and stand down when idle.
 
-## STATUS — DATA-01 COMPLETE (2026-09-23, ~03:20) — REPORTED TO MANAGER
+### STATUS — BB-228 COMPLETE (2026-09-24) — REPORTED TO MANAGER
 
-Session identity verified via ListAgents: this session **is**
-`jeremydommnich-42` (D-15 routing correct).
+Spec written: `.agents/data/DA-P1-SPEC.md` (main `73c40bf`, UNCOMMITTED —
+lane files await manager pickup as before; I do not commit to main).
+Re-inspected every referenced file at the current commit before
+specifying (app.ts, server.ts, match-routes.ts:281 result route,
+rematch-routes.ts, realtime.ts catches, timeout-scheduler.ts,
+user-repository.ts, web analytics.ts / result-reveal.tsx / play page /
+replay page / layout.tsx / use-api-token, playwright.config.ts,
+.env.example, CI).
 
-Inspection performed read-only against main `8be2347`: docs/06/07/10/
-11/18 §15, Prisma schema, `apps/api/src/analytics.ts` + emission points
-(timeout-scheduler, match-routes, POST /v1/analytics/event),
-`apps/web/src/lib/analytics.ts` + call sites, configs, CI, auth
-adapters, feature-flag search (none exist), telemetry deps (none
-beyond Fastify built-ins).
+Spec decisions worth manager eyes:
+1. `environment` resolution: `BB_ENV` env var else NODE_ENV-derived;
+   `release`: `BB_RELEASE` else `local`; client mirrors with
+   `NEXT_PUBLIC_BB_ENV`/`NEXT_PUBLIC_BB_RELEASE` → `client_environment`
+   /`client_release` fields on client-sourced events. E2E/QA/CI values
+   defined.
+2. `signup_completed` is free: `ensureUserBySubject` already returns
+   `created: boolean` — emit at both creation call sites (dev signin +
+   requireAuth), exactly once per human (bot namespace structurally
+   excluded).
+3. `handle_created` fires on EVERY successful setHandle
+   (possibly-repeated documented); first occurrence per player =
+   funnel step, derivable from the stream. No schema/repo change
+   (auto-allocated handles at signup make a first-set flag
+   unrecoverable without history anyway).
+4. `result_viewed` dedup lives in the emitter (in-process, per
+   match|player), documented at-most-once-per-process semantics.
+5. 500-path reply shape changes from Fastify default (echoes
+   error.message) to sanitized `{ code: 'INTERNAL_ERROR', message:
+   'internal server error' }` — deliberate privacy fix, only the 500
+   path.
+6. Analytics emitter creation moves to the top of buildApp so the
+   auth-path events can use it (no TDZ at runtime, handlers run after
+   buildApp returns).
+7. rematch_clicked covers BOTH paths of the REMATCH button
+   (friend propose + AI-mode reset via play/page.tsx rematch());
+   play_again_clicked = replay page "Play again" anchor only.
+8. W1 owns the playwright.config.ts + .env.example edits (D-20/BB-211
+   precedent); the analytics route enum extension is an additive API
+   contract change for INTEGRATION_QUEUE.
 
-Deliverables in `.agents/data/` (all UNCOMMITTED in the manager
-checkout — no `data-analytics` branch and no `~/projects/bay-data`
-worktree exist yet, so I could not commit per the D-15 main-commit
-rule; awaiting manager pickup or worktree cut):
-- `MEASUREMENT_GAP.md` — 12-row metric → measured today → smallest
-  sufficient addition table (north-star set incl. critical errors).
-- `RELEASE_CHECKLIST.md` — DRAFT gate per D-15 (TODO-marked items =
-  infrastructure not built yet).
-- `INSPECTION_REPORT.md` — A measurement map, B event gaps vs docs/11,
-  C release/observability map, D top-10 risks (evidence-basis detail
-  for the two deliverables above).
-- `EVENT_CATALOG.md` — living catalog: 5 IMPLEMENTED events, PLANNED
-  Phase 1 proposals with privacy classes, anti-duplication guard.
-- `FOUNDATION_PLANS.md` — E minimal analytics foundation, F minimal
-  release-safety, bounded Phase 1 (DA-P1-1..4) with ownership notes.
-- `ROLE.md` — corrected role spec (stale `~/projects/bounty-control/`
-  path replaced with `.agents/` control plane; QA/manager
-  relationships; D-4/D-5/D-8 honored).
-
-Also: `.agents/analytics.md` (my early self-registration file, now
-committed by the manager in `02f7399`) is superseded by this file —
-manager may delete it to avoid two worker files.
-
-Key findings (evidence, not opinion):
-1. Core north-star metrics (DAU, active days/WAU, D1/D7/D30,
-   matches/player, funnel to second match, completion/agreement/
-   human-vs-AI) are DERIVABLE from authoritative rows — the gap is
-   queries + definitions, not instrumentation.
-2. True instrumentation gaps: `signup_completed`/`handle_created`
-   (handle history already lost), `result_viewed`,
-   `rematch_clicked`/`play_again_clicked`, `client_exception` — all
-   small additions on existing paths (see EVENT_CATALOG PLANNED).
-3. Biggest gap is TECHNICAL: Fastify logger disabled, no error
-   handler, no client exception capture, silent realtime catches, no
-   `environment`/`release` tags anywhere, stdout-only sink. "Did the
-   product fail technically?" is unanswerable today.
-4. Matchmaking/rating/tutorial events: not applicable — features
-   don't exist yet. Experiment exposure: watch item for when the first
-   experiment/Daily Deal is scheduled (must be designed BEFORE the
-   feature ships).
-
-Terminal state: **REPORTED TO MANAGER** (read-only task; nothing
-implemented, no code touched). Awaiting ACCEPT/REWORK/BLOCK on the
-reports and Phase 1 scheduling.
+Terminal state: **REPORTED TO MANAGER** (spec only; no code written by
+me). Next: verify BB-229/BB-230 implementations per spec §5 and update
+RELEASE_CHECKLIST.md + EVENT_CATALOG.md when they merge.
 
 ## BLOCKERS
-- None for DATA-01. For future implementation: no worktree/branch yet;
-  apps/api and apps/web ownership rulings needed (D-2 single-owner);
-  four metric definitions need product approval (see PRODUCT
-  ASSUMPTIONS).
+- None. (Old DATA-01 blockers resolved: worktree/branch exist; D-37
+  settled the ownership split.)
 
 ## PRODUCT ASSUMPTIONS
 Recorded before use, all proposals pending approval:
@@ -125,9 +105,3 @@ Recorded before use, all proposals pending approval:
 3. `result_viewed` server-side with in-process per-(match,user) dedup;
    repeats documented as possible.
 4. No visit/page-load event in V1 — server-side funnel is the truth.
-
-## BLOCKERS
-None known.
-
-## PRODUCT ASSUMPTIONS
-None yet — record any before building on them.
