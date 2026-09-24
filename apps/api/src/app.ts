@@ -296,7 +296,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
    * replaces it.
    */
   const analyticsEventSchema = z.object({
-    name: z.enum(['review_opened', 'review_step_viewed', 'rematch_clicked', 'play_again_clicked', 'client_exception']),
+    name: z.enum(['review_opened', 'review_step_viewed', 'rematch_clicked', 'play_again_clicked', 'client_exception', 'bay_viewed']),
     matchId: z.string().uuid().optional(),
     meta: z.object({
       message: z.string().max(500).optional(),

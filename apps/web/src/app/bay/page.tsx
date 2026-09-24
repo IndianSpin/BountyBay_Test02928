@@ -16,6 +16,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import HubBar from '../../components/hub/hub-bar';
+import '../../components/hub/hub.css';
+import { trackEvent } from '../../lib/analytics';
 import { useApiToken } from '../../hooks/use-api-token';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
@@ -53,6 +55,12 @@ export default function BayPage() {
     return () => {
       cancelled = true;
     };
+  }, [ready, token]);
+
+  // BB-252: the Bay was viewed (pseudonymous, no match context).
+  useEffect(() => {
+    if (!ready || !token) return;
+    trackEvent('bay_viewed', token);
   }, [ready, token]);
 
   // SH4 frame 16: the sealed letters — open rematch proposals addressed

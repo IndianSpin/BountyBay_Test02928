@@ -9,7 +9,7 @@
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
 
-export type ClientEventName = 'review_opened' | 'review_step_viewed' | 'rematch_clicked' | 'play_again_clicked' | 'client_exception';
+export type ClientEventName = 'review_opened' | 'review_step_viewed' | 'rematch_clicked' | 'play_again_clicked' | 'client_exception' | 'bay_viewed';
 
 export interface ClientEventMeta {
   message?: string;

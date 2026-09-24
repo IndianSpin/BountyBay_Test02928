@@ -256,6 +256,13 @@ body {
 
 /* --- M5: accessibility + replay --- */
 
+/* BB-244: auth/error panel links are always styled — the default
+   browser link color is a regression signal, never a state. */
+.home-sub a, .panel a {
+  color: var(--brand-gold, #D9A653);
+  text-decoration: underline;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
