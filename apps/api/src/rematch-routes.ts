@@ -201,7 +201,7 @@ export function registerRematchRoutes(app: FastifyInstance, options: RematchRout
    */
   app.get('/v1/me/rematch-letters', async (request, _reply) => {
     const rows = await prisma.match.findMany({
-      where: { rematchOpponentUserId: request.userId, status: 'CREATED' },
+      where: { rematchOpponentUserId: request.userId!, status: 'CREATED' },
       orderBy: { createdAt: 'asc' },
       include: { participants: { include: { user: { select: { handle: true } } } } },
     });

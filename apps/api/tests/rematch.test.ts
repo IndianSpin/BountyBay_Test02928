@@ -335,4 +335,51 @@ describe.skipIf(!RUN)('Friend-rematch API (PostgreSQL)', () => {
     const next = await proposeRematch(seller.token, rematchId);
     expect(next.statusCode).toBe(201);
   });
+
+  it('rematch-letters (BB-239 seam) lists only the caller’s own open proposals', async () => {
+    const buyer = await signin('dev_letters_buyer');
+    const seller = await signin('dev_letters_seller');
+    const otherA = await signin('dev_letters_other_a');
+    const otherB = await signin('dev_letters_other_b');
+
+    // Empty for a player with no proposals.
+    const empty = await app.inject({ method: 'GET', url: '/v1/me/rematch-letters', headers: auth(otherA.token) });
+    expect(empty.statusCode).toBe(200);
+    expect(empty.json()).toEqual({ letters: [] });
+
+    // Seller proposes to buyer; otherA proposes to otherB (not the buyer).
+    const sourceId = await terminalMatch(buyer.userId, seller.userId);
+    const otherSource = await terminalMatch(otherA.userId, otherB.userId);
+    const toBuyer = await proposeRematch(seller.token, sourceId);
+    expect(toBuyer.statusCode).toBe(201);
+    const proposalId = (toBuyer.json() as { matchId: string }).matchId;
+    const toOther = await proposeRematch(otherA.token, otherSource);
+    expect(toOther.statusCode).toBe(201);
+
+    // The buyer sees exactly their own letter, with the public shape only.
+    const letters = await app.inject({ method: 'GET', url: '/v1/me/rematch-letters', headers: auth(buyer.token) });
+    expect(letters.statusCode).toBe(200);
+    const body = letters.json() as { letters: { proposalMatchId: string; sourceMatchId: string; fromHandle: string | null; scenarioTitle: string | null; createdAt: string }[] };
+    expect(body.letters).toHaveLength(1);
+    expect(body.letters[0]!.proposalMatchId).toBe(proposalId);
+    expect(body.letters[0]!.sourceMatchId).toBe(sourceId);
+    expect(body.letters[0]!.scenarioTitle).not.toBeNull();
+    const raw = String(letters.body);
+    expect(raw).not.toContain('reservationValue'); // no RV or dossier leakage in the letters payload
+
+    // otherB does not see the buyer's letter — only their own (otherA's).
+    const otherLetters = await app.inject({ method: 'GET', url: '/v1/me/rematch-letters', headers: auth(otherB.token) });
+    const otherBody = otherLetters.json() as { letters: { proposalMatchId: string }[] };
+    expect(otherBody.letters.map((l) => l.proposalMatchId)).toEqual([(toOther.json() as { matchId: string }).matchId]);
+
+    // An accepted proposal leaves the letters tray.
+    const accept = await actRematch('accept', buyer.token, proposalId);
+    expect(accept.statusCode).toBe(200);
+    const after = await app.inject({ method: 'GET', url: '/v1/me/rematch-letters', headers: auth(buyer.token) });
+    expect((after.json() as { letters: unknown[] }).letters).toEqual([]);
+
+    // Unauthenticated is refused structurally (the /v1/me prefix guard).
+    const anon = await app.inject({ method: 'GET', url: '/v1/me/rematch-letters' });
+    expect(anon.statusCode).toBe(401);
+  });
 });
