@@ -396,3 +396,11 @@ Response: `{ "profile": LongitudinalProfile | null }` — 200 with
 `null` when the player has no eligible completed match (not an error).
 Self-only (docs/18 §14): the opponent's behavior never appears.
 Coaching state is deliberately absent until IN-5/IN-7 persist it.
+
+## GET `/v1/me/rematch-letters`
+
+The caller's own open rematch letters (BB-239): rows where
+`rematchOpponentUserId` = caller and status CREATED. Self-scoped,
+read-only; 401 unauthenticated; public fields only (fromHandle,
+scenario title, match ids, createdAt). Accepted proposals leave the
+tray. No RV/dossier/private-context fields.
