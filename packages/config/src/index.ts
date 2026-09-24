@@ -49,17 +49,21 @@ export interface EconomyConfig {
 }
 
 /** v0.2 test defaults — provisional values marked in docs/03_GAME_ECONOMY.md §2. */
+// DEC-031 #3 (BB-238): V1 default clock = 7:00 with a scaled decay
+// window — hardDecisionTimeLimitMs 420,000 and clockFloorMs 120,000, so
+// players don't sit at the 30% floor for six minutes. Provisional values
+// (OQ-015..017); the previous economy-0.2.0 row's values are never edited.
 export const DEFAULT_ECONOMY_CONFIG: EconomyConfig = {
-  version: 'economy-0.2.0',
+  version: 'economy-0.3.0',
   matchBountyChips: 100,
   concessionBudgetChips: 100,
   concessionK: 10,
   concessionAlpha: 0.6,
   clockFloorMultiplier: 0.3,
-  clockFloorMs: 60_000,
+  clockFloorMs: 120_000,
   turnGraceMs: 0,
   maxAmountTenths: 9_999_999_999,
-  hardDecisionTimeLimitMs: 90_000,
+  hardDecisionTimeLimitMs: 420_000,
   timeoutPolicy: 'ATTRIBUTED_NO_DEAL',
   timeWarningLowMs: 30_000,
   timeWarningCriticalMs: 10_000,

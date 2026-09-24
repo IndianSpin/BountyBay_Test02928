@@ -4,7 +4,7 @@ import { clockMultiplier, elapsedActiveMs } from '../src/clock';
 import type { MatchState, ParticipantState } from '../src/types';
 import { BUYER_ID, startedMatch } from './helpers';
 
-const config = makeEconomyConfig(); // floor 0.30, T_floor 60s (economy-0.2.0), grace 0
+const config = makeEconomyConfig(); // floor 0.30, T_floor 120s (economy-0.3.0, DEC-031), grace 0
 
 describe('clockMultiplier — GE-008', () => {
   it('starts at 100%', () => {

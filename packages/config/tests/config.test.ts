@@ -11,11 +11,11 @@ import {
   validateEconomyConfig,
 } from '../src';
 
-describe('DEFAULT_ECONOMY_CONFIG (economy-0.2.0)', () => {
+describe('DEFAULT_ECONOMY_CONFIG (economy-0.3.0)', () => {
   it('carries the DD Phase 1 test defaults', () => {
-    expect(DEFAULT_ECONOMY_CONFIG.version).toBe('economy-0.2.0');
-    expect(DEFAULT_ECONOMY_CONFIG.clockFloorMs).toBe(60_000);
-    expect(DEFAULT_ECONOMY_CONFIG.hardDecisionTimeLimitMs).toBe(90_000);
+    expect(DEFAULT_ECONOMY_CONFIG.version).toBe('economy-0.3.0');
+    expect(DEFAULT_ECONOMY_CONFIG.clockFloorMs).toBe(120_000);
+    expect(DEFAULT_ECONOMY_CONFIG.hardDecisionTimeLimitMs).toBe(420_000);
     expect(DEFAULT_ECONOMY_CONFIG.timeoutPolicy).toBe('ATTRIBUTED_NO_DEAL');
     expect(DEFAULT_ECONOMY_CONFIG.timeWarningLowMs).toBe(30_000);
     expect(DEFAULT_ECONOMY_CONFIG.timeWarningCriticalMs).toBe(10_000);
@@ -69,7 +69,7 @@ describe('validateEconomyConfig — DD Phase 1 fields', () => {
 
 describe('effectiveHardDecisionLimitMs — legacy config compatibility', () => {
   it('returns the limit when set', () => {
-    expect(effectiveHardDecisionLimitMs(makeEconomyConfig())).toBe(90_000);
+    expect(effectiveHardDecisionLimitMs(makeEconomyConfig())).toBe(420_000);
   });
 
   it('returns null for absent, non-finite, or non-positive limits (legacy rows)', () => {

@@ -72,7 +72,7 @@ export function readyBoth(commit: (c: DomainCommand) => void, at = START_NOW): v
 export function play(
   script: (commit: (c: DomainCommand) => void, api: ScriptApi) => void,
   overrides: Partial<CreateMatchInput> = {},
-  config: EconomyConfig = makeEconomyConfig(),
+  config: EconomyConfig = makeEconomyConfig({ hardDecisionTimeLimitMs: 90_000 }), // pinned 90s limit — the product default moved (DEC-031 #3)
 ): ScriptedMatch {
   const input = makeInput(overrides);
   let state = mustOk(createMatch(input, config)).state;

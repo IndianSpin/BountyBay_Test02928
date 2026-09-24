@@ -24,10 +24,43 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-<<<<<<< HEAD
-## CURRENT TASK — BB-233 (BB-229-1 fix-forward) — READY FOR REVIEW
-=======
-## CURRENT TASK — BB-226 (DD-M3 verified information, GR-028) — READY FOR REVIEW
+## CURRENT TASK — BB-238 (clock ruling DEC-031 #3) — READY FOR REVIEW
+
+economy-0.3.0: hardDecisionTimeLimitMs 420,000 (7:00) + clockFloorMs
+120,000 (scaled decay window — players don't sit at the 30% floor for
+six minutes). Provisional (OQ-015..017). Changes: DEFAULT_ECONOMY_CONFIG
+→ 0.3.0 (packages/config); seed upserts the default version and now
+deactivates EVERY other row (previously only economy-0.1.0 — 0.2.0
+would have stayed active after the bump); E2E override seeds unchanged
+(overrides apply to the active row, which is now 0.3.0 — verified
+45s/25s/10s land on it). No UI, no timeout-policy changes. Tests
+updated to stop depending on the 90s/60s defaults: config default
+assertions → 420s/120s/0.3.0; match.test economyConfigVersion
+assertion; intelligence play-helper + features/observations pin
+explicit 90s (curate inherits via the helper); command-service
+CONFIG_VERSION follows DEFAULT_ECONOMY_CONFIG.version; reveal GR-023
+test pins its own 90s; clock test comment only. Evidence: typecheck
+9/9; unit 301/73 skipped; test:db 86/86 (E2E DB seeded without
+overrides; restored after — the 0.3.0 row carries the E2E overrides);
+lint 0.
+
+⚠ FLAG (coordination, per your BB-241 note — helpers NOT re-edited):
+the full strict suite has late-suite failures in the shared entry flow
+(post-BB-241). Two consecutive runs failed 3 and 5 browser specs — all
+LATE positions (19–26), all at `match-status` never appearing within
+25s, and Playwright's error-context artifacts show the page sitting on
+the TITLE screen (the "Auth not configured — running without Clerk"
+dev notice) mid-match. Affected: friend-match GR-013/GR-007,
+rematch-consent decline, telemetry ×2, timeout — including W2's own
+specs. Standalone: my friend-match/hold-accept/timeout specs passed 6/6
+after the sync. My BB-238 diff (config values + seed + tests) cannot
+cause page navigation; the suite grew to 26 tests with W2's title/bay
+entry flow — the flake lives in that shared surface. Flagging, not
+fixing, per instruction.
+
+### BB-226 — ACCEPTED and merged (3ff2766).
+
+## OLD CURRENT TASK — BB-226 (DD-M3 verified information, GR-028) — READY FOR REVIEW
 
 Branch w1-dd-m3 (from golden-baseline-2, per D-36/D-41). Implemented:
 
@@ -88,7 +121,8 @@ Branch w1-dd-m3 (from golden-baseline-2, per D-36/D-41). Implemented:
 
 ### BB-222 + BB-223 — ACCEPTED and merged (c83d126) on main; this
 branch starts from golden-baseline-2 (D-36).
->>>>>>> w1-dd-m3
+
+### BB-233 — ACCEPTED and merged (2797283); historical.
 
 Malformed JSON bodies hit the DA-P1 error handler as framework errors
 (FST_ERR_CTP_INVALID_JSON_BODY, statusCode 400) and were replied 500 —
