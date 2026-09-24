@@ -2499,6 +2499,86 @@
    "h": 860,
    "title": "SH4 · 8 — Result and rematch transition",
    "page": "sh4"
+  },
+  "RW-Vocabulary.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1880,
+   "h": 960,
+   "title": "RW0 · The seven beats + nine rules",
+   "page": "rw0"
+  },
+  "RW-Index.dc.html": {
+   "x": 1960,
+   "y": 0,
+   "w": 1880,
+   "h": 1700,
+   "title": "RW0 · Event index (25)",
+   "page": "rw0"
+  },
+  "RW-Loops.dc.html": {
+   "x": 0,
+   "y": 1900,
+   "w": 1880,
+   "h": 820,
+   "title": "RW0 · The chain of open loops",
+   "page": "rw0"
+  },
+  "RW-Intro.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1880,
+   "h": 1500,
+   "title": "RW1 · 01–06",
+   "page": "rw1"
+  },
+  "RW-Table.dc.html": {
+   "x": 1960,
+   "y": 0,
+   "w": 1880,
+   "h": 1500,
+   "title": "RW1 · 07–12",
+   "page": "rw1"
+  },
+  "RW-End.dc.html": {
+   "x": 0,
+   "y": 1700,
+   "w": 1880,
+   "h": 1500,
+   "title": "RW1 · 13–17",
+   "page": "rw1"
+  },
+  "RW-Reveal.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1880,
+   "h": 1260,
+   "title": "RW2 · 18–21",
+   "page": "rw2"
+  },
+  "RW-After.dc.html": {
+   "x": 1960,
+   "y": 0,
+   "w": 1880,
+   "h": 1260,
+   "title": "RW2 · 22–25",
+   "page": "rw2"
+  },
+  "RW-Deal74.dc.html": {
+   "x": 0,
+   "y": 1460,
+   "w": 1880,
+   "h": 780,
+   "title": "RW2 · The deal at 74, beat by beat",
+   "page": "rw2"
+  },
+  "RW-Mirror.dc.html": {
+   "x": 1960,
+   "y": 1460,
+   "w": 1880,
+   "h": 760,
+   "title": "RW2 · The loss mirror",
+   "page": "rw2"
   }
  },
  "createdOnFiles": {
@@ -2515,7 +2595,7 @@
   }
  ],
  "launch": {
-  "page": "sh0",
+  "page": "rw0",
   "view": "canvas"
  },
  "notes": {
@@ -3227,6 +3307,38 @@
    "page": "sh4",
    "kind": "title1",
    "maxW": 3900
+  },
+  "rw0_t": {
+   "x": 0,
+   "y": -300,
+   "text": "Reward choreography — every important event as ANTICIPATION → ACTION → IMPACT → REVEAL → REWARD → PERSISTENCE → NEXT OPEN LOOP. Same reference match as SH0–SH4.",
+   "page": "rw0",
+   "kind": "title1",
+   "maxW": 5000
+  },
+  "rw0_stop": {
+   "x": -420,
+   "y": -40,
+   "text": "FOR FOUNDER REVIEW. Specification only — nothing wired in the app. Trigger names are proposals for the domain event catalogue; every PDR tag links to the SH0 decisions list.",
+   "page": "rw0",
+   "w": 360,
+   "fill": "red"
+  },
+  "rw1_t": {
+   "x": 0,
+   "y": -300,
+   "text": "From “person found” to the end of the deal: 17 events, seven beats each.",
+   "page": "rw1",
+   "kind": "title1",
+   "maxW": 3900
+  },
+  "rw2_t": {
+   "x": 0,
+   "y": -300,
+   "text": "After the deal: the showdown, what you gained or lost, what stays changed, and what pulls you back.",
+   "page": "rw2",
+   "kind": "title1",
+   "maxW": 3900
   }
  },
  "order": [
@@ -3536,7 +3648,17 @@
   "SH-Intro.dc.html",
   "SH-Clock.dc.html",
   "SH-Attention.dc.html",
-  "SH-Result.dc.html"
+  "SH-Result.dc.html",
+  "RW-Vocabulary.dc.html",
+  "RW-Index.dc.html",
+  "RW-Loops.dc.html",
+  "RW-Intro.dc.html",
+  "RW-Table.dc.html",
+  "RW-End.dc.html",
+  "RW-Reveal.dc.html",
+  "RW-After.dc.html",
+  "RW-Deal74.dc.html",
+  "RW-Mirror.dc.html"
  ],
  "pages": [
   {
@@ -3558,6 +3680,18 @@
   {
    "id": "sh4",
    "name": "SH4 · Intro, chess clock, attention, result → rematch"
+  },
+  {
+   "id": "rw0",
+   "name": "RW0 · Reward choreography: vocabulary, index, open loops"
+  },
+  {
+   "id": "rw1",
+   "name": "RW1 · Reward choreography: intro and the table (01–17)"
+  },
+  {
+   "id": "rw2",
+   "name": "RW2 · Reward choreography: reveal, reward, return (18–25)"
   },
   {
    "id": "pv0",

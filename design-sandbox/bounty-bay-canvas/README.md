@@ -1,6 +1,6 @@
 # Bounty Bay design canvas — export
 
-Exported from the claude.ai Design canvas "Bounty Bay — Product Design v2" (refreshed 2026-09-24: 45 pages, 307 boards on the canvas; 286 current boards here — superseded ones moved out, see below).
+Exported from the claude.ai Design canvas "Bounty Bay — Product Design v2" (refreshed 2026-09-24: 48 pages, 317 boards on the canvas; 296 current boards here — superseded ones moved out, see below).
 
 > **Status: design reference, NOT canonical.** `AGENTS.md` source-of-truth order still applies: `docs/` wins over anything here. Where this folder and `docs/` disagree, stop and report — do not infer intent. Visual/frontend guidance is governed by `docs/09_UI_DESIGN_SYSTEM.md`.
 
@@ -9,6 +9,7 @@ Exported from the claude.ai Design canvas "Bounty Bay — Product Design v2" (re
 | # | Pages / boards | What it is | Target visuals |
 |---|---|---|---|
 | 0 | **SH0–SH4** (`SH-*`) — **awaiting founder review** | Game shell / player journey proposal: The Bay → choose battle → matchmaking → intro → live table with chess clock → result → rematch → back to The Bay, one player (BOB) and one match (THE RUBY COMPASS vs KESTREL) throughout. Includes Bay IA, battle-selection hierarchy, navigation model, chess-clock spec and 20 PRODUCT DECISIONS REQUIRED. **Not approved — do not implement yet.** | `renders/SH-*.jpg` |
+| 0b | **RW0–RW2** (`RW-*`) — **awaiting founder review** | Reward choreography: 25 events, each as ANTICIPATION → ACTION → IMPACT → REVEAL → REWARD → PERSISTENCE → NEXT OPEN LOOP, with volume (PV3 ladder), length, proposed trigger event, reduced-motion fallback and rule refs; the deal-at-74 timeline; the loss mirror. Spec for one sequencer — supersedes the event list in `motion-spec.md` where they differ. | `renders/RW-*.jpg` |
 | 1 | **PV0–PV4** (`PV-*`) | PvP product vision (founder direction, D-48): thesis, loop, information boundary, attention per state, communication, live sequence, showdown, juice ladder, swap sides, rivalry. Experience/flow direction — **not new game rules**. | `renders/PV-*.jpg` |
 | 2 | **OS** (`OS-*`) | Opening / title screen. | `renders/OS-*.jpg` |
 | 3 | **C2** (`GO2-*`) | GoldenOtter v4 — the approved character quality benchmark. | `renders/GO2-*.jpg` |
@@ -66,6 +67,25 @@ Boards are mockups, not production components. They need the canvas runtime (not
 - All items listed under "Open decisions" in `motion-spec.md` are PRODUCT DECISIONS, not rules.
 
 ## Pages and boards
+
+### RW0 · Reward choreography: vocabulary, index, open loops
+
+- `boards/RW-Vocabulary.dc.html` — RW0 · The seven beats + nine rules · render: `renders/RW-Vocabulary.jpg`
+- `boards/RW-Index.dc.html` — RW0 · Event index (25) · render: `renders/RW-Index.jpg`
+- `boards/RW-Loops.dc.html` — RW0 · The chain of open loops · render: `renders/RW-Loops.jpg`
+
+### RW1 · Reward choreography: intro and the table (01–17)
+
+- `boards/RW-Intro.dc.html` — RW1 · 01–06 · render: `renders/RW-Intro.jpg`
+- `boards/RW-Table.dc.html` — RW1 · 07–12 · render: `renders/RW-Table.jpg`
+- `boards/RW-End.dc.html` — RW1 · 13–17 · render: `renders/RW-End.jpg`
+
+### RW2 · Reward choreography: reveal, reward, return (18–25)
+
+- `boards/RW-Reveal.dc.html` — RW2 · 18–21 · render: `renders/RW-Reveal.jpg`
+- `boards/RW-After.dc.html` — RW2 · 22–25 · render: `renders/RW-After.jpg`
+- `boards/RW-Deal74.dc.html` — RW2 · The deal at 74, beat by beat · render: `renders/RW-Deal74.jpg`
+- `boards/RW-Mirror.dc.html` — RW2 · The loss mirror · render: `renders/RW-Mirror.jpg`
 
 ### SH0 · Game shell: journey, rules check, decisions
 
