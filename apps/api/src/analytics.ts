@@ -37,7 +37,9 @@ export type AnalyticsEventName =
   | 'challenge_created'
   | 'challenge_joined'
   | 'match_started'
-  | 'feedback_submitted';
+  | 'feedback_submitted'
+  // BB-257 (table talk): per-AI-turn social intent, pseudonymous.
+  | 'ai_turn_intent';
 
 export type AnalyticsFields = Record<string, string | number | boolean | null>;
 
