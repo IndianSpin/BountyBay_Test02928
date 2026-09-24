@@ -1160,3 +1160,11 @@ pass (Game Review/Rematch/back-to-Bay at 390px) · Clerk production
 instance + domain allowlist + JWT key (founder dashboard + env).
 Deploy chain unchanged: Railway container boot (founder railway login
 or env fixes) → NEXT_PUBLIC_API_URL → hosted QA.
+
+## D-87 — BB-268 ACCEPTED: zero N cells (2026-09-24)
+
+QA walked Game Review, Rematch, back-to-Bay at 390×844 on main — all
+GREEN. The Product Health Matrix now has ZERO N cells: every journey
+state is evidence-backed on desktop and mobile. Remaining non-GREEN:
+SH4 result VISUAL (fixed in code, founder review pending) and the
+profile-surface YELLOW (BB-266 in flight).
