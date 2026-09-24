@@ -24,7 +24,38 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — BB-245 (Clerk integration, D-64 external alpha) — READY FOR REVIEW
+## CURRENT TASK — BB-257 (table-talk wiring, AI_BEHAVIOR_CONTRACT §3) — READY FOR REVIEW
+
+Wired the merged BB-254 pipeline (packages/intelligence runAiTurn,
+table-talk-0.1.0) into AiTurnEngine.performAiTurn: the persona layer
+now decides the legal economic action ONLY (decide with chatAllowed
+false; an unexpected chat array → logged + WALK_AWAY, never wedged);
+runAiTurn receives legal-view observations (own + opponent public
+offers, concession run, opponent decision window, message PRESENCE
+only — never message content, never RVs), updates per-match beliefs
+(in-memory map, restart-safe since the talk hash derives from
+matchId/round/eventSequence), and returns the talk + intent. The talk
+commits as a MESSAGE before the economic move (same ordering as the
+old flavor-chat path); the pipeline's fallback makes non-response
+impossible. Intent observability: new `ai_turn_intent` analytics line
+per turn {matchId, playerId(bot), personaKey, intent, roundNumber}
+(pseudonymous; EVENT_CATALOG proposal in the doc list).
+observeAiTurn builds the observations from the event stream (decision
+window = latest opponent offer minus the prior event).
+
+Evidence: `pnpm typecheck` — 9/9 exit 0. `pnpm test` — 309 passed /
+81 skipped. `pnpm test:db` (isolated E2E DB, seeded without overrides;
+restored after) — 17 files, 94 tests passed (ai-match-routes 4/4,
+alpha-gap 4/4 incl. the engine-completion flow with talk in the
+stream). Strict E2E (3100/4100) — 28 passed / 1 canvas-gated skip
+(practice-vs-ai chat assertions still green with the new talk source).
+`pnpm lint` — exit 0.
+
+DOC PROPOSAL: EVENT_CATALOG += ai_turn_intent (BB-257).
+
+### BB-245 — READY FOR REVIEW as committed (054d683; awaiting verdict).
+
+## OLD CURRENT TASK — BB-245 (Clerk integration, D-64 external alpha) — READY FOR REVIEW
 
 Completed against the founder's 10 requirements + the manager's
 remaining-scope list:

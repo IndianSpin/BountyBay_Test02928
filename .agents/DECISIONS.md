@@ -1000,3 +1000,36 @@ RNG/LLM, non-response impossible, packages/ai untouched); journey
 walk merged (both journeys GREEN except the two known REDs, QA
 evidence + spec committed). Matrix updated: AI table talk = YELLOW
 (engine merged, wiring pending BB-257).
+
+## D-75 — FIRST HOSTED ALPHA DEPLOYMENT (2026-09-24)
+
+Founder milestone: deploy the current integrated main so external
+testers can use Bounty Bay. Deployment/stabilization only — no
+product features. Ten phases mapped: P1 audit + dependency map →
+sixth (BB-259, builds on BB-246's runbook); P2 environment contract
+→ sixth (verify actual repo names, no aliases); P3 Vercel → founder
+connects GitHub repo (sixth preps settings; preview first); P4
+Railway backend → founder creates project (sixth preps; sockets
+direct to Railway, CORS pinned, migrations via railway run); P5 Clerk
+hosted flow → QA after deploy; P6 public URL contract → W1 (BB-260:
+localhost/127.0.0.1 audit + classification + challenge-URL origin);
+P7 hosted Golden Journey → QA (BB-249 extended: both users, refresh,
+disconnect/reconnect, mobile + desktop); P8 observability → Data
+(BB-261: release/env/route/player/match/time/error fields; no
+secrets/private info/tokens); P9 analytics → Data (minimum set incl.
+review_opened + rematch_started — review_opened exists from IN-1);
+P10 release report → manager; STOP for founder review before any
+invite; never auto-invite.
+
+## D-76 — BB-257 ACCEPTED (2026-09-24)
+
+Table talk wired: persona decides the legal economic action ONLY
+(chatAllowed false; unexpected chat → logged + WALK_AWAY, never
+wedged); runAiTurn consumes legal-view observations (own/opponent
+offers, concession run, decision window, message PRESENCE only,
+held-last-turn, crossed) with the economic action passed through
+unchanged; talk commits before the move; restart-safe belief hash;
+fallback covers non-response. ai_turn_intent analytics line per turn
+(pseudonymous) — EVENT_CATALOG note recorded. Gate: tc 0, unit 309,
+lint 0, db 94, strict E2E 28. Matrix: table-talk row flips GREEN on
+QA's re-walk (their call).

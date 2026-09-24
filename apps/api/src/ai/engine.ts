@@ -17,10 +17,17 @@ import {
   mulberry32,
   type AgentContext,
   type AgentDecision,
+  type PersonaKey,
 } from '@bounty-bay/ai';
-import { viewMatchFor } from '@bounty-bay/domain';
+import { viewMatchFor, type DomainEvent, type MatchState, type PlayerId } from '@bounty-bay/domain';
+import {
+  initialBeliefs,
+  runAiTurn,
+  type AiBeliefs,
+  type AiEconomicAction,
+  type AiObservationInput,
+} from '@bounty-bay/intelligence';
 import type { MatchCommandService, PrismaClient, StoredSnapshot } from '@bounty-bay/db';
-import type { DomainEvent } from '@bounty-bay/domain';
 import { randomUUID } from 'node:crypto';
 import type { MatchBroadcaster } from '../realtime';
 import { matchCompletedFields, tierEntriesFor, type AnalyticsEmitter } from '../analytics';
@@ -38,6 +45,8 @@ type Move = Exclude<AgentDecision, readonly unknown[]>;
 export class AiTurnEngine {
   private readonly timers = new Map<string, NodeJS.Timeout>();
   private botIds: Set<string> | null = null;
+  /** BB-257 (table talk): per-match belief state, reset per process restart. */
+  private readonly beliefs = new Map<string, AiBeliefs>();
 
   constructor(private readonly options: AiTurnEngineOptions) {}
 
@@ -112,24 +121,42 @@ export class AiTurnEngine {
     const now = Date.now();
     const context: AgentContext = { view: viewMatchFor(state, active, now, snapshot.config), now, rng, chatAllowed: true };
 
-    let decision = agent.decide(context);
+    // BB-257 (AI_BEHAVIOR_CONTRACT §3): the persona layer supplies the
+    // legal economic action only; the table-talk pipeline (packages/
+    // intelligence runAiTurn) supplies the talk + intent. The pipeline
+    // receives legal-view observations only — never reservation values,
+    // never opponent message content.
+    let decision = agent.decide({ ...context, chatAllowed: false });
     if (Array.isArray(decision)) {
-      // flavor chat: commit it, then decide again without chat (one batch per turn)
-      const committed = await this.commitMessages(matchId, active, decision, now);
-      if (!committed) return;
-      decision = agent.decide({ ...context, chatAllowed: false });
-      if (Array.isArray(decision)) {
-        // unreachable by construction (chatAllowed=false never yields chat); never wedge a match
-        console.error(`[ai] ${row.aiPersonaKey} chatted twice in one turn (match ${matchId}); walking away`);
-        decision = { kind: 'WALK_AWAY' };
-      }
+      // chatAllowed=false never yields chat by construction; never wedge a match
+      console.error(`[ai] ${row.aiPersonaKey} returned chat without permission (match ${matchId}); walking away`);
+      decision = { kind: 'WALK_AWAY' };
     }
+
+    const events = await this.options.service.listEvents(matchId);
+    const talkResult = runAiTurn(
+      observeAiTurn(matchId, state, active, decision as Move, events, persona.key),
+      this.beliefs.get(matchId) ?? initialBeliefs(),
+    );
+    this.beliefs.set(matchId, talkResult.beliefs);
+
+    const talked = await this.commitMessages(matchId, active, [{ messageId: randomUUID(), body: talkResult.talk }], now);
+    if (!talked) return; // the lazy hook rescues the turn
 
     let committed = await this.commitMove(matchId, active, decision as Move, now);
     if (!committed) {
       committed = await this.fallbackMove(matchId, active, snapshot);
     }
     if (!committed) return;
+
+    // BB-257: intent observability — pseudonymous, one line per AI turn.
+    this.options.analytics?.emit('ai_turn_intent', {
+      matchId,
+      playerId: active,
+      personaKey: row.aiPersonaKey,
+      intent: talkResult.intent,
+      roundNumber: state.eventSequence + 1,
+    });
 
     const after = await this.options.service.loadSnapshot(matchId);
     this.options.broadcast(matchId, committed.events, after);
@@ -222,4 +249,77 @@ export class AiTurnEngine {
     const outcome = await this.options.service.walkAway({ kind: 'WALK_AWAY', matchId, playerId, commandId: randomUUID(), now: Date.now() });
     return outcome.ok ? { events: outcome.events ?? [] } : null;
   }
+}
+
+// ---------------------------------------------------------------------------
+// BB-257 (AI_BEHAVIOR_CONTRACT §3): legal-view observations
+// ---------------------------------------------------------------------------
+
+/**
+ * Observations for one AI turn, built from the legal view only: the
+ * bot's own offer, the opponent's public offers, event-stream presence
+ * and timing. No reservation values, no message content — both players
+ * can see everything read here (docs/18 hidden-information discipline).
+ */
+function observeAiTurn(
+  matchId: string,
+  state: MatchState,
+  botId: PlayerId,
+  decision: Move,
+  events: DomainEvent[],
+  personaKey: PersonaKey,
+): AiObservationInput {
+  const bot = state.participants.find((p) => p.playerId === botId)!;
+  const opponent = state.participants.find((p) => p.playerId !== botId)!;
+
+  const opponentOffers = events.filter((e) => e.type === 'OFFER_SUBMITTED' && e.actorPlayerId === opponent.playerId);
+  const latestOpponentOffer = opponentOffers[opponentOffers.length - 1];
+  const previousOpponentOffer = opponentOffers[opponentOffers.length - 2];
+
+  // Consecutive opponent concessions toward the bot (strict improvement).
+  let concessionRun = 0;
+  for (let i = opponentOffers.length - 1; i > 0; i -= 1) {
+    const current = opponentOffers[i]!.payload.amountTenths as number;
+    const prior = opponentOffers[i - 1]!.payload.amountTenths as number;
+    const improvesForBot = bot.role === 'BUYER' ? current < prior : current > prior;
+    if (!improvesForBot) break;
+    concessionRun += 1;
+  }
+
+  // The opponent's last decision window: their latest offer minus the
+  // event immediately before it in the stream.
+  let opponentLastDecisionMs: number | null = null;
+  if (latestOpponentOffer) {
+    const eventIndex = events.indexOf(latestOpponentOffer);
+    const previous = events[eventIndex - 1];
+    if (previous) opponentLastDecisionMs = latestOpponentOffer.at - previous.at;
+  }
+
+  const crossedOffers =
+    bot.latestOfferTenths !== null &&
+    opponent.latestOfferTenths !== null &&
+    (bot.role === 'BUYER'
+      ? bot.latestOfferTenths >= opponent.latestOfferTenths
+      : opponent.latestOfferTenths >= bot.latestOfferTenths);
+
+  const economicAction: AiEconomicAction =
+    decision.kind === 'OFFER' ? { kind: 'OFFER', amountTenths: decision.amountTenths } : { kind: decision.kind };
+
+  return {
+    matchId,
+    roundNumber: state.eventSequence + 1,
+    role: bot.role,
+    myLatestOfferTenths: bot.latestOfferTenths,
+    opponentLatestOfferTenths: opponent.latestOfferTenths,
+    opponentConcessionRun: concessionRun,
+    opponentLastDecisionMs,
+    opponentMessageCount: events.filter((e) => e.type === 'MESSAGE_SENT' && e.actorPlayerId === opponent.playerId).length,
+    opponentHeldLastTurn:
+      previousOpponentOffer !== undefined &&
+      latestOpponentOffer !== undefined &&
+      previousOpponentOffer.payload.amountTenths === latestOpponentOffer.payload.amountTenths,
+    crossedOffers,
+    economicAction,
+    personaKey,
+  };
 }
