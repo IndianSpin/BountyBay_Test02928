@@ -1179,3 +1179,16 @@ moment eventRefs was empty — curateReview now takes a terminalEventRef
 (curation 0.2.0), buildGameReview threads the terminal event. One-line
 API follow-up (W1's match-routes: pass the terminal sequence) → BB-269.
 Gate: tc 0, unit 318, lint 0.
+
+## D-89 — BB-266 ACCEPTED (2026-09-24)
+
+Merged: GET /v1/matches/:id/progress (participant-only, terminal-only,
+ABORTED→409; BB-258 payload from stored rows, nothing persists; goal
+honestly null until IN-5/IN-7 persistence) + golden result progress
+panel rendered ONLY on real payloads (golden fixture unaffected —
+golden-check 76/76 both viewports) + dev-banner fixed overlay +
+join-route cap REAL gap fixed (gameRouteCap(30), production pin
+unchanged). Cross-territory note: the progress endpoint is W2-authored
+in apps/api (grandfathered, W1 review at leisure). Gate: tc 0, unit
+316, lint 0, ai-routes 6/6. Matrix: profile row stays YELLOW until
+QA's re-walk (founder's K rule: GREEN only after independent QA).
