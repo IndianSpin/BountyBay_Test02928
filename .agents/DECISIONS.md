@@ -763,3 +763,13 @@ W2, small). Turbopack font flake = environment, no action.
 Founder typed "accept" for the IN-5 checkpoint (received in W3's
 session; code was already merged under D-47). IN-6 (practice system)
 unblocked → BB-237 for W3.
+
+## D-57 — Founder SH-* showdown export (2026-09-24)
+
+28 new boards (SH-Intro "from 'found' to her first offer in about 13
+seconds" + SH-Battle/Clock/Decisions/Desk-1/2/Journey/Mob-1/2/Nav/
+Attention/BayIA…), README + canvas.json updated — committed. The
+showdown/result-sequence design set. Classification: design direction
+for the result flow (PV-Showdown expanded). NOT yet tasked — queued
+behind the founder's PV verdict; W2's reveal-UI and BB-236 remain
+first in its queue.
