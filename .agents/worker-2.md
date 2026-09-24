@@ -31,7 +31,15 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — BB-225 cast pose-system — READY FOR REVIEW
+## CURRENT TASK — BB-232 composition overflow fix — READY FOR REVIEW
+Branch `w2-fit-composition`, tip `e876271`. Dossier disclosure +
+mobile re-fit + PV-Mobile state-adaptive action zone; world-level fit
+assertions in canvas-checkpoint. Measured: mobile 844/844 (was +368),
+desktop 900/900 (was ~90). Gates: typecheck 0, unit 280, lint clean,
+full E2E 15/15. Evidence design-sandbox/screenshots/bb232/.
+BB-230 next after acceptance.
+
+## DONE — BB-225 cast pose-system — ACCEPTED (f119b9c; PDR-5 mapping confirmed by founder)
 Branch `w2-cast-poses`, tip `d1e405e`. Registry of 8 characters
 (files/sheet/avatar) + persona mapping; AI opponents now front as
 cast characters; humans keep GoldenOtter (registry = selection seam).
