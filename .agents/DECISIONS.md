@@ -557,3 +557,12 @@ observation→concept mappings are OUT of IN-4 scope — they ride IN-5
 retrieval (confirmed); (2) the 27 seeds are DRAFT pending human review
 — **founder review item** before IN-5 cites them (add to founder
 batch). W3 stands down; IN-5 waits for the founder's IN-4 checkpoint.
+
+## D-39 — BB-224 title screen APPROVED (2026-09-24)
+
+Founder: "approve" — opening/title screen merged (`e9a3128`; gate tc
+0, unit 264, lint 0). Deviations accepted as flagged (inert Watch-a-
+match, hidden live-deals pill, v2-era cast faces until a v3 asset
+export, scrolling mobile strip). PDR-4 switch SHOW_TITLE_ON_RETURN
+ships default SHOW; founder's routing ruling remains open (one flag).
+W2 next: BB-225 cast pose system.
