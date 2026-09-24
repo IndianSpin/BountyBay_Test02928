@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PV0 · Rules check</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/bounty-bay/components/bundle.css">
+<link rel="stylesheet" href="bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 1880px; height: 940px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">PV0 · Rules check — reported, not resolved</div>
+<h1>What the brief assumes vs what the rules say</h1>
+<p style="max-width:1400px">Checked against docs/00, docs/02 (GR-001 – GR-028), docs/14 and docs/17. Where they disagree, the storyboards follow the rules and the gap is listed as a product decision. Nothing here changes a rule.</p>
+<div class="card" style="padding:14px"><table><tr><th>The brief assumes</th><th>The rules say</th><th>What the design does</th><th>Status</th></tr><tr><td style="width:220px"><b>“They folded when I held.”</b></td><td class="m">There is no pass. The turn only moves on a new legal concession (GR-007). Holding = sitting on your turn and talking while your own clock drains (DEC-026). While I hold, the other player cannot move at all.</td><td class="m">The hold is made visible and dramatic (my clock burns where they can see it; my avatar holds a stance I chose). Its end is legible: the size of the eventual step is the message — a 0.5 creep says “I held”.</td><td style="width:92px"><span class="tag" style="background:#FFC23D;color:#3A2400">ADAPTED</span></td></tr><tr><td style="width:220px"><b>Matches of 3–6 minutes</b></td><td class="m">Exactly one clock runs at a time (GR-014), so wall time ≈ total decision time ≤ 2 × hardDecisionTimeLimitMs = 3:00 at the 90 s test default (GR-023). Chat burns the writer's clock.</td><td class="m">Stories fit in ~2 minutes (PV2 is ~1:45). Social play needs time to talk: quick lines and offer pitches exist to make talking cheap. Budget is an open config (OQ-017).</td><td style="width:92px"><span class="tag" style="background:#E8434F;color:#FFF">PDR</span></td></tr><tr><td style="width:220px"><b>Spectators see both limits live</b></td><td class="m">Live spectators see only public or revealed information. A delayed caster mode with full hidden information is a possible later addition (docs/17 §6, GR-028).</td><td class="m">Caster view is designed as delayed only. Not drawn in this pass (brief stop condition); the information model (PV1) fixes the boundary.</td><td style="width:92px"><span class="tag" style="background:#FFC23D;color:#3A2400">ADAPTED</span></td></tr><tr><td style="width:220px"><b>Private dossier, verified evidence, quick lines, voice</b></td><td class="m">Adopted but deferred: GR-028 (Phases 2–3), GR-025/027 (Phases 4–5).</td><td class="m">Used in the storyboards and tagged as deferred. Dossier depth and reveal cost are open (OQ-020).</td><td style="width:92px"><span class="tag" style="background:#BFD3F5;color:#12305E">DEFERRED</span></td></tr><tr><td style="width:220px"><b>Characters represent players</b></td><td class="m">Character selection does not exist; human opponents render as GoldenOtter until it does (docs/21).</td><td class="m">Drawn with chosen avatars. Needs an avatar-selection decision and the performance rule in PV0.</td><td style="width:92px"><span class="tag" style="background:#E8434F;color:#FFF">PDR</span></td></tr><tr><td style="width:220px"><b>Reveal whether the other buyer was real</b></td><td class="m">Post-match reveal of unrevealed dossier facts is an open question (OQ-019). GR-018 lists what is revealed today — limits, ZOPA, offers, shares, clocks, chips.</td><td class="m">The showdown is drawn with the fact flip as a variant. It is the strongest payoff for a bluff — a founder call.</td><td style="width:92px"><span class="tag" style="background:#E8434F;color:#FFF">PDR</span></td></tr><tr><td style="width:220px"><b>SWAP SIDES rematch</b></td><td class="m">Friend challenges are unrated (GR-019); repeated rated games vs one person raise boosting risk (principle 7). Aggregate series scoring is undefined.</td><td class="m">Formats and a default are drawn in PV4; rating treatment is left open.</td><td style="width:92px"><span class="tag" style="background:#E8434F;color:#FFF">PDR</span></td></tr><tr><td style="width:220px"><b>Monthly Bounty · €50 · Top 16</b></td><td class="m">Cash/prize architecture is an open legal question (OQ-013); docs/00 principle 8: measure before real-money expansion.</td><td class="m">Out of this pass. Rivalry and series are the stakes drawn here.</td><td style="width:92px"><span class="tag" style="background:#BFD3F5;color:#12305E">DEFERRED</span></td></tr><tr><td style="width:220px"><b>AI as infrastructure, never a hidden human</b></td><td class="m">GR-020: AI disclosed before and throughout; never a human-looking identity.</td><td class="m">Unchanged. Low-liquidity alternatives are offered openly (not drawn in this pass).</td><td style="width:92px"><span class="tag" style="background:#2FC478;color:#08361E">OK</span></td></tr><tr><td style="width:220px"><b>Opponent reacts to my concession</b></td><td class="m">Nothing in the rules; on a human avatar it would fabricate their emotion.</td><td class="m">Replaced by the performance rule: their avatar shows only their acts and chosen expressions.</td><td style="width:92px"><span class="tag" style="background:#FFC23D;color:#3A2400">ADAPTED</span></td></tr></table></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1880, "height": 940}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

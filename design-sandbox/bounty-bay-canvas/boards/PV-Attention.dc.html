@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PV1 · Attention</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/bounty-bay/components/bundle.css">
+<link rel="stylesheet" href="bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 1880px; height: 940px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">PV1 · D — Live-match attention model</div>
+<h1>One hero per state. Everything else steps back.</h1>
+<p style="max-width:1450px">The screen is not one layout with changing labels; it is one world whose emphasis moves. Hero: the single thing the eye lands on. Active: up to two supporting things. Quiet: always there, never loud. On demand: one tap away. The person is never lower than Active while the table is live.</p>
+<div class="card" style="padding:14px"><table><tr><th>State</th><th>Hero (one)</th><th>Active (≤ 2)</th><th>Quiet</th><th>On demand</th></tr><tr><td style="width:200px"><b>Match found</b></td><td style="background:#FFF4D6"><b>The person (avatar + handle)</b></td><td class="m">The asset</td><td class="m">—</td><td class="m">Their profile</td></tr><tr><td style="width:200px"><b>Dossier</b></td><td style="background:#FFF4D6"><b>My sealed limit + two facts</b></td><td class="m">The asset</td><td class="m">The person</td><td class="m">Full scenario text</td></tr><tr><td style="width:200px"><b>Their turn — thinking</b></td><td style="background:#FFF4D6"><b>The person (true state: thinking)</b></td><td class="m">Their clock</td><td class="m">Both plaques · my limit</td><td class="m">Chat log</td></tr><tr><td style="width:200px"><b>They speak</b></td><td style="background:#FFF4D6"><b>Their words, delivered by the avatar</b></td><td class="m">The person</td><td class="m">Plaques</td><td class="m">Chat log</td></tr><tr><td style="width:200px"><b>Their offer lands</b></td><td style="background:#FFF4D6"><b>Their plaque in motion</b></td><td class="m">The size of the step (trail)</td><td class="m">My limit · clocks</td><td class="m">Offer history</td></tr><tr><td style="width:200px"><b>My turn — reading</b></td><td style="background:#FFF4D6"><b>The gap between the plaques</b></td><td class="m">Their last words · my clock</td><td class="m">My limit</td><td class="m">Dossier · history</td></tr><tr><td style="width:200px"><b>My turn — composing</b></td><td style="background:#FFF4D6"><b>My proposed plaque + cost preview</b></td><td class="m">The gap</td><td class="m">Their plaque</td><td class="m">—</td></tr><tr><td style="width:200px"><b>My turn — holding</b></td><td style="background:#FFF4D6"><b>My burning clock</b></td><td class="m">My words</td><td class="m">Plaques</td><td class="m">—</td></tr><tr><td style="width:200px"><b>Verified reveal</b></td><td style="background:#FFF4D6"><b>The stamped document</b></td><td class="m">The person</td><td class="m">Plaques</td><td class="m">The fact's full text</td></tr><tr><td style="width:200px"><b>Close (public gap small)</b></td><td style="background:#FFF4D6"><b>The gap, warm</b></td><td class="m">Both plaques</td><td class="m">Clocks</td><td class="m">—</td></tr><tr><td style="width:200px"><b>Crossed offers</b></td><td style="background:#FFF4D6"><b>Crossed plaques + ACCEPT</b></td><td class="m">The person</td><td class="m">Clocks</td><td class="m">—</td></tr><tr><td style="width:200px"><b>Accepted</b></td><td style="background:#FFF4D6"><b>The locked deal</b></td><td class="m">—</td><td class="m">—</td><td class="m">—</td></tr><tr><td style="width:200px"><b>Showdown</b></td><td style="background:#FFF4D6"><b>The card turning over</b></td><td class="m">The rail / ZOPA</td><td class="m">The two people</td><td class="m">—</td></tr><tr><td style="width:200px"><b>Result</b></td><td style="background:#FFF4D6"><b>My capture % + one true insight</b></td><td class="m">Rivalry or series tally</td><td class="m">—</td><td class="m">Full breakdown (docs/09 review)</td></tr><tr><td style="width:200px"><b>Next</b></td><td style="background:#FFF4D6"><b>SWAP SIDES · PROVE IT</b></td><td class="m">The person</td><td class="m">—</td><td class="m">Rematch · new opponent · leave</td></tr></table></div>
+<p class="cap">Test for every state: blur the frame; only the hero should survive (the canvas blur test, applied per state).</p></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1880, "height": 940}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

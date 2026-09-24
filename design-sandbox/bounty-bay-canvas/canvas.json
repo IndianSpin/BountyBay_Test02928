@@ -50,6 +50,426 @@
       "x": 0,
       "y": 0
     },
+    "CAST-HERON-Animation.dc.html": {
+      "h": 1000,
+      "w": 1200,
+      "x": 7740,
+      "y": 0
+    },
+    "CAST-HERON-BeforeAfter.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 9020,
+      "y": 0
+    },
+    "CAST-HERON-Construction.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 10500,
+      "y": 0
+    },
+    "CAST-HERON-Environment.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 11780,
+      "y": 0
+    },
+    "CAST-HERON-Expressions.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 13060,
+      "y": 0
+    },
+    "CAST-HERON-FullBody.dc.html": {
+      "h": 1200,
+      "w": 2000,
+      "x": 15140,
+      "y": 0
+    },
+    "CAST-HERON-Gestures.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 17220,
+      "y": 0
+    },
+    "CAST-HERON-LiveMatch.dc.html": {
+      "h": 1250,
+      "w": 1000,
+      "x": 19300,
+      "y": 0
+    },
+    "CAST-HERON-Materials.dc.html": {
+      "h": 900,
+      "w": 1400,
+      "x": 20380,
+      "y": 0
+    },
+    "CAST-HERON-Rationale.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 21860,
+      "y": 0
+    },
+    "CAST-HOGSHEAD-Animation.dc.html": {
+      "h": 1000,
+      "w": 1200,
+      "x": 23340,
+      "y": 0
+    },
+    "CAST-HOGSHEAD-BeforeAfter.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 24620,
+      "y": 0
+    },
+    "CAST-HOGSHEAD-Construction.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 26100,
+      "y": 0
+    },
+    "CAST-HOGSHEAD-Environment.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 27380,
+      "y": 0
+    },
+    "CAST-HOGSHEAD-Expressions.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 28660,
+      "y": 0
+    },
+    "CAST-HOGSHEAD-FullBody.dc.html": {
+      "h": 1200,
+      "w": 2000,
+      "x": 30740,
+      "y": 0
+    },
+    "CAST-HOGSHEAD-Gestures.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 32820,
+      "y": 0
+    },
+    "CAST-HOGSHEAD-LiveMatch.dc.html": {
+      "h": 1250,
+      "w": 1000,
+      "x": 34900,
+      "y": 0
+    },
+    "CAST-HOGSHEAD-Materials.dc.html": {
+      "h": 900,
+      "w": 1400,
+      "x": 35980,
+      "y": 0
+    },
+    "CAST-HOGSHEAD-Rationale.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 37460,
+      "y": 0
+    },
+    "CAST-MARIGOLD-Animation.dc.html": {
+      "h": 1000,
+      "w": 1200,
+      "x": 38940,
+      "y": 0
+    },
+    "CAST-MARIGOLD-BeforeAfter.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 40220,
+      "y": 0
+    },
+    "CAST-MARIGOLD-Construction.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 41700,
+      "y": 0
+    },
+    "CAST-MARIGOLD-Environment.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 42980,
+      "y": 0
+    },
+    "CAST-MARIGOLD-Expressions.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 44260,
+      "y": 0
+    },
+    "CAST-MARIGOLD-FullBody.dc.html": {
+      "h": 1200,
+      "w": 2000,
+      "x": 46340,
+      "y": 0
+    },
+    "CAST-MARIGOLD-Gestures.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 48420,
+      "y": 0
+    },
+    "CAST-MARIGOLD-LiveMatch.dc.html": {
+      "h": 1250,
+      "w": 1000,
+      "x": 50500,
+      "y": 0
+    },
+    "CAST-MARIGOLD-Materials.dc.html": {
+      "h": 900,
+      "w": 1400,
+      "x": 51580,
+      "y": 0
+    },
+    "CAST-MARIGOLD-Rationale.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 53060,
+      "y": 0
+    },
+    "CAST-MOSSBACK-Animation.dc.html": {
+      "h": 1000,
+      "w": 1200,
+      "x": 54540,
+      "y": 0
+    },
+    "CAST-MOSSBACK-BeforeAfter.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 55820,
+      "y": 0
+    },
+    "CAST-MOSSBACK-Construction.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 57300,
+      "y": 0
+    },
+    "CAST-MOSSBACK-Environment.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 58580,
+      "y": 0
+    },
+    "CAST-MOSSBACK-Expressions.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 59860,
+      "y": 0
+    },
+    "CAST-MOSSBACK-FullBody.dc.html": {
+      "h": 1200,
+      "w": 2000,
+      "x": 61940,
+      "y": 0
+    },
+    "CAST-MOSSBACK-Gestures.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 64020,
+      "y": 0
+    },
+    "CAST-MOSSBACK-LiveMatch.dc.html": {
+      "h": 1250,
+      "w": 1000,
+      "x": 66100,
+      "y": 0
+    },
+    "CAST-MOSSBACK-Materials.dc.html": {
+      "h": 900,
+      "w": 1400,
+      "x": 67180,
+      "y": 0
+    },
+    "CAST-MOSSBACK-Rationale.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 68660,
+      "y": 0
+    },
+    "CAST-PIPQUILL-Animation.dc.html": {
+      "h": 1000,
+      "w": 1200,
+      "x": 70140,
+      "y": 0
+    },
+    "CAST-PIPQUILL-BeforeAfter.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 71420,
+      "y": 0
+    },
+    "CAST-PIPQUILL-Construction.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 72900,
+      "y": 0
+    },
+    "CAST-PIPQUILL-Environment.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 74180,
+      "y": 0
+    },
+    "CAST-PIPQUILL-Expressions.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 75460,
+      "y": 0
+    },
+    "CAST-PIPQUILL-FullBody.dc.html": {
+      "h": 1200,
+      "w": 2000,
+      "x": 77540,
+      "y": 0
+    },
+    "CAST-PIPQUILL-Gestures.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 79620,
+      "y": 0
+    },
+    "CAST-PIPQUILL-LiveMatch.dc.html": {
+      "h": 1250,
+      "w": 1000,
+      "x": 81700,
+      "y": 0
+    },
+    "CAST-PIPQUILL-Materials.dc.html": {
+      "h": 900,
+      "w": 1400,
+      "x": 82780,
+      "y": 0
+    },
+    "CAST-PIPQUILL-Rationale.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 84260,
+      "y": 0
+    },
+    "CAST-VESPERINE-Animation.dc.html": {
+      "h": 1000,
+      "w": 1200,
+      "x": 85740,
+      "y": 0
+    },
+    "CAST-VESPERINE-BeforeAfter.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 87020,
+      "y": 0
+    },
+    "CAST-VESPERINE-Construction.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 88500,
+      "y": 0
+    },
+    "CAST-VESPERINE-Environment.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 89780,
+      "y": 0
+    },
+    "CAST-VESPERINE-Expressions.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 91060,
+      "y": 0
+    },
+    "CAST-VESPERINE-FullBody.dc.html": {
+      "h": 1200,
+      "w": 2000,
+      "x": 93140,
+      "y": 0
+    },
+    "CAST-VESPERINE-Gestures.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 95220,
+      "y": 0
+    },
+    "CAST-VESPERINE-LiveMatch.dc.html": {
+      "h": 1250,
+      "w": 1000,
+      "x": 97300,
+      "y": 0
+    },
+    "CAST-VESPERINE-Materials.dc.html": {
+      "h": 900,
+      "w": 1400,
+      "x": 98380,
+      "y": 0
+    },
+    "CAST-VESPERINE-Rationale.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 99860,
+      "y": 0
+    },
+    "CAST-ZIPPA-Animation.dc.html": {
+      "h": 1000,
+      "w": 1200,
+      "x": 101340,
+      "y": 0
+    },
+    "CAST-ZIPPA-BeforeAfter.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 102620,
+      "y": 0
+    },
+    "CAST-ZIPPA-Construction.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 104100,
+      "y": 0
+    },
+    "CAST-ZIPPA-Environment.dc.html": {
+      "h": 1400,
+      "w": 1200,
+      "x": 105380,
+      "y": 0
+    },
+    "CAST-ZIPPA-Expressions.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 106660,
+      "y": 0
+    },
+    "CAST-ZIPPA-FullBody.dc.html": {
+      "h": 1200,
+      "w": 2000,
+      "x": 108740,
+      "y": 0
+    },
+    "CAST-ZIPPA-Gestures.dc.html": {
+      "h": 1320,
+      "w": 2000,
+      "x": 110820,
+      "y": 0
+    },
+    "CAST-ZIPPA-LiveMatch.dc.html": {
+      "h": 1250,
+      "w": 1000,
+      "x": 112900,
+      "y": 0
+    },
+    "CAST-ZIPPA-Materials.dc.html": {
+      "h": 900,
+      "w": 1400,
+      "x": 113980,
+      "y": 0
+    },
+    "CAST-ZIPPA-Rationale.dc.html": {
+      "h": 1000,
+      "w": 1400,
+      "x": 115460,
+      "y": 0
+    },
     "CC-Bible.dc.html": {
       "h": 1740,
       "page": "a3",
@@ -1675,6 +2095,134 @@
       "w": 390,
       "x": 3510,
       "y": 0
+    },
+    "PV-Thesis.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1880,
+      "h": 880,
+      "title": "PV0 · A — Product experience thesis",
+      "page": "pv0"
+    },
+    "PV-RulesCheck.dc.html": {
+      "x": 1960,
+      "y": 0,
+      "w": 1880,
+      "h": 940,
+      "title": "PV0 · Rules check — brief vs docs/02, docs/17",
+      "page": "pv0"
+    },
+    "PV-Decisions.dc.html": {
+      "x": 0,
+      "y": 1140,
+      "w": 1880,
+      "h": 1160,
+      "title": "PV0 · N — Product decisions required (19)",
+      "page": "pv0"
+    },
+    "PV-Loop.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1880,
+      "h": 800,
+      "title": "PV1 · B — Core PvP loop",
+      "page": "pv1"
+    },
+    "PV-Info.dc.html": {
+      "x": 1960,
+      "y": 0,
+      "w": 1880,
+      "h": 840,
+      "title": "PV1 · C — Information model",
+      "page": "pv1"
+    },
+    "PV-Attention.dc.html": {
+      "x": 0,
+      "y": 1040,
+      "w": 1880,
+      "h": 940,
+      "title": "PV1 · D — Attention model",
+      "page": "pv1"
+    },
+    "PV-Comms.dc.html": {
+      "x": 1960,
+      "y": 1040,
+      "w": 1880,
+      "h": 920,
+      "title": "PV1 · E — Communication model",
+      "page": "pv1"
+    },
+    "PV-Seq-1.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1880,
+      "h": 1400,
+      "title": "PV2 · 1 — “The other buyer” 01–06",
+      "page": "pv2"
+    },
+    "PV-Seq-2.dc.html": {
+      "x": 1960,
+      "y": 0,
+      "w": 1880,
+      "h": 1400,
+      "title": "PV2 · 2 — “The other buyer” 07–12",
+      "page": "pv2"
+    },
+    "PV-Cred-Wall.dc.html": {
+      "x": 0,
+      "y": 1600,
+      "w": 1880,
+      "h": 1360,
+      "title": "PV2 · 3 — “The wall”",
+      "page": "pv2"
+    },
+    "PV-Cred-Verified.dc.html": {
+      "x": 1960,
+      "y": 1600,
+      "w": 1880,
+      "h": 1360,
+      "title": "PV2 · 4 — “The appraisal”",
+      "page": "pv2"
+    },
+    "PV-Mobile.dc.html": {
+      "x": 0,
+      "y": 3160,
+      "w": 1580,
+      "h": 1040,
+      "title": "PV2 · M — Mobile: the same story on a phone",
+      "page": "pv2"
+    },
+    "PV-Showdown.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1880,
+      "h": 1990,
+      "title": "PV3 · J — Showdown, frame by frame",
+      "page": "pv3"
+    },
+    "PV-Juice.dc.html": {
+      "x": 1960,
+      "y": 0,
+      "w": 1880,
+      "h": 980,
+      "title": "PV3 · K — Game-juice intensity system",
+      "page": "pv3"
+    },
+    "PV-Swap.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 2440,
+      "h": 1100,
+      "title": "PV4 · G — SWAP SIDES. PROVE IT.",
+      "page": "pv4"
+    },
+    "PV-Rivalry.dc.html": {
+      "x": 0,
+      "y": 1300,
+      "w": 1880,
+      "h": 820,
+      "title": "PV4 · H — Rivalry: first, fifth, tied",
+      "page": "pv4"
     }
   },
   "createdOnFiles": {
@@ -2230,6 +2778,54 @@
       "w": 240,
       "x": 0,
       "y": -320
+    },
+    "pv0_t": {
+      "x": 0,
+      "y": -300,
+      "text": "PvP redesign — outnegotiate real people. Experience and game flow first; no screens are propagated. Read PV0 → PV4 in order.",
+      "page": "pv0",
+      "kind": "title1",
+      "maxW": 5000
+    },
+    "pv0_stop": {
+      "x": -420,
+      "y": -40,
+      "text": "STOP FOR FOUNDER REVIEW. Delivered: the core loop, one live negotiation, one showdown, one role-reversal rematch, one rivalry state (brief §19). Not yet drawn: spectator/caster (I), liquidity (L). Nothing here is propagated to pages 00–19.",
+      "page": "pv0",
+      "w": 360,
+      "fill": "red"
+    },
+    "pv1_t": {
+      "x": 0,
+      "y": -300,
+      "text": "The system under the story: one loop, one information boundary, one hero per state, and a hard line between offers and talk.",
+      "page": "pv1",
+      "kind": "title1",
+      "maxW": 3900
+    },
+    "pv2_t": {
+      "x": 0,
+      "y": -300,
+      "text": "One live negotiation between two people, frame by frame, seen from the buyer's seat. Then two shorter stories: an honest wall, and a bluff that was read right and still lost.",
+      "page": "pv2",
+      "kind": "title1",
+      "maxW": 3900
+    },
+    "pv3_t": {
+      "x": 0,
+      "y": -300,
+      "text": "The poker moment: hidden limits turn over one at a time. Then the volume rules for every human event.",
+      "page": "pv3",
+      "kind": "title1",
+      "maxW": 3900
+    },
+    "pv4_t": {
+      "x": 0,
+      "y": -300,
+      "text": "Why they come back: the other side of the same deal, and the same person again.",
+      "page": "pv4",
+      "kind": "title1",
+      "maxW": 4400
     }
   },
   "order": [
@@ -2436,9 +3032,115 @@
     "HO-Copy.dc.html",
     "HO-Responsive.dc.html",
     "HO-Contracts.dc.html",
-    "HO-A11y-Decisions.dc.html"
+    "HO-A11y-Decisions.dc.html",
+    "CAST-HERON-Animation.dc.html",
+    "CAST-HERON-BeforeAfter.dc.html",
+    "CAST-HERON-Construction.dc.html",
+    "CAST-HERON-Environment.dc.html",
+    "CAST-HERON-Expressions.dc.html",
+    "CAST-HERON-FullBody.dc.html",
+    "CAST-HERON-Gestures.dc.html",
+    "CAST-HERON-LiveMatch.dc.html",
+    "CAST-HERON-Materials.dc.html",
+    "CAST-HERON-Rationale.dc.html",
+    "CAST-HOGSHEAD-Animation.dc.html",
+    "CAST-HOGSHEAD-BeforeAfter.dc.html",
+    "CAST-HOGSHEAD-Construction.dc.html",
+    "CAST-HOGSHEAD-Environment.dc.html",
+    "CAST-HOGSHEAD-Expressions.dc.html",
+    "CAST-HOGSHEAD-FullBody.dc.html",
+    "CAST-HOGSHEAD-Gestures.dc.html",
+    "CAST-HOGSHEAD-LiveMatch.dc.html",
+    "CAST-HOGSHEAD-Materials.dc.html",
+    "CAST-HOGSHEAD-Rationale.dc.html",
+    "CAST-MARIGOLD-Animation.dc.html",
+    "CAST-MARIGOLD-BeforeAfter.dc.html",
+    "CAST-MARIGOLD-Construction.dc.html",
+    "CAST-MARIGOLD-Environment.dc.html",
+    "CAST-MARIGOLD-Expressions.dc.html",
+    "CAST-MARIGOLD-FullBody.dc.html",
+    "CAST-MARIGOLD-Gestures.dc.html",
+    "CAST-MARIGOLD-LiveMatch.dc.html",
+    "CAST-MARIGOLD-Materials.dc.html",
+    "CAST-MARIGOLD-Rationale.dc.html",
+    "CAST-MOSSBACK-Animation.dc.html",
+    "CAST-MOSSBACK-BeforeAfter.dc.html",
+    "CAST-MOSSBACK-Construction.dc.html",
+    "CAST-MOSSBACK-Environment.dc.html",
+    "CAST-MOSSBACK-Expressions.dc.html",
+    "CAST-MOSSBACK-FullBody.dc.html",
+    "CAST-MOSSBACK-Gestures.dc.html",
+    "CAST-MOSSBACK-LiveMatch.dc.html",
+    "CAST-MOSSBACK-Materials.dc.html",
+    "CAST-MOSSBACK-Rationale.dc.html",
+    "CAST-PIPQUILL-Animation.dc.html",
+    "CAST-PIPQUILL-BeforeAfter.dc.html",
+    "CAST-PIPQUILL-Construction.dc.html",
+    "CAST-PIPQUILL-Environment.dc.html",
+    "CAST-PIPQUILL-Expressions.dc.html",
+    "CAST-PIPQUILL-FullBody.dc.html",
+    "CAST-PIPQUILL-Gestures.dc.html",
+    "CAST-PIPQUILL-LiveMatch.dc.html",
+    "CAST-PIPQUILL-Materials.dc.html",
+    "CAST-PIPQUILL-Rationale.dc.html",
+    "CAST-VESPERINE-Animation.dc.html",
+    "CAST-VESPERINE-BeforeAfter.dc.html",
+    "CAST-VESPERINE-Construction.dc.html",
+    "CAST-VESPERINE-Environment.dc.html",
+    "CAST-VESPERINE-Expressions.dc.html",
+    "CAST-VESPERINE-FullBody.dc.html",
+    "CAST-VESPERINE-Gestures.dc.html",
+    "CAST-VESPERINE-LiveMatch.dc.html",
+    "CAST-VESPERINE-Materials.dc.html",
+    "CAST-VESPERINE-Rationale.dc.html",
+    "CAST-ZIPPA-Animation.dc.html",
+    "CAST-ZIPPA-BeforeAfter.dc.html",
+    "CAST-ZIPPA-Construction.dc.html",
+    "CAST-ZIPPA-Environment.dc.html",
+    "CAST-ZIPPA-Expressions.dc.html",
+    "CAST-ZIPPA-FullBody.dc.html",
+    "CAST-ZIPPA-Gestures.dc.html",
+    "CAST-ZIPPA-LiveMatch.dc.html",
+    "CAST-ZIPPA-Materials.dc.html",
+    "CAST-ZIPPA-Rationale.dc.html",
+    "PV-Thesis.dc.html",
+    "PV-RulesCheck.dc.html",
+    "PV-Decisions.dc.html",
+    "PV-Loop.dc.html",
+    "PV-Info.dc.html",
+    "PV-Attention.dc.html",
+    "PV-Comms.dc.html",
+    "PV-Seq-1.dc.html",
+    "PV-Seq-2.dc.html",
+    "PV-Cred-Wall.dc.html",
+    "PV-Cred-Verified.dc.html",
+    "PV-Mobile.dc.html",
+    "PV-Showdown.dc.html",
+    "PV-Juice.dc.html",
+    "PV-Swap.dc.html",
+    "PV-Rivalry.dc.html"
   ],
   "pages": [
+    {
+      "id": "pv0",
+      "name": "PV0 · PvP thesis, rules check, decisions"
+    },
+    {
+      "id": "pv1",
+      "name": "PV1 · Core loop, information, attention, communication"
+    },
+    {
+      "id": "pv2",
+      "name": "PV2 · Live sequence + credibility stories"
+    },
+    {
+      "id": "pv3",
+      "name": "PV3 · Showdown + game juice"
+    },
+    {
+      "id": "pv4",
+      "name": "PV4 · Swap sides + rivalry"
+    },
     {
       "id": "c2",
       "name": "C2 · GoldenOtter refinement"

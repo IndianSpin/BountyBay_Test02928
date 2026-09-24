@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PV0 · Thesis</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/bounty-bay/components/bundle.css">
+<link rel="stylesheet" href="bb.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;padding:0;background:#17242D;font-family:'Inter',system-ui,sans-serif;color:#F3EEDD}
+a{color:#D9A653}a:hover{color:#F5D48E}
+</style>
+</helmet>
+<div class="ad" style="width: 1880px; height: 880px; ">
+<div style="position:absolute;inset:0;padding:56px 64px;display:flex;flex-direction:column;gap:26px"><div class="k">PV0 · A — Product experience thesis</div>
+<h1>Outnegotiate real people.</h1>
+<div style="display:grid;grid-template-columns:1fr 1.08fr;gap:34px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<p style="font-size:17px;line-height:26px;color:#2A1A2E"><b>Bounty Bay is not a negotiation simulator.</b> It is a competitive social game in which the skill being contested is negotiation. The repo already says so: human PvP is canonical, and “players create the negotiation” (docs/00). This pass makes the product behave like it.</p>
+<p style="font-size:15.5px;line-height:24px">Two people, one number, two secrets. Every move is a claim about yourself, and the rules already put a price on each kind of claim. Talk is free, so it can lie. A concession costs chips and can never be taken back, so it can't. Waiting costs your bounty, and the other player watches it drain. <b>Reading someone is comparing what they say with what they pay for.</b> The game's job is to put those two things side by side and then get out of the way.</p>
+<p style="font-size:15.5px;line-height:24px">Then the cards turn over. The showdown tells you whether your theory about the person was right, and that is the moment that makes you demand a rematch. Swapping sides removes the last excuse (“I had the easy role”). A rival turns a stranger into unfinished business.</p>
+<p style="font-size:15.5px;line-height:24px">What changes: the person across the table becomes the largest thing on screen. Every animation amplifies something a human did. The interface shrinks to what the current state needs. And every match ends as a story about someone, not a list of numbers.</p>
+<div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+<h3>The story test, run on PV2</h3>
+<p style="color:#2A1A2E">“She opened at 120 and said she had another buyer at 110 — then dropped 24 in four seconds. I held and made her watch my clock. Her ‘buyer’ went from 110 to 80. I showed her the re-cut bezel and she took 67. Her minimum was 49. I left 18 on the table.”</p>
+<p><span class="tag pass">PASSES</span> &nbsp;It is about a person, a claim, a read and a mistake.</p>
+<p style="color:#8A7A86">Fails: “I started at 55, moved to 58, 62, 67 and settled at 67.”</p></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div class="card" style="padding:16px"><h3 style="margin-bottom:8px">Credibility is already priced by the rules</h3><table><tr><th style="width:110px">Signal</th><th style="width:270px">What it costs</th><th style="width:110px">Can it lie?</th><th style="width:auto">How it shows</th></tr><tr><td><b>Say it</b></td><td class="m">Free</td><td class="m">Yes — freely</td><td class="m">Chat, quick line or pitch, spoken by the avatar. Never marked true or false.</td></tr><tr><td><b>Show it</b></td><td class="m">A formal action (cost: PDR, OQ-020)</td><td class="m">No</td><td class="m">Verified reveal: a stamped document stays on the table (GR-028).</td></tr><tr><td><b>Move</b></td><td class="m">Chips, and it can never be taken back (GR-008, GE-005)</td><td class="m">No</td><td class="m">The plaque travels; the trail keeps every step and its size.</td></tr><tr><td><b>Wait</b></td><td class="m">Your own bounty multiplier and decision budget — in public (GR-016, GR-023)</td><td class="m">No</td><td class="m">Your clock burns where they can see it; your avatar holds.</td></tr></table>
+<p style="margin-top:8px">Nothing new is needed to make bluffing meaningful. Words are cheap; moves and time are not. The design has to make both visible at the same moment.</p></div>
+<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:8px"><h3>One rule for characters: the avatar performs; it never feels on your behalf</h3>
+<p><b>Allowed on a human's avatar:</b> what the human did (offer, accept, reveal, walk), what they chose to express (quick lines, emotes, pitches), and true public states (thinking = their clock is running; listening = it is not their turn).</p>
+<p><b>Never:</b> reactions the system invents about my move on their avatar — irritation, surprise, “close to a deal” excitement. On a real person those are fake tells, and players would learn to read them. AI opponents may react freely because they are labelled AI throughout (GR-020).</p>
+<p><b>Bluffs get no system response at all.</b> The game never marks, hints at or animates the truth of anything said.</p></div>
+</div></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview": {"width": 1880, "height": 880}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
