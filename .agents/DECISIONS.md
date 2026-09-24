@@ -1137,3 +1137,11 @@ blessing. Founder review of the SH4 result is next. NOTE: the
 founder's design session is actively editing design-sandbox/golden/*
 in the manager checkout (uncommitted) — left untouched; committed on
 the founder's sync.
+
+## D-85 — BB-265 assertions BLESSED (2026-09-24)
+
+W1 blessed W2's friend-match result-assertion updates (verified 3/3
+on the isolated stack). Record note (non-blocking): the settlement
+AMOUNT is no longer pinned in the stamp-copy assertion ("DEAL" only)
+— follow-up candidate: assert the amount wherever the scene shows it
+(candidate for G-3/W2 or the golden-check contract).
