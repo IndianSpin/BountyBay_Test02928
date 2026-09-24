@@ -60,15 +60,32 @@ export async function signInAsDevSlot(slot: DevSlot): Promise<void> {
 }
 
 /**
+ * Single-flight identity mint: concurrent callers (e.g. a dev fast-refresh
+ * remount racing the first sign-in) share ONE in-flight sign-in instead of
+ * each minting a stranger identity. Without this, two parallel
+ * ensureDevIdentity calls both observe empty storage, both sign in, and the
+ * page's in-memory token can diverge from the stored one — the page plays
+ * as one identity while any reload resumes another (the friend-match GR-007
+ * E2E flake read exactly that divergence: a valid token whose user had no
+ * match).
+ */
+let pendingIdentity: Promise<string> | null = null;
+
+/**
  * Ensures SOME dev identity exists, without naming it: each browser gets its
  * own anonymous identity, so two sessions are automatically two players.
  */
 export async function ensureDevIdentity(): Promise<string> {
   const existing = storedDevToken();
   if (existing) return existing;
-  const token = await signIn(`dev-${crypto.randomUUID()}`);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ token, slot: 'auto' }));
-  return token;
+  pendingIdentity ??= (async () => {
+    const token = await signIn(`dev-${crypto.randomUUID()}`);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ token, slot: 'auto' }));
+    return token;
+  })().finally(() => {
+    pendingIdentity = null;
+  });
+  return pendingIdentity;
 }
 
 export function clearDevIdentity(): void {

@@ -91,7 +91,12 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       subject: z.string().min(3).max(64).optional(),
       handle: z.string().regex(/^[A-Za-z0-9_-]{3,16}$/).optional(),
     });
-    app.post('/v1/auth/dev/signin', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (request, reply) => {
+    // QA-006: the full strict E2E suite signs in ~49 times per run; a
+    // 30/min cap deterministically 429s its last tests. The higher cap is
+    // development-only by construction — this route is never registered
+    // when NODE_ENV is production (devAuthAllowed above), so production
+    // cannot hit it at any rate.
+    app.post('/v1/auth/dev/signin', { config: { rateLimit: { max: 300, timeWindow: '1 minute' } } }, async (request, reply) => {
       const parsed = devSigninSchema.safeParse(request.body);
       if (!parsed.success) return reply.code(400).send({ code: 'INVALID_REQUEST', message: parsed.error.issues[0]?.message });
       const dev = auth as unknown as { signToken: (subject: string) => string };

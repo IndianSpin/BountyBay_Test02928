@@ -259,9 +259,14 @@ test('repeating the same formal offer is rejected and never switches the turn (G
     }
     // Diagnostic body: QA-002 — no `.code` here by design; the caller
     // treats this shape as a test-infrastructure failure, not an API one.
-    return { status: 0, body: { ...last, attempts: MAX_ATTEMPTS } };
+    // QA-006 follow-up: carry the token's resolved user id and the page's
+    // own match id, so an exhausted poll is attributable to identity
+    // divergence vs a genuinely missing match.
+    const meRes = await fetch(`${arg.apiUrl}/v1/me`, { headers: last.hasToken ? { authorization: 'Bearer ' + JSON.parse(localStorage.getItem('bb-dev-auth') ?? '{}').token } : {} }).catch(() => null);
+    const me = meRes && meRes.ok ? ((await meRes.json()) as { id?: string }) : null;
+    return { status: 0, body: { ...last, attempts: MAX_ATTEMPTS, tokenUserId: me?.id ?? null, pagePath: window.location.pathname } };
   }, { apiUrl: API_URL, amount: rvs[firstMoverIndex]! });
-  expect(duplicate.status).toBe(400);
+  expect(duplicate.status, `active-match diagnostic after ${(duplicate.body as { attempts?: number }).attempts ?? '?'} attempts: ${JSON.stringify(duplicate.body)}`).toBe(400);
   // Narrow the diagnostic union: `.code` exists only on the API-response
   // branch (the 400 above already rules out the status-0 branch).
   expect((duplicate.body as { code?: string }).code).toBe('DUPLICATE_OFFER');
