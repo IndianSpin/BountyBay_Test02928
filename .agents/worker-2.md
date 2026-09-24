@@ -31,7 +31,14 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — BB-244 P0 unstyled-render regression — READY FOR REVIEW
+## CURRENT TASK — STANDING DOWN (per D-68 alpha plan)
+BB-244 ACCEPTED + merged (D-68: P0 gate cleared — the measured root
+cause was the /bay missing CSS-module import; fixed with the cold-visit
+styling guard + the route audit). BB-252 confirmed (bay_viewed on
+bay/page.tsx). Standing down until BB-245/BB-251 land and the hosted
+stack exists; BB-239's founder review continues in parallel.
+
+## DONE — BB-244 P0 unstyled-render regression — ACCEPTED + merged (D-68)
 Branch `w2-pv-livematch`, tip after this commit.
 
 ROOT CAUSE (evidence-first, BB-244): the /bay route rendered raw
@@ -245,3 +252,48 @@ Unit/typecheck/build: `npx vitest run` · `pnpm typecheck` · `npx next build` (
 
 ## STATUS (W2-02 done)
 Handoff statement above; debug `console.log` instrumentation confirmed removed (grep clean across `apps/web/src/components/game/*` and `apps/web/src/app/play/*`). No new UI work until the founder checkpoint verdict.
+
+---
+
+UPDATE: **STARTED — BB-256** (Golden Reference system), tip `cf3ed1d`
+(CTA_ROUTE_CONTRACT guard GREEN 2/2 + ME hub repair committed).
+
+Plan (founder's five points, Journey A first):
+1. `components/golden/journey-data.ts` — fixed reference data (BOB vs
+   KESTREL, THE RUBY COMPASS, deal at 74) + per-state animation
+   timelines (a file drives the choreography, not hardcoded delays).
+2. `components/golden/contracts.ts` — per-state contract as DATA:
+   required elements, min sizes, no-overlap pairs, forbidden patterns,
+   timeline beats, golden+live selector maps.
+3. `app/golden/[state]` — golden pages (dev-only), real art via the
+   pose/SVG + sprite-player seams, responsive 1440×900 + 390×844.
+4. `app/golden/` — dev-only gallery rendering any state from data.
+5. `e2e/golden-gate.spec.ts` — the GATE: golden + live at both
+   viewports, hard-fail on missing/overlap/clipped, timeline
+   order/timing check, side-by-side composites into
+   design-sandbox/screenshots/golden-gate/ (committed per change).
+6. Proof: hard-fail against a real clipping state, then pass on the
+   fix (probing live mobile states for a current overflow now).
+7. Repoint CANONICAL_CONTRACTS §2 + add the review-rule line to
+   DESIGN_ACCEPTANCE (flag both for manager blessing).
+
+---
+
+UPDATE: **STARTED — BB-263** (D-79; BB-256 paused at c78e0d2 — golden
+pages WIP, GATE re-enters post-review). Screen-State Registry + CTA
+Contracts + Visual Consistency Map from the actual repository into
+.agents/audit/; no repairs (founder reviews the assembled docs first).
+
+---
+
+UPDATE: **REPORTED TO MANAGER — BB-263** — the audit deliverables are
+in .agents/audit/: screen-state-registry.md (SS-01…SS-23,
+field-complete, orphan/dead-path inventory), cta-contracts.md
+(Journey A + B tables + guard rules + open gaps), visual-
+consistency-map.md (per-state status, 5 styling families,
+exact-class-token sweep of the legacy family, MISSING DESIGN list).
+Key findings: review+replay are M5 LEGACY with no illustrated board
+and no CSS module (BB-244-rule violation); play hub is MIXED;
+12 legacy selectors are the live legacy set, ~12 more are orphaned;
+sign-in/up raw-text in dev; profile-client/dev-landing/auth-status/
+resource-hud are orphans/dead-paths. No repairs made (D-79).
