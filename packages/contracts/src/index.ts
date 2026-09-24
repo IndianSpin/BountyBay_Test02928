@@ -47,6 +47,13 @@ export const messageRequestSchema = z.object({
 });
 export type MessageRequest = z.infer<typeof messageRequestSchema>;
 
+/** DD-M3 (GR-028): formally reveal a verifiable dossier fact. */
+export const revealRequestSchema = z.object({
+  commandId: commandIdSchema,
+  factId: z.string().min(1).max(200),
+});
+export type RevealRequest = z.infer<typeof revealRequestSchema>;
+
 /** AI practice personas (DEC-025; registry lives in @bounty-bay/ai). */
 export const personaKeySchema = z.enum(['anchor', 'grinder', 'closer', 'wall', 'mirror']);
 
@@ -77,6 +84,9 @@ export const API_ERROR_CODES = [
   'REMATCH_FORBIDDEN',
   'REMATCH_ALREADY_PROPOSED',
   'REMATCH_NOT_AVAILABLE',
+  // DD-M3 (GR-028): verified-information reveal.
+  'REVEAL_NOT_VERIFIABLE',
+  'REVEAL_ALREADY_MADE',
 ] as const;
 export type ApiErrorCode = (typeof API_ERROR_CODES)[number];
 

@@ -27,7 +27,7 @@ export function defaultScenarioSeed(): ScenarioSeed {
 }
 
 export function makeParticipantInput(playerId: PlayerId, role: 'BUYER' | 'SELLER', rvTenths: number): ParticipantInput {
-  return { playerId, role, reservationValueTenths: rvTenths };
+  return { playerId, role, reservationValueTenths: rvTenths, verifiableFactIds: [] };
 }
 
 let matchCounter = 0;

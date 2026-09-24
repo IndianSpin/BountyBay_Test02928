@@ -56,8 +56,8 @@ async function completeMatch(
     gameRulesVersion: 'game-rules-0.1.0',
     economyConfigVersion: 'economy-0.2.0',
     ratingVersion: null,
-    buyer: { playerId: buyerId, role: 'BUYER', reservationValueTenths: 500 },
-    seller: { playerId: sellerId, role: 'SELLER', reservationValueTenths: 300 },
+    buyer: { playerId: buyerId, role: 'BUYER', reservationValueTenths: 500, verifiableFactIds: [] },
+    seller: { playerId: sellerId, role: 'SELLER', reservationValueTenths: 300, verifiableFactIds: [] },
     firstPlayerId: buyerId,
     createdAt: completedAt - 60_000,
   });
@@ -188,8 +188,8 @@ describe.skipIf(!RUN)('Insights API (PostgreSQL)', () => {
       gameRulesVersion: 'game-rules-0.1.0',
       economyConfigVersion: 'economy-0.2.0',
       ratingVersion: null,
-      buyer: { playerId: seller.userId, role: 'BUYER', reservationValueTenths: 500 },
-      seller: { playerId: buyer.userId, role: 'SELLER', reservationValueTenths: 300 },
+      buyer: { playerId: seller.userId, role: 'BUYER', reservationValueTenths: 500, verifiableFactIds: [] },
+      seller: { playerId: buyer.userId, role: 'SELLER', reservationValueTenths: 300, verifiableFactIds: [] },
       firstPlayerId: buyer.userId, // seller is first player → the walk is legal
       createdAt: Date.now() - 60_000,
     });

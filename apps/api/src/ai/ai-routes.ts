@@ -8,7 +8,7 @@
 import { AI_PERSONAS_VERSION, personaByKey } from '@bounty-bay/ai';
 import { createAiMatchRequestSchema } from '@bounty-bay/contracts';
 import type { MatchCommandService, PrismaClient } from '@bounty-bay/db';
-import { ensureAiBotUsers, findBotByPersona } from '@bounty-bay/db';
+import { ensureAiBotUsers, findBotByPersona, verifiableFactIdsForRole } from '@bounty-bay/db';
 import type { Role } from '@bounty-bay/domain';
 import type { FastifyInstance } from 'fastify';
 import { randomUUID } from 'node:crypto';
@@ -48,14 +48,17 @@ export function registerAiRoutes(app: FastifyInstance, options: AiRoutesOptions)
     const assignment = assignCreatorRole({ scenarioId: scenario.id, scenarioVersion: scenario.version });
     const aiRole: Role = assignment.role === 'BUYER' ? 'SELLER' : 'BUYER';
     const aiRv = assignAiOpponentRole(aiRole);
+    // DD-M3 (GR-028): the human may formally reveal their verifiable facts;
+    // the bot has no dossier ([]) — unrevealed facts never reach the AI.
+    const humanFacts = verifiableFactIdsForRole(scenario, assignment.role);
     const buyer =
       assignment.role === 'BUYER'
-        ? { playerId: request.userId!, role: 'BUYER' as const, reservationValueTenths: assignment.reservationValueTenths }
-        : { playerId: bot.id, role: 'BUYER' as const, reservationValueTenths: aiRv };
+        ? { playerId: request.userId!, role: 'BUYER' as const, reservationValueTenths: assignment.reservationValueTenths, verifiableFactIds: humanFacts }
+        : { playerId: bot.id, role: 'BUYER' as const, reservationValueTenths: aiRv, verifiableFactIds: [] };
     const seller =
       assignment.role === 'SELLER'
-        ? { playerId: request.userId!, role: 'SELLER' as const, reservationValueTenths: assignment.reservationValueTenths }
-        : { playerId: bot.id, role: 'SELLER' as const, reservationValueTenths: aiRv };
+        ? { playerId: request.userId!, role: 'SELLER' as const, reservationValueTenths: assignment.reservationValueTenths, verifiableFactIds: humanFacts }
+        : { playerId: bot.id, role: 'SELLER' as const, reservationValueTenths: aiRv, verifiableFactIds: [] };
 
     const matchId = randomUUID();
     const created = await options.service.createMatch(

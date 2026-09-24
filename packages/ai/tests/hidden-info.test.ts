@@ -24,8 +24,8 @@ function activeContext(seed: number) {
     gameRulesVersion: 'game-rules-0.1.0',
     economyConfigVersion: 'economy-0.1.0',
     ratingVersion: null,
-    buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: 1234 },
-    seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 567 },
+    buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: 1234, verifiableFactIds: [] },
+    seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 567, verifiableFactIds: [] },
     firstPlayerId: BUYER_ID,
     createdAt: START_NOW,
   };

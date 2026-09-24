@@ -24,7 +24,67 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — BB-222 + BB-223 — READY FOR REVIEW (single checkpoint)
+## CURRENT TASK — BB-226 (DD-M3 verified information, GR-028) — READY FOR REVIEW
+
+Branch w1-dd-m3 (from golden-baseline-2, per D-36/D-41). Implemented:
+
+- **Domain:** REVEAL command ({playerId, factId}) — ACTIVE-only, turn-
+  gated (GR-014), GR-023-subject (added to the gameplay guard), consumes
+  the turn (clock transfer like OFFER), free of chip cost (OQ-020
+  unresolved — no cost invented). Legal only for facts in the player's
+  OWN verifiable set; immutable once made (REVEAL_ALREADY_MADE) — no
+  un-reveal exists; event FACT_REVEALED {factId} rides the stream and
+  replays through commandForEvent. `ParticipantInput/State` gain
+  `verifiableFactIds` (validated at creation: non-empty ≤200-char ids,
+  no duplicates → INVALID_MATCH_INPUT) and `revealedFactIds`
+  (append-only). Projection: ParticipantView carries `revealedFactIds`
+  (shared); `verifiableFactIds` are NEVER serialized into any view
+  (SI-001 — hidden-info penetration test pins it on raw JSON).
+- **db:** `service.reveal()` (authoritative path like every command);
+  `verifiableFactIdsForRole(scenario, role)` helper (verifiable-only
+  ids; legacy rows → [] — reveals impossible, never broken);
+  joinChallenge + acceptRematch materialize matches with the scenario's
+  per-role verifiable ids. **No migration needed** — reveal state rides
+  the domain snapshot and the event stream (no new columns/tables);
+  manager review note: nothing to review.
+- **API:** POST /v1/matches/:id/reveals ({commandId, factId} via
+  revealRequestSchema; rate 30/min) through commitAndBroadcast; error
+  map REVEAL_NOT_VERIFIABLE 400 / REVEAL_ALREADY_MADE 409; GET
+  snapshot + GET result gain `revealedFacts: {[playerId]: DossierFact[]}`
+  — content-decorated from the scenario row ONLY for facts the state
+  says are revealed. AI matches: the human's verifiable ids pass in at
+  creation; bots get [] (the AI plays from the domain view only, so
+  unrevealed facts can never reach it — structural).
+- **Tests:** domain match.reveal.test.ts (10: valid/turn-transfer/
+  not-verifiable/already-made/off-turn/pre-start/terminal/GR-023
+  boundary 89_999 vs 90_000/legacy-inert/both-players-boundary/
+  projection SI-001/replay determinism/creation validation) + REVEAL in
+  the property command pool; API reveal.test.ts (4: raw-payload
+  penetration both directions, error mapping, result-route reveal
+  carry, AI human-vs-bot verifiable sets); E2E reveal-api.spec.ts (1:
+  first-mover-agnostic reveal → opponent raw payload carries exactly
+  the revealed fact → repeat refused after the turn cycles back).
+- **Evidence:** `pnpm typecheck` — all 9 packages exit 0. `pnpm test` —
+  274 passed / 66 skipped. `pnpm test:db` (isolated E2E DB, seeded
+  without overrides; restored after) — 14 files, 75 tests passed.
+  Strict E2E (3100/4100) — 20 passed / 1 canvas-gated skip (incl.
+  reveal-api). `pnpm lint` — exit 0.
+
+### DOC PROPOSALS (D-6, no docs/* edited)
+- docs/02 GR-028: reveal = formal turn-gated action, GR-023-subject,
+  immutable, transfers the turn, no chip cost until OQ-020 closes.
+- docs/07: MatchEvent += FACT_REVEALED; snapshot participant fields
+  verifiableFactIds (server-only) / revealedFactIds (shared); no
+  schema/migration change.
+- docs/08: POST /v1/matches/:id/reveals + response; codes
+  REVEAL_NOT_VERIFIABLE/REVEAL_ALREADY_MADE; snapshot/result
+  `revealedFacts` shape.
+- docs/14 OQ-019: data capability now implements the
+  explicit-reveal-only policy (unrevealed facts stay hidden even after
+  completion); the "reveal everything at result" branch stays open.
+
+### BB-222 + BB-223 — ACCEPTED and merged (c83d126) on main; this
+branch starts from golden-baseline-2 (D-36).
 
 ### BB-222 (QA-006) — done, with a second root cause found and fixed
 1. Cap raised: dev-signin 30→300/min (app.ts). Production-proof test

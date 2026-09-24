@@ -161,8 +161,8 @@ describe.skipIf(!RUN)('Dossier serialization isolation (PostgreSQL)', () => {
       gameRulesVersion: 'game-rules-0.1.0',
       economyConfigVersion: 'economy-0.2.0',
       ratingVersion: null,
-      buyer: { playerId: buyer.userId, role: 'BUYER', reservationValueTenths: 500 },
-      seller: { playerId: seller.userId, role: 'SELLER', reservationValueTenths: 300 },
+      buyer: { playerId: buyer.userId, role: 'BUYER', reservationValueTenths: 500, verifiableFactIds: [] },
+      seller: { playerId: seller.userId, role: 'SELLER', reservationValueTenths: 300, verifiableFactIds: [] },
       firstPlayerId: buyer.userId,
       createdAt: Date.now(),
     });

@@ -8,7 +8,7 @@ const config = makeEconomyConfig();
 describe('hidden RV isolation — SI-001 / GR-002', () => {
   it('pre-result views contain the viewer’s RV but no opponent RV field at all', () => {
     // Seller RV 37.3 (373) — chosen so the value appears nowhere else in state.
-    let state = create({ seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 373 } });
+    let state = create({ seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 373, verifiableFactIds: [] } });
     state = apply(state, { kind: 'READY', playerId: BUYER_ID, now: START_NOW }, config);
     state = apply(state, { kind: 'READY', playerId: SELLER_ID, now: START_NOW }, config);
     state = apply(state, { kind: 'OFFER', playerId: BUYER_ID, offerId: offerId(1), amountTenths: 500, now: START_NOW }, config);

@@ -39,8 +39,8 @@ function randomMatch(seed: number): RandomMatch {
     gameRulesVersion: 'game-rules-0.1.0',
     economyConfigVersion: 'economy-0.2.0',
     ratingVersion: 'rating-0.1.0',
-    buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: 1000 },
-    seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 400 },
+    buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: 1000, verifiableFactIds: [] },
+    seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 400, verifiableFactIds: [] },
     firstPlayerId: BUYER_ID,
     createdAt: START_NOW,
   };
