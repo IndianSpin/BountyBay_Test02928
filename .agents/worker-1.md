@@ -24,7 +24,31 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — BB-229 (DA-P1 api, W1 half of DA-P1-SPEC.md) — READY FOR REVIEW
+## CURRENT TASK — BB-233 (BB-229-1 fix-forward) — READY FOR REVIEW
+
+Malformed JSON bodies hit the DA-P1 error handler as framework errors
+(FST_ERR_CTP_INVALID_JSON_BODY, statusCode 400) and were replied 500 —
+client errors misreported as server errors. Applied the exact patch
+from .agents/data/BB-229-VERIFICATION.md: the handler maps
+error.statusCode 400-499 → that status with a sanitized
+`{code: 'INVALID_REQUEST', message: 'invalid request body'}` body at
+warn level; 500+ keeps the INTERNAL_ERROR body at error level. New
+da-p1.test.ts case: `POST /v1/auth/dev/signin` body `not-json` → 400
+INVALID_REQUEST (previously 500). Evidence: typecheck 9/9; unit 280/69
+skipped; test:db 82/82 (E2E DB seeded without overrides, restored
+after — the one failure before reseeding was the known replay-vs-
+DEFAULT seed artifact); lint exit 0. Existing da-p1/analytics tests
+still green (11/11).
+
+### BB-229 — formally ACCEPTED (D-49) with this fix-forward; Data's §5
+verification otherwise clean.
+
+### BB-222/BB-223 — ACCEPTED and merged (c83d126); dev-auth.ts fix
+grandfathered, file stays W2-owned going forward (D-41). Golden
+baseline re-cut: golden-baseline-2 (tag). BB-226 (DD-M3) branches from
+golden-baseline-2 after BB-233.
+
+### BB-229 — implementation detail (merged feca4d6; historical)
 
 Implemented per the spec exactly (§4 is W2's, untouched):
 - §1 tags: analytics.ts `DeploymentTags` + `createAnalyticsEmitter(sink?,
