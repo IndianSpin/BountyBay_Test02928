@@ -38,6 +38,7 @@ import OfferComposer, { type ComposerModel } from './offer-composer';
 import OfferPlate from './offer-plate';
 import PlayerIdentity from './player-identity';
 import ScenarioDisplay from './scenario-display';
+import AnimatedOpponent from './sprite-player';
 import FirstPersonScene from './scene';
 import TimeWarning from './time-warning';
 import TurnBanner, { type TurnState } from './turn-banner';
@@ -203,6 +204,9 @@ export default function NegotiationBoard(props: {
                is exported): static, keyed crossfade only */
             <img key={opponentPose} className="lm-opponent__pose lm-opponent__avatar" src={opponentCharacter.src} alt="" />
           )}
+          {/* BB-242: the founder's 12 fps sprite clips play over the
+              static pose; reduced motion keeps the static layer only */}
+          <AnimatedOpponent character={opponentCharacter.key} pose={opponentPose} />
         </div>
         <ChatPanel
           timeline={props.timeline}

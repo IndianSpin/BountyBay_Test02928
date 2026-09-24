@@ -101,6 +101,7 @@ test('canvas checkpoint: live-match screen vs design boards', async ({ browser }
       { name: 'action zone', locator: '.lm-action-zone' },
       { name: 'quiet row', locator: '.lm-quiet-row' },
       { name: 'opponent pose (canvas v2)', locator: '.lm-opponent__pose' },
+      { name: 'animated sprite layer (BB-242)', locator: '.lm-opponent__anim' },
       { name: 'name plaque', locator: '.lm-plaque' },
       { name: 'their ask plaque', locator: '.lm-offer--theirs' },
       { name: 'my offer readout', locator: '.lm-offer--mine' },

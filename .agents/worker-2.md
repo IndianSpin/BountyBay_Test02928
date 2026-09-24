@@ -31,7 +31,14 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — BB-241 The Bay hub (SH3) — READY FOR REVIEW
+## CURRENT TASK — BB-242 manifest-driven animation — READY FOR REVIEW
+Branch `w2-pv-livematch`, tip `ae53e7b`. 12 fps WebP clips per the
+manifest over the static poses (one-shots hold; reduced motion =
+static only; percentage stepping). Gates: typecheck 0, unit 301,
+lint clean, E2E regression 11/11, in-browser verified. BB-239 next
+(accept/nodeal/rematch clips waiting).
+
+## DONE — BB-241 The Bay hub (SH3) — READY FOR REVIEW (bcfe65b)
 Branch `w2-pv-livematch`, tip `bcfe65b`. Three hubs + shared bar
 (desktop top / mobile bottom), the Bay per SH-BayIA (one gold table,
 letters empty state, three SOON placeholder slots, practice room,
