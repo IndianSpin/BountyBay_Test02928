@@ -1098,3 +1098,21 @@ VISUAL derived from the checker, not judgment (the handoff correctly
 notes the current result screen violates SH4 while the matrix says
 VISUAL=G — the checker ends that optimism); G-7 extension pattern.
 Pending layers stay hidden (data-pending) until founder rules.
+
+## D-82 — Audit first deliverable assembled; STOP for founder (2026-09-24)
+
+The eight items are in place: (1) docs/SCREEN_STATE_REGISTRY.md
+(SS-01..SS-23, field-complete); (2) docs/CTA_CONTRACTS.md + QA's
+CTA_AUDIT.md — all 15 audit-target CTAs verified, NO BROKEN
+CONTRACT; (3) docs/VISUAL_CONSISTENCY_MAP.md (five styling families,
+12 live + 12 orphaned legacy selectors, MISSING DESIGN list); (4)
+missing-design list (review, replay, sign-in/up, designed profile,
+profile/training surface, challenge sheet); (5) duplicate/legacy list
+(M5 LEGACY review/replay, MIXED play hub, orphaned selectors,
+profile-client dead-path); (6) journey health map (A: GREEN except
+SH4 result VISUAL R — QA-confirmed dark scrim; B: GREEN except
+profile surface Y); (7) docs/TOP15_DEFECTS.md (7 open, 8 resolved);
+(8) proposed repair sequence: SH4 result to golden (BB-265/G-2) →
+BB-258 profile surface → BB-236 dev banner → PDR-2 → join-route cap
+watch → review nulls → mobile N cells. Per D-79: STOPPED for founder
+review — no repairs until approved.
