@@ -46,6 +46,7 @@ test('a full practice match vs the Closer ends in a labeled deal', async ({ page
 
   await expect(page.getByTestId('result')).toBeVisible({ timeout: 5_000 });
   await expect(page.getByTestId('practice-tag')).toContainText('practice match · unrated');
-  await expect(page.getByTestId('result')).toContainText('Deal at');
+  // BB-265 G-2: the deal fact lives on the table stamp in the scene.
+  await expect(page.getByTestId('result-stamp')).toContainText('DEAL');
   await expect(page.getByTestId('replay-link')).toBeVisible();
 });

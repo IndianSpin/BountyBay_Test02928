@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { trackEvent } from '../../lib/analytics';
 import HubBar from '../../components/hub/hub-bar';
 import '../../components/hub/hub.css';
+import '../../components/game/golden-result.css';
 import { useApiToken } from '../../hooks/use-api-token';
 import MatchScreen from './match-screen';
 

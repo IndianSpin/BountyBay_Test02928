@@ -297,3 +297,54 @@ and no CSS module (BB-244-rule violation); play hub is MIXED;
 12 legacy selectors are the live legacy set, ~12 more are orphaned;
 sign-in/up raw-text in dev; profile-client/dev-landing/auth-status/
 resource-hud are orphans/dead-paths. No repairs made (D-79).
+
+---
+
+UPDATE: **HOLDING — BB-265 (G-1..G-4) queued, founder review of the
+audit first** (per manager). Contract read. Note: the founder's
+golden system (design-sandbox/golden/ + /dev/states/[state] +
+golden-check CLI) supersedes my BB-256 WIP (components/golden/,
+app/golden/, golden.css at c78e0d2) — flagged to the manager:
+proposal is to retire my WIP in favor of the founder's system and
+carry forward only the sprite-player hydration fix when BB-265
+starts. Standing down.
+Ruling confirmed by the manager: BB-256 WIP retires on BB-265 start
+(founder's system authoritative); sprite-player hydration fix carries
+forward; no other reconciliation. Standing down until the audit's
+founder review.
+
+---
+
+UPDATE: **STARTED — BB-265** (D-83, repair sequence approved). Order:
+retire BB-256 WIP → G-1 gallery route → G-2 result → G-3 live match
+→ G-4 Bay, golden-check both viewports + side-by-sides per state,
+founder review after each. BB-262/BB-236 queued after.
+
+---
+
+UPDATE: **READY FOR REVIEW — BB-265 G-1 + G-2** (result scene).
+
+G-1 plumbing: /dev/states/[state] (dev-only, 404 in prod) renders the
+REAL components from the reference fixture (no match, no network);
+golden-runtime.ts (lib) implements ?t/?speed/?pending + goldenReady +
+window.__bbTimeline exactly like golden.js; StrictMode double-effect
+guarded (timeline events fire once). live-match/bay routes are
+instrumented stubs until G-3/G-4 — the checker gap lists (in
+check/out/report.md) ARE those tasks' scopes.
+
+G-2 result: result-reveal now renders the golden scene
+(golden-result.tsx + golden-result.css, ported from
+states/result.html + golden.css tokens): no modal (the forbidden
+[dialog][result] selector is gone), stamp on the table, limit cards
+at the rail ends, zone split at the settlement, headline + split,
+parchment ledger with the GE-010 minimum, bounty + rating counters
+with the reward fly, her rematch offer beside her, SWAP SIDES ·
+REMATCH primary. The match tunnel swaps board → scene at terminal
+(the scene carries market-world). Timeline = contracts/result.json
+non-pending steps in order.
+
+Gate: golden-check --target app --states result GREEN at desktop
+(76/76) AND mobile (76/76); E2E result-flow set 15/15 (friend-match,
+rematch-consent, practice-vs-ai, hold-accept, telemetry,
+review-flow, cta-route-map); typecheck 0; lint clean. Side-by-sides
+committed in design-sandbox/golden/check/out/.

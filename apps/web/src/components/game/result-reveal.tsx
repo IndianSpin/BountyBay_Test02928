@@ -1,33 +1,26 @@
 'use client';
 
 /**
- * Result reveal (canvas v1, sequences E–F and boards RS-*, DEC-029):
- * DEAL stamp → limits flip → range posts → settlement → coin split →
- * headline → actions. Beats are staged and skippable (tap fast-forwards;
- * motion-spec: rewards never delay play). Reduced motion: the final state
- * renders instantly. Level-1 facts only — the numbers come from the
- * authoritative terminal view (GR-018: both limits are now public).
+ * Result reveal — live adapter (BB-265 G-2): the rematch state
+ * machine, telemetry and API flows are unchanged (PDR-3 mutual
+ * consent, SH4 letters, DA-P1-SPEC §4.2); the RENDER is the golden
+ * result scene (golden-result.tsx, ported from
+ * design-sandbox/golden/states/result.html). The scene composition
+ * replaces the old dark modal: the deal stays on the table, the
+ * person stays in frame, the reward flies into the counters, and
+ * SWAP SIDES · REMATCH is the primary action.
  */
 
 import { useEffect, useState } from 'react';
-import { formatPercent, formatTenthsGrouped } from '../../lib/format';
 import { trackEvent } from '../../lib/analytics';
-import { PERSONA_CHARACTER, castCharacter, type CastCharacter, type CharacterPose } from './character-registry';
-import AnimatedOpponent from './sprite-player';
-import ZopaBar from '../../components/zopa-bar';
-import type { MatchSnapshot } from '../../components/game/types';
+import { PERSONA_CHARACTER, castCharacter } from './character-registry';
+import GoldenResultScene, { type ResultSceneData } from './golden-result';
+import type { MatchSnapshot } from './types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
 
 /** BB-219b (PDR-3): rematch = mutual consent. */
 type RematchPhase = 'idle' | 'proposing' | 'waiting' | 'declined';
-
-const BEAT_TIMES = [0, 1100, 2000, 2600, 3000, 4000] as const;
-const FINAL_BEAT = BEAT_TIMES.length; // actions
-
-function beatNumber(beat: number, index: number): boolean {
-  return beat >= index;
-}
 
 export default function ResultReveal({
   snapshot,
@@ -52,9 +45,8 @@ export default function ResultReveal({
       : view.economy.sellerSurplusShare
     : null;
   const myEconomy = view.economy?.players[userId];
-  const dealWasPossible = (view.economy?.zopaTenths ?? 0) > 0;
+  const theirEconomy = view.economy?.players[opponent.playerId];
 
-  const [beat, setBeat] = useState(0);
   // PDR-3 mutual-consent rematch state (friend matches only; AI practice
   // keeps the plain reset path).
   const friendMode = ai === null;
@@ -170,199 +162,54 @@ export default function ResultReveal({
     setProposalId(null);
     setRematchPhase('idle');
   }
-  useEffect(() => {
-    const reduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) {
-      setBeat(FINAL_BEAT);
-      return;
-    }
-    const timers = BEAT_TIMES.map((t, i) => setTimeout(() => setBeat((b) => Math.max(b, i + 1)), t));
-    return () => timers.forEach(clearTimeout);
-  }, []);
-
-  function skip(): void {
-    setBeat(FINAL_BEAT);
-  }
 
   // SH4 frame 14: the deal ends, the person doesn't leave — the
   // opponent stays in frame and speaks; the outcome drives their clip.
   const opponentCharacter = castCharacter(
     ai !== null ? (PERSONA_CHARACTER[ai.personaKey as keyof typeof PERSONA_CHARACTER] ?? 'goldenotter') : 'goldenotter',
   );
-  const resultPose = deal ? 'accept' : 'nodeal';
-  const outcomeLine = deal
-    ? 'Good deal. Same compass — next time, I buy.'
-    : view.completionReason === 'TIMED_OUT'
-      ? 'The clock had its say.'
-      : 'No deal tonight. The compass will keep.';
 
-  const headline = deal
-    ? `YOU CAPTURED ${Math.round((myShare ?? 0) * 100)}%`
-    : dealWasPossible
-      ? 'NO DEAL · A DEAL WAS POSSIBLE'
-      : 'NO DEAL';
-  const headlineClass = !deal ? 'lm-headline--ink' : (myShare ?? 0) >= 0.65 ? 'lm-headline--brass' : (myShare ?? 0) < 0.35 ? 'lm-headline--ink' : '';
+  const data: ResultSceneData = {
+    deal,
+    character: opponentCharacter,
+    opponentHandle,
+    scenarioTitle: snapshot.scenario?.title ?? '',
+    settlementTenths: view.settlementTenths,
+    myLimitTenths: view.myReservationValueTenths ?? null,
+    theirLimitTenths: opponent.reservationValueTenths ?? null,
+    myShare,
+    theirShare:
+      view.economy !== null && view.economy !== undefined
+        ? view.myRole === 'BUYER'
+          ? view.economy.sellerSurplusShare
+          : view.economy.buyerSurplusShare
+        : null,
+    myMultiplier: myEconomy?.clockMultiplier ?? 1,
+    theirMultiplier: theirEconomy?.clockMultiplier ?? 1,
+    chipsSpent: myEconomy?.chipsSpent ?? 0,
+    gross: myEconomy?.grossReward ?? 0,
+    net: myEconomy?.netResult ?? 0,
+    // Rating movement is P1-M2 — the golden fixture shows it, the live
+    // app does not have it yet.
+    ratingFrom: null,
+    ratingTo: null,
+    rated: false,
+    ai: ai !== null,
+    completionReason: view.completionReason,
+    incoming: incoming !== null ? { line: 'Same table, fresh numbers — I buy this time?', windowSec: 12 } : null,
+    rematch: friendMode
+      ? {
+          phase: rematchPhase,
+          onPropose: () => void proposeRematch(),
+          onAccept: () => void acceptRematch(),
+          onDecline: declineRematch,
+          onCancel: () => void cancelRematch(),
+          waitingFor: opponentHandle,
+        }
+      : null,
+    onPlayAgain: ai !== null ? onRematch : undefined,
+    links: { review: `/review/${matchId}`, replay: `/replay/${matchId}`, backToBay: '/bay' },
+  };
 
-  return (
-    <section className="lm-result-overlay" aria-label="result" data-testid="result" onClick={skip}>
-      <div className="lm-result-stage">
-        {/* beat 0: the stamp */}
-        {beatNumber(beat, 0) && (
-          <div className={`lm-stamp ${deal ? 'lm-stamp--deal anim-slam' : 'lm-stamp--nodeal anim-slam'}`} data-testid="result-stamp">
-            {deal ? 'DEAL' : 'NO DEAL'}
-          </div>
-        )}
-
-        {/* beat 1: both limits flip (public now — GR-018) */}
-        {beatNumber(beat, 1) && (
-          <div className="lm-limits" data-testid="result-limits">
-            <div className={`lm-limit-flip lm-limit-flip--mine anim-rise d1`}>
-              <span className="lm-limit-flip__k">MY LIMIT</span>
-              <span className="lm-limit-flip__v num">{formatTenthsGrouped(view.myReservationValueTenths ?? 0)}</span>
-            </div>
-            <div className={`lm-limit-flip lm-limit-flip--theirs anim-rise d2`}>
-              <span className="lm-limit-flip__k">THEIR LIMIT</span>
-              <span className="lm-limit-flip__v num">{formatTenthsGrouped(opponent.reservationValueTenths ?? 0)}</span>
-            </div>
-          </div>
-        )}
-
-        {/* beats 2–3: the range and the settlement */}
-        {beatNumber(beat, 2) && view.economy && (
-          <div className="lm-range anim-fade" data-testid="result-range">
-            <ZopaBar view={view} />
-            <p className="lm-range__line home-sub">
-              ZOPA {formatTenthsGrouped(view.economy.zopaTenths)} · your RV {formatTenthsGrouped(view.myReservationValueTenths ?? 0)} · opponent RV{' '}
-              {formatTenthsGrouped(opponent.reservationValueTenths ?? 0)} · {view.economy.ratedEligible ? 'rated' : 'unrated'}
-            </p>
-          </div>
-        )}
-
-        {/* beat 4: the coin split */}
-        {beatNumber(beat, 4) && deal && myShare !== null && (
-          <div className="lm-split anim-rise" data-testid="result-split" aria-label={`Surplus split: you ${formatPercent(myShare)}`}>
-            <div className="lm-split__pile lm-split__pile--mine">
-              {Array.from({ length: Math.min(12, Math.max(1, Math.round(myShare * 12))) }).map((_, i) => (
-                <span key={i} className="lm-split__coin" style={{ animationDelay: `${i * 60}ms` }} />
-              ))}
-            </div>
-            <span className="lm-split__label num">
-              {formatPercent(myShare)} · them {formatPercent(view.economy ? (view.myRole === 'BUYER' ? view.economy.sellerSurplusShare : view.economy.buyerSurplusShare) ?? 0 : 0)}
-            </span>
-          </div>
-        )}
-
-        {/* beat 5: the headline */}
-        {beatNumber(beat, 5) && (
-          <h3 className={`lm-headline ${headlineClass} anim-rise`} data-testid="result-headline">
-            {headline}
-          </h3>
-        )}
-
-        {/* SH4: the person is still here — in frame, speaking */}
-        {beatNumber(beat, FINAL_BEAT) && (
-          <ResultPerson character={opponentCharacter} pose={incoming !== null ? 'rematch' : resultPose} line={outcomeLine} />
-        )}
-
-        {/* beat 6: the ledger and the actions */}
-        {beatNumber(beat, FINAL_BEAT) && (
-          <div className="lm-ledger anim-rise" data-testid="result-ledger">
-            {deal ? (
-              <>
-                <p className="lm-ledger__line">
-                  Deal at <b className="num">{formatTenthsGrouped(view.settlementTenths ?? 0)}</b> · clock multiplier{' '}
-                  {formatPercent(myEconomy?.clockMultiplier ?? 1)} · concession cost {myEconomy?.chipsSpent ?? 0} chips · net{' '}
-                  <b className="num">{(myEconomy?.netResult ?? 0).toFixed(2)}</b>
-                </p>
-              </>
-            ) : (
-              <p className="lm-ledger__line">
-                {view.completionReason === 'TIMED_OUT'
-                  ? snapshot.timeoutPlayerId === userId
-                    ? 'No deal - you ran out of time. Zero bounty for both.'
-                    : 'No deal - your opponent ran out of time. Zero bounty for both.'
-                  : 'No deal - zero bounty for both. Chips stay spent.'}
-              </p>
-            )}
-            {ai && (
-              <p className="practice-tag" data-testid="practice-tag">
-                practice match · unrated
-              </p>
-            )}
-            {friendMode && incoming !== null && (
-              <div className="lm-rematch-prompt" data-testid="rematch-prompt">
-                {/* SH4 frame 15: the offer stands 0:12, then becomes a
-                    letter at The Bay (the proposal row persists). */}
-                <span className="lm-rematch-ring" aria-hidden="true" />
-                <p>
-                  {opponentHandle} wants a rematch — same table, fresh numbers.
-                  <span className="lm-rematch-window">offer stands 0:12 — then it becomes a letter at The Bay</span>
-                </p>
-                <div className="lm-rematch-prompt__row">
-                  <button type="button" className="lm-rematch-accept" data-testid="rematch-accept" onClick={acceptRematch}>
-                    Accept
-                  </button>
-                  <button type="button" className="lm-rematch-decline" data-testid="rematch-decline" onClick={declineRematch}>
-                    Not now
-                  </button>
-                </div>
-              </div>
-            )}
-            <div className="lm-result-actions">
-              <button
-                type="button"
-                className="lm-rematch-seal"
-                data-testid="rematch-button"
-                disabled={rematchPhase === 'proposing' || rematchPhase === 'waiting'}
-                onClick={friendMode ? proposeRematch : onRematch}
-              >
-                {rematchPhase === 'waiting' ? 'REMATCH SENT' : 'REMATCH'}
-              </button>
-              {rematchPhase === 'waiting' && (
-                <p className="lm-rematch-status">
-                  Rematch proposed — waiting for {opponentHandle}. <button type="button" onClick={cancelRematch}>Cancel</button>
-                </p>
-              )}
-              {rematchPhase === 'declined' && <p className="lm-rematch-status">The rematch is no longer open.</p>}
-              <a className="lm-result-link" href={`/review/${matchId}`} data-testid="analyze-deal">
-                Review the deal
-              </a>
-              <a className="lm-result-link" href={`/replay/${matchId}`} data-testid="replay-link">
-                Replay
-              </a>
-              <a className="lm-result-link" href="/bay" data-testid="back-to-bay">
-                Back to The Bay
-              </a>
-            </div>
-          </div>
-        )}
-      </div>
-      {beat < FINAL_BEAT && <p className="lm-skip-hint">Tap to see everything at once</p>}
-    </section>
-  );
-}
-
-/** SH4: the opponent in frame on the result — the static pose crop plus
- *  the outcome clip (accept/nodeal/rematch) played over it. */
-function ResultPerson({ character, pose, line }: { character: CastCharacter; pose: string; line: string }) {
-  // the static fallback poses that exist for every character kind
-  // (the rematch sheet cell is 13 on the 15-cell sheets)
-  const staticPose: CharacterPose = pose === 'accept' ? 'smug' : 'idle';
-  const cell = pose === 'rematch' ? 13 : (character.cells[staticPose] ?? 0);
-  return (
-    <div className="lm-result-person" data-testid="result-person">
-      <div className="lm-result-person__face" aria-hidden="true">
-        {character.kind === 'files' ? (
-          <img src={`${character.src}-${staticPose}.svg`} alt="" className="lm-result-person__img" />
-        ) : (
-          <div
-            className="lm-result-person__sheet"
-            style={{ backgroundImage: `url('${character.src}')`, backgroundPositionX: `calc(((${cell} + .5) / 15 * 100%))` }}
-          />
-        )}
-        <AnimatedOpponent character={character.key} pose={pose} />
-      </div>
-      <p className="lm-result-person__line">{line}</p>
-    </div>
-  );
+  return <GoldenResultScene data={data} />;
 }

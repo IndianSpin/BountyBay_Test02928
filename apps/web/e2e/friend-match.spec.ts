@@ -117,17 +117,20 @@ test('two browsers complete a friend match (deal, reveal, rematch CTA)', async (
     if (ra === 'waiting' && rb === 'waiting') await pageA.waitForTimeout(500);
   }
 
-  // Deal: both browsers show the result reveal with the rematch CTA.
+  // Deal: both browsers show the golden result scene with the rematch CTA
+  // (BB-265 G-2 — the deal fact lives on the table stamp in the scene).
   await expect(pageA.getByTestId('result')).toBeVisible({ timeout: 20_000 });
   await expect(pageB.getByTestId('result')).toBeVisible({ timeout: 20_000 });
-  await expect(pageA.getByTestId('result')).toContainText('Deal at');
-  await expect(pageB.getByTestId('result')).toContainText('Deal at');
+  await expect(pageA.getByTestId('result-stamp')).toContainText('DEAL');
+  await expect(pageB.getByTestId('result-stamp')).toContainText('DEAL');
   await expect(pageA.getByRole('button', { name: 'Rematch' })).toBeVisible();
   await expect(pageB.getByRole('button', { name: 'Rematch' })).toBeVisible();
 
-  // The reveal shows both RVs post-completion (GR-018) and the ZOPA bar.
-  await expect(pageA.getByTestId('result')).toContainText('opponent RV');
-  await expect(pageA.getByTestId('zopa-bar')).toBeVisible();
+  // The scene reveals both limits post-completion (GR-018) and the zone,
+  // split at the settlement.
+  await expect(pageA.getByTestId('result-limit-mine')).toBeVisible();
+  await expect(pageA.getByTestId('result-limit-theirs')).toBeVisible();
+  await expect(pageA.getByTestId('result-range')).toBeVisible();
 
   // Replay (PRD-010): the chronological event stream reconstructs the match.
   const replayUrl = await pageA.getByTestId('replay-link').getAttribute('href');

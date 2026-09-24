@@ -89,7 +89,7 @@ test('mutual-consent rematch: propose → accept → both land on a new ACTIVE m
   // B sees the in-session prompt and accepts.
   const prompt = pageB.getByTestId('rematch-prompt');
   await expect(prompt).toBeVisible({ timeout: 15_000 });
-  await expect(prompt).toContainText('wants a rematch');
+  await expect(prompt).toContainText('WANTS THE OTHER SIDE');
   await pageB.getByTestId('rematch-accept').click();
 
   // Both land on the new live match.
@@ -127,7 +127,7 @@ test('NOT NOW sets the offer aside as the letter at The Bay, then ANSWER complet
   // A proposes; B sees the offer with the 12s window copy.
   await pageA.getByTestId('rematch-button').click();
   await expect(pageB.getByTestId('rematch-prompt')).toBeVisible({ timeout: 15_000 });
-  await expect(pageB.getByTestId('rematch-prompt')).toContainText('becomes a letter at The Bay');
+  await expect(pageB.getByTestId('rematch-prompt')).toContainText('then it becomes a letter');
 
   // NOT NOW dismisses the prompt — the proposal stands as a letter.
   await pageB.getByTestId('rematch-decline').click();
