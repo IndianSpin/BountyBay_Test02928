@@ -17,6 +17,12 @@ import { useApiToken } from '../../hooks/use-api-token';
 import MatchScreen from './match-screen';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
+/**
+ * BB-260 (Phase 6, D-75): challenge share URLs use the configured hosted
+ * app origin (NEXT_PUBLIC_APP_URL); the runtime origin is only a local-dev
+ * fallback — no hardcoded origin ships to players.
+ */
+const APP_ORIGIN = process.env.NEXT_PUBLIC_APP_URL ?? (typeof window !== 'undefined' ? window.location.origin : '');
 const clerkEnabled = Boolean(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
 
 type Phase = 'loading' | 'idle' | 'joining' | 'waiting' | 'playing';
@@ -90,7 +96,7 @@ export default function PlayPage() {
             setChallenge({
               matchId: resumeMatchId,
               token: body.inviteToken ?? '',
-              shareUrl: `${window.location.origin}/play?challenge=${body.inviteToken ?? ''}`,
+              shareUrl: `${APP_ORIGIN}/play?challenge=${body.inviteToken ?? ''}`,
               role: body.role,
             });
             setOpponentJoined(false);
@@ -185,7 +191,7 @@ export default function PlayPage() {
     setChallenge({
       matchId: body.matchId,
       token: body.token,
-      shareUrl: `${window.location.origin}/play?challenge=${body.token}`,
+      shareUrl: `${APP_ORIGIN}/play?challenge=${body.token}`,
       role: body.role,
     });
     setOpponentJoined(false);
