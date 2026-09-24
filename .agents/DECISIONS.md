@@ -1137,3 +1137,26 @@ blessing. Founder review of the SH4 result is next. NOTE: the
 founder's design session is actively editing design-sandbox/golden/*
 in the manager checkout (uncommitted) — left untouched; committed on
 the founder's sync.
+
+## D-85 — BB-265 assertions BLESSED (2026-09-24)
+
+W1 blessed W2's friend-match result-assertion updates (verified 3/3
+on the isolated stack). Record note (non-blocking): the settlement
+AMOUNT is no longer pinned in the stamp-copy assertion ("DEAL" only)
+— follow-up candidate: assert the amount wherever the scene shows it
+(candidate for G-3/W2 or the golden-check contract).
+
+## D-86 — Functionality-first window (2026-09-24)
+
+Founder: final designs are pending — fix all FUNCTIONALITY issues
+before they arrive. G-3/G-4 (golden live match/Bay) HOLD until the
+final golden pages land (design session is actively editing them).
+Functionality queue: BB-262 (profile surface on the rebuilt result —
+W2) · join-route cap watch + review nulls (W1/W3 split: nulls are the
+IN-2 envelope fields — W3 fills surplusShareBp/settled/timeUsedMs +
+RESULT eventRefs; W1 re-checks the join-route cap after BB-250's
+pattern) · BB-236 dev banner overlay (W2, small) · QA mobile N-cell
+pass (Game Review/Rematch/back-to-Bay at 390px) · Clerk production
+instance + domain allowlist + JWT key (founder dashboard + env).
+Deploy chain unchanged: Railway container boot (founder railway login
+or env fixes) → NEXT_PUBLIC_API_URL → hosted QA.
