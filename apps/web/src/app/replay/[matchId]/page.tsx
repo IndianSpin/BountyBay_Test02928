@@ -10,6 +10,7 @@
 import { formatPercent, formatTenthsGrouped } from '../../../lib/format';
 import ZopaBar from '../../../components/zopa-bar';
 import { toTimelineRow } from '../../../lib/replay-rows';
+import { trackEvent } from '../../../lib/analytics';
 import { useApiToken } from '../../../hooks/use-api-token';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
@@ -108,7 +109,12 @@ export default function ReplayScreen() {
           <a className="replay-button" href={`/review/${matchId}`} data-testid="to-review">
             Game Review
           </a>
-          <a className="replay-button" href="/play" data-testid="back-to-play">
+          <a
+            className="replay-button"
+            href="/play"
+            data-testid="back-to-play"
+            onClick={() => trackEvent('play_again_clicked', token, matchId)}
+          >
             Play again
           </a>
         </div>

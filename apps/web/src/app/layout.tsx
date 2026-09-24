@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { ClerkProvider } from '@clerk/nextjs';
 import { Baloo_2, Space_Grotesk, Inter } from 'next/font/google';
 import './globals.css';
+import ErrorCatcher from '../components/error-catcher';
 
 export const metadata: Metadata = {
   title: 'Bounty Bay',
@@ -28,7 +29,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Auth not configured — running without Clerk. API dev sign-in is available at /v1/auth/dev/signin.
           </p>
         )}
-        {clerkEnabled ? <ClerkProvider>{children}</ClerkProvider> : children}
+        {clerkEnabled ? (
+          <ClerkProvider>
+            <ErrorCatcher />
+            {children}
+          </ClerkProvider>
+        ) : (
+          <>
+            <ErrorCatcher />
+            {children}
+          </>
+        )}
       </body>
     </html>
   );
