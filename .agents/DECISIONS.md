@@ -721,3 +721,17 @@ proposals (docs/02 GR-028 wording, docs/07 fields + no-migration note,
 docs/08 reveal endpoint + codes + revealedFacts shape, docs/14 OQ-019
 branch) queued for manager application with the next docs batch.
 Reveal UI is a later W2 task (API-level E2E only).
+
+## D-53 — BB-234 + BB-235 + BB-230 merged (founder review pending)
+
+PV live-match rebuild merged: match-found fronts the opponent card,
+plaque trails with public offer history, MY MAX · SEALED vault card,
+warm-close from public offers only, viewport-correct pose alignment
+(founder's fixed-600px bug), state-adaptive mobile PV sheet, GREYLOT
+sheet switch (BB-235), web telemetry (BB-230). Post-merge gate: tc 0,
+unit 290, lint 0. Captures in screenshots/current/ (PV set replaces
+previous). Deviations recorded for founder: MOVE label lives in W1's
+component (SEAL OFFER kept), pitch-on-offer awaits GR-025 API field,
+SHOW CARD = DD-M3 UI (later W2 task), emotes = PD-10, voice = OQ-021,
+opponent deals count needs profile API extension, signature gestures
+approximated by pose swap. Founder review next.
