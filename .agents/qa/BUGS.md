@@ -288,6 +288,51 @@ deal complete on both viewports. Screenshots in
 
 ---
 
+---
+
+## QA-009 (BB-243) — Strict late-suite entry-flow stall: the READY endpoint's 30/min rate limit self-exhausts (HIGH, test infra)
+
+- **REAL:** yes — reproduced twice on current main (`686680a` era).
+  **REPRODUCIBLE:** deterministic — the SAME six tests fail at positions
+  20/21/22/23/27/29 in two consecutive instrumented runs (timeout,
+  friend-match chat, rematch-consent decline, telemetry AI-rematch,
+  friend-match GR-007, telemetry review). **MATERIAL:** yes — the
+  golden-baseline E2E gate is red again.
+- **SEVERITY:** HIGH (test infrastructure; no product defect).
+- **AREA:** dev rate limiting vs suite volume (same defect class as
+  QA-006; BB-222 fixed signin only).
+- **OWNER-CANDIDATE:** worker-1 (apps/api route config).
+
+**ROOT CAUSE (instrumentation-proven):** `POST /v1/matches/:id/ready`
+carries `rateLimit: { max: 30, timeWindow: '1 minute' }`
+(`apps/api/src/match-routes.ts:402`). The BB-241-era suite grew to 27
+tests making **~35 ready POSTs** (70 logged lines = 35 POSTs + 35 CORS
+preflight OPTIONS 204s). The wall lands in the late suite: **10 ready
+POSTs returned 429** — for each failing test's match, the SECOND
+player's ready was rejected, the match never started, and the pages sat
+on the staging screen ("Your opponent has joined · Ready") so
+`match-status` never appeared within 25s. The API was otherwise healthy
+(0 slow requests, 0 signin 429s — signin was fixed by BB-222).
+
+**EVIDENCE:** `.agents/qa/tools/instrumented-api.ts` (full
+match-request logging); logs `.agents/qa/evidence/qa-bb243-api2.log`
+(429 timestamps 11:16:34+ correlated with the failures),
+`qa-bb243-run1.log`, `qa-bb243-run2.log`; strict recipe per L-010.
+
+**PROPOSED FIX (recommended):** apply the BB-222 pattern to the
+match-command endpoints — dev-only generous caps (e.g. 300/min) for
+`ready`/`offers`/`accept`/`walk-away`/`messages`/`challenges`, production
+unchanged. Owner: worker-1. ALSO: audit suite volume against every
+remaining route cap — `challenges` (20/min) and `offers` (60/min) are
+approaching exhaustion at the current suite size and will be the next
+walls. Fold a per-endpoint cap audit into the golden-baseline checklist
+(L-011-style learning).
+
+**RECOMMENDED ACCEPTANCE TEST:** 2× strict suite with zero 429s on any
+match-command endpoint (instrumented run).
+
+---
+
 ## (Resolved, not product bugs — for the record)
 
 - **hold-accept "accept seal vanishes after early release"** on baseline

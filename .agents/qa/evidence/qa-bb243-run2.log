@@ -1,0 +1,203 @@
+
+> bounty-bay@0.1.0 test:e2e /Users/jeremydommnich/projects/bay-qa
+> pnpm --filter web exec playwright test
+
+
+Running 29 tests using 5 workers
+
+  -   1 e2e/canvas-checkpoint.spec.ts:66:5 › canvas checkpoint: live-match screen vs design boards
+  ✓   4 e2e/dossier-api.spec.ts:30:5 › dossier payload is present, role-scoped, and leakage-free (DD-M2) (446ms)
+  ✓   7 e2e/insights-api.spec.ts:12:5 › insights: a completed friend match feeds the caller’s longitudinal profile only (433ms)
+  ✓   2 e2e/bay.spec.ts:11:5 › The Bay renders the SH3 hub: gold table, labelled slots, practice route (2.1s)
+  ✓   9 e2e/bay.spec.ts:50:5 › mobile Bay: bottom tab bar and stacked slots, no horizontal scroll (544ms)
+  ✓   5 e2e/cast-poses.spec.ts:24:5 › AI personas render through the cast character system (5.0s)
+  ✓   6 e2e/hold-accept.spec.ts:63:5 › hold-to-accept: early release cancels, full hold settles the deal (6.5s)
+  ✓   8 e2e/join-refresh.spec.ts:23:5 › mid-match refresh on the share URL recovers to the live board (QA-001) (5.4s)
+  ✓  13 e2e/rematch-api.spec.ts:18:5 › rematch: propose after the result, opponent accepts, new ACTIVE match starts (PDR-3) (245ms)
+  ✓  14 e2e/rematch-api.spec.ts:83:5 › rematch: decline removes the proposal and either side may propose again (PDR-3) (61ms)
+  ✓  11 e2e/cast-poses.spec.ts:60:5 › human opponents keep the GoldenOtter file poses (3.6s)
+  ✓  16 e2e/reveal-api.spec.ts:13:5 › reveal: a formally revealed fact reaches the opponent — and only that fact (DD-M3) (100ms)
+  ✓  10 e2e/practice-vs-ai.spec.ts:12:5 › a full practice match vs the Closer ends in a labeled deal (7.4s)
+  ✓  18 e2e/stale-auth-recovery.spec.ts:13:5 › stale dev token self-heals into a working identity (217ms)
+  ✓  12 e2e/hold-accept.spec.ts:119:5 › walk away lives in the ⋯ menu behind a confirm hold (LMD-07) (4.3s)
+  ✓   3 e2e/friend-match.spec.ts:84:5 › two browsers complete a friend match (deal, reveal, rematch CTA) (12.7s)
+  ✓  15 e2e/rematch-consent.spec.ts:64:5 › mutual-consent rematch: propose → accept → both land on a new ACTIVE match (8.6s)
+  ✓  19 e2e/telemetry.spec.ts:86:5 › rematch_clicked fires on the friend-mode REMATCH, then play_again_clicked from the replay page (6.0s)
+  ✓  17 e2e/review-flow.spec.ts:9:5 › a completed match reviews into deterministic moments and a linked timeline (8.8s)
+  ✓  24 e2e/title-flow.spec.ts:12:5 › the opening screen fronts the game and PLAY NOW enters the flow (696ms)
+  ✓  25 e2e/title-flow.spec.ts:48:5 › PDR-4 default SHOW: a returning stored identity still sees the title (579ms)
+  ✓  26 e2e/title-flow.spec.ts:65:5 › mobile title keeps PLAY NOW in the thumb zone with no horizontal scroll (368ms)
+  ✘  20 e2e/timeout.spec.ts:33:5 › a stalled match warns through LOW TIME and CRITICAL, then times out distinctly (28.2s)
+  ✘  21 e2e/friend-match.spec.ts:153:5 › chat does not transfer the turn (GR-013) (27.9s)
+  ✘  23 e2e/telemetry.spec.ts:127:5 › rematch_clicked fires on the AI-mode REMATCH (25.9s)
+  ✓  28 e2e/telemetry.spec.ts:165:5 › ErrorCatcher sends client_exception with sanitized meta and no query strings (739ms)
+  ✘  22 e2e/rematch-consent.spec.ts:108:5 › decline closes the offer cleanly on both sides (28.1s)
+  ✘  27 e2e/friend-match.spec.ts:183:5 › repeating the same formal offer is rejected and never switches the turn (GR-007) (28.3s)
+  ✘  29 e2e/telemetry.spec.ts:192:5 › review-page events still send with client_environment/release (28.4s)
+
+
+  1) e2e/friend-match.spec.ts:153:5 › chat does not transfer the turn (GR-013) ─────────────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('match-status')
+    Expected substring: "ACTIVE"
+    Timeout: 25000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByTestId('match-status') with timeout 25000ms
+      - waiting for getByTestId('match-status')
+
+
+      35 |
+      36 | async function expectActive(page: Page): Promise<void> {
+    > 37 |   await expect(page.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
+         |                                                  ^
+      38 | }
+      39 |
+      40 | /** Reads the player's own RV from the private line (e.g. "62.5"). */
+        at expectActive (/Users/jeremydommnich/projects/bay-qa/apps/web/e2e/friend-match.spec.ts:37:50)
+        at /Users/jeremydommnich/projects/bay-qa/apps/web/e2e/friend-match.spec.ts:164:9
+
+    Error Context: test-results/friend-match-chat-does-not-transfer-the-turn-GR-013-/error-context.md
+
+  2) e2e/friend-match.spec.ts:183:5 › repeating the same formal offer is rejected and never switches the turn (GR-007) 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('match-status')
+    Expected substring: "ACTIVE"
+    Timeout: 25000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByTestId('match-status') with timeout 25000ms
+      - waiting for getByTestId('match-status')
+
+
+      35 |
+      36 | async function expectActive(page: Page): Promise<void> {
+    > 37 |   await expect(page.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
+         |                                                  ^
+      38 | }
+      39 |
+      40 | /** Reads the player's own RV from the private line (e.g. "62.5"). */
+        at expectActive (/Users/jeremydommnich/projects/bay-qa/apps/web/e2e/friend-match.spec.ts:37:50)
+        at /Users/jeremydommnich/projects/bay-qa/apps/web/e2e/friend-match.spec.ts:194:9
+
+    Error Context: test-results/friend-match-repeating-the-59000-r-switches-the-turn-GR-007-/error-context.md
+
+  3) e2e/rematch-consent.spec.ts:108:5 › decline closes the offer cleanly on both sides ────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('match-status')
+    Expected substring: "ACTIVE"
+    Timeout: 25000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByTestId('match-status') with timeout 25000ms
+      - waiting for getByTestId('match-status')
+
+
+      118 |   await expect(pageA.getByTestId('ready-button')).toBeVisible({ timeout: 20_000 });
+      119 |   await pageA.getByTestId('ready-button').click();
+    > 120 |   await expect(pageA.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
+          |                                                   ^
+      121 |   await playToDeal([pageA, pageB]);
+      122 |   await expect(pageA.getByTestId('result')).toBeVisible({ timeout: 20_000 });
+      123 |   await expect(pageB.getByTestId('result')).toBeVisible({ timeout: 20_000 });
+        at /Users/jeremydommnich/projects/bay-qa/apps/web/e2e/rematch-consent.spec.ts:120:51
+
+    Error Context: test-results/rematch-consent-decline-cl-47407-offer-cleanly-on-both-sides/error-context.md
+
+  4) e2e/telemetry.spec.ts:127:5 › rematch_clicked fires on the AI-mode REMATCH ────────────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('match-status')
+    Expected substring: "ACTIVE"
+    Timeout: 25000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByTestId('match-status') with timeout 25000ms
+      - waiting for getByTestId('match-status')
+
+
+      138 |   await expect(page.getByTestId('ready-button')).toBeVisible({ timeout: 15_000 });
+      139 |   await page.getByTestId('ready-button').click();
+    > 140 |   await expect(page.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
+          |                                                  ^
+      141 |   // the Closer crosses and accepts a legal RV opening by itself — offer
+      142 |   // once, then poll to the result (practice-vs-ai pattern)
+      143 |   const offered = { value: false };
+        at /Users/jeremydommnich/projects/bay-qa/apps/web/e2e/telemetry.spec.ts:140:50
+
+    Error Context: test-results/telemetry-rematch-clicked-fires-on-the-AI-mode-REMATCH/error-context.md
+
+  5) e2e/telemetry.spec.ts:192:5 › review-page events still send with client_environment/release ───
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('match-status')
+    Expected substring: "ACTIVE"
+    Timeout: 25000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByTestId('match-status') with timeout 25000ms
+      - waiting for getByTestId('match-status')
+
+
+      203 |   await expect(pageA.getByTestId('ready-button')).toBeVisible({ timeout: 20_000 });
+      204 |   await pageA.getByTestId('ready-button').click();
+    > 205 |   await expect(pageA.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
+          |                                                   ^
+      206 |   await playToDeal([pageA, pageB]);
+      207 |   await expect(pageA.getByTestId('result')).toBeVisible({ timeout: 20_000 });
+      208 |   // navigate via the analyze-deal link's href shape
+        at /Users/jeremydommnich/projects/bay-qa/apps/web/e2e/telemetry.spec.ts:205:51
+
+    Error Context: test-results/telemetry-review-page-even-2eb33--client-environment-release/error-context.md
+
+  6) e2e/timeout.spec.ts:33:5 › a stalled match warns through LOW TIME and CRITICAL, then times out distinctly 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('match-status')
+    Expected substring: "ACTIVE"
+    Timeout: 25000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByTestId('match-status') with timeout 25000ms
+      - waiting for getByTestId('match-status')
+
+
+      45 |   await expect(readyA).toBeVisible({ timeout: 20_000 });
+      46 |   await readyA.click();
+    > 47 |   await expect(pageA.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
+         |                                                   ^
+      48 |
+      49 |   // Warning tiers: LOW TIME appears once ~20 s of budget remain, then
+      50 |   // CRITICAL once ~10 s remain. Both players see the active player's tier
+        at /Users/jeremydommnich/projects/bay-qa/apps/web/e2e/timeout.spec.ts:47:51
+
+    Error Context: test-results/timeout-a-stalled-match-wa-da7bb-L-then-times-out-distinctly/error-context.md
+
+  6 failed
+    e2e/friend-match.spec.ts:153:5 › chat does not transfer the turn (GR-013) ──────────────────────
+    e2e/friend-match.spec.ts:183:5 › repeating the same formal offer is rejected and never switches the turn (GR-007) 
+    e2e/rematch-consent.spec.ts:108:5 › decline closes the offer cleanly on both sides ─────────────
+    e2e/telemetry.spec.ts:127:5 › rematch_clicked fires on the AI-mode REMATCH ─────────────────────
+    e2e/telemetry.spec.ts:192:5 › review-page events still send with client_environment/release ────
+    e2e/timeout.spec.ts:33:5 › a stalled match warns through LOW TIME and CRITICAL, then times out distinctly 
+  1 skipped
+  22 passed (1.2m)
+undefined
+/Users/jeremydommnich/projects/bay-qa/apps/web:
+ ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL  Command failed with exit code 1: playwright test
+ ELIFECYCLE  Command failed with exit code 1.

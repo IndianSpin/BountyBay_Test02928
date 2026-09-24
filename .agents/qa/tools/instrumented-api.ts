@@ -38,10 +38,13 @@ app.addHook('onRequest', async (request) => {
 app.addHook('onResponse', async (request, reply) => {
   const started = (request as unknown as { qaStartedAt?: number }).qaStartedAt;
   const dur = started ? Date.now() - started : -1;
+  const t = new Date().toISOString();
   if (request.url === '/v1/auth/dev/signin') {
-    console.log(`[QA-INSTR] signin ${reply.statusCode} ${dur}ms ${new Date().toISOString()}`);
+    console.log(`[QA-INSTR] signin ${reply.statusCode} ${dur}ms ${t}`);
+  } else if (request.url.includes('/v1/matches/') || request.url === '/v1/challenges') {
+    console.log(`[QA-INSTR] REQ ${request.method} ${request.url.slice(0, 90)} ${reply.statusCode} ${dur}ms ${t}`);
   } else if (dur > 2000) {
-    console.log(`[QA-INSTR] SLOW ${request.method} ${request.url} ${reply.statusCode} ${dur}ms`);
+    console.log(`[QA-INSTR] SLOW ${request.method} ${request.url} ${reply.statusCode} ${dur}ms ${t}`);
   }
 });
 
