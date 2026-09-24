@@ -20,9 +20,9 @@ Result → Game Review → Rematch → Bay
 | Role/Dossier reveal | G | G | G | G | G | G |
 | Live Match | G | G | G | G | G | G |
 | Result / SH4 reveal | G | G | **R** | G | G | G (VISUAL corrected — SH4 deviation, see .agents/audit/QA_STATUS.md) |
-| Game Review | G | G | G | N | G | G |
-| Rematch (letter → accept) | G | G | G | N | G | G |
-| Back to Bay | G | G | G | N | G | G |
+| Game Review | G | G | G | G | G | G |
+| Rematch (letter → accept) | G | G | G | G | G | G |
+| Back to Bay | G | G | G | G | G | G |
 
 ## JOURNEY B — AI PRACTICE
 Bay → Practice → Select AI → Match → Meaningful table talk → Result →
