@@ -27,9 +27,16 @@ All ride the existing stdout emitter with the BB-229 common fields
 free text in analytics lines.
 
 ### 2.1 `bay_viewed` — client (authenticated)
-- PURPOSE: "enters The Bay" — play page mount (the harbor). Landing
-  title screen is NOT counted (signup is the first observable landing
-  step; landing views remain deliberately unmeasured in V1).
+- PURPOSE: "enters The Bay" — the Bay hub mount (SH-BayIA,
+  `apps/web/src/app/bay/page.tsx`). Landing title screen is NOT
+  counted (signup is the first observable landing step; landing views
+  remain deliberately unmeasured in V1).
+- **SURFACE RULING (post-D-66):** W2 implemented on the Bay hub
+  (`bay/page.tsx:63`), not `play/page.tsx` as this spec originally
+  wrote. Agent 6 confirmed 2026-09-24: the Bay hub is the faithful
+  mapping of the directive's "enters The Bay" (post-account hub with
+  the gold table); the play page is the match-flow screen. No
+  reconciliation needed — spec file reference superseded by the hub.
 - WEB (`apps/web/src/lib/analytics.ts`): add to `ClientEventName`.
 - WEB (`apps/web/src/app/play/page.tsx`): in the existing
   `useApiToken` consumer, add
