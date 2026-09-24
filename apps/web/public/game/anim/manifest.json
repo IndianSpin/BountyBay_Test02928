@@ -1,0 +1,828 @@
+{
+ "version": 1,
+ "fps": 12,
+ "cell": {
+  "w": 400,
+  "h": 600
+ },
+ "framing": "same as the ch-*.svg sheet cells (viewBox 83 0 834 1250): feet on the same ground line, transparent background",
+ "layout": "grid; frame i is at x=(i % cols)*cell.w, y=floor(i / cols)*cell.h",
+ "characters": {
+  "goldenotter": {
+   "idle": {
+    "src": "goldenotter/idle.webp",
+    "frames": 36,
+    "cols": 12,
+    "rows": 3,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 3000,
+    "use": "breathing + one blink; the resting state"
+   },
+   "listen": {
+    "src": "goldenotter/listen.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "the other side is talking or deciding"
+   },
+   "think": {
+    "src": "goldenotter/think.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "this player is deciding (their clock is running)"
+   },
+   "speak": {
+    "src": "goldenotter/speak.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "a chat line / quick line / pitch is being delivered"
+   },
+   "offer": {
+    "src": "goldenotter/offer.webp",
+    "frames": 15,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1250,
+    "use": "plays when this player sends an offer; hold the last frame"
+   },
+   "concede": {
+    "src": "goldenotter/concede.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "plays when this player moves their number toward the other side"
+   },
+   "react": {
+    "src": "goldenotter/react.webp",
+    "frames": 13,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1083,
+    "use": "AI personas only: reaction to a large move. A human avatar never shows a reaction the human did not make (PV0)"
+   },
+   "accept": {
+    "src": "goldenotter/accept.webp",
+    "frames": 19,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1583,
+    "use": "plays when this player accepts; hold the last frame"
+   },
+   "nodeal": {
+    "src": "goldenotter/nodeal.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "walk-away / no deal; hold the last frame"
+   },
+   "rematch": {
+    "src": "goldenotter/rematch.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "rematch offer on the result screen"
+   }
+  },
+  "greylot": {
+   "idle": {
+    "src": "greylot/idle.webp",
+    "frames": 36,
+    "cols": 12,
+    "rows": 3,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 3000,
+    "use": "breathing + one blink; the resting state"
+   },
+   "listen": {
+    "src": "greylot/listen.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "the other side is talking or deciding"
+   },
+   "think": {
+    "src": "greylot/think.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "this player is deciding (their clock is running)"
+   },
+   "speak": {
+    "src": "greylot/speak.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "a chat line / quick line / pitch is being delivered"
+   },
+   "offer": {
+    "src": "greylot/offer.webp",
+    "frames": 15,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1250,
+    "use": "plays when this player sends an offer; hold the last frame"
+   },
+   "concede": {
+    "src": "greylot/concede.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "plays when this player moves their number toward the other side"
+   },
+   "react": {
+    "src": "greylot/react.webp",
+    "frames": 13,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1083,
+    "use": "AI personas only: reaction to a large move. A human avatar never shows a reaction the human did not make (PV0)"
+   },
+   "accept": {
+    "src": "greylot/accept.webp",
+    "frames": 19,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1583,
+    "use": "plays when this player accepts; hold the last frame"
+   },
+   "nodeal": {
+    "src": "greylot/nodeal.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "walk-away / no deal; hold the last frame"
+   },
+   "rematch": {
+    "src": "greylot/rematch.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "rematch offer on the result screen"
+   }
+  },
+  "hogshead": {
+   "idle": {
+    "src": "hogshead/idle.webp",
+    "frames": 36,
+    "cols": 12,
+    "rows": 3,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 3000,
+    "use": "breathing + one blink; the resting state"
+   },
+   "listen": {
+    "src": "hogshead/listen.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "the other side is talking or deciding"
+   },
+   "think": {
+    "src": "hogshead/think.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "this player is deciding (their clock is running)"
+   },
+   "speak": {
+    "src": "hogshead/speak.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "a chat line / quick line / pitch is being delivered"
+   },
+   "offer": {
+    "src": "hogshead/offer.webp",
+    "frames": 15,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1250,
+    "use": "plays when this player sends an offer; hold the last frame"
+   },
+   "concede": {
+    "src": "hogshead/concede.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "plays when this player moves their number toward the other side"
+   },
+   "react": {
+    "src": "hogshead/react.webp",
+    "frames": 13,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1083,
+    "use": "AI personas only: reaction to a large move. A human avatar never shows a reaction the human did not make (PV0)"
+   },
+   "accept": {
+    "src": "hogshead/accept.webp",
+    "frames": 19,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1583,
+    "use": "plays when this player accepts; hold the last frame"
+   },
+   "nodeal": {
+    "src": "hogshead/nodeal.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "walk-away / no deal; hold the last frame"
+   },
+   "rematch": {
+    "src": "hogshead/rematch.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "rematch offer on the result screen"
+   }
+  },
+  "pipquill": {
+   "idle": {
+    "src": "pipquill/idle.webp",
+    "frames": 36,
+    "cols": 12,
+    "rows": 3,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 3000,
+    "use": "breathing + one blink; the resting state"
+   },
+   "listen": {
+    "src": "pipquill/listen.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "the other side is talking or deciding"
+   },
+   "think": {
+    "src": "pipquill/think.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "this player is deciding (their clock is running)"
+   },
+   "speak": {
+    "src": "pipquill/speak.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "a chat line / quick line / pitch is being delivered"
+   },
+   "offer": {
+    "src": "pipquill/offer.webp",
+    "frames": 15,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1250,
+    "use": "plays when this player sends an offer; hold the last frame"
+   },
+   "concede": {
+    "src": "pipquill/concede.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "plays when this player moves their number toward the other side"
+   },
+   "react": {
+    "src": "pipquill/react.webp",
+    "frames": 13,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1083,
+    "use": "AI personas only: reaction to a large move. A human avatar never shows a reaction the human did not make (PV0)"
+   },
+   "accept": {
+    "src": "pipquill/accept.webp",
+    "frames": 19,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1583,
+    "use": "plays when this player accepts; hold the last frame"
+   },
+   "nodeal": {
+    "src": "pipquill/nodeal.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "walk-away / no deal; hold the last frame"
+   },
+   "rematch": {
+    "src": "pipquill/rematch.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "rematch offer on the result screen"
+   }
+  },
+  "vesperine": {
+   "idle": {
+    "src": "vesperine/idle.webp",
+    "frames": 36,
+    "cols": 12,
+    "rows": 3,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 3000,
+    "use": "breathing + one blink; the resting state"
+   },
+   "listen": {
+    "src": "vesperine/listen.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "the other side is talking or deciding"
+   },
+   "think": {
+    "src": "vesperine/think.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "this player is deciding (their clock is running)"
+   },
+   "speak": {
+    "src": "vesperine/speak.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "a chat line / quick line / pitch is being delivered"
+   },
+   "offer": {
+    "src": "vesperine/offer.webp",
+    "frames": 15,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1250,
+    "use": "plays when this player sends an offer; hold the last frame"
+   },
+   "concede": {
+    "src": "vesperine/concede.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "plays when this player moves their number toward the other side"
+   },
+   "react": {
+    "src": "vesperine/react.webp",
+    "frames": 13,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1083,
+    "use": "AI personas only: reaction to a large move. A human avatar never shows a reaction the human did not make (PV0)"
+   },
+   "accept": {
+    "src": "vesperine/accept.webp",
+    "frames": 19,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1583,
+    "use": "plays when this player accepts; hold the last frame"
+   },
+   "nodeal": {
+    "src": "vesperine/nodeal.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "walk-away / no deal; hold the last frame"
+   },
+   "rematch": {
+    "src": "vesperine/rematch.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "rematch offer on the result screen"
+   }
+  },
+  "mossback": {
+   "idle": {
+    "src": "mossback/idle.webp",
+    "frames": 36,
+    "cols": 12,
+    "rows": 3,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 3000,
+    "use": "breathing + one blink; the resting state"
+   },
+   "listen": {
+    "src": "mossback/listen.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "the other side is talking or deciding"
+   },
+   "think": {
+    "src": "mossback/think.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "this player is deciding (their clock is running)"
+   },
+   "speak": {
+    "src": "mossback/speak.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "a chat line / quick line / pitch is being delivered"
+   },
+   "offer": {
+    "src": "mossback/offer.webp",
+    "frames": 15,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1250,
+    "use": "plays when this player sends an offer; hold the last frame"
+   },
+   "concede": {
+    "src": "mossback/concede.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "plays when this player moves their number toward the other side"
+   },
+   "react": {
+    "src": "mossback/react.webp",
+    "frames": 13,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1083,
+    "use": "AI personas only: reaction to a large move. A human avatar never shows a reaction the human did not make (PV0)"
+   },
+   "accept": {
+    "src": "mossback/accept.webp",
+    "frames": 19,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1583,
+    "use": "plays when this player accepts; hold the last frame"
+   },
+   "nodeal": {
+    "src": "mossback/nodeal.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "walk-away / no deal; hold the last frame"
+   },
+   "rematch": {
+    "src": "mossback/rematch.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "rematch offer on the result screen"
+   }
+  },
+  "marigold": {
+   "idle": {
+    "src": "marigold/idle.webp",
+    "frames": 36,
+    "cols": 12,
+    "rows": 3,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 3000,
+    "use": "breathing + one blink; the resting state"
+   },
+   "listen": {
+    "src": "marigold/listen.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "the other side is talking or deciding"
+   },
+   "think": {
+    "src": "marigold/think.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "this player is deciding (their clock is running)"
+   },
+   "speak": {
+    "src": "marigold/speak.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "a chat line / quick line / pitch is being delivered"
+   },
+   "offer": {
+    "src": "marigold/offer.webp",
+    "frames": 15,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1250,
+    "use": "plays when this player sends an offer; hold the last frame"
+   },
+   "concede": {
+    "src": "marigold/concede.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "plays when this player moves their number toward the other side"
+   },
+   "react": {
+    "src": "marigold/react.webp",
+    "frames": 13,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1083,
+    "use": "AI personas only: reaction to a large move. A human avatar never shows a reaction the human did not make (PV0)"
+   },
+   "accept": {
+    "src": "marigold/accept.webp",
+    "frames": 19,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1583,
+    "use": "plays when this player accepts; hold the last frame"
+   },
+   "nodeal": {
+    "src": "marigold/nodeal.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "walk-away / no deal; hold the last frame"
+   },
+   "rematch": {
+    "src": "marigold/rematch.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "rematch offer on the result screen"
+   }
+  },
+  "zippa": {
+   "idle": {
+    "src": "zippa/idle.webp",
+    "frames": 36,
+    "cols": 12,
+    "rows": 3,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 3000,
+    "use": "breathing + one blink; the resting state"
+   },
+   "listen": {
+    "src": "zippa/listen.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "the other side is talking or deciding"
+   },
+   "think": {
+    "src": "zippa/think.webp",
+    "frames": 24,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 2000,
+    "use": "this player is deciding (their clock is running)"
+   },
+   "speak": {
+    "src": "zippa/speak.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "a chat line / quick line / pitch is being delivered"
+   },
+   "offer": {
+    "src": "zippa/offer.webp",
+    "frames": 15,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1250,
+    "use": "plays when this player sends an offer; hold the last frame"
+   },
+   "concede": {
+    "src": "zippa/concede.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "plays when this player moves their number toward the other side"
+   },
+   "react": {
+    "src": "zippa/react.webp",
+    "frames": 13,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1083,
+    "use": "AI personas only: reaction to a large move. A human avatar never shows a reaction the human did not make (PV0)"
+   },
+   "accept": {
+    "src": "zippa/accept.webp",
+    "frames": 19,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1583,
+    "use": "plays when this player accepts; hold the last frame"
+   },
+   "nodeal": {
+    "src": "zippa/nodeal.webp",
+    "frames": 17,
+    "cols": 12,
+    "rows": 2,
+    "loop": false,
+    "holdLast": true,
+    "durationMs": 1417,
+    "use": "walk-away / no deal; hold the last frame"
+   },
+   "rematch": {
+    "src": "zippa/rematch.webp",
+    "frames": 16,
+    "cols": 12,
+    "rows": 2,
+    "loop": true,
+    "holdLast": false,
+    "durationMs": 1333,
+    "use": "rematch offer on the result screen"
+   }
+  }
+ }
+}

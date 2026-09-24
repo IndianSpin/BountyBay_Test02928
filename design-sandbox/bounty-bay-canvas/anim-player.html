@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Character animation player</title>
+<style>
+body{margin:0;background:#141A22;color:#F3EEDD;font-family:system-ui,sans-serif;padding:20px}
+h1{font-size:20px;margin:0 0 12px}
+select,button{font-size:14px;padding:4px 8px;margin-right:8px}
+#g{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px}
+.c{width:200px;text-align:center;font-size:12px}
+.s{width:200px;height:300px;background-repeat:no-repeat;background-color:#1F2A38;border-radius:8px}
+.c b{display:block;font-size:14px;margin-top:6px}
+.c span{color:#B9AECB}
+</style></head><body>
+<h1>Bounty Bay — character animation sheets</h1>
+<select id="ch"></select><button id="rp">Replay one-shots</button>
+<div id="g"></div>
+<script>
+// Reference player: shows how the manifest is meant to be read. 12 fps, grid sheets, one-shots hold their last frame.
+const BASE = '../../apps/web/public/game/anim/';
+let M, timers = [];
+function play(el, spec, scale) {
+  let i = 0;
+  const step = () => {
+    const x = (i % spec.cols) * M.cell.w * scale, y = Math.floor(i / spec.cols) * M.cell.h * scale;
+    el.style.backgroundPosition = `-${x}px -${y}px`;
+    if (i < spec.frames - 1) i++; else if (spec.loop) i = 0;
+  };
+  step(); timers.push(setInterval(step, 1000 / M.fps));
+}
+function show() {
+  timers.forEach(clearInterval); timers = [];
+  const name = document.getElementById('ch').value, g = document.getElementById('g'); g.innerHTML = '';
+  const scale = 0.5;
+  for (const [clip, spec] of Object.entries(M.characters[name])) {
+    const c = document.createElement('div'); c.className = 'c';
+    const s = document.createElement('div'); s.className = 's';
+    s.style.backgroundImage = `url(${BASE + spec.src})`;
+    s.style.backgroundSize = `${spec.cols * M.cell.w * scale}px ${spec.rows * M.cell.h * scale}px`;
+    c.append(s); c.insertAdjacentHTML('beforeend', `<b>${clip}${spec.loop ? ' · loop' : ' · one-shot'}</b><span>${spec.use}</span>`);
+    g.append(c); play(s, spec, scale);
+  }
+}
+fetch(BASE + 'manifest.json').then(r => r.json()).then(m => {
+  M = m; const sel = document.getElementById('ch');
+  for (const n of Object.keys(m.characters)) sel.add(new Option(n, n));
+  sel.onchange = show; document.getElementById('rp').onclick = show; show();
+});
+</script></body></html>

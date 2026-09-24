@@ -30,6 +30,16 @@ Exported from the claude.ai Design canvas "Bounty Bay — Product Design v2" (re
 
 Sheet cell order (unchanged): idle, thinking, listening, speaking, offer, holding, surprised, pleased, smug, frustrated, accepted, nodeal, disconnected, rematch, seller.
 
+## Character animation (rig motion, all 8 characters)
+
+`apps/web/public/game/anim/<character>/<clip>.webp` + `anim/manifest.json` — real frame-by-frame motion rendered from the same rig as the static art (eyelids, brows, mouth, head tilt, lean, wrist targets interpolated between keyframes). Answers TD-4.
+
+- Characters: `goldenotter`, `greylot`, `hogshead`, `pipquill`, `vesperine`, `mossback`, `marigold`, `zippa`.
+- Clips: `idle` (breathing + blink, loop), `listen` (loop), `think` (own clock running, loop), `speak` (chat / quick line / pitch, loop), `offer`, `concede`, `accept`, `nodeal` (one-shots: hold the last frame), `react` (**AI personas only** — a human avatar never shows a reaction the human did not make, PV0), `rematch` (loop).
+- Format: 12 fps, grid sheets of 400×600 cells, frame i at `((i % cols)·400, floor(i / cols)·600)`; transparent; same framing and ground line as the `ch-*.svg` cells, so existing crops/positions carry over (mind the pre-existing px-offset assumption in `live-match.css`). ~32 MB total, ~400 KB per clip — load per character on match start.
+- Reference player: `design-sandbox/bounty-bay-canvas/anim-player.html` (serve the repo root, open it; it reads the manifest).
+- Nothing is wired in the app; triggers map 1:1 to domain events (offer sent, concession, accept, walk-away/timeout, chat line, active clock).
+
 ## Superseded — never implement from these
 
 Moved to `design-sandbox/_superseded/` (kept for history only): C1 `GO-*` (replaced by C2 `GO2-*`), A2 `CR-*` character routes (decided: Route A), A3 `CC-*` old cast lineup and A4 `PE-*` old pose/expression matrix (replaced by `GO2-*` + `CAST-*` and PV0's rule that a human's avatar only performs what the human did), the pre-canvas concept pages (`concepts/`, `arena.html`, `deal-table.html`, `comparison.html`), their screenshots, and rejected character art (routes B/C, BLACK PARROT → replaced by the GREYLOT heron).
