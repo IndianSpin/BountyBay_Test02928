@@ -1033,3 +1033,12 @@ fallback covers non-response. ai_turn_intent analytics line per turn
 (pseudonymous) — EVENT_CATALOG note recorded. Gate: tc 0, unit 309,
 lint 0, db 94, strict E2E 28. Matrix: table-talk row flips GREEN on
 QA's re-walk (their call).
+
+## D-77 — BB-260 ACCEPTED (2026-09-24)
+
+Phase 6 done: full localhost/127.0.0.1 audit classified (dev-only
+fallbacks documented vs deployment bugs); challenge share URLs now
+build from NEXT_PUBLIC_APP_URL with runtime-origin dev fallback; no
+localhost ships to players when configured. Deploy note: the runbook
+matrix gains NEXT_PUBLIC_APP_URL = hosted web origin (sibling of
+NEXT_PUBLIC_API_URL). Gate: tc 0, unit 309, lint 0.
