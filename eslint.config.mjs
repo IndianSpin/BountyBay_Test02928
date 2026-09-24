@@ -9,6 +9,9 @@ export default tseslint.config(
       '**/dist/**',
       '**/coverage/**',
       '**/next-env.d.ts',
+      // Founder-owned design tooling (golden reference system, canvas
+      // scripts) — not product code; edited by the design session.
+      'design-sandbox/**',
     ],
   },
   js.configs.recommended,
