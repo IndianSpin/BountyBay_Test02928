@@ -96,6 +96,15 @@ the diagnostic shape).
 
 ## QA-005 (BB-218) — Illegal amount is presented as the ENABLED hero CTA; refusal only after tap
 
+- **STATUS UPDATE (2026-09-24): RESOLVED — verified live.** D-28/BB-216
+  (commit `fa6ad69`, merged in the BB-216 batch) neutralizes the CTA:
+  the seal is DISABLED while a beyond-mandate amount is composed and
+  re-enables for legal amounts; the advisory strip remains. The spec was
+  re-pinned to the new behavior (`.agents/qa/tools/specs/qa-bb218.spec.ts`
+  test 1: seal disabled + advisory + re-enable on legal + direct-API
+  400 OUTSIDE_RESERVATION_VALUE — 2/2 PASS on current main). Evidence:
+  `illegal-composed-cta-disabled.png`.
+
 - **REAL:** yes (founder-reported; reproduced on current main). **REPRODUCIBLE:**
   yes — deterministic (buyer composes any amount above their RV).
   **MATERIAL:** yes — the primary action presents a guaranteed-to-fail offer.
