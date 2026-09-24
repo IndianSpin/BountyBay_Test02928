@@ -92,6 +92,36 @@ Terminal state: **REPORTED TO MANAGER** (spec only; no code written by
 me). Next: verify BB-229/BB-230 implementations per spec §5 and update
 RELEASE_CHECKLIST.md + EVENT_CATALOG.md when they merge.
 
+### STATUS — BB-229 VERIFICATION COMPLETE (2026-09-24) — REPORTED TO MANAGER
+
+Ran the §5 verification on main `f6fd7a3` (implementation `feca4d6`):
+diff conformance vs DA-P1-SPEC (PASS, all 10 files), my own typecheck
+(clean) + unit run (280 passed / 68 skipped), live API boot (port
+4400, `bounty_bay_e2e`, JSON logs on) + end-to-end event exercise.
+Evidence + verdict in `.agents/data/BB-229-VERIFICATION.md`
+(UNCOMMITTED — manager pickup as usual). RELEASE_CHECKLIST.md +
+EVENT_CATALOG.md updated to verified state.
+
+Verified live: /health tags; signup_completed exactly-once (2 users →
+2 lines); handle_created; review_opened + client_exception passthrough
+(meta flattened, client tags present); unknown name → 400; full
+match → deal → result_viewed exactly 1 line after two result GETs;
+domain errors untouched (400/403/409/404); 0 RV occurrences in the
+full log; pino JSON lines with reqId.
+
+**Finding BB-229-1 (open):** parser-level 400s reply 500 — malformed
+JSON body → `FST_ERR_CTP_INVALID_JSON_BODY` (statusCode 400) → my
+error handler replies INTERNAL_ERROR 500. Fastify's default was 400.
+Spec gap (framework-thrown errors, not route errors). Exact fix patch
+in BB-229-VERIFICATION.md; recommended disposition: ACCEPT with a
+small fix-forward, not full REWORK — manager's call.
+
+Verification side notes: boot ran against W1's `bounty_bay_e2e` (its
+bootScan fired designed timeouts; W1 reseeds for E2E runs). Two
+aborted verification matches left in that DB. Web half (rematch_clicked
+/ play_again_clicked / client_exception capture) remains with BB-230 —
+RELEASE_CHECKLIST web TODOs stay open until then.
+
 ## BLOCKERS
 - None. (Old DATA-01 blockers resolved: worktree/branch exist; D-37
   settled the ownership split.)

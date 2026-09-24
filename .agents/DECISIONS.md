@@ -671,3 +671,14 @@ PRODUCT-level design direction (vision), not new game rules. Routing:
 W2 reads PV-Thesis + PV-Mobile + PV-Seq-1/2 + PV-Loop before finalizing
 BB-232. PV-Swap (side-swap) and PV-Rivalry are vision items — NO tasks
 until the founder schedules them.
+
+## D-49 — BB-229 ACCEPTED (Data §5, 2026-09-24)
+
+Formal ACCEPT: everything spec-conformant and verified (diff exact,
+typecheck + 280 unit by Data, live-boot emitted-line inspection: tags,
+signup exactly-once, dedup, sanitized 500s, zero RV leakage) EXCEPT
+BB-229-1: parser-level 400s (malformed JSON) reply 500 — the handler
+missed framework-thrown errors. Disposition: ACCEPT with fix-forward
+BB-233 (W1, exact patch in the verification report: map error.statusCode
+400-499 through with sanitized INVALID_REQUEST, warn-level logging) —
+slots BEFORE BB-226. Web half (BB-230) still pending with W2.
