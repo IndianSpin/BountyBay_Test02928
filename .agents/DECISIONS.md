@@ -593,3 +593,13 @@ BB-223 residue-safe subjects verified 2× against a dirty DB. Known
 defects of golden-baseline-1: RESOLVED. Re-cut as **golden-baseline-2**
 with a clean full regression. W1 next: BB-229 (DA-P1 api) then BB-226
 (DD-M3).
+
+## D-42 — Founder: "all approve and continue" (2026-09-24)
+
+PDR-4 RESOLVED: the shipped default stands — returning signed-in
+players SEE the title screen (SHOW_TITLE_ON_RETURN=true stays; no
+flip). IN-4 seeds: founder-approved — the 27 knowledge records move
+DRAFT → REVIEWED (reviewed_by: founder, 2026-09-24). IN-4 checkpoint
+thereby SIGNED OFF → IN-5 (retrieval + coaching composer) unblocked
+for W3 as BB-231; the seed REVIEWED marking rides the BB-231 branch.
+No other pending founder items.
