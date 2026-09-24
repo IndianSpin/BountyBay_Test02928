@@ -896,3 +896,16 @@ env-driven origin pinning (~2 lines, runbook §1) → BB-253 (W1, after
 BB-250). Non-blocking: FF-2 Redis unused (single replica), FF-3
 tsx-in-production OK for alpha, FF-4 Vercel monorepo fallback.
 Founder access + decisions list (§6) surfaced to the founder.
+
+## D-68 — BB-244 P0 FIXED + BB-252 (2026-09-24)
+
+P0 root cause measured: /bay never imported its CSS module — cold
+visits bundle no hub.css (2 vs 3 stylesheets), hub bar collapsed to
+block, links fell to browser default purple. Fix: bay/page.tsx imports
+hub.css; globals styles the panel links; a cold-visit styling guard
+spec (world paints, zero default links) prevents silent regression;
+all remaining routes audited. BB-252 rode along: bay_viewed fired on
+the Bay mount (semantic surface = bay/page.tsx — corrected from the
+earlier play-page naming; Data to confirm in its verification). Gate:
+tc 0, unit 301, lint 0, E2E 22/22. P0 gate: CLEARED — first alpha
+gate passed.
