@@ -52,11 +52,38 @@ lines); `isBot` distinguishes bots from humans (data quality).
 - Required: playerId, matchId. Privacy: PSEUDONYMOUS. Version: IN-2.
   Owner: worker-3 feature, emitter shared.
 
-## PLANNED (Phase 1 proposal — pending approval)
+## IMPLEMENTED API-SIDE (BB-229, merged 2026-09-24 — Data §5-verified)
 
-All PLANNED server events ride the existing stdout emitter (P1-M9 swap
-point) with added common fields (see below). Client events ride the
-existing POST /v1/analytics/event.
+### signup_completed — server, PSEUDONYMOUS
+- When: `ensureUserBySubject` CREATES the user row (created-gated; both
+  call sites: dev signin + requireAuth). Exactly once per human; bots
+  structurally excluded.
+- Source: server (`apps/api/src/app.ts`). Required: playerId,
+  authProvider (dev|clerk). Verified live: 2 users, many sign-ins → 2
+  lines.
+
+### handle_created — server, PSEUDONYMOUS
+- When: every successful `setHandle` (both call sites). Possibly
+  repeated; first occurrence per player = funnel step (derived from
+  stream).
+- Source: server (`apps/api/src/app.ts`). Required: playerId.
+
+### result_viewed — server, PSEUDONYMOUS
+- When: `GET /v1/matches/:matchId/result` success path, deduped
+  in-process per (match, player) — at-most-once per process.
+- Source: server (`apps/api/src/match-routes.ts`). Required: matchId,
+  playerId. Verified live: two result GETs → 1 line.
+
+### Common fields (all events, BB-229)
+`environment` / `release` / `service: 'api'` stamped on every line
+(resolved from BB_ENV / BB_RELEASE at boot); client-sourced events
+additionally carry `client_environment` / `client_release`.
+
+## PLANNED (web emission = BB-230, W2 — pending)
+
+The API already accepts all five client names + meta (BB-229); web
+call sites ship with BB-230. All PLANNED server events below ride the
+stdout emitter with the common fields above.
 
 ### handle_created — server, PSEUDONYMOUS
 - Purpose: core funnel (AUTH → HANDLE step).

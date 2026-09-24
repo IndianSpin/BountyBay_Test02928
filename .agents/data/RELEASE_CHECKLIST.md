@@ -14,8 +14,10 @@ are executable today.
 
 ## 0. Release identification (before anything else)
 - [ ] Release commit SHA recorded; `environment` tag defined
-      (development / e2e / qa / production). (TODO: boot-time
-      `release`/`environment` injection — DA-P1-2.)
+      (development / e2e / qa / production). ✅ BB-229 (2026-09-24):
+      boot-time `BB_ENV`/`BB_RELEASE` injection live in the API
+      (verified: /health + every analytics line). Client-side release
+      id ships with BB-230.
 - [ ] Previous good SHA recorded as the rollback target.
 
 ## 1. Workers ready
@@ -41,18 +43,23 @@ are executable today.
 ## functioning"
 - [ ] Core events emit and parse: `match_completed`,
       `match_timed_out`, `time_tier_entered`, `review_opened`,
-      `review_step_viewed` present with required fields. (TODO:
-      analytics smoke test in CI — DA-P1-4.)
-- [ ] (TODO after DA-P1-1) Funnel + retention events emitting:
-      `signup_completed`, `handle_created`, `result_viewed`,
-      `rematch_clicked`, `client_exception`.
-- [ ] Error reporting functioning: API structured logs on, request ids,
-      error handler active. (TODO — DA-P1-2. Today the logger is off:
-      releases before DA-P1-2 must be explicitly waived by the
-      manager.)
+      `review_step_viewed` present with required fields. ✅ BB-229
+      verified 2026-09-24 (live emitted-line inspection). (TODO:
+      analytics smoke test automated in CI — DA-P1-4.)
+- [ ] Funnel + retention events emitting: ✅ API-side via BB-229 —
+      `signup_completed`, `handle_created`, `result_viewed` (verified
+      live, incl. exactly-once and dedup semantics); ⏳
+      `rematch_clicked`, `play_again_clicked`, `client_exception`
+      capture = BB-230 (W2), pending.
+- [ ] Error reporting functioning: ✅ API structured logs on
+      (ENABLE_JSON_LOGS / production), request ids, error handler
+      active (BB-229). ⚠️ Open defect BB-229-1: parser-level 400s
+      (malformed JSON) reply 500 — fix-forward patch specified in
+      `BB-229-VERIFICATION.md`; gate blocked until fixed.
 - [ ] Privacy: emitted lines carry no reservation values / tokens /
       secrets (docs/10; extend hidden-information audit to analytics
-      lines — TODO DA-P1-1 tests).
+      lines — ✅ BB-229 da-p1 tests + live privacy grep: 0 RV
+      occurrences).
 - [ ] Test/dev activity distinguishable from production
       (`environment` tag + DB separation; bots identifiable via
       `isBot`).
