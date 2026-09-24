@@ -24,7 +24,16 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — BB-260 (Phase 6 localhost/URL audit, D-75) — READY FOR REVIEW
+## CURRENT TASK — STANDING DOWN (manager: queue empty)
+
+BB-260 ACCEPTED and merged (9e63a35, D-77): Phase 6 closed — challenge
+URLs build from NEXT_PUBLIC_APP_URL; no localhost ships to players
+when configured. Awaiting the next stabilization item or the
+deploy-support call. BB-245 (Clerk) still awaits its verdict.
+
+### BB-260 — ACCEPTED and merged (9e63a35, D-77).
+
+## OLD CURRENT TASK — BB-260 (Phase 6 localhost/URL audit, D-75) — READY FOR REVIEW
 
 Audit table (runtime code; tests/E2E configs excluded — those are
 dev-only by construction):
