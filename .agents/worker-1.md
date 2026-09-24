@@ -24,7 +24,25 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — STANDING DOWN (manager: queue empty)
+## CURRENT TASK — BB-250 (QA-009 rate caps) then BB-245 (Clerk, alpha)
+
+### BB-250 (first, small)
+The strict E2E suite makes ~35 ready calls vs the 30/min production
+cap → late-suite 429s. BB-222 pattern: development caps are 10× the
+production caps on ready/offers/accept/walk-away/messages/challenges;
+production values unchanged and pinned by a test (hasRoute config
+assertion under NODE_ENV=production). Per-endpoint cap audit folded
+into the golden-baseline checklist (note for the manager).
+
+### BB-245 (after; alpha-critical, D-64)
+Complete the existing Clerk integration per the founder's 10
+requirements (contract in the inbox): local + Vercel; unauthenticated
+→ landing/sign-in; protected routes; ONE authoritative Player record;
+unique handle choice/assignment; identity from verified auth only;
+Socket.IO server-side verification; dev identity impossible in
+production; Next 16 proxy.ts; no secrets in NEXT_PUBLIC_*.
+
+## OLD CURRENT TASK — STANDING DOWN (manager: queue empty)
 
 BB-238 ACCEPTED and merged (40b1eca, D-62): economy-0.3.0 live — 7:00
 hard decision-time limit + 120s decay window per DEC-031 #3. The
