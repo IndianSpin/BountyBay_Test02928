@@ -546,3 +546,14 @@ play_again_clicked), plus the acceptance checklist. BB-229 (W1)
 implements the api side per spec; BB-230 (W2) the web side. Data
 verifies and updates RELEASE_CHECKLIST.md. No new dependencies beyond
 Fastify built-ins.
+
+## D-38 — IN-4 ACCEPTED (2026-09-24)
+
+BB-227 merged: ontology + knowledge-base-0.1.0 (schema, validation,
+grade rules A-D, provenance, conflicts map) + 27 curated seed records
+(3 A / 11 B / 12 C / 1 D; DOIs only where confidently known). Gate:
+typecheck 0, unit 264, lint 0 (manager-run). Flag rulings: (1) §6
+observation→concept mappings are OUT of IN-4 scope — they ride IN-5
+retrieval (confirmed); (2) the 27 seeds are DRAFT pending human review
+— **founder review item** before IN-5 cites them (add to founder
+batch). W3 stands down; IN-5 waits for the founder's IN-4 checkpoint.
