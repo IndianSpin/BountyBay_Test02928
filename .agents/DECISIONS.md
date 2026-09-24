@@ -873,3 +873,15 @@ production unchanged. Challenges (20/min) + offers (60/min) are the
 next walls — per-endpoint cap audit folded into the golden-baseline
 checklist. Tasking: BB-250 (W1, FIRST — small; unblocks release-gate
 suite confidence), then BB-245 (Clerk).
+
+## D-66 — BB-247 ACCEPTED; alpha gaps tasked (2026-09-24)
+
+Data's gap spec merged: signals 1/7/8/9 covered; gaps specced
+(bay_viewed, challenge_created/joined, match_started incl.
+rematch-accept, feedback_submitted). HEADLINE: AI-practice completions
+emit NO match_completed (ai/engine.ts has zero analytics) — the likely
+first-alpha path would be invisible; fix specced. Tasking: BB-251
+(W1, after BB-250): implement per spec incl. the AI-emit fix;
+bay_viewed's two client lines → W2 (fold into BB-244). Deploy note
+routed to BB-246: BB_ENV=production + BB_RELEASE=sha must be set by
+the deploy; stream = Railway logs, truth = hosted Postgres.
