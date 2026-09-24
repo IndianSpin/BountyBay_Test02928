@@ -1020,3 +1020,16 @@ secrets/private info/tokens); P9 analytics → Data (minimum set incl.
 review_opened + rematch_started — review_opened exists from IN-1);
 P10 release report → manager; STOP for founder review before any
 invite; never auto-invite.
+
+## D-76 — BB-257 ACCEPTED (2026-09-24)
+
+Table talk wired: persona decides the legal economic action ONLY
+(chatAllowed false; unexpected chat → logged + WALK_AWAY, never
+wedged); runAiTurn consumes legal-view observations (own/opponent
+offers, concession run, decision window, message PRESENCE only,
+held-last-turn, crossed) with the economic action passed through
+unchanged; talk commits before the move; restart-safe belief hash;
+fallback covers non-response. ai_turn_intent analytics line per turn
+(pseudonymous) — EVENT_CATALOG note recorded. Gate: tc 0, unit 309,
+lint 0, db 94, strict E2E 28. Matrix: table-talk row flips GREEN on
+QA's re-walk (their call).
