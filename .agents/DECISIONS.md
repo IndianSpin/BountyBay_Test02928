@@ -885,3 +885,14 @@ first-alpha path would be invisible; fix specced. Tasking: BB-251
 bay_viewed's two client lines → W2 (fold into BB-244). Deploy note
 routed to BB-246: BB_ENV=production + BB_RELEASE=sha must be set by
 the deploy; stream = Railway logs, truth = hosted Postgres.
+
+## D-67 — BB-246 ACCEPTED; FF-1 tasked (2026-09-24)
+
+Deploy runbook accepted (DEPLOY_RUNBOOK_ALPHA1.md): Railway service
+definitions (REPLICAS=1 mandatory — presence is in-memory), sockets
+direct to Railway, LOCAL/TEST-PREVIEW/ALPHA env matrix, secrets rules,
+founder walkthrough. BLOCKING: FF-1 — realtime.ts has no CORS option;
+env-driven origin pinning (~2 lines, runbook §1) → BB-253 (W1, after
+BB-250). Non-blocking: FF-2 Redis unused (single replica), FF-3
+tsx-in-production OK for alpha, FF-4 Vercel monorepo fallback.
+Founder access + decisions list (§6) surfaced to the founder.
