@@ -31,7 +31,13 @@ export type AnalyticsEventName =
   | 'handle_created'
   | 'rematch_clicked'
   | 'play_again_clicked'
-  | 'client_exception';
+  | 'client_exception'
+  // BB-251 (BB-247 alpha gaps): funnel signals.
+  | 'bay_viewed'
+  | 'challenge_created'
+  | 'challenge_joined'
+  | 'match_started'
+  | 'feedback_submitted';
 
 export type AnalyticsFields = Record<string, string | number | boolean | null>;
 

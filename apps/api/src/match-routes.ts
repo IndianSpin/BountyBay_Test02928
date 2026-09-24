@@ -181,6 +181,11 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       if (outcome.events.some((e) => e.type === 'MATCH_COMPLETED')) {
         options.analytics?.emit('match_completed', matchCompletedFields(snapshot.state));
       }
+      // BB-251 (BB-247 §2.4): covers friend READY×2 AND AI-practice human
+      // READY (the same route). Match-level event — playerId null.
+      if (outcome.events.some((e) => e.type === 'MATCH_STARTED')) {
+        options.analytics?.emit('match_started', { matchId, playerId: null, mode: snapshot.state.mode });
+      }
       for (const entry of tierEntriesFor(snapshot.state, snapshot.config, serverNow)) {
         options.analytics?.emit('time_tier_entered', entry);
       }
@@ -216,6 +221,14 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
     });
     if (!created.ok) return reply.code(statusFor(created.code)).send(created);
 
+    // BB-251 (BB-247 §2.2): friend-challenge funnel.
+    options.analytics?.emit('challenge_created', {
+      matchId,
+      playerId: request.userId!,
+      mode: 'FRIEND_LIVE',
+      role: assignment.role,
+    });
+
     return reply.code(201).send({
       matchId,
       token,
@@ -244,6 +257,14 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       firstPlayerId: pickFirstPlayer(creator.userId, request.userId!),
     });
     if (!joined.ok) return reply.code(statusFor(joined.code)).send(joined);
+
+    // BB-251 (BB-247 §2.3): friend-challenge funnel.
+    options.analytics?.emit('challenge_joined', {
+      matchId: row.id,
+      playerId: request.userId!,
+      mode: row.mode,
+      role: assignment.role,
+    });
 
     return {
       matchId: row.id,

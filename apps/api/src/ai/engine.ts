@@ -23,11 +23,14 @@ import type { MatchCommandService, PrismaClient, StoredSnapshot } from '@bounty-
 import type { DomainEvent } from '@bounty-bay/domain';
 import { randomUUID } from 'node:crypto';
 import type { MatchBroadcaster } from '../realtime';
+import { matchCompletedFields, tierEntriesFor, type AnalyticsEmitter } from '../analytics';
 
 export interface AiTurnEngineOptions {
   service: MatchCommandService;
   prisma: PrismaClient;
   broadcast: MatchBroadcaster;
+  /** BB-251 (BB-247 §2.5): AI-practice completions must be visible in the stream. */
+  analytics?: AnalyticsEmitter;
 }
 
 type Move = Exclude<AgentDecision, readonly unknown[]>;
@@ -130,6 +133,17 @@ export class AiTurnEngine {
 
     const after = await this.options.service.loadSnapshot(matchId);
     this.options.broadcast(matchId, committed.events, after);
+    // BB-251 (BB-247 §2.5): engine-driven completions (bot accept/walk-away)
+    // emit the same match_completed + tier entries as the HTTP path — the
+    // first-alpha path (AI practice) would otherwise be invisible.
+    if (after && committed.events.some((e) => e.type === 'MATCH_COMPLETED')) {
+      this.options.analytics?.emit('match_completed', matchCompletedFields(after.state));
+    }
+    if (after) {
+      for (const entry of tierEntriesFor(after.state, after.config, now)) {
+        this.options.analytics?.emit('time_tier_entered', entry);
+      }
+    }
     await this.maybeSchedule(matchId); // no-op unless the turn is somehow still the AI's
   }
 

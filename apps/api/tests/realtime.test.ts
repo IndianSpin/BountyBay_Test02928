@@ -207,4 +207,40 @@ describe.skipIf(!RUN)('realtime layer (socket.io + PostgreSQL)', () => {
       otherSocket.disconnect();
     }
   });
+
+  it('pins socket origins from SOCKET_CORS_ORIGINS — non-allowlisted refused, allowlisted accepted (FF-1, BB-253)', { timeout: 20_000 }, async () => {
+    const saved = process.env.SOCKET_CORS_ORIGINS;
+    process.env.SOCKET_CORS_ORIGINS = 'https://alpha-web.vercel.app';
+    try {
+      const pinnedApp = await buildApp({ auth: dev, prisma: createPrismaClient(DATABASE_URL), exposeDevAuth: true, timeoutScheduler: null });
+      await pinnedApp.listen({ port: 0, host: '127.0.0.1' });
+      const address = pinnedApp.server.address() as { port: number };
+      const pinnedUrl = `http://127.0.0.1:${address.port}`;
+      const signin = await pinnedApp.inject({ method: 'POST', url: '/v1/auth/dev/signin', payload: { subject: 'dev_socket_cors' } });
+      const { token } = signin.json() as { token: string };
+
+      const connectWith = (origin: string) =>
+        new Promise<'connect_error' | 'connected'>((resolve) => {
+          const socket = connectSocket(pinnedUrl, {
+            auth: { token },
+            transports: ['websocket'],
+            extraHeaders: { Origin: origin },
+            reconnection: false,
+            timeout: 4000,
+          });
+          socket.on('connect', () => {
+            socket.disconnect();
+            resolve('connected');
+          });
+          socket.on('connect_error', () => resolve('connect_error'));
+        });
+
+      expect(await connectWith('https://evil.example')).toBe('connect_error');
+      expect(await connectWith('https://alpha-web.vercel.app')).toBe('connected');
+
+      await pinnedApp.close();
+    } finally {
+      process.env.SOCKET_CORS_ORIGINS = saved;
+    }
+  });
 });
