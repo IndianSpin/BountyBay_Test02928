@@ -52,7 +52,7 @@ async function myRole(page: Page): Promise<'BUYER' | 'SELLER'> {
   }, API_URL);
 }
 
-test('BB-218: illegal amount is an ENABLED hero CTA; refusal surfaces a generic alert', async ({ browser }) => {
+test('BB-218 (D-28 pin): illegal amount is NEUTRALIZED — seal disabled; server still refuses direct API', async ({ browser }) => {
   const ctxA = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const ctxB = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const pageA = await ctxA.newPage();
@@ -93,31 +93,28 @@ test('BB-218: illegal amount is an ENABLED hero CTA; refusal surfaces a generic 
   const illegal = (Number(rvBuyer) + 31.1).toFixed(1);
   await buyer.getByTestId('offer-input').fill(illegal);
 
-  // 1) the seal CTA is ENABLED and presents the illegal amount as the hero
+  // 1) D-28 pin: the seal CTA is DISABLED for the illegal amount (the
+  //    advisory strip explains why); a legal amount re-enables it.
   const seal = buyer.getByTestId('make-offer');
   await expect(seal).toBeVisible();
-  await expect(seal).toBeEnabled();
+  await expect(seal).toBeDisabled();
   const sealText = await seal.innerText();
   console.log(`SEAL TEXT for illegal ${illegal}: "${sealText}"`);
   expect(sealText).toContain('SEAL OFFER');
-  expect(sealText).toContain(illegal);
 
-  // 2) the advisory strip warns (self-information, correct) but does not block
+  // 2) the advisory strip names the viewer's own limit (self-information)
   await expect(buyer.getByTestId('cost-preview')).toContainText('does not allow you to offer more than', { timeout: 5_000 });
-  await buyer.screenshot({ path: '/tmp/qa-bb218/illegal-composed-cta-enabled.png' });
+  await buyer.screenshot({ path: '/tmp/qa-bb218/illegal-composed-cta-disabled.png' });
 
-  // 3) tap SEAL → the server refuses; the UI shows the generic alert
-  await seal.click();
-  await expect(buyer.locator('.world-error')).toBeVisible({ timeout: 10_000 });
-  const alertText = await buyer.locator('.world-error').innerText();
-  console.log(`ALERT after refusal: "${alertText}"`);
-  expect(alertText).toContain('does not allow you to offer that much');
-  await buyer.screenshot({ path: '/tmp/qa-bb218/after-refusal-alert.png' });
+  // 3) a legal amount re-enables the seal (control is not stuck)
+  await buyer.getByTestId('offer-input').fill(await ownRv(buyer));
+  await expect(seal).toBeEnabled();
+  await buyer.getByTestId('offer-input').fill(illegal);
+  await expect(seal).toBeDisabled();
 
-  // 4) state integrity after refusal: turn unchanged, match ACTIVE, input holds
+  // 4) state integrity: match stays ACTIVE on the buyer's turn
   await expect(buyer.getByTestId('match-status')).toContainText('ACTIVE');
   await expect(buyer.getByTestId('turn-banner')).toHaveText('YOUR MOVE');
-  await expect(buyer.getByTestId('offer-input')).toHaveValue(illegal);
 
   // 5) server-authoritative proof: the same amount via direct API → 400
   const direct = await buyer.evaluate(async (arg: { apiUrl: string; amount: string }) => {
