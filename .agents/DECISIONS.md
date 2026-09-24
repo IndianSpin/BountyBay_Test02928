@@ -682,3 +682,16 @@ missed framework-thrown errors. Disposition: ACCEPT with fix-forward
 BB-233 (W1, exact patch in the verification report: map error.statusCode
 400-499 through with sanitized INVALID_REQUEST, warn-level logging) —
 slots BEFORE BB-226. Web half (BB-230) still pending with W2.
+
+## D-50 — BB-232 merged (founder review pending, 2026-09-24)
+
+Composition fit fix merged (`51a228c`): dossier collapses behind a
+disclosure, mobile state-adaptive sheet (composer + seal only on the
+player's turn — PV-Thesis "the interface shrinks to what the current
+state needs"), world-level fit assertions in canvas-checkpoint at both
+viewports, fullPage mobile captures. Measured: mobile 844/844 (was
++368px), desktop 900/900 (was ~90px); dev-auth banner ~32px is the
+only page-level scroll in dev builds (absent in production, documented).
+Gate: tc 0, unit 280, lint 0, E2E 15/15 (worker-run). Captures:
+design-sandbox/screenshots/bb232/. QA mobile re-check + founder review
+next.
