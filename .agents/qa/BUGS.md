@@ -235,6 +235,50 @@ against the same DB → both green.
 
 ---
 
+---
+
+## QA-008 (BB-232 re-check) — Dev-build-only overlay/banner clipping; production composition verified clean (LOW)
+
+- **REAL:** yes, dev builds only. **REPRODUCIBLE:** deterministic in the
+  dev environment. **MATERIAL:** low for production; material for the
+  founder's dev-build screenshot reviews. **SEVERITY:** LOW.
+- **AREA:** dev-auth banner layout; Next.js dev indicator overlay.
+- **OWNER-CANDIDATE:** W2 (composition) / W1 (play-page dev banner).
+
+**FINDINGS (measured, base `7da2480` + BB-232 `51a228c`):**
+1. The dev-auth banner ("Auth not configured…", 32px, in-flow) pushes the
+   live-match world 32px down: the desktop chat button's bottom edge sits
+   at 908 vs the 900 viewport (8px clipped by default), and the LOW TIME
+   warning row renders entirely below the fold (y 929–937) until the user
+   scrolls. The world itself is exactly 900px tall — **production
+   geometry fits the 1440×900 reference frame exactly** (BB-232's gate is
+   correct for production).
+2. The Next.js dev stale-version indicator overlay is fixed at the
+   bottom-left and intercepts pointer events over the mobile chat button
+   (390×844) — clicking it retries against the overlay. Dev artifact;
+   production has no overlay.
+3. INFO: transient Turbopack build error
+   (`Can't resolve '@vercel/turbopack-next/internal/font/google/font'`)
+   after repeated dev-server boots — cleared by removing
+   `apps/web/.next`. Environment flake, not a code defect.
+
+**RECOMMENDATION:** render the dev-auth banner out-of-flow (fixed
+overlay) so dev-build screenshots match the production frame; consider
+dismissing/hiding the Next dev indicator for E2E runs.
+
+**VERIFIED CLEAN (the BB-232 re-check contract):** `.agents/qa/tools/
+specs/qa-composition.spec.ts` (2/2 PASS): every interaction control
+(composer input, steppers, SEAL, menu, chat button, standing plaque)
+within the production frame on both viewports; no horizontal scroll;
+dossier disclosure expands (context + facts rendered) and collapses;
+state-adaptive sheet — action zone disabled on the desktop waiting page,
+CSS-hidden on the mobile waiting page; crossed state + hold-accept + full
+deal complete on both viewports. Screenshots in
+`.agents/qa/evidence/*-turn.png`, `*-dossier-expanded.png`,
+`*-crossed.png`, `measure-*.png`.
+
+---
+
 ## (Resolved, not product bugs — for the record)
 
 - **hold-accept "accept seal vanishes after early release"** on baseline
