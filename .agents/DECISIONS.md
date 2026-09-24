@@ -785,3 +785,13 @@ when the field lands (OQ-031). Clock ruling tasking: BB-238 (W1) —
 economy-0.3.0 active row (hardDecisionTimeLimitMs 420,000, clockFloorMs
 120,000, provisional per OQ-015..017; E2E overrides unchanged). SH
 showdown/result sequence: BB-239 (W2) queued after its current queue.
+
+## D-59 — IN-6 ACCEPTED (2026-09-24)
+
+BB-237 merged: practice-system-0.1.0 — WHAT WOULD YOU DO drill schema
+with the no-universal-answer rule enforced structurally (no correctness
+field exists), 10 drills + 5 micro-lessons + 26-row recommendation
+table over the five personas, cite() helper throwing on fabricated
+references, daily/streaks correctly gated (OQ-026). Gate: tc 0, unit
+301, lint 0. W3 stands down; IN-7 (improvement tracking) waits for the
+founder's IN-6 checkpoint.
