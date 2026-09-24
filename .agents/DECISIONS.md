@@ -1052,3 +1052,119 @@ active training goal, AI mastery overall + per-persona). Guards: no
 ABORTED, no non-finite endedAt, no dup matchIds; nothing persists.
 Matrix: profile row → YELLOW (engine merged; the result-screen seam is
 W2's — BB-262 queued after BB-256).
+
+## D-79 — SCREEN-STATE & INTERACTION AUDIT (2026-09-24)
+
+Founder directive: exhaustive consumer-product map BEFORE any broad
+visual repair — no random one-by-one fixes. First deliverable (then
+STOP for founder review): (1) docs/SCREEN_STATE_REGISTRY.md (every
+user-visible state with stable IDs across all 22+ areas incl. error/
+loading/disconnect states, per the founder's field list); (2)
+docs/CTA_CONTRACTS.md (every visible control: ID, label, source,
+preconditions, action, success/failure destination, loading/disabled,
+analytics event, test, status — no consumer CTA without a contract;
+BROKEN CONTRACT stated honestly); (3) Visual Consistency Map
+(APPROVED/PARTIAL/LEGACY/DEBUG/BROKEN/UNSTYLED/MISSING DESIGN per
+state + the styling-family audit); (4) missing-design list; (5)
+duplicate/legacy implementation list; (6) Golden Journey health map;
+(7) top-15 defects by upstream impact; (8) proposed repair sequence.
+Section G harness (/dev/screens) + H screenshot regression + I design
+comparison absorb BB-256's pieces — BB-256 PAUSES; its gate re-enters
+via the repair sequence after founder review. Ownership: BB-263 (W2)
+registry/CTA/visual-map from implementation; BB-264 (QA) QA-status/
+defects/journey-health/CTA-destination verification; manager assembles
+the canonical docs + top-15 + sequence, then stops for the founder.
+
+## D-80 — AI table talk GREEN (2026-09-24)
+
+QA re-walk: a live match vs The Wall completed legally with exactly
+one persisted MESSAGE_SENT whose body is an exact PROBE fixture —
+the pipeline supplies deterministic talk, the persona owns the
+economic action, non-response impossible. Matrix row: GREEN. Journey
+B has one remaining YELLOW (profile surface, BB-262).
+
+## D-81 — Golden reference handoff scheduled (2026-09-24)
+
+Founder design session delivered design-sandbox/golden/: per-state
+golden pages (live-match/result/bay), contracts as DATA, golden-check
+CLI, reference-match fixture, and a 7-task handoff. Scheduled:
+G-1 gallery route /dev/states (dev-only, 404 in production) · G-2
+result screen to golden (replace the modal panel — the SH4 failure)
+· G-3 live match to golden · G-4 The Bay to golden — all W2, queued
+after the audit review; G-5 QA golden-check in the Journey A pass +
+side-by-sides on every UI verdict; G-6 manager repoints
+CANONICAL_CONTRACTS §2 + DESIGN_ACCEPTANCE rule + PRODUCT_HEALTH
+VISUAL derived from the checker, not judgment (the handoff correctly
+notes the current result screen violates SH4 while the matrix says
+VISUAL=G — the checker ends that optimism); G-7 extension pattern.
+Pending layers stay hidden (data-pending) until founder rules.
+
+## D-82 — Audit first deliverable assembled; STOP for founder (2026-09-24)
+
+The eight items are in place: (1) docs/SCREEN_STATE_REGISTRY.md
+(SS-01..SS-23, field-complete); (2) docs/CTA_CONTRACTS.md + QA's
+CTA_AUDIT.md — all 15 audit-target CTAs verified, NO BROKEN
+CONTRACT; (3) docs/VISUAL_CONSISTENCY_MAP.md (five styling families,
+12 live + 12 orphaned legacy selectors, MISSING DESIGN list); (4)
+missing-design list (review, replay, sign-in/up, designed profile,
+profile/training surface, challenge sheet); (5) duplicate/legacy list
+(M5 LEGACY review/replay, MIXED play hub, orphaned selectors,
+profile-client dead-path); (6) journey health map (A: GREEN except
+SH4 result VISUAL R — QA-confirmed dark scrim; B: GREEN except
+profile surface Y); (7) docs/TOP15_DEFECTS.md (7 open, 8 resolved);
+(8) proposed repair sequence: SH4 result to golden (BB-265/G-2) →
+BB-258 profile surface → BB-236 dev banner → PDR-2 → join-route cap
+watch → review nulls → mobile N cells. Per D-79: STOPPED for founder
+review — no repairs until approved.
+
+## D-83 — Repair sequence APPROVED by founder (2026-09-24)
+
+Founder: "continue with proposed repair sequence." BB-265 (G-1..G-4)
+OPENED. Order: SH4 result to golden → BB-258 profile surface (BB-262)
+→ BB-236 dev banner → PDR-2 item → join-route cap watch → review
+nulls → mobile N cells. W2 executes the frontend chain with founder
+reviews at each golden-state completion; QA attaches side-by-sides
+(G-5) once golden-check exists.
+
+## D-84 — BB-265 G-1+G-2 merged; lint scope ruling (2026-09-24)
+
+G-1 gallery route + G-2 SH4 result scene merged (`d2e9df7`): golden-
+check 76/76 both viewports, modal eliminated, E2E 15/15, typecheck 0.
+Lint scope ruling: design-sandbox/** (founder design tooling) excluded
+from eslint — the golden scripts are the design session's files, not
+product code. W1's mechanically-updated result assertions flagged for
+blessing. Founder review of the SH4 result is next. NOTE: the
+founder's design session is actively editing design-sandbox/golden/*
+in the manager checkout (uncommitted) — left untouched; committed on
+the founder's sync.
+
+## D-85 — BB-265 assertions BLESSED (2026-09-24)
+
+W1 blessed W2's friend-match result-assertion updates (verified 3/3
+on the isolated stack). Record note (non-blocking): the settlement
+AMOUNT is no longer pinned in the stamp-copy assertion ("DEAL" only)
+— follow-up candidate: assert the amount wherever the scene shows it
+(candidate for G-3/W2 or the golden-check contract).
+
+## D-86 — Functionality-first window (2026-09-24)
+
+Founder: final designs are pending — fix all FUNCTIONALITY issues
+before they arrive. G-3/G-4 (golden live match/Bay) HOLD until the
+final golden pages land (design session is actively editing them).
+Functionality queue: BB-262 (profile surface on the rebuilt result —
+W2) · join-route cap watch + review nulls (W1/W3 split: nulls are the
+IN-2 envelope fields — W3 fills surplusShareBp/settled/timeUsedMs +
+RESULT eventRefs; W1 re-checks the join-route cap after BB-250's
+pattern) · BB-236 dev banner overlay (W2, small) · QA mobile N-cell
+pass (Game Review/Rematch/back-to-Bay at 390px) · Clerk production
+instance + domain allowlist + JWT key (founder dashboard + env).
+Deploy chain unchanged: Railway container boot (founder railway login
+or env fixes) → NEXT_PUBLIC_API_URL → hosted QA.
+
+## D-87 — BB-268 ACCEPTED: zero N cells (2026-09-24)
+
+QA walked Game Review, Rematch, back-to-Bay at 390×844 on main — all
+GREEN. The Product Health Matrix now has ZERO N cells: every journey
+state is evidence-backed on desktop and mobile. Remaining non-GREEN:
+SH4 result VISUAL (fixed in code, founder review pending) and the
+profile-surface YELLOW (BB-266 in flight).

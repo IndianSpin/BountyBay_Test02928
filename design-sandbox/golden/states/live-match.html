@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GOLDEN · Live match — my decision, close</title>
+<link rel="stylesheet" href="../golden.css">
+<style>
+/* ---------- desktop composition (reference 1440×900; everything docks to the stage) */
+.sheet { display: none; }
+.lm-char { left: 50%; bottom: 13%; height: 86%; aspect-ratio: 2 / 3; transform: translateX(-50%); }
+.lm-menu { position: absolute; left: 20px; top: 20px; width: 46px; height: 46px; border-radius: 50%; border: 3px solid var(--outline-ink);
+  background: linear-gradient(#F6CC74, var(--brand-gold)); color: var(--ink-on-gold); font-size: 22px; font-weight: 800; box-shadow: 0 4px 0 var(--brand-gold-deep); cursor: pointer; }
+.lm-clock { left: 50%; top: 18px; transform: translateX(-50%); }
+.lm-turn { position: absolute; left: 50%; top: 84px; transform: translateX(-50%); padding: 4px 14px; border-radius: 999px; background: var(--player);
+  color: var(--ink-on-ember); border: 2px solid var(--outline-ink); font-family: var(--font-world); font-weight: 800; font-size: 15px; letter-spacing: .06em; }
+.lm-opp { position: absolute; right: 22px; top: 18px; padding: 10px 14px; border-radius: 14px; background: rgba(16,26,32,.86); border: 3px solid var(--opponent); min-width: 230px; }
+.lm-opp .name { font-family: var(--font-world); font-weight: 800; font-size: 22px; line-height: 1; }
+.lm-opp .sub { font-size: 12px; color: var(--ink-muted-on-dark); margin-top: 3px; }
+.lm-opp .state { margin-top: 6px; font-size: 11px; font-weight: 800; letter-spacing: .1em; color: var(--brand-gold); }
+.lm-asset { position: absolute; right: 22px; top: 124px; display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border-radius: 999px;
+  background: rgba(16,26,32,.78); border: 2px solid rgba(243,238,221,.25); font-family: var(--font-world); font-weight: 800; font-size: 14px; }
+.lm-asset img { width: 30px; height: 30px; }
+.lm-bubble { right: calc(50% + 150px); top: 21%; }
+.lm-bubble::after { right: -11px; bottom: 22px; transform: rotate(-45deg); }
+
+.lm-rail { position: absolute; left: 24%; right: 24%; top: 61%; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #C9A15A, #F0C067);
+  border: 2px solid #5A3A12; box-shadow: 0 0 18px 4px rgba(255,190,90,.55); }
+.lm-rail .tick { position: absolute; top: -9px; width: 3px; height: 22px; border-radius: 2px; }
+.lm-rail .tick b { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); font-family: var(--font-num); font-size: 12px; font-weight: 600; color: var(--ink-on-dark); text-shadow: 0 1px 2px #000; }
+.lm-rail .plaque { top: -64px; }
+.lm-rail .plaque.me { top: -64px; }
+.lm-gap { position: absolute; left: 50%; top: calc(61% + 34px); transform: translateX(-50%); }
+
+.lm-left { position: absolute; left: 22px; top: 55%; display: flex; flex-direction: column; gap: 10px; width: 250px; }
+.lm-limit { padding: 10px 14px; border-radius: 10px; background: #2B1A12; border: 3px solid var(--brand-gold); transform: rotate(-2deg); box-shadow: 0 5px 0 rgba(0,0,0,.4); }
+.lm-limit .kicker { color: var(--brand-gold); font-size: 10px; }
+.lm-limit .v { font-family: var(--font-num); font-weight: 700; font-size: 34px; color: #FFE7B0; line-height: 1; }
+.lm-limit .s { font-size: 11px; color: #E9DCC0; }
+.lm-chips { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; background: rgba(16,26,32,.84); border: 2px solid var(--resource-chip); }
+.lm-chips .v { font-family: var(--font-num); font-weight: 700; font-size: 18px; }
+.lm-chips .kicker { color: var(--resource-chip); font-size: 10px; }
+.lm-dossier { align-self: flex-start; padding: 6px 12px; border-radius: 999px; background: rgba(16,26,32,.84); border: 2px solid rgba(243,238,221,.35); font-size: 12px; font-weight: 700; cursor: pointer; color: var(--ink-on-dark); }
+
+.lm-decide { position: absolute; left: 50%; bottom: 4.5%; transform: translateX(-50%); display: flex; gap: 14px; align-items: flex-end; }
+.lm-decide .btn-gold, .lm-decide .btn-green { min-width: 210px; min-height: 64px; font-size: 22px; }
+.lm-decide .btn-quiet { min-height: 48px; }
+
+.lm-chat { position: absolute; left: 22px; bottom: 4.5%; width: 380px; display: flex; flex-direction: column; gap: 8px; }
+.lm-quick { display: flex; flex-wrap: wrap; gap: 6px; }
+.lm-quick button { padding: 5px 10px; border-radius: 10px; border: 2px solid var(--outline-ink); background: var(--surface-parchment); color: var(--ink-on-parchment); font-family: var(--font-world); font-weight: 800; font-size: 13px; cursor: pointer; }
+.lm-compose { display: flex; gap: 8px; height: 52px; padding: 6px; border-radius: 14px; background: rgba(16,26,32,.86); border: 2px solid rgba(243,238,221,.3); }
+.lm-compose input { flex: 1; border: 0; border-radius: 10px; padding: 0 12px; background: rgba(255,255,255,.08); color: var(--ink-on-dark); font: 500 14px var(--font-ui); }
+.lm-compose button { border-radius: 10px; border: 2px solid var(--outline-ink); background: var(--surface-parchment); font-weight: 800; padding: 0 12px; cursor: pointer; }
+
+/* ---------- mobile composition (reference 390×844): scene on top, clock on the seam, one decision at the thumb */
+@media (max-width: 600px) {
+  .sheet { display: block; }
+  .table-fg { height: 18%; bottom: 44%; background-image: url('../../../apps/web/public/game/table-fp-m.svg'); background-size: cover; background-position: center top; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; height: 44%; background: var(--surface-world-deep); border-top: 3px solid #8A6A3A; }
+  .lm-char { left: 60%; bottom: 50%; height: 44%; }
+  .lm-menu { left: 12px; top: 12px; width: 40px; height: 40px; font-size: 18px; }
+  .lm-opp { right: 10px; top: 10px; min-width: 0; padding: 6px 10px; }
+  .lm-opp .sub { display: none; }
+  .lm-opp .name { font-size: 17px; }
+  .lm-asset { display: none; }
+  .lm-turn { top: calc(56% - 58px); font-size: 12px; }
+  .lm-clock { top: calc(56% - 22px); transform: translateX(-50%) scale(.78); z-index: 5; }
+  .lm-bubble { right: auto; left: 10px; top: 25%; max-width: 132px; font-size: 13px; padding: 8px 10px 10px; }
+  .lm-bubble::after { right: 26px; bottom: -11px; transform: rotate(45deg); }
+  .lm-rail { left: 8%; right: 8%; top: 47%; }
+  .lm-rail .plaque { min-width: 70px; height: 40px; font-size: 22px; top: -52px; }
+  .lm-rail .tick b { display: none; }
+  .lm-gap { display: none; }
+  .lm-left { left: 12px; right: 12px; top: auto; bottom: calc(44% - 96px); width: auto; flex-direction: row; align-items: center; gap: 8px; }
+  .lm-limit { transform: none; padding: 6px 10px; }
+  .lm-limit .v { font-size: 22px; }
+  .lm-limit .s { display: none; }
+  .lm-chips { padding: 6px 10px; }
+  .lm-dossier { align-self: center; }
+  .lm-chat { left: 12px; right: 12px; width: auto; bottom: 150px; }
+  .lm-quick button { font-size: 12px; padding: 4px 8px; }
+  .lm-compose { display: none; }
+  .lm-decide { left: 12px; right: 12px; bottom: 14px; transform: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .lm-decide .btn-gold { grid-column: 1 / 3; grid-row: 2; min-height: 58px; }
+  .lm-decide .btn-green { min-width: 0; min-height: 52px; font-size: 18px; }
+  .lm-decide .btn-quiet { min-height: 52px; }
+}
+</style>
+</head>
+<body>
+<main class="stage" data-testid="market-world">
+  <div class="scene-bg"></div>
+  <div class="sprite lm-char" data-testid="opponent-character" data-sprite="goldenotter:listen" role="img" aria-label="KESTREL as Golden Otter, listening"></div>
+  <div class="table-fg"></div>
+  <div class="sheet"></div>
+
+  <button class="lm-menu" data-testid="match-menu" aria-label="Match menu">⋯</button>
+
+  <div class="clock lm-clock" data-testid="clock-medallion" aria-label="Decision clocks">
+    <div class="face mine on" data-testid="clock-mine"><span class="dot"></span><span class="who" style="color:#FFD9C8">YOU</span><span class="t" data-fx="live.clock.meRemaining">6:33</span><span class="m">×<span data-fx="live.clock.meMultiplier">84%</span></span></div>
+    <span class="lever" style="transform:rotate(-24deg)"></span>
+    <div class="face theirs off" data-testid="clock-theirs"><span class="who" style="color:#D9CBF5">KESTREL</span><span class="t" data-fx="live.clock.themRemaining">6:45</span><span class="m">×<span data-fx="live.clock.themMultiplier">91%</span></span></div>
+  </div>
+  <div class="lm-turn" data-testid="turn-banner">YOUR MOVE</div>
+
+  <section class="lm-opp" data-testid="opponent-hud">
+    <div class="name">KESTREL <span class="num" style="font-size:14px;color:var(--ink-muted-on-dark)">1,494</span></div>
+    <div class="sub">Seller · as Golden Otter · 131 deals</div>
+    <div class="state">WAITING ON YOU</div>
+  </section>
+  <div class="lm-asset" data-testid="scenario-display"><img src="../../../apps/web/public/game/asset-compass.svg" alt=""><span data-fx="asset.name">THE RUBY COMPASS</span></div>
+
+  <div class="bubble lm-bubble tl-hidden" data-testid="opponent-bubble"><span class="kicker">WITH OFFER 74</span><span data-fx="offers.8.pitch">Seventy-four. That's the last step.</span></div>
+
+  <div class="lm-rail" data-testid="price-rail" id="rail"></div>
+  <div class="pill lm-gap" data-testid="gap-label">GAP <span class="num">2</span> · it was <span class="num">65</span> when you both opened</div>
+
+  <aside class="lm-left">
+    <div class="lm-limit" data-testid="my-rv" data-term="reservation value"><div class="kicker">Your limit · only you</div><div class="v" data-fx="me.reservationValue">100</div><div class="s">sealed — KESTREL never sees this</div></div>
+    <div class="lm-chips" data-testid="chip-meter"><div><div class="kicker">Concession chips</div><div class="v"><span data-fx="live.chips.remaining">88</span> / 100</div></div></div>
+    <button class="lm-dossier" data-testid="dossier">📜 Your dossier</button>
+  </aside>
+
+  <div class="lm-chat" data-testid="chat-panel">
+    <div class="lm-quick"><button>Why?</button><button>Too far</button><button>We're close</button><button>Is that final?</button><button aria-label="More quick lines">＋</button></div>
+    <div class="lm-compose"><input aria-label="Talk to KESTREL" placeholder="Talk to KESTREL…"><button>Send</button></div>
+  </div>
+
+  <div class="lm-decide tl-hidden" data-testid="decision-row">
+    <button class="btn btn-quiet" data-testid="walk-button">Walk away</button>
+    <button class="btn btn-green" data-testid="accept-button"><span class="stack">ACCEPT 74<span class="btn-sub">hold to seal</span></span></button>
+    <button class="btn btn-gold" data-testid="make-offer"><span class="stack">MAKE OFFER<span class="btn-sub">costs chips</span></span></button>
+  </div>
+</main>
+<script src="../golden.js"></script>
+<script>
+(async () => {
+  // rail anchored to the two OPENING offers (never to either limit): 55 … 120
+  const rail = document.getElementById('rail'), lo = 55, hi = 120, pad = (hi - lo) * .06;
+  const X = (v) => ((v - lo + pad) / (hi - lo + 2 * pad)) * 100;
+  const ticks = [[120, 'var(--opponent)'], [96, 'var(--opponent)'], [84, 'var(--opponent)'], [78, 'var(--opponent)'], [55, 'var(--player)'], [61, 'var(--player)'], [67, 'var(--player)']];
+  rail.innerHTML = ticks.map(([v, c]) => `<span class="tick" style="left:${X(v)}%;background:${c}"><b>${v}</b></span>`).join('') +
+    `<div class="plaque them hero tl-hidden" data-testid="rail-offer-theirs"><span class="lab">KESTREL</span>74</div>` +
+    `<div class="plaque me" data-testid="rail-offer-mine"><span class="lab">YOU</span>72</div>`;
+  // plaques sit on their true positions; when they would touch, they part around the midpoint
+  // (the tick on the rail keeps the exact value) — never overlap (contract: noOverlap)
+  const place = () => {
+    const W = rail.clientWidth, t = rail.querySelector('.them'), m = rail.querySelector('.me');
+    let xt = X(74) / 100 * W, xm = X(72) / 100 * W; const need = (t.offsetWidth + m.offsetWidth) / 2 + 10;
+    if (xt - xm < need) { const mid = (xt + xm) / 2; xt = mid + need / 2; xm = mid - need / 2; }
+    t.style.left = xt + 'px'; m.style.left = xm + 'px';
+  };
+  place(); addEventListener('resize', place);
+  rail.insertAdjacentHTML('beforeend', `<span class="tick" style="left:${X(74)}%;background:var(--opponent);height:30px;top:-13px;width:4px"></span><span class="tick" style="left:${X(72)}%;background:var(--player);height:30px;top:-13px;width:4px"></span>`);
+  await Golden.boot('live-match');
+})();
+</script>
+</body>
+</html>

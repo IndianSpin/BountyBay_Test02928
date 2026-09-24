@@ -407,6 +407,12 @@ export default function MatchScreen({ matchId, token, userId, opponentJoined, on
     <main>
       <span aria-live="polite" role="status" className="sr-only">{announcement}</span>
 
+      {/* BB-265 G-2: the terminal state swaps the board for the golden
+          result scene (the scene carries market-world — the world, the
+          table and the person persist; the old dark modal is gone). */}
+      {terminal && view.economy ? (
+        <ResultReveal snapshot={snapshot} userId={userId} onRematch={onRematch} matchId={matchId} token={token} />
+      ) : (
       <NegotiationBoard
         snapshot={snapshot}
         turnState={turnState()}
@@ -459,12 +465,9 @@ export default function MatchScreen({ matchId, token, userId, opponentJoined, on
           disabled: terminal,
         }}
       />
+      )}
 
       {error && <p className="world-error" role="alert">{error}</p>}
-
-      {terminal && view.economy && (
-        <ResultReveal snapshot={snapshot} userId={userId} onRematch={onRematch} matchId={matchId} token={token} />
-      )}
     </main>
   );
 }
