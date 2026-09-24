@@ -123,8 +123,12 @@ two users, challenge URL join, role/private info, 7:00 clocks with only
 the active clock decreasing, offers, table talk, accept/no-deal, result
 attribution, Game Review, rematch, return to Bay, refresh,
 disconnect/reconnect, mobile + desktop viewports). Localhost
-verification does not count. **Standing down** — next QA duty: BB-256
-gate once W2's golden reference exists, plus the re-walk after BB-257
+verification does not count. **BB-268 ACCEPTED (D-87, merged):** mobile N-cell pass filled the
+last three RESP cells — the Product Health Matrix has ZERO N cells
+(every journey state evidence-backed on desktop + mobile). Main pushed
+to GitHub (SH4 result rebuild included) — the deploy pipeline builds
+the integrated state. **Standing down** — next QA duty: BB-256 gate
+once W2's golden reference exists, plus the re-walk after BB-257
 wiring.
 
 Verified clean on current main: unit 226/47sk, DB+API 56/56, E2E 9/9,
