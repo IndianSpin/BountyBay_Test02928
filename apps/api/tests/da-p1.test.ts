@@ -148,8 +148,8 @@ describe.skipIf(!RUN)('DA-P1 observability (PostgreSQL)', () => {
       gameRulesVersion: 'game-rules-0.1.0',
       economyConfigVersion: 'economy-0.2.0',
       ratingVersion: null,
-      buyer: { playerId: buyerId, role: 'BUYER', reservationValueTenths: 500 },
-      seller: { playerId: sellerId, role: 'SELLER', reservationValueTenths: 300 },
+      buyer: { playerId: buyerId, role: 'BUYER', reservationValueTenths: 500, verifiableFactIds: [] },
+      seller: { playerId: sellerId, role: 'SELLER', reservationValueTenths: 300, verifiableFactIds: [] },
       firstPlayerId: buyerId,
       createdAt: Date.now() - 60_000,
     });
