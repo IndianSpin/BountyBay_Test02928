@@ -28,5 +28,8 @@ export async function proxy(request: NextRequest, event?: NextFetchEvent): Promi
 }
 
 export const config = {
-  matcher: ['/((?!_next|.*\\..*).*)'],
+  // Catch-all covers all app routes incl. Clerk's /__clerk/:path* (Clerk
+  // setup rule: the __clerk path must run through the proxy — included
+  // explicitly for compliance and future matcher changes).
+  matcher: ['/((?!_next|.*\\..*).*)', '/__clerk/:path*'],
 };
