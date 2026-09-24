@@ -216,11 +216,57 @@ are kept side by side with their conditions and limitations (exposed as
 `conflicts` on the base); the store never merges or resolves them.
 
 **Seeds:** 27 curated records (3 meta-analytic A, 11 empirical B, 12
-practitioner-framework C, 1 contested practitioner D), all `DRAFT` /
-`reviewed_by: null` pending human/founder review before IN-5 retrieval
-may cite them. One explicit conflict pair is seeded (first-offer
-anchoring vs "never open first").
+practitioner-framework C, 1 contested practitioner D), founder-approved
+2026-09-24 (D-42): review_status REVIEWED, reviewed_by 'founder'. One
+explicit conflict pair is seeded (first-offer anchoring vs "never open
+first").
 
 Observation→concept mappings (docs/18 §6) are NOT part of BB-227 scope
 (docs/16's IN-4 row lists them; the contract scopes §4–5) — recorded in
 worker-3.md for manager routing: mappings ride with IN-5 retrieval.
+
+## Observation→concept mappings (IN-5)
+
+Version `observation-concept-mappings-0.1.0` (D-38: part of IN-5).
+Explicit structured mappings FIRST: every one of the 26 observation
+types maps to ontology concepts (§4 tags) with a relevance weight in
+(0, 1], deterministic conditions, and the mapping-set version. Full
+coverage is enforced — a known type without a mapping is a validation
+error, never a silent miss. Lookup is weight-ordered (ties by concept
+name); RAG will supplement this structure later and can never replace
+it. The canonical §6 example holds: UNRECIPROCATED_CONCESSION →
+RECIPROCITY / SIGNALING / TIMING; FAILED_POSITIVE_ZOPA → IMPASSE /
+FAILED_ZOPA / WALK_AWAY_DECISIONS. Weights are provisional editorial
+judgments, versioned with the set.
+
+## Coaching composer (IN-5)
+
+Version `coaching-composer-0.1.0`, deterministic. Structured input
+(player observation, review moment, mapping-store concepts, retrieved
+research, structured objective) → validated structured output:
+`headline` (L1), `observation` (L1), `why_it_matters` (L3 when
+research-backed, else L4), `research_context` (L3 register phrase with
+conditions, or the L1 §13 fallback), `suggested_action` (L4),
+`practice_recommendation` (L4), `citations` (≤3, always from the input
+research — never invented), `certainty_language` (STATES /
+RESEARCH_SUGGESTS / FRAMEWORK_RECOMMENDS / PRACTITIONER_APPROACH /
+ONE_POSSIBILITY — the §5 register names plus the two fallback states).
+Claim levels ride on every field so UI/API/data can distinguish L1–L4
+(docs/18 §2).
+
+- **Register**: research_context and why_it_matters use IN-4's
+  gradeStatement — A/B "Research suggests…", C "A widely used
+  negotiation framework recommends…", D "One practitioner approach
+  is…" — always with the citation attached.
+- **Research selection** is deterministic: records whose tags
+  intersect the observation's mapped concepts, best evidence grade
+  first, ties by record id, at most 3.
+- **Free-form output is REJECTED, never repeated (§7)**: the only LLM
+  seam is a provider stub; a non-null (free-form) proposal makes the
+  composer throw. Output is identical with or without a provider.
+- **Fallbacks (§13)**: no research found → deterministic fallback
+  text, empty citations, certainty ONE_POSSIBILITY — no evidence
+  invented. Unknown observation type → the objective Game Review facts
+  (moment headline/detail when available), certainty STATES.
+- The 27 knowledge seeds are founder-REVIEWED (D-42, reviewed_by
+  founder, 2026-09-24) and are citable by the composer.

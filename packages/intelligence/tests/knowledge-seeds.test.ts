@@ -18,14 +18,14 @@ describe('knowledge seeds (IN-4)', () => {
     expect(base.records).toHaveLength(KNOWLEDGE_SEEDS.length); // no throw = all valid
   });
 
-  it('every seed carries provenance and ships as DRAFT for review', () => {
+  it('every seed carries provenance and ships founder-REVIEWED (D-42)', () => {
     for (const record of KNOWLEDGE_SEEDS) {
       expect(record.authors.length).toBeGreaterThan(0);
       expect(record.publication.trim().length).toBeGreaterThan(0);
       expect(record.citation_text.trim().length).toBeGreaterThan(0);
       expect(Number.isInteger(record.year)).toBe(true);
-      expect(record.review_status).toBe('DRAFT');
-      expect(record.reviewed_by).toBeNull();
+      expect(record.review_status).toBe('REVIEWED');
+      expect(record.reviewed_by).toBe('founder');
       for (const tag of record.ontology_tags) {
         expect(ALL_ONTOLOGY_TAGS).toContain(tag);
       }
