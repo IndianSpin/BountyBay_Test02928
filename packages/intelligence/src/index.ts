@@ -11,3 +11,5 @@ export * from './knowledge';
 export * from './knowledge-seeds';
 export * from './mappings';
 export * from './coach';
+export * from './drills';
+export * from './drill-seeds';
