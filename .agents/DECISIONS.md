@@ -1042,3 +1042,13 @@ build from NEXT_PUBLIC_APP_URL with runtime-origin dev fallback; no
 localhost ships to players when configured. Deploy note: the runbook
 matrix gains NEXT_PUBLIC_APP_URL = hosted web origin (sibling of
 NEXT_PUBLIC_API_URL). Gate: tc 0, unit 309, lint 0.
+
+## D-78 — BB-258 ACCEPTED (2026-09-24)
+
+Post-match-progress-0.1.0 merged: deterministic result-screen payload
+(profile recomputed with the current match, band transitions, personal
+records with setting matchId, skill→drill/persona/lesson mappings,
+active training goal, AI mastery overall + per-persona). Guards: no
+ABORTED, no non-finite endedAt, no dup matchIds; nothing persists.
+Matrix: profile row → YELLOW (engine merged; the result-screen seam is
+W2's — BB-262 queued after BB-256).

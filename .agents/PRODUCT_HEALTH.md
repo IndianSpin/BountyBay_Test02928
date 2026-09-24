@@ -35,7 +35,7 @@ Profile/training update → Play Again/Bay
 | AI match start | G | G | G | G | G | G |
 | AI table talk (per AI_BEHAVIOR_CONTRACT) | Y | Y | R | N | N | Y (engine merged BB-254; wiring = BB-257 W1) |
 | AI result | G | G | G | G | G | G |
-| Profile/training update | R | R | N | N | N | R (known, BB-254) |
+| Profile/training update | Y | Y | R | N | N | Y (engine merged BB-258; result-screen seam = BB-262 W2) |
 | Play Again / back to Bay | G | G | G | G | G | G |
 
 ## QA walk evidence (2026-09-24, base `644ff28`+; spec `.agents/qa/tools/specs/qa-journeys.spec.ts` 2/2 PASS + mobile entry probe PASS)
