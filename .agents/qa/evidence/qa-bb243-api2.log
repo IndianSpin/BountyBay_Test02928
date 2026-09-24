@@ -1,0 +1,577 @@
+[QA-INSTR] instrumented API on :4100
+[QA-INSTR] signin 200 22ms 2026-09-24T11:16:20.884Z
+[QA-INSTR] signin 200 2ms 2026-09-24T11:16:20.890Z
+[QA-INSTR] REQ POST /v1/challenges 201 34ms 2026-09-24T11:16:20.926Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3","playerId":"defd5230-58f8-421b-9471-6b3e7a0062c6","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248580964}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3","playerId":"54bd352c-47a1-4246-996b-0045faccd327","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248580964}
+[QA-INSTR] REQ POST /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3/ready 200 16ms 2026-09-24T11:16:20.965Z
+[QA-INSTR] REQ POST /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3/ready 200 38ms 2026-09-24T11:16:21.005Z
+[QA-INSTR] REQ GET /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3 200 38ms 2026-09-24T11:16:21.052Z
+[QA-INSTR] REQ GET /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3 200 21ms 2026-09-24T11:16:21.082Z
+[QA-INSTR] REQ GET /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3 200 10ms 2026-09-24T11:16:21.102Z
+[QA-INSTR] REQ POST /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3/offers 200 30ms 2026-09-24T11:16:21.136Z
+[QA-INSTR] REQ GET /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3 200 12ms 2026-09-24T11:16:21.150Z
+{"analytics_event":"match_completed","environment":"development","release":"local","service":"api","matchId":"e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3","mode":"FRIEND_LIVE","completionReason":"ACCEPTED","cumulativeActiveMs:54bd352c-47a1-4246-996b-0045faccd327":142,"clockMultiplier:54bd352c-47a1-4246-996b-0045faccd327":0.9991716666666667,"cumulativeActiveMs:defd5230-58f8-421b-9471-6b3e7a0062c6":47,"clockMultiplier:defd5230-58f8-421b-9471-6b3e7a0062c6":0.9997258333333333,"emitted_at":1790248581197}
+[QA-INSTR] REQ POST /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3/accept 200 44ms 2026-09-24T11:16:21.197Z
+[QA-INSTR] REQ GET /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3 200 7ms 2026-09-24T11:16:21.207Z
+[QA-INSTR] REQ GET /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3 200 8ms 2026-09-24T11:16:21.218Z
+[QA-INSTR] REQ GET /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3 200 6ms 2026-09-24T11:16:21.226Z
+[QA-INSTR] REQ GET /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3 200 15ms 2026-09-24T11:16:21.247Z
+[QA-INSTR] REQ GET /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3 200 19ms 2026-09-24T11:16:21.268Z
+[QA-INSTR] REQ GET /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3 200 4ms 2026-09-24T11:16:21.276Z
+{"analytics_event":"result_viewed","environment":"development","release":"local","service":"api","matchId":"e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3","playerId":"54bd352c-47a1-4246-996b-0045faccd327","emitted_at":1790248581281}
+[QA-INSTR] REQ GET /v1/matches/e933e8d3-c6a6-4693-81a1-e7c7d2cf11f3/result 200 5ms 2026-09-24T11:16:21.283Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"2a2bc245-6764-4817-9242-b5e0038fde7e","authProvider":"dev","emitted_at":1790248581319}
+[QA-INSTR] signin 200 18ms 2026-09-24T11:16:21.320Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"2e25b933-2963-45a5-b6b8-5d25b74b7b39","authProvider":"dev","emitted_at":1790248581327}
+[QA-INSTR] signin 200 5ms 2026-09-24T11:16:21.327Z
+[QA-INSTR] REQ POST /v1/challenges 201 10ms 2026-09-24T11:16:21.349Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"f7b45e36-6f41-4784-945a-ae8d7c2414b5","playerId":"2a2bc245-6764-4817-9242-b5e0038fde7e","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248581427}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"f7b45e36-6f41-4784-945a-ae8d7c2414b5","playerId":"2e25b933-2963-45a5-b6b8-5d25b74b7b39","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248581428}
+[QA-INSTR] REQ POST /v1/matches/f7b45e36-6f41-4784-945a-ae8d7c2414b5/ready 200 48ms 2026-09-24T11:16:21.428Z
+[QA-INSTR] REQ POST /v1/matches/f7b45e36-6f41-4784-945a-ae8d7c2414b5/ready 200 154ms 2026-09-24T11:16:21.616Z
+[QA-INSTR] REQ POST /v1/matches/f7b45e36-6f41-4784-945a-ae8d7c2414b5/walk-away 409 12ms 2026-09-24T11:16:21.631Z
+{"analytics_event":"match_completed","environment":"development","release":"local","service":"api","matchId":"f7b45e36-6f41-4784-945a-ae8d7c2414b5","mode":"FRIEND_LIVE","completionReason":"WALKED_AWAY","cumulativeActiveMs:2a2bc245-6764-4817-9242-b5e0038fde7e":0,"clockMultiplier:2a2bc245-6764-4817-9242-b5e0038fde7e":1,"cumulativeActiveMs:2e25b933-2963-45a5-b6b8-5d25b74b7b39":41,"clockMultiplier:2e25b933-2963-45a5-b6b8-5d25b74b7b39":0.9997608333333333,"emitted_at":1790248581689}
+[QA-INSTR] REQ POST /v1/matches/f7b45e36-6f41-4784-945a-ae8d7c2414b5/walk-away 200 58ms 2026-09-24T11:16:21.690Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:22.029Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"c1013d6d-53f0-4ba4-9df4-989277d5af68","authProvider":"dev","emitted_at":1790248582087}
+[QA-INSTR] signin 200 44ms 2026-09-24T11:16:22.087Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:22.208Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"abc1bd5a-7ca6-4502-a33a-169da2bbfc41","authProvider":"dev","emitted_at":1790248582280}
+[QA-INSTR] signin 200 71ms 2026-09-24T11:16:22.280Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:22.384Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:22.387Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"c111cbf1-7003-4e19-bc8c-f61c8639de10","authProvider":"dev","emitted_at":1790248582426}
+[QA-INSTR] signin 200 39ms 2026-09-24T11:16:22.426Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"41119da6-a281-4f3f-96c8-3fabf8a4e6aa","authProvider":"dev","emitted_at":1790248582431}
+[QA-INSTR] signin 200 47ms 2026-09-24T11:16:22.431Z
+[QA-INSTR] REQ OPTIONS /v1/matches/ai 204 -1ms 2026-09-24T11:16:22.937Z
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:16:22.982Z
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:16:23.000Z
+[QA-INSTR] REQ POST /v1/challenges 201 28ms 2026-09-24T11:16:23.011Z
+[QA-INSTR] REQ POST /v1/matches/ai 201 79ms 2026-09-24T11:16:23.018Z
+[QA-INSTR] REQ OPTIONS /v1/matches/e11fbb59-a481-4342-9b33-f9943526ca8b/events 204 -1ms 2026-09-24T11:16:23.024Z
+[QA-INSTR] REQ OPTIONS /v1/matches/e11fbb59-a481-4342-9b33-f9943526ca8b/events 204 -1ms 2026-09-24T11:16:23.027Z
+[QA-INSTR] REQ POST /v1/challenges 201 51ms 2026-09-24T11:16:23.052Z
+[QA-INSTR] REQ GET /v1/matches/e11fbb59-a481-4342-9b33-f9943526ca8b/events 200 31ms 2026-09-24T11:16:23.056Z
+[QA-INSTR] REQ OPTIONS /v1/matches/e11fbb59-a481-4342-9b33-f9943526ca8b 204 -1ms 2026-09-24T11:16:23.071Z
+[QA-INSTR] REQ GET /v1/matches/e11fbb59-a481-4342-9b33-f9943526ca8b/events 200 10ms 2026-09-24T11:16:23.074Z
+[QA-INSTR] REQ GET /v1/matches/e11fbb59-a481-4342-9b33-f9943526ca8b 200 28ms 2026-09-24T11:16:23.100Z
+[QA-INSTR] REQ OPTIONS /v1/matches/e11fbb59-a481-4342-9b33-f9943526ca8b/ready 204 -1ms 2026-09-24T11:16:23.179Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:23.184Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"43564a86-ea91-4024-8e79-977537f6b7af","authProvider":"dev","emitted_at":1790248583207}
+[QA-INSTR] signin 200 30ms 2026-09-24T11:16:23.215Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"e11fbb59-a481-4342-9b33-f9943526ca8b","playerId":"00000000-0000-4000-9000-000000000003","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248583349}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"e11fbb59-a481-4342-9b33-f9943526ca8b","playerId":"abc1bd5a-7ca6-4502-a33a-169da2bbfc41","tier":"NORMAL","decisionTimeRemainingMs":44842,"emitted_at":1790248583349}
+[QA-INSTR] REQ POST /v1/matches/e11fbb59-a481-4342-9b33-f9943526ca8b/ready 200 170ms 2026-09-24T11:16:23.349Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:23.505Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"234ae699-4285-477e-9d73-b7ca7f2f3f43","authProvider":"dev","emitted_at":1790248583521}
+[QA-INSTR] signin 200 13ms 2026-09-24T11:16:23.521Z
+[QA-INSTR] REQ OPTIONS /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/events 204 -1ms 2026-09-24T11:16:23.566Z
+[QA-INSTR] REQ GET /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/events 200 7ms 2026-09-24T11:16:23.573Z
+[QA-INSTR] REQ GET /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/events 200 3ms 2026-09-24T11:16:23.576Z
+[QA-INSTR] REQ OPTIONS /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602 204 -1ms 2026-09-24T11:16:23.581Z
+[QA-INSTR] REQ GET /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602 200 9ms 2026-09-24T11:16:23.591Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:23.680Z
+[QA-INSTR] REQ OPTIONS /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/ready 204 -1ms 2026-09-24T11:16:23.685Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"6e8e1006-b639-406f-8d2c-077592317f56","authProvider":"dev","emitted_at":1790248583717}
+[QA-INSTR] signin 200 37ms 2026-09-24T11:16:23.718Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"8134a71c-aafe-4ed0-8d44-e60bc0b24602","playerId":"234ae699-4285-477e-9d73-b7ca7f2f3f43","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248583753}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"8134a71c-aafe-4ed0-8d44-e60bc0b24602","playerId":"c111cbf1-7003-4e19-bc8c-f61c8639de10","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248583754}
+[QA-INSTR] REQ POST /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/ready 200 69ms 2026-09-24T11:16:23.755Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:23.839Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"79a2b541-f092-4499-a87a-45a15cceae9c","authProvider":"dev","emitted_at":1790248583860}
+[QA-INSTR] signin 200 21ms 2026-09-24T11:16:23.860Z
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:16:23.860Z
+[QA-INSTR] REQ POST /v1/challenges 201 14ms 2026-09-24T11:16:23.875Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/events 204 -1ms 2026-09-24T11:16:24.064Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/events 204 -1ms 2026-09-24T11:16:24.065Z
+[QA-INSTR] REQ GET /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/events 200 5ms 2026-09-24T11:16:24.072Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708 204 -1ms 2026-09-24T11:16:24.083Z
+[QA-INSTR] REQ GET /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/events 200 10ms 2026-09-24T11:16:24.083Z
+[QA-INSTR] REQ GET /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708 200 15ms 2026-09-24T11:16:24.098Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/ready 204 -1ms 2026-09-24T11:16:24.184Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"50e445a8-c8b7-41c0-817c-79a45b808708","playerId":"41119da6-a281-4f3f-96c8-3fabf8a4e6aa","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248584230}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"50e445a8-c8b7-41c0-817c-79a45b808708","playerId":"79a2b541-f092-4499-a87a-45a15cceae9c","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248584230}
+[QA-INSTR] REQ POST /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/ready 200 46ms 2026-09-24T11:16:24.231Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:24.252Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"18c77c0f-e78e-4325-a706-531fb5650d12","authProvider":"dev","emitted_at":1790248584285}
+[QA-INSTR] signin 200 25ms 2026-09-24T11:16:24.285Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:24.381Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"eff6258a-142c-4b75-8dc8-b60a26f88142","authProvider":"dev","emitted_at":1790248584419}
+[QA-INSTR] signin 200 35ms 2026-09-24T11:16:24.419Z
+[QA-INSTR] REQ OPTIONS /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 204 -1ms 2026-09-24T11:16:24.477Z
+[QA-INSTR] REQ OPTIONS /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 204 -1ms 2026-09-24T11:16:24.478Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 200 3ms 2026-09-24T11:16:24.481Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 200 3ms 2026-09-24T11:16:24.485Z
+[QA-INSTR] REQ OPTIONS /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a 204 -1ms 2026-09-24T11:16:24.495Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a 200 29ms 2026-09-24T11:16:24.524Z
+[QA-INSTR] REQ OPTIONS /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/ready 204 -1ms 2026-09-24T11:16:24.593Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"66e96d1e-73c0-4a14-99de-741df584799a","playerId":"43564a86-ea91-4024-8e79-977537f6b7af","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248584613}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"66e96d1e-73c0-4a14-99de-741df584799a","playerId":"eff6258a-142c-4b75-8dc8-b60a26f88142","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248584613}
+[QA-INSTR] REQ POST /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/ready 200 19ms 2026-09-24T11:16:24.613Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:24.647Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"dadcfca4-b9a6-427a-864d-54f492aea8ac","authProvider":"dev","emitted_at":1790248584655}
+[QA-INSTR] signin 200 8ms 2026-09-24T11:16:24.656Z
+[QA-INSTR] REQ OPTIONS /v1/matches/ai 204 -1ms 2026-09-24T11:16:24.700Z
+[QA-INSTR] REQ POST /v1/matches/ai 201 18ms 2026-09-24T11:16:24.718Z
+[QA-INSTR] REQ OPTIONS /v1/matches/1501a684-3e56-4fd3-a911-6dd9afcc303b/events 204 -1ms 2026-09-24T11:16:24.723Z
+[QA-INSTR] REQ OPTIONS /v1/matches/1501a684-3e56-4fd3-a911-6dd9afcc303b/events 204 -1ms 2026-09-24T11:16:24.724Z
+[QA-INSTR] REQ GET /v1/matches/1501a684-3e56-4fd3-a911-6dd9afcc303b/events 200 2ms 2026-09-24T11:16:24.726Z
+[QA-INSTR] REQ GET /v1/matches/1501a684-3e56-4fd3-a911-6dd9afcc303b/events 200 1ms 2026-09-24T11:16:24.728Z
+[QA-INSTR] REQ OPTIONS /v1/matches/1501a684-3e56-4fd3-a911-6dd9afcc303b 204 -1ms 2026-09-24T11:16:24.739Z
+[QA-INSTR] REQ GET /v1/matches/1501a684-3e56-4fd3-a911-6dd9afcc303b 200 6ms 2026-09-24T11:16:24.745Z
+[QA-INSTR] REQ OPTIONS /v1/matches/1501a684-3e56-4fd3-a911-6dd9afcc303b/ready 204 -1ms 2026-09-24T11:16:24.819Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"1501a684-3e56-4fd3-a911-6dd9afcc303b","playerId":"18c77c0f-e78e-4325-a706-531fb5650d12","tier":"NORMAL","decisionTimeRemainingMs":44992,"emitted_at":1790248584832}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"1501a684-3e56-4fd3-a911-6dd9afcc303b","playerId":"00000000-0000-4000-9000-000000000002","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248584832}
+[QA-INSTR] REQ POST /v1/matches/1501a684-3e56-4fd3-a911-6dd9afcc303b/ready 200 13ms 2026-09-24T11:16:24.833Z
+[QA-INSTR] REQ OPTIONS /v1/matches/ai 204 -1ms 2026-09-24T11:16:24.889Z
+[QA-INSTR] REQ POST /v1/matches/ai 201 12ms 2026-09-24T11:16:24.902Z
+[QA-INSTR] REQ OPTIONS /v1/matches/87ea48b7-8ff5-476a-b047-df4b9170411f/events 204 -1ms 2026-09-24T11:16:24.909Z
+[QA-INSTR] REQ OPTIONS /v1/matches/87ea48b7-8ff5-476a-b047-df4b9170411f/events 204 -1ms 2026-09-24T11:16:24.910Z
+[QA-INSTR] REQ GET /v1/matches/87ea48b7-8ff5-476a-b047-df4b9170411f/events 200 2ms 2026-09-24T11:16:24.912Z
+[QA-INSTR] REQ GET /v1/matches/87ea48b7-8ff5-476a-b047-df4b9170411f/events 200 4ms 2026-09-24T11:16:24.917Z
+[QA-INSTR] REQ OPTIONS /v1/matches/87ea48b7-8ff5-476a-b047-df4b9170411f 204 -1ms 2026-09-24T11:16:24.925Z
+[QA-INSTR] REQ GET /v1/matches/87ea48b7-8ff5-476a-b047-df4b9170411f 200 4ms 2026-09-24T11:16:24.929Z
+[QA-INSTR] REQ OPTIONS /v1/matches/87ea48b7-8ff5-476a-b047-df4b9170411f/ready 204 -1ms 2026-09-24T11:16:25.010Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708 204 -1ms 2026-09-24T11:16:25.016Z
+[QA-INSTR] REQ GET /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708 200 24ms 2026-09-24T11:16:25.042Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"87ea48b7-8ff5-476a-b047-df4b9170411f","playerId":"dadcfca4-b9a6-427a-864d-54f492aea8ac","tier":"NORMAL","decisionTimeRemainingMs":44972,"emitted_at":1790248585047}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"87ea48b7-8ff5-476a-b047-df4b9170411f","playerId":"00000000-0000-4000-9000-000000000003","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248585047}
+[QA-INSTR] REQ POST /v1/matches/87ea48b7-8ff5-476a-b047-df4b9170411f/ready 200 37ms 2026-09-24T11:16:25.047Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/events 204 -1ms 2026-09-24T11:16:25.048Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/events 204 -1ms 2026-09-24T11:16:25.049Z
+[QA-INSTR] REQ GET /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/events 200 4ms 2026-09-24T11:16:25.053Z
+[QA-INSTR] REQ OPTIONS /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602 204 -1ms 2026-09-24T11:16:25.056Z
+[QA-INSTR] REQ GET /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/events 200 6ms 2026-09-24T11:16:25.059Z
+[QA-INSTR] REQ GET /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602 200 27ms 2026-09-24T11:16:25.083Z
+[QA-INSTR] REQ OPTIONS /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/events 204 -1ms 2026-09-24T11:16:25.089Z
+[QA-INSTR] REQ GET /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708 200 32ms 2026-09-24T11:16:25.097Z
+[QA-INSTR] REQ GET /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/events 200 9ms 2026-09-24T11:16:25.099Z
+[QA-INSTR] REQ GET /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/events 200 17ms 2026-09-24T11:16:25.117Z
+[QA-INSTR] REQ GET /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602 200 19ms 2026-09-24T11:16:25.140Z
+[QA-INSTR] REQ OPTIONS /v1/matches/87ea48b7-8ff5-476a-b047-df4b9170411f/offers 204 -1ms 2026-09-24T11:16:25.241Z
+[QA-INSTR] REQ POST /v1/matches/87ea48b7-8ff5-476a-b047-df4b9170411f/offers 200 13ms 2026-09-24T11:16:25.255Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:25.379Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"1086c039-9938-4fd0-8bf6-718babf6b13c","authProvider":"dev","emitted_at":1790248585387}
+[QA-INSTR] signin 200 8ms 2026-09-24T11:16:25.387Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/ready 204 -1ms 2026-09-24T11:16:25.509Z
+[QA-INSTR] REQ POST /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/ready 200 14ms 2026-09-24T11:16:25.523Z
+[QA-INSTR] REQ OPTIONS /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/ready 204 -1ms 2026-09-24T11:16:25.532Z
+[QA-INSTR] REQ POST /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/ready 200 40ms 2026-09-24T11:16:25.572Z
+[QA-INSTR] REQ OPTIONS /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/offers 204 -1ms 2026-09-24T11:16:25.715Z
+[QA-INSTR] REQ POST /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/offers 200 17ms 2026-09-24T11:16:25.734Z
+[QA-INSTR] REQ OPTIONS /v1/matches/ai 204 -1ms 2026-09-24T11:16:25.774Z
+[QA-INSTR] REQ POST /v1/matches/ai 201 26ms 2026-09-24T11:16:25.800Z
+[QA-INSTR] REQ OPTIONS /v1/matches/2c45bf15-c4a4-409a-823b-8765b0540e84/events 204 -1ms 2026-09-24T11:16:25.805Z
+[QA-INSTR] REQ GET /v1/matches/2c45bf15-c4a4-409a-823b-8765b0540e84/events 200 4ms 2026-09-24T11:16:25.810Z
+[QA-INSTR] REQ GET /v1/matches/2c45bf15-c4a4-409a-823b-8765b0540e84/events 200 2ms 2026-09-24T11:16:25.813Z
+[QA-INSTR] REQ OPTIONS /v1/matches/2c45bf15-c4a4-409a-823b-8765b0540e84 204 -1ms 2026-09-24T11:16:25.820Z
+[QA-INSTR] REQ GET /v1/matches/2c45bf15-c4a4-409a-823b-8765b0540e84 200 7ms 2026-09-24T11:16:25.827Z
+[QA-INSTR] REQ OPTIONS /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a 204 -1ms 2026-09-24T11:16:25.879Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a 200 7ms 2026-09-24T11:16:25.887Z
+[QA-INSTR] REQ OPTIONS /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 204 -1ms 2026-09-24T11:16:25.905Z
+[QA-INSTR] REQ OPTIONS /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 204 -1ms 2026-09-24T11:16:25.905Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 200 12ms 2026-09-24T11:16:25.923Z
+[QA-INSTR] REQ OPTIONS /v1/matches/2c45bf15-c4a4-409a-823b-8765b0540e84/ready 204 -1ms 2026-09-24T11:16:25.929Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 200 9ms 2026-09-24T11:16:25.932Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/offers 204 -1ms 2026-09-24T11:16:25.942Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a 200 15ms 2026-09-24T11:16:25.947Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"2c45bf15-c4a4-409a-823b-8765b0540e84","playerId":"1086c039-9938-4fd0-8bf6-718babf6b13c","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248585949}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"2c45bf15-c4a4-409a-823b-8765b0540e84","playerId":"00000000-0000-4000-9000-000000000001","tier":"NORMAL","decisionTimeRemainingMs":44985,"emitted_at":1790248585949}
+[QA-INSTR] REQ POST /v1/matches/2c45bf15-c4a4-409a-823b-8765b0540e84/ready 200 20ms 2026-09-24T11:16:25.950Z
+[QA-INSTR] REQ POST /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/offers 200 19ms 2026-09-24T11:16:25.961Z
+[QA-INSTR] REQ OPTIONS /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/offers 204 -1ms 2026-09-24T11:16:26.192Z
+[QA-INSTR] REQ POST /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/offers 200 53ms 2026-09-24T11:16:26.245Z
+[QA-INSTR] REQ OPTIONS /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/ready 204 -1ms 2026-09-24T11:16:26.413Z
+[QA-INSTR] REQ POST /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/ready 200 32ms 2026-09-24T11:16:26.447Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:26.681Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"3247bf6f-16e9-4f20-ace9-3f7a2b64febf","authProvider":"dev","emitted_at":1790248586702}
+[QA-INSTR] signin 200 20ms 2026-09-24T11:16:26.702Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a 200 8ms 2026-09-24T11:16:26.890Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 200 4ms 2026-09-24T11:16:26.898Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 200 3ms 2026-09-24T11:16:26.901Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a 200 10ms 2026-09-24T11:16:26.917Z
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:16:27.117Z
+[QA-INSTR] REQ POST /v1/challenges 201 18ms 2026-09-24T11:16:27.135Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/offers 204 -1ms 2026-09-24T11:16:27.153Z
+[QA-INSTR] REQ POST /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/offers 200 112ms 2026-09-24T11:16:27.266Z
+[QA-INSTR] REQ OPTIONS /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/accept 204 -1ms 2026-09-24T11:16:27.346Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a 200 26ms 2026-09-24T11:16:27.388Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 200 6ms 2026-09-24T11:16:27.401Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a/events 200 7ms 2026-09-24T11:16:27.408Z
+{"analytics_event":"match_completed","environment":"development","release":"local","service":"api","matchId":"8134a71c-aafe-4ed0-8d44-e60bc0b24602","mode":"FRIEND_LIVE","completionReason":"ACCEPTED","cumulativeActiveMs:234ae699-4285-477e-9d73-b7ca7f2f3f43":479,"clockMultiplier:234ae699-4285-477e-9d73-b7ca7f2f3f43":0.9972058333333333,"cumulativeActiveMs:c111cbf1-7003-4e19-bc8c-f61c8639de10":1339,"clockMultiplier:c111cbf1-7003-4e19-bc8c-f61c8639de10":0.9921891666666667,"emitted_at":1790248587418}
+[QA-INSTR] REQ POST /v1/matches/8134a71c-aafe-4ed0-8d44-e60bc0b24602/accept 200 72ms 2026-09-24T11:16:27.419Z
+[QA-INSTR] REQ GET /v1/matches/66e96d1e-73c0-4a14-99de-741df584799a 200 12ms 2026-09-24T11:16:27.426Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:27.493Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"0d0af95f-0ea2-4a1f-9933-6225bb702892","authProvider":"dev","emitted_at":1790248587526}
+[QA-INSTR] signin 200 35ms 2026-09-24T11:16:27.529Z
+[QA-INSTR] signin 200 1ms 2026-09-24T11:16:27.587Z
+[QA-INSTR] signin 200 1ms 2026-09-24T11:16:27.589Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed/events 204 -1ms 2026-09-24T11:16:27.597Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed/events 204 -1ms 2026-09-24T11:16:27.599Z
+[QA-INSTR] REQ POST /v1/challenges 201 8ms 2026-09-24T11:16:27.600Z
+[QA-INSTR] REQ GET /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed/events 200 2ms 2026-09-24T11:16:27.601Z
+[QA-INSTR] REQ GET /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed/events 200 2ms 2026-09-24T11:16:27.604Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed 204 -1ms 2026-09-24T11:16:27.611Z
+[QA-INSTR] REQ GET /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed 200 6ms 2026-09-24T11:16:27.617Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"559a16af-b417-498b-bcc9-d645e424d063","playerId":"51b60bea-4a54-4639-8585-ed7d0aa3b287","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248587628}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"559a16af-b417-498b-bcc9-d645e424d063","playerId":"4688c3b4-afff-4709-961f-d1167fe6266d","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248587629}
+[QA-INSTR] REQ POST /v1/matches/559a16af-b417-498b-bcc9-d645e424d063/ready 200 14ms 2026-09-24T11:16:27.629Z
+[QA-INSTR] REQ POST /v1/matches/559a16af-b417-498b-bcc9-d645e424d063/ready 200 17ms 2026-09-24T11:16:27.649Z
+{"analytics_event":"match_completed","environment":"development","release":"local","service":"api","matchId":"559a16af-b417-498b-bcc9-d645e424d063","mode":"FRIEND_LIVE","completionReason":"WALKED_AWAY","cumulativeActiveMs:4688c3b4-afff-4709-961f-d1167fe6266d":0,"clockMultiplier:4688c3b4-afff-4709-961f-d1167fe6266d":1,"cumulativeActiveMs:51b60bea-4a54-4639-8585-ed7d0aa3b287":12,"clockMultiplier:51b60bea-4a54-4639-8585-ed7d0aa3b287":0.99993,"emitted_at":1790248587667}
+[QA-INSTR] REQ POST /v1/matches/559a16af-b417-498b-bcc9-d645e424d063/walk-away 200 17ms 2026-09-24T11:16:27.667Z
+[QA-INSTR] REQ POST /v1/matches/559a16af-b417-498b-bcc9-d645e424d063/walk-away 409 9ms 2026-09-24T11:16:27.677Z
+[QA-INSTR] REQ POST /v1/matches/559a16af-b417-498b-bcc9-d645e424d063/rematch 201 37ms 2026-09-24T11:16:27.716Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed/ready 204 -1ms 2026-09-24T11:16:27.741Z
+[QA-INSTR] REQ GET /v1/matches/559a16af-b417-498b-bcc9-d645e424d063/rematch 200 15ms 2026-09-24T11:16:27.745Z
+[QA-INSTR] REQ GET /v1/matches/559a16af-b417-498b-bcc9-d645e424d063/rematch 200 8ms 2026-09-24T11:16:27.761Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"b4b677b9-ade7-43a3-aa70-3ab1f95f79ed","playerId":"3247bf6f-16e9-4f20-ace9-3f7a2b64febf","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248587765}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"b4b677b9-ade7-43a3-aa70-3ab1f95f79ed","playerId":"0d0af95f-0ea2-4a1f-9933-6225bb702892","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248587765}
+[QA-INSTR] REQ POST /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed/ready 200 24ms 2026-09-24T11:16:27.765Z
+[QA-INSTR] REQ POST /v1/matches/1e8b25d8-4d63-4e90-9235-ca4d6fb4384c/rematch/accept 200 50ms 2026-09-24T11:16:27.819Z
+[QA-INSTR] REQ GET /v1/matches/1e8b25d8-4d63-4e90-9235-ca4d6fb4384c 200 7ms 2026-09-24T11:16:27.828Z
+[QA-INSTR] signin 200 0ms 2026-09-24T11:16:27.834Z
+[QA-INSTR] signin 200 1ms 2026-09-24T11:16:27.836Z
+[QA-INSTR] REQ POST /v1/challenges 201 4ms 2026-09-24T11:16:27.841Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"d511749a-5484-4ba1-a904-12c24a326ca3","playerId":"bc8ea49d-ce59-419a-8271-0ca63e478feb","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248587854}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"d511749a-5484-4ba1-a904-12c24a326ca3","playerId":"f75ef312-5c00-4409-9d14-fb7f77d3667e","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248587854}
+[QA-INSTR] REQ POST /v1/matches/d511749a-5484-4ba1-a904-12c24a326ca3/ready 200 5ms 2026-09-24T11:16:27.854Z
+[QA-INSTR] REQ POST /v1/matches/d511749a-5484-4ba1-a904-12c24a326ca3/ready 200 4ms 2026-09-24T11:16:27.859Z
+[QA-INSTR] REQ POST /v1/matches/d511749a-5484-4ba1-a904-12c24a326ca3/walk-away 409 2ms 2026-09-24T11:16:27.862Z
+{"analytics_event":"match_completed","environment":"development","release":"local","service":"api","matchId":"d511749a-5484-4ba1-a904-12c24a326ca3","mode":"FRIEND_LIVE","completionReason":"WALKED_AWAY","cumulativeActiveMs:bc8ea49d-ce59-419a-8271-0ca63e478feb":0,"clockMultiplier:bc8ea49d-ce59-419a-8271-0ca63e478feb":1,"cumulativeActiveMs:f75ef312-5c00-4409-9d14-fb7f77d3667e":8,"clockMultiplier:f75ef312-5c00-4409-9d14-fb7f77d3667e":0.9999533333333334,"emitted_at":1790248587871}
+[QA-INSTR] REQ POST /v1/matches/d511749a-5484-4ba1-a904-12c24a326ca3/walk-away 200 8ms 2026-09-24T11:16:27.871Z
+[QA-INSTR] REQ POST /v1/matches/d511749a-5484-4ba1-a904-12c24a326ca3/rematch 201 5ms 2026-09-24T11:16:27.878Z
+[QA-INSTR] REQ POST /v1/matches/6cc95d16-b96e-4f5b-ae8e-245e11fb7d37/rematch/decline 200 5ms 2026-09-24T11:16:27.884Z
+[QA-INSTR] REQ GET /v1/matches/d511749a-5484-4ba1-a904-12c24a326ca3/rematch 200 2ms 2026-09-24T11:16:27.887Z
+[QA-INSTR] REQ POST /v1/matches/d511749a-5484-4ba1-a904-12c24a326ca3/rematch 201 5ms 2026-09-24T11:16:27.893Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:28.081Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"bf17e85c-bf7e-4886-aa01-7b12ebcde926","authProvider":"dev","emitted_at":1790248588161}
+[QA-INSTR] signin 200 69ms 2026-09-24T11:16:28.161Z
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:16:28.399Z
+[QA-INSTR] REQ POST /v1/challenges 201 10ms 2026-09-24T11:16:28.409Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:28.611Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"3789e69a-8c1e-4c8c-8578-2ecccbcbd947","authProvider":"dev","emitted_at":1790248588616}
+[QA-INSTR] signin 200 5ms 2026-09-24T11:16:28.616Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:28.656Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"e5d7bd02-7008-4bd2-aeb8-5479d1c30711","authProvider":"dev","emitted_at":1790248588662}
+[QA-INSTR] signin 200 6ms 2026-09-24T11:16:28.662Z
+[QA-INSTR] REQ OPTIONS /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/events 204 -1ms 2026-09-24T11:16:28.702Z
+[QA-INSTR] REQ GET /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/events 200 2ms 2026-09-24T11:16:28.705Z
+[QA-INSTR] REQ GET /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/events 200 1ms 2026-09-24T11:16:28.706Z
+[QA-INSTR] REQ OPTIONS /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b 204 -1ms 2026-09-24T11:16:28.715Z
+[QA-INSTR] REQ GET /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b 200 3ms 2026-09-24T11:16:28.719Z
+[QA-INSTR] REQ OPTIONS /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/ready 204 -1ms 2026-09-24T11:16:28.771Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"acc91e97-8be2-4040-9e28-5eb1c933b19b","playerId":"e5d7bd02-7008-4bd2-aeb8-5479d1c30711","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248588782}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"acc91e97-8be2-4040-9e28-5eb1c933b19b","playerId":"bf17e85c-bf7e-4886-aa01-7b12ebcde926","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248588782}
+[QA-INSTR] REQ POST /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/ready 200 9ms 2026-09-24T11:16:28.782Z
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:16:28.822Z
+[QA-INSTR] REQ POST /v1/challenges 201 12ms 2026-09-24T11:16:28.834Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:28.989Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"9a72d2af-7225-4693-aac0-241e22816c02","authProvider":"dev","emitted_at":1790248588996}
+[QA-INSTR] signin 200 6ms 2026-09-24T11:16:28.996Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/events 204 -1ms 2026-09-24T11:16:29.026Z
+[QA-INSTR] REQ GET /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/events 200 2ms 2026-09-24T11:16:29.029Z
+[QA-INSTR] REQ GET /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/events 200 1ms 2026-09-24T11:16:29.031Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/accept 204 -1ms 2026-09-24T11:16:29.036Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0 204 -1ms 2026-09-24T11:16:29.042Z
+[QA-INSTR] REQ GET /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0 200 5ms 2026-09-24T11:16:29.047Z
+{"analytics_event":"match_completed","environment":"development","release":"local","service":"api","matchId":"50e445a8-c8b7-41c0-817c-79a45b808708","mode":"FRIEND_LIVE","completionReason":"ACCEPTED","cumulativeActiveMs:41119da6-a281-4f3f-96c8-3fabf8a4e6aa":1226,"clockMultiplier:41119da6-a281-4f3f-96c8-3fabf8a4e6aa":0.9928483333333333,"cumulativeActiveMs:79a2b541-f092-4499-a87a-45a15cceae9c":2300,"clockMultiplier:79a2b541-f092-4499-a87a-45a15cceae9c":0.9865833333333334,"emitted_at":1790248589065}
+[QA-INSTR] REQ POST /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/accept 200 30ms 2026-09-24T11:16:29.066Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/ready 204 -1ms 2026-09-24T11:16:29.106Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"50c5b7c4-fb9c-4c24-8a42-261979664bd0","playerId":"9a72d2af-7225-4693-aac0-241e22816c02","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248589127}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"50c5b7c4-fb9c-4c24-8a42-261979664bd0","playerId":"3789e69a-8c1e-4c8c-8578-2ecccbcbd947","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248589127}
+[QA-INSTR] REQ POST /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/ready 200 21ms 2026-09-24T11:16:29.128Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed 204 -1ms 2026-09-24T11:16:29.140Z
+[QA-INSTR] REQ GET /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed 200 4ms 2026-09-24T11:16:29.144Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed/events 204 -1ms 2026-09-24T11:16:29.148Z
+[QA-INSTR] REQ GET /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed/events 200 2ms 2026-09-24T11:16:29.151Z
+[QA-INSTR] REQ GET /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed/events 200 2ms 2026-09-24T11:16:29.154Z
+[QA-INSTR] REQ GET /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed 200 4ms 2026-09-24T11:16:29.166Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed/ready 204 -1ms 2026-09-24T11:16:29.566Z
+[QA-INSTR] REQ POST /v1/matches/b4b677b9-ade7-43a3-aa70-3ab1f95f79ed/ready 200 12ms 2026-09-24T11:16:29.578Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"5e70941b-077e-4e7f-82bf-7d833d46cf95","authProvider":"dev","emitted_at":1790248589661}
+[QA-INSTR] signin 200 7ms 2026-09-24T11:16:29.662Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"a67fdb9e-d361-4f3c-885b-c93c4b844aa0","authProvider":"dev","emitted_at":1790248589669}
+[QA-INSTR] signin 200 5ms 2026-09-24T11:16:29.669Z
+[QA-INSTR] REQ POST /v1/challenges 201 7ms 2026-09-24T11:16:29.678Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"81cb75ef-4e73-4c77-80c8-623f9d7a90df","playerId":"a67fdb9e-d361-4f3c-885b-c93c4b844aa0","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248589702}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"81cb75ef-4e73-4c77-80c8-623f9d7a90df","playerId":"5e70941b-077e-4e7f-82bf-7d833d46cf95","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248589702}
+[QA-INSTR] REQ POST /v1/matches/81cb75ef-4e73-4c77-80c8-623f9d7a90df/ready 200 6ms 2026-09-24T11:16:29.702Z
+[QA-INSTR] REQ POST /v1/matches/81cb75ef-4e73-4c77-80c8-623f9d7a90df/ready 200 5ms 2026-09-24T11:16:29.708Z
+[QA-INSTR] REQ GET /v1/matches/81cb75ef-4e73-4c77-80c8-623f9d7a90df 200 2ms 2026-09-24T11:16:29.711Z
+[QA-INSTR] REQ POST /v1/matches/81cb75ef-4e73-4c77-80c8-623f9d7a90df/reveals 200 4ms 2026-09-24T11:16:29.716Z
+[QA-INSTR] REQ GET /v1/matches/81cb75ef-4e73-4c77-80c8-623f9d7a90df 200 3ms 2026-09-24T11:16:29.720Z
+[QA-INSTR] REQ GET /v1/matches/81cb75ef-4e73-4c77-80c8-623f9d7a90df 200 3ms 2026-09-24T11:16:29.725Z
+[QA-INSTR] REQ POST /v1/matches/81cb75ef-4e73-4c77-80c8-623f9d7a90df/reveals 200 3ms 2026-09-24T11:16:29.729Z
+[QA-INSTR] REQ POST /v1/matches/81cb75ef-4e73-4c77-80c8-623f9d7a90df/reveals 409 2ms 2026-09-24T11:16:29.732Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:30.250Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"6a2d5f46-d395-44ca-8532-ed3687ef3971","authProvider":"dev","emitted_at":1790248590259}
+[QA-INSTR] signin 200 8ms 2026-09-24T11:16:30.259Z
+[QA-INSTR] REQ OPTIONS /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b 204 -1ms 2026-09-24T11:16:30.418Z
+[QA-INSTR] REQ GET /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b 200 8ms 2026-09-24T11:16:30.426Z
+[QA-INSTR] REQ OPTIONS /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/events 204 -1ms 2026-09-24T11:16:30.430Z
+[QA-INSTR] REQ GET /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/events 200 3ms 2026-09-24T11:16:30.434Z
+[QA-INSTR] REQ GET /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/events 200 2ms 2026-09-24T11:16:30.437Z
+[QA-INSTR] REQ GET /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b 200 7ms 2026-09-24T11:16:30.452Z
+[QA-INSTR] REQ OPTIONS /v1/matches/ai 204 -1ms 2026-09-24T11:16:30.467Z
+[QA-INSTR] REQ POST /v1/matches/ai 201 17ms 2026-09-24T11:16:30.485Z
+[QA-INSTR] REQ OPTIONS /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/events 204 -1ms 2026-09-24T11:16:30.489Z
+[QA-INSTR] REQ OPTIONS /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/events 204 -1ms 2026-09-24T11:16:30.490Z
+[QA-INSTR] REQ GET /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/events 200 3ms 2026-09-24T11:16:30.493Z
+[QA-INSTR] REQ GET /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/events 200 2ms 2026-09-24T11:16:30.495Z
+[QA-INSTR] REQ OPTIONS /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1 204 -1ms 2026-09-24T11:16:30.504Z
+[QA-INSTR] REQ GET /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1 200 7ms 2026-09-24T11:16:30.511Z
+[QA-INSTR] REQ OPTIONS /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/ready 204 -1ms 2026-09-24T11:16:30.550Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"3de91496-a409-4172-bca1-831b9cd403d1","playerId":"6a2d5f46-d395-44ca-8532-ed3687ef3971","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248590563}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"3de91496-a409-4172-bca1-831b9cd403d1","playerId":"00000000-0000-4000-9000-000000000003","tier":"NORMAL","decisionTimeRemainingMs":44990,"emitted_at":1790248590563}
+[QA-INSTR] REQ POST /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/ready 200 13ms 2026-09-24T11:16:30.563Z
+[QA-INSTR] REQ OPTIONS /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/ready 204 -1ms 2026-09-24T11:16:30.582Z
+[QA-INSTR] REQ POST /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/ready 200 15ms 2026-09-24T11:16:30.597Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0 204 -1ms 2026-09-24T11:16:30.840Z
+[QA-INSTR] REQ GET /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0 200 9ms 2026-09-24T11:16:30.849Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/events 204 -1ms 2026-09-24T11:16:30.853Z
+[QA-INSTR] REQ GET /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/events 200 4ms 2026-09-24T11:16:30.857Z
+[QA-INSTR] REQ GET /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/events 200 3ms 2026-09-24T11:16:30.860Z
+[QA-INSTR] REQ GET /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0 200 7ms 2026-09-24T11:16:30.876Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/ready 204 -1ms 2026-09-24T11:16:30.923Z
+[QA-INSTR] REQ POST /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/ready 200 11ms 2026-09-24T11:16:30.934Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/offers 204 -1ms 2026-09-24T11:16:31.088Z
+[QA-INSTR] REQ POST /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/offers 200 8ms 2026-09-24T11:16:31.097Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:31.337Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"571c3fa6-0d81-417d-a56c-441dfd3f2958","authProvider":"dev","emitted_at":1790248591347}
+[QA-INSTR] signin 200 9ms 2026-09-24T11:16:31.347Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/rematch 204 -1ms 2026-09-24T11:16:31.573Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/rematch 204 -1ms 2026-09-24T11:16:31.581Z
+[QA-INSTR] REQ GET /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/rematch 200 12ms 2026-09-24T11:16:31.586Z
+[QA-INSTR] REQ GET /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/rematch 200 21ms 2026-09-24T11:16:31.604Z
+[QA-INSTR] REQ OPTIONS /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/walk-away 204 -1ms 2026-09-24T11:16:31.784Z
+{"analytics_event":"match_completed","environment":"development","release":"local","service":"api","matchId":"acc91e97-8be2-4040-9e28-5eb1c933b19b","mode":"FRIEND_LIVE","completionReason":"WALKED_AWAY","cumulativeActiveMs:bf17e85c-bf7e-4886-aa01-7b12ebcde926":0,"clockMultiplier:bf17e85c-bf7e-4886-aa01-7b12ebcde926":1,"cumulativeActiveMs:e5d7bd02-7008-4bd2-aeb8-5479d1c30711":1206,"clockMultiplier:e5d7bd02-7008-4bd2-aeb8-5479d1c30711":0.992965,"emitted_at":1790248591819}
+[QA-INSTR] REQ POST /v1/matches/acc91e97-8be2-4040-9e28-5eb1c933b19b/walk-away 200 35ms 2026-09-24T11:16:31.820Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/offers 204 -1ms 2026-09-24T11:16:32.060Z
+[QA-INSTR] REQ POST /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/offers 200 34ms 2026-09-24T11:16:32.095Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:32.175Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"aa3e4359-558c-43e3-8904-6a2e1a4d6fef","authProvider":"dev","emitted_at":1790248592212}
+[QA-INSTR] signin 200 40ms 2026-09-24T11:16:32.216Z
+[QA-INSTR] REQ OPTIONS /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/offers 204 -1ms 2026-09-24T11:16:32.330Z
+[QA-INSTR] REQ POST /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/offers 200 29ms 2026-09-24T11:16:32.361Z
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:16:32.547Z
+[QA-INSTR] REQ POST /v1/challenges 201 27ms 2026-09-24T11:16:32.574Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:32.661Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"ce03f84f-52ac-4c1c-abe8-f8fc9d052927","authProvider":"dev","emitted_at":1790248592678}
+[QA-INSTR] signin 200 15ms 2026-09-24T11:16:32.678Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:32.780Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"a10ebd7c-88c3-4b29-befa-03649cd518a3","authProvider":"dev","emitted_at":1790248592790}
+[QA-INSTR] signin 200 10ms 2026-09-24T11:16:32.791Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/events 204 -1ms 2026-09-24T11:16:32.827Z
+[QA-INSTR] REQ GET /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/events 200 2ms 2026-09-24T11:16:32.829Z
+[QA-INSTR] REQ GET /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/events 200 5ms 2026-09-24T11:16:32.834Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd 204 -1ms 2026-09-24T11:16:32.843Z
+[QA-INSTR] REQ GET /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd 200 6ms 2026-09-24T11:16:32.849Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/ready 204 -1ms 2026-09-24T11:16:32.915Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"c1164a7d-e856-42b2-aa3c-c4bb79a669bd","playerId":"aa3e4359-558c-43e3-8904-6a2e1a4d6fef","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248592934}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"c1164a7d-e856-42b2-aa3c-c4bb79a669bd","playerId":"a10ebd7c-88c3-4b29-befa-03649cd518a3","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248592935}
+[QA-INSTR] REQ POST /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/ready 200 20ms 2026-09-24T11:16:32.935Z
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:16:32.986Z
+[QA-INSTR] REQ POST /v1/challenges 201 10ms 2026-09-24T11:16:32.997Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/accept 204 -1ms 2026-09-24T11:16:33.120Z
+{"analytics_event":"match_completed","environment":"development","release":"local","service":"api","matchId":"50c5b7c4-fb9c-4c24-8a42-261979664bd0","mode":"FRIEND_LIVE","completionReason":"ACCEPTED","cumulativeActiveMs:3789e69a-8c1e-4c8c-8578-2ecccbcbd947":975,"clockMultiplier:3789e69a-8c1e-4c8c-8578-2ecccbcbd947":0.9943125,"cumulativeActiveMs:9a72d2af-7225-4693-aac0-241e22816c02":1223,"clockMultiplier:9a72d2af-7225-4693-aac0-241e22816c02":0.9928658333333333,"emitted_at":1790248593154}
+[QA-INSTR] REQ POST /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/accept 200 34ms 2026-09-24T11:16:33.154Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:33.166Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"862e746d-b16b-43e1-8c3a-76b6e0bf81cd","authProvider":"dev","emitted_at":1790248593191}
+[QA-INSTR] signin 200 25ms 2026-09-24T11:16:33.191Z
+[QA-INSTR] REQ OPTIONS /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e/events 204 -1ms 2026-09-24T11:16:33.239Z
+[QA-INSTR] REQ GET /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e/events 200 2ms 2026-09-24T11:16:33.242Z
+[QA-INSTR] REQ GET /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e/events 200 2ms 2026-09-24T11:16:33.244Z
+[QA-INSTR] REQ OPTIONS /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e 204 -1ms 2026-09-24T11:16:33.255Z
+[QA-INSTR] REQ GET /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e 200 6ms 2026-09-24T11:16:33.261Z
+[QA-INSTR] REQ OPTIONS /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e/ready 204 -1ms 2026-09-24T11:16:33.353Z
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"2efc4046-3a50-4dba-9762-76550e3b1a3e","playerId":"862e746d-b16b-43e1-8c3a-76b6e0bf81cd","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248593368}
+{"analytics_event":"time_tier_entered","environment":"development","release":"local","service":"api","matchId":"2efc4046-3a50-4dba-9762-76550e3b1a3e","playerId":"ce03f84f-52ac-4c1c-abe8-f8fc9d052927","tier":"NORMAL","decisionTimeRemainingMs":45000,"emitted_at":1790248593368}
+[QA-INSTR] REQ POST /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e/ready 200 14ms 2026-09-24T11:16:33.368Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/result 204 -1ms 2026-09-24T11:16:33.713Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/events 204 -1ms 2026-09-24T11:16:33.714Z
+[QA-INSTR] REQ GET /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/events 200 3ms 2026-09-24T11:16:33.717Z
+{"analytics_event":"result_viewed","environment":"development","release":"local","service":"api","matchId":"50e445a8-c8b7-41c0-817c-79a45b808708","playerId":"41119da6-a281-4f3f-96c8-3fabf8a4e6aa","emitted_at":1790248593721}
+[QA-INSTR] REQ GET /v1/matches/50e445a8-c8b7-41c0-817c-79a45b808708/result 200 8ms 2026-09-24T11:16:33.722Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:34.233Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"eefa79ad-489f-4e63-b117-79d9d16a0385","authProvider":"dev","emitted_at":1790248594242}
+[QA-INSTR] signin 200 8ms 2026-09-24T11:16:34.242Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/rematch 204 -1ms 2026-09-24T11:16:34.257Z
+{"analytics_event":"rematch_clicked","environment":"development","release":"local","service":"api","playerId":"3789e69a-8c1e-4c8c-8578-2ecccbcbd947","matchId":"50c5b7c4-fb9c-4c24-8a42-261979664bd0","client_environment":"development","client_release":"local","emitted_at":1790248594261}
+[QA-INSTR] REQ POST /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/rematch 201 20ms 2026-09-24T11:16:34.278Z
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:16:34.510Z
+[QA-INSTR] REQ POST /v1/challenges 201 8ms 2026-09-24T11:16:34.518Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd 204 -1ms 2026-09-24T11:16:34.578Z
+[QA-INSTR] REQ GET /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd 200 11ms 2026-09-24T11:16:34.590Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/events 204 -1ms 2026-09-24T11:16:34.595Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/events 204 -1ms 2026-09-24T11:16:34.596Z
+[QA-INSTR] REQ GET /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/events 200 8ms 2026-09-24T11:16:34.604Z
+[QA-INSTR] REQ GET /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/events 200 5ms 2026-09-24T11:16:34.610Z
+[QA-INSTR] REQ GET /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd 200 8ms 2026-09-24T11:16:34.619Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:34.681Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"d4c81031-495e-4929-ab48-e52a46911ad1","authProvider":"dev","emitted_at":1790248594686}
+[QA-INSTR] signin 200 5ms 2026-09-24T11:16:34.686Z
+[QA-INSTR] REQ OPTIONS /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3/events 204 -1ms 2026-09-24T11:16:34.716Z
+[QA-INSTR] REQ GET /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3/events 200 3ms 2026-09-24T11:16:34.720Z
+[QA-INSTR] REQ GET /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3/events 200 3ms 2026-09-24T11:16:34.723Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/ready 204 -1ms 2026-09-24T11:16:34.729Z
+[QA-INSTR] REQ OPTIONS /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3 204 -1ms 2026-09-24T11:16:34.732Z
+[QA-INSTR] REQ POST /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/ready 200 7ms 2026-09-24T11:16:34.736Z
+[QA-INSTR] REQ GET /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3 200 4ms 2026-09-24T11:16:34.737Z
+[QA-INSTR] REQ OPTIONS /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3/ready 204 -1ms 2026-09-24T11:16:34.793Z
+[QA-INSTR] REQ POST /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3/ready 429 4ms 2026-09-24T11:16:34.797Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/offers 204 -1ms 2026-09-24T11:16:34.868Z
+[QA-INSTR] REQ POST /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/offers 200 7ms 2026-09-24T11:16:34.876Z
+[QA-INSTR] REQ OPTIONS /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e 204 -1ms 2026-09-24T11:16:35.005Z
+[QA-INSTR] REQ GET /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e 200 11ms 2026-09-24T11:16:35.016Z
+[QA-INSTR] REQ OPTIONS /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e/events 204 -1ms 2026-09-24T11:16:35.020Z
+[QA-INSTR] REQ GET /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e/events 200 4ms 2026-09-24T11:16:35.025Z
+[QA-INSTR] REQ GET /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e/events 200 3ms 2026-09-24T11:16:35.028Z
+[QA-INSTR] REQ GET /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e 200 8ms 2026-09-24T11:16:35.044Z
+[QA-INSTR] REQ OPTIONS /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e/ready 204 -1ms 2026-09-24T11:16:35.152Z
+[QA-INSTR] REQ POST /v1/matches/2efc4046-3a50-4dba-9762-76550e3b1a3e/ready 429 0ms 2026-09-24T11:16:35.153Z
+[QA-INSTR] REQ OPTIONS /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/rematch 204 -1ms 2026-09-24T11:16:35.666Z
+[QA-INSTR] REQ GET /v1/matches/50c5b7c4-fb9c-4c24-8a42-261979664bd0/rematch 200 5ms 2026-09-24T11:16:35.672Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/offers 204 -1ms 2026-09-24T11:16:35.814Z
+[QA-INSTR] REQ POST /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/offers 200 14ms 2026-09-24T11:16:35.829Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b468b699-5597-40f6-aadf-51264f689854/rematch/accept 204 -1ms 2026-09-24T11:16:36.121Z
+[QA-INSTR] REQ POST /v1/matches/b468b699-5597-40f6-aadf-51264f689854/rematch/accept 200 18ms 2026-09-24T11:16:36.139Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b468b699-5597-40f6-aadf-51264f689854 204 -1ms 2026-09-24T11:16:36.226Z
+[QA-INSTR] REQ GET /v1/matches/b468b699-5597-40f6-aadf-51264f689854 200 11ms 2026-09-24T11:16:36.237Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b468b699-5597-40f6-aadf-51264f689854/events 204 -1ms 2026-09-24T11:16:36.240Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b468b699-5597-40f6-aadf-51264f689854/events 204 -1ms 2026-09-24T11:16:36.240Z
+[QA-INSTR] REQ GET /v1/matches/b468b699-5597-40f6-aadf-51264f689854/events 200 2ms 2026-09-24T11:16:36.242Z
+[QA-INSTR] REQ GET /v1/matches/b468b699-5597-40f6-aadf-51264f689854/events 200 2ms 2026-09-24T11:16:36.244Z
+[QA-INSTR] REQ GET /v1/matches/b468b699-5597-40f6-aadf-51264f689854 200 4ms 2026-09-24T11:16:36.258Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b468b699-5597-40f6-aadf-51264f689854 204 -1ms 2026-09-24T11:16:36.283Z
+[QA-INSTR] REQ GET /v1/matches/b468b699-5597-40f6-aadf-51264f689854 200 8ms 2026-09-24T11:16:36.292Z
+[QA-INSTR] REQ GET /v1/matches/b468b699-5597-40f6-aadf-51264f689854 200 6ms 2026-09-24T11:16:36.413Z
+[QA-INSTR] REQ OPTIONS /v1/matches/b468b699-5597-40f6-aadf-51264f689854/events 204 -1ms 2026-09-24T11:16:36.421Z
+[QA-INSTR] REQ GET /v1/matches/b468b699-5597-40f6-aadf-51264f689854/events 200 2ms 2026-09-24T11:16:36.423Z
+[QA-INSTR] REQ GET /v1/matches/b468b699-5597-40f6-aadf-51264f689854/events 200 1ms 2026-09-24T11:16:36.425Z
+[QA-INSTR] REQ GET /v1/matches/b468b699-5597-40f6-aadf-51264f689854 200 4ms 2026-09-24T11:16:36.441Z
+[QA-INSTR] REQ OPTIONS /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3 204 -1ms 2026-09-24T11:16:36.529Z
+[QA-INSTR] REQ GET /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3 200 5ms 2026-09-24T11:16:36.534Z
+[QA-INSTR] REQ OPTIONS /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3/events 204 -1ms 2026-09-24T11:16:36.539Z
+[QA-INSTR] REQ GET /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3/events 200 3ms 2026-09-24T11:16:36.542Z
+[QA-INSTR] REQ GET /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3/events 200 1ms 2026-09-24T11:16:36.543Z
+[QA-INSTR] REQ GET /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3 200 5ms 2026-09-24T11:16:36.562Z
+[QA-INSTR] REQ OPTIONS /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3/ready 204 -1ms 2026-09-24T11:16:36.628Z
+[QA-INSTR] REQ POST /v1/matches/d36b209d-8a15-46d0-9462-513d23e915a3/ready 429 1ms 2026-09-24T11:16:36.630Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/accept 204 -1ms 2026-09-24T11:16:36.866Z
+{"analytics_event":"match_completed","environment":"development","release":"local","service":"api","matchId":"c1164a7d-e856-42b2-aa3c-c4bb79a669bd","mode":"FRIEND_LIVE","completionReason":"ACCEPTED","cumulativeActiveMs:a10ebd7c-88c3-4b29-befa-03649cd518a3":1192,"clockMultiplier:a10ebd7c-88c3-4b29-befa-03649cd518a3":0.9930466666666666,"cumulativeActiveMs:aa3e4359-558c-43e3-8904-6a2e1a4d6fef":947,"clockMultiplier:aa3e4359-558c-43e3-8904-6a2e1a4d6fef":0.9944758333333333,"emitted_at":1790248596915}
+[QA-INSTR] REQ POST /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/accept 200 48ms 2026-09-24T11:16:36.915Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:37.062Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"137bd62a-5ee8-4b0c-828a-7b67879baf7a","authProvider":"dev","emitted_at":1790248597070}
+[QA-INSTR] signin 200 8ms 2026-09-24T11:16:37.070Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/rematch 204 -1ms 2026-09-24T11:16:37.098Z
+{"analytics_event":"rematch_clicked","environment":"development","release":"local","service":"api","playerId":"aa3e4359-558c-43e3-8904-6a2e1a4d6fef","matchId":"c1164a7d-e856-42b2-aa3c-c4bb79a669bd","client_environment":"development","client_release":"local","emitted_at":1790248597101}
+[QA-INSTR] REQ POST /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/rematch 201 17ms 2026-09-24T11:16:37.116Z
+[QA-INSTR] REQ OPTIONS /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/result 204 -1ms 2026-09-24T11:16:37.233Z
+[QA-INSTR] REQ GET /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/events 200 5ms 2026-09-24T11:16:37.238Z
+{"analytics_event":"result_viewed","environment":"development","release":"local","service":"api","matchId":"c1164a7d-e856-42b2-aa3c-c4bb79a669bd","playerId":"aa3e4359-558c-43e3-8904-6a2e1a4d6fef","emitted_at":1790248597241}
+[QA-INSTR] REQ GET /v1/matches/c1164a7d-e856-42b2-aa3c-c4bb79a669bd/result 200 10ms 2026-09-24T11:16:37.244Z
+{"analytics_event":"play_again_clicked","environment":"development","release":"local","service":"api","playerId":"aa3e4359-558c-43e3-8904-6a2e1a4d6fef","matchId":"c1164a7d-e856-42b2-aa3c-c4bb79a669bd","client_environment":"development","client_release":"local","emitted_at":1790248597301}
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:16:37.432Z
+[QA-INSTR] REQ POST /v1/challenges 201 18ms 2026-09-24T11:16:37.451Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:37.695Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"256a678e-089e-4c88-90f2-2ea55f5cb568","authProvider":"dev","emitted_at":1790248597704}
+[QA-INSTR] signin 200 8ms 2026-09-24T11:16:37.704Z
+[QA-INSTR] REQ OPTIONS /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd/events 204 -1ms 2026-09-24T11:16:37.749Z
+[QA-INSTR] REQ OPTIONS /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd/events 204 -1ms 2026-09-24T11:16:37.750Z
+[QA-INSTR] REQ GET /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd/events 200 4ms 2026-09-24T11:16:37.754Z
+[QA-INSTR] REQ GET /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd/events 200 3ms 2026-09-24T11:16:37.758Z
+[QA-INSTR] REQ OPTIONS /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd 204 -1ms 2026-09-24T11:16:37.764Z
+[QA-INSTR] REQ GET /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd 200 11ms 2026-09-24T11:16:37.776Z
+[QA-INSTR] REQ OPTIONS /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd/ready 204 -1ms 2026-09-24T11:16:37.819Z
+[QA-INSTR] REQ POST /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd/ready 429 0ms 2026-09-24T11:16:37.820Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:37.848Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"2782bca4-ce39-4902-8969-e9924bf3da99","authProvider":"dev","emitted_at":1790248597856}
+[QA-INSTR] signin 200 8ms 2026-09-24T11:16:37.856Z
+[QA-INSTR] REQ OPTIONS /v1/matches/ai 204 -1ms 2026-09-24T11:16:38.139Z
+[QA-INSTR] REQ POST /v1/matches/ai 201 11ms 2026-09-24T11:16:38.150Z
+[QA-INSTR] REQ OPTIONS /v1/matches/a1d70f74-269f-4cf9-99ab-3b3772fbff54/events 204 -1ms 2026-09-24T11:16:38.157Z
+[QA-INSTR] REQ GET /v1/matches/a1d70f74-269f-4cf9-99ab-3b3772fbff54/events 200 2ms 2026-09-24T11:16:38.160Z
+[QA-INSTR] REQ GET /v1/matches/a1d70f74-269f-4cf9-99ab-3b3772fbff54/events 200 1ms 2026-09-24T11:16:38.161Z
+[QA-INSTR] REQ OPTIONS /v1/matches/a1d70f74-269f-4cf9-99ab-3b3772fbff54 204 -1ms 2026-09-24T11:16:38.171Z
+[QA-INSTR] REQ GET /v1/matches/a1d70f74-269f-4cf9-99ab-3b3772fbff54 200 3ms 2026-09-24T11:16:38.175Z
+[QA-INSTR] REQ OPTIONS /v1/matches/a1d70f74-269f-4cf9-99ab-3b3772fbff54/ready 204 -1ms 2026-09-24T11:16:38.222Z
+[QA-INSTR] REQ POST /v1/matches/a1d70f74-269f-4cf9-99ab-3b3772fbff54/ready 429 0ms 2026-09-24T11:16:38.222Z
+[QA-INSTR] REQ OPTIONS /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/review 204 -1ms 2026-09-24T11:16:38.469Z
+[QA-INSTR] REQ OPTIONS /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1 204 -1ms 2026-09-24T11:16:38.470Z
+[QA-INSTR] REQ OPTIONS /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/events 204 -1ms 2026-09-24T11:16:38.470Z
+{"analytics_event":"review_opened","environment":"development","release":"local","service":"api","playerId":"6a2d5f46-d395-44ca-8532-ed3687ef3971","matchId":"3de91496-a409-4172-bca1-831b9cd403d1","client_environment":"development","client_release":"local","emitted_at":1790248598470}
+[QA-INSTR] REQ GET /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/events 200 2ms 2026-09-24T11:16:38.473Z
+[QA-INSTR] REQ GET /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1/review 200 7ms 2026-09-24T11:16:38.476Z
+[QA-INSTR] REQ GET /v1/matches/3de91496-a409-4172-bca1-831b9cd403d1 200 6ms 2026-09-24T11:16:38.476Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:38.949Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"7a9ef99f-7346-4c89-b4a7-f2956b3c7cb2","authProvider":"dev","emitted_at":1790248598959}
+[QA-INSTR] signin 200 10ms 2026-09-24T11:16:38.959Z
+[QA-INSTR] REQ OPTIONS /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd 204 -1ms 2026-09-24T11:16:39.455Z
+[QA-INSTR] REQ GET /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd 200 6ms 2026-09-24T11:16:39.461Z
+[QA-INSTR] REQ OPTIONS /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd/events 204 -1ms 2026-09-24T11:16:39.466Z
+[QA-INSTR] REQ GET /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd/events 200 2ms 2026-09-24T11:16:39.469Z
+[QA-INSTR] REQ GET /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd/events 200 2ms 2026-09-24T11:16:39.471Z
+[QA-INSTR] REQ GET /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd 200 5ms 2026-09-24T11:16:39.487Z
+[QA-INSTR] REQ OPTIONS /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd/ready 204 -1ms 2026-09-24T11:16:39.615Z
+[QA-INSTR] REQ POST /v1/matches/e8878d84-8e9f-487b-a976-2807c4725bfd/ready 429 0ms 2026-09-24T11:16:39.616Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:39.802Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"64b86daf-c0c9-40b1-8a71-ef2cb471777e","authProvider":"dev","emitted_at":1790248599809}
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:16:40.167Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"5ab5a4e4-7d63-47cd-9207-edf42a341e65","authProvider":"dev","emitted_at":1790248600176}
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:17:02.440Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"bec20389-7f38-44c4-b6ab-35dfa0749ca5","authProvider":"dev","emitted_at":1790248622451}
+[QA-INSTR] signin 200 12ms 2026-09-24T11:17:02.452Z
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:17:02.663Z
+[QA-INSTR] REQ POST /v1/challenges 201 10ms 2026-09-24T11:17:02.674Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:17:02.824Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"51096558-6691-4851-a442-58f3c677810f","authProvider":"dev","emitted_at":1790248622830}
+[QA-INSTR] signin 200 6ms 2026-09-24T11:17:02.831Z
+[QA-INSTR] REQ OPTIONS /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3/events 204 -1ms 2026-09-24T11:17:02.864Z
+[QA-INSTR] REQ GET /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3/events 200 2ms 2026-09-24T11:17:02.867Z
+[QA-INSTR] REQ GET /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3/events 200 1ms 2026-09-24T11:17:02.868Z
+[QA-INSTR] REQ OPTIONS /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3 204 -1ms 2026-09-24T11:17:02.880Z
+[QA-INSTR] REQ GET /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3 200 10ms 2026-09-24T11:17:02.890Z
+[QA-INSTR] REQ OPTIONS /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3/ready 204 -1ms 2026-09-24T11:17:02.929Z
+[QA-INSTR] REQ POST /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3/ready 429 0ms 2026-09-24T11:17:02.929Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:17:03.983Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"7f8bc6a4-abc6-46e3-ae06-cd576d1dfe22","authProvider":"dev","emitted_at":1790248623993}
+[QA-INSTR] signin 200 9ms 2026-09-24T11:17:03.993Z
+{"analytics_event":"client_exception","environment":"development","release":"local","service":"api","playerId":"7f8bc6a4-abc6-46e3-ae06-cd576d1dfe22","message":"boom","stack":"Error: stacktrace\n    at eval (eval at evaluate (:311:30), <anonymous>:4:14)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)","path":"/play","client_environment":"development","client_release":"local","emitted_at":1790248624307}
+[QA-INSTR] REQ OPTIONS /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3 204 -1ms 2026-09-24T11:17:04.682Z
+[QA-INSTR] REQ GET /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3 200 9ms 2026-09-24T11:17:04.692Z
+[QA-INSTR] REQ OPTIONS /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3/events 204 -1ms 2026-09-24T11:17:04.697Z
+[QA-INSTR] REQ OPTIONS /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3/events 204 -1ms 2026-09-24T11:17:04.698Z
+[QA-INSTR] REQ GET /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3/events 200 5ms 2026-09-24T11:17:04.703Z
+[QA-INSTR] REQ GET /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3/events 200 3ms 2026-09-24T11:17:04.707Z
+[QA-INSTR] REQ GET /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3 200 9ms 2026-09-24T11:17:04.721Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:17:04.799Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"04e45fa8-df65-4b5a-a0a1-946bace4693c","authProvider":"dev","emitted_at":1790248624808}
+[QA-INSTR] signin 200 9ms 2026-09-24T11:17:04.808Z
+[QA-INSTR] REQ OPTIONS /v1/challenges 204 -1ms 2026-09-24T11:17:05.104Z
+[QA-INSTR] REQ POST /v1/challenges 201 8ms 2026-09-24T11:17:05.112Z
+[QA-INSTR] REQ OPTIONS /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3/ready 204 -1ms 2026-09-24T11:17:05.248Z
+[QA-INSTR] REQ POST /v1/matches/659285a0-20b9-4b28-af0f-e362efc7e6e3/ready 429 0ms 2026-09-24T11:17:05.248Z
+[QA-INSTR] signin 204 -1ms 2026-09-24T11:17:05.259Z
+{"analytics_event":"signup_completed","environment":"development","release":"local","service":"api","playerId":"c1d098e1-e761-4cd5-b9a1-1f75866da0e5","authProvider":"dev","emitted_at":1790248625268}
+[QA-INSTR] signin 200 8ms 2026-09-24T11:17:05.268Z
+[QA-INSTR] REQ OPTIONS /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c/events 204 -1ms 2026-09-24T11:17:05.311Z
+[QA-INSTR] REQ GET /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c/events 200 5ms 2026-09-24T11:17:05.316Z
+[QA-INSTR] REQ GET /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c/events 200 3ms 2026-09-24T11:17:05.319Z
+[QA-INSTR] REQ OPTIONS /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c 204 -1ms 2026-09-24T11:17:05.326Z
+[QA-INSTR] REQ GET /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c 200 8ms 2026-09-24T11:17:05.334Z
+[QA-INSTR] REQ OPTIONS /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c/ready 204 -1ms 2026-09-24T11:17:05.366Z
+[QA-INSTR] REQ POST /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c/ready 429 1ms 2026-09-24T11:17:05.367Z
+[QA-INSTR] REQ OPTIONS /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c 204 -1ms 2026-09-24T11:17:07.124Z
+[QA-INSTR] REQ GET /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c 200 16ms 2026-09-24T11:17:07.141Z
+[QA-INSTR] REQ OPTIONS /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c/events 204 -1ms 2026-09-24T11:17:07.153Z
+[QA-INSTR] REQ GET /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c/events 200 8ms 2026-09-24T11:17:07.162Z
+[QA-INSTR] REQ GET /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c/events 200 4ms 2026-09-24T11:17:07.167Z
+[QA-INSTR] REQ GET /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c 200 12ms 2026-09-24T11:17:07.182Z
+[QA-INSTR] REQ OPTIONS /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c/ready 204 -1ms 2026-09-24T11:17:07.693Z
+[QA-INSTR] REQ POST /v1/matches/f81fa394-f55f-4ed5-b3b3-5c2f1a84565c/ready 429 1ms 2026-09-24T11:17:07.695Z
+{"analytics_event":"match_timed_out","environment":"development","release":"local","service":"api","matchId":"1e8b25d8-4d63-4e90-9235-ca4d6fb4384c","mode":"FRIEND_LIVE","playerId":"51b60bea-4a54-4639-8585-ed7d0aa3b287","cumulativeActiveMs":0,"emitted_at":1790248632824}
+{"analytics_event":"match_completed","environment":"development","release":"local","service":"api","matchId":"1e8b25d8-4d63-4e90-9235-ca4d6fb4384c","mode":"FRIEND_LIVE","completionReason":"TIMED_OUT","cumulativeActiveMs:4688c3b4-afff-4709-961f-d1167fe6266d":0,"clockMultiplier:4688c3b4-afff-4709-961f-d1167fe6266d":1,"cumulativeActiveMs:51b60bea-4a54-4639-8585-ed7d0aa3b287":45009,"clockMultiplier:51b60bea-4a54-4639-8585-ed7d0aa3b287":0.7374475,"emitted_at":1790248632824}
+{"analytics_event":"match_timed_out","environment":"development","release":"local","service":"api","matchId":"81cb75ef-4e73-4c77-80c8-623f9d7a90df","mode":"FRIEND_LIVE","playerId":"5e70941b-077e-4e7f-82bf-7d833d46cf95","cumulativeActiveMs":9,"emitted_at":1790248634751}
+{"analytics_event":"match_completed","environment":"development","release":"local","service":"api","matchId":"81cb75ef-4e73-4c77-80c8-623f9d7a90df","mode":"FRIEND_LIVE","completionReason":"TIMED_OUT","cumulativeActiveMs:5e70941b-077e-4e7f-82bf-7d833d46cf95":45001,"clockMultiplier:5e70941b-077e-4e7f-82bf-7d833d46cf95":0.7374941666666667,"cumulativeActiveMs:a67fdb9e-d361-4f3c-885b-c93c4b844aa0":13,"clockMultiplier:a67fdb9e-d361-4f3c-885b-c93c4b844aa0":0.9999241666666666,"emitted_at":1790248634752}
