@@ -83,6 +83,16 @@
   background-repeat: no-repeat;
   transition: background-position-x 240ms ease;
 }
+/* BB-242: the animated sprite layer (12 fps clips) — covers the static
+   pose exactly; reduced motion never renders it */
+.lm-opponent__anim {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 120ms linear;
+}
+
 /* viewport-correct alignment (PV rebuild): percentage positioning puts
    each cell's CENTER at the container center at ANY render size —
    the fixed-600px steps only lined up at one size. */
