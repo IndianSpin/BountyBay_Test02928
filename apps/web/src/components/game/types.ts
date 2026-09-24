@@ -102,4 +102,7 @@ export interface TimelineItem {
   kind: string;
   text: string;
   actor: 'me' | 'opponent' | 'system';
+  /** OFFER_SUBMITTED: the raw amount (the rail trail), plus the opening flag. */
+  amountTenths?: number;
+  isOpening?: boolean;
 }

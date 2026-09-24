@@ -6,12 +6,13 @@ board it implements.
 
 | Capture | Screen | Implements | Note |
 |---|---|---|---|
-| live-match-desktop-accept-hold.png | Live match, desktop | GO2-LiveMatch + BB-232 fit fix | All controls visible at 1440×900 |
-| live-match-mobile.png | Live match, mobile | GO2-LiveMatch + BB-232 fit fix | State-adaptive sheet (PV-Thesis) |
-| live-match-mobile-chat-sheet.png | Mobile chat sheet | D-26 chat rules | Bottom sheet 35–50% |
+| live-match-desktop-mine.png | Live match, desktop | PV-Seq-1/2 + PV-Attention | My turn — one hero, plaques at the rail ends, trails under the rail |
+| live-match-desktop-theirs.png | Live match, desktop | PV-Seq-1/2 | Their turn — the person thinking is the hero |
+| live-match-desktop-crossed.png | Live match, desktop | PV-Seq-2 frame 11 + PV-Juice 7 | Crossed plaques + ACCEPT; nothing auto-settles |
+| live-match-desktop-chat.png | Live match, desktop | PV-Comms | The latest line lives with the character (quick lines performed by pose) |
+| live-match-desktop-accept-hold.png | Live match, desktop | PV-Juice 8 | The hold is the ritual |
+| live-match-desktop-accept-stamp.png | Live match, desktop | PV-Juice 8 | The stamp is the full stop |
+| live-match-mobile.png | Live match, mobile | PV-Mobile | Top half = the table; the sheet below changes with state |
+| live-match-mobile-chat-sheet.png | Mobile chat sheet | PV-Mobile + PV-Comms | One gold control in the thumb zone |
 | bb224-title-desktop.png | Title screen, desktop | TITLE-* boards | One dominant PLAY NOW |
 | bb224-title-mobile.png | Title screen, mobile | TITLE-* boards | Thumb-zone CTA |
-
-Pending: PV-* board implementation (BB-234) — the newest live-match
-direction is NOT yet in these captures; they show the BB-232 fit of the
-previous composition. Replaced when BB-234 ships.

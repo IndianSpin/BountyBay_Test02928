@@ -29,7 +29,7 @@ const devMode = !clerkEnabled && process.env.NODE_ENV !== 'production';
  *  the best available file assets — see the BB-224 deviation list. */
 const CAST: { name: string; epithet: string; face: string; kind: 'pose' | 'sheet' | 'avatar' }[] = [
   { name: 'GOLDENOTTER', epithet: 'The Closer', face: '/game/otter-smug.svg', kind: 'pose' },
-  { name: 'GREYLOT', epithet: 'The Auctioneer', face: '/game/ironheron.svg', kind: 'avatar' },
+  { name: 'GREYLOT', epithet: 'The Auctioneer', face: '/game/ch-greylot.svg', kind: 'sheet' },
   { name: 'HOGSHEAD', epithet: 'The Wholesaler', face: '/game/ch-hogshead.svg', kind: 'sheet' },
   { name: 'PIP QUILL', epithet: 'The Accountant', face: '/game/ch-pipquill.svg', kind: 'sheet' },
   { name: 'VESPERINE', epithet: 'The Curio Dealer', face: '/game/ch-vesperine.svg', kind: 'sheet' },

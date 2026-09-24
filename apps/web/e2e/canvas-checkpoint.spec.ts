@@ -162,6 +162,9 @@ test('canvas checkpoint: live-match screen vs design boards', async ({ browser }
     await waitingPage.getByTestId('offer-input').fill(rvWaiting);
     await waitingPage.getByTestId('make-offer').click({ timeout: 5000 });
     await expect(activePage.getByTestId('crossed-ribbon')).toBeVisible({ timeout: 15_000 });
+    // PV-Seq: both trails render once offers exist (words vs behaviour)
+    await expect(activePage.locator('.lm-rail__trail--theirs')).toBeVisible();
+    await expect(activePage.locator('.lm-rail__trail--mine')).toBeVisible();
     await activePage.screenshot({ path: path.join(OUT_DIR, 'live-match-desktop-crossed.png') });
     await expect(activePage.locator('.lm-rail__overlap')).toBeVisible();
     await expect(activePage.getByTestId('accept-button')).toBeVisible();

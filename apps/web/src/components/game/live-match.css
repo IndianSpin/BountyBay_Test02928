@@ -83,12 +83,15 @@
   background-repeat: no-repeat;
   transition: background-position-x 240ms ease;
 }
-.lm-opponent__sheet[data-pose='idle'] { background-position-x: 0; }
-.lm-opponent__sheet[data-pose='thinking'] { background-position-x: -600px; }
-.lm-opponent__sheet[data-pose='offer'] { background-position-x: -1200px; }
-.lm-opponent__sheet[data-pose='speaking'] { background-position-x: -2400px; }
-.lm-opponent__sheet[data-pose='smug'] { background-position-x: -4800px; }
-.lm-opponent__sheet[data-pose='offline'] { background-position-x: 0; }
+/* viewport-correct alignment (PV rebuild): percentage positioning puts
+   each cell's CENTER at the container center at ANY render size —
+   the fixed-600px steps only lined up at one size. */
+.lm-opponent__sheet[data-pose='idle'] { background-position-x: calc((0 + .5) / 15 * 100%); }
+.lm-opponent__sheet[data-pose='thinking'] { background-position-x: calc((1 + .5) / 15 * 100%); }
+.lm-opponent__sheet[data-pose='offer'] { background-position-x: calc((2 + .5) / 15 * 100%); }
+.lm-opponent__sheet[data-pose='speaking'] { background-position-x: calc((4 + .5) / 15 * 100%); }
+.lm-opponent__sheet[data-pose='smug'] { background-position-x: calc((8 + .5) / 15 * 100%); }
+.lm-opponent__sheet[data-pose='offline'] { background-position-x: calc((0 + .5) / 15 * 100%); }
 
 /* BB-225 avatar characters (single portrait until the v3 pose export):
    a square, framed presentation — static, keyed crossfade only */
@@ -173,9 +176,10 @@
   z-index: 2;
 }
 .lm-offer--theirs {
-  left: 50%;
-  top: 43%;
-  transform: translateX(-50%);
+  /* her end of the rail — the plaque lands where she sits */
+  left: calc(50% + min(26vw, 320px) - 210px);
+  top: 54%;
+  transform: translateY(0);
   width: 210px;
   animation: lm-plaque-land 420ms cubic-bezier(.34,1.4,.64,1) both;
 }
@@ -191,25 +195,20 @@
 .lm-offer__v { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 56px; line-height: 1.05; color: #FFFFFF; text-shadow: 0 3px 0 rgba(0,0,0,.35); }
 .lm-offer--crossed { border-color: var(--positive); box-shadow: 0 10px 0 rgba(42,26,46,.28), 0 0 0 4px rgba(63,190,107,.35); }
 
-/* my standing offer — a quiet readout, NOT a second plaque (D-24: one plaque) */
+/* my standing offer — a plaque at MY end of the rail (PV-Seq: plaques
+   live ON the rail; the display hierarchy is theirs) */
 .lm-offer--mine {
-  position: static;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1px;
-  padding: 0;
-  border: none;
-  background: none;
-  box-shadow: none;
-  color: var(--ink-on-dark);
+  left: calc(50% - min(26vw, 320px));
+  top: 54%;
+  width: 130px;
+  padding: 5px;
   animation: lm-settle 300ms ease both;
 }
-.lm-offer--mine .lm-offer__face { border: none; background: none; padding: 0; }
-.lm-offer--mine .lm-offer__k { color: var(--ink-muted-on-dark); font-size: 10px; }
-.lm-offer--mine .lm-offer__v { font-size: 26px; color: var(--ink-on-dark); text-shadow: none; }
-.lm-offer--mine .lm-offer__tag { font-size: 11px; color: var(--ink-muted-on-dark); }
-.lm-offer--mine.lm-offer--crossed .lm-offer__v { color: var(--positive); }
+.lm-offer--mine .lm-offer__face { padding: 4px 8px 3px; background: linear-gradient(180deg, #FF9E7E, #B84B2E); }
+.lm-offer--mine .lm-offer__k { color: #FFE4D6; }
+.lm-offer--mine .lm-offer__v { font-size: 28px; }
+.lm-offer--mine .lm-offer__tag { font-size: 11px; color: var(--ink-muted-on-dark); position: absolute; top: calc(100% + 4px); left: 0; white-space: nowrap; }
+.lm-offer--mine.lm-offer--crossed .lm-offer__v { color: #FFFFFF; }
 
 /* the schematic price rail — the counter across which plaques slide */
 .lm-rail { position: absolute; left: 50%; top: 60%; transform: translateX(-50%); width: min(52vw, 640px); height: 44px; z-index: 2; }
@@ -221,6 +220,21 @@
 .lm-rail__pin--opponent { background: var(--opponent); }
 .lm-rail__pin--ghost { background: var(--surface-parchment-deep); opacity: .55; border-style: dashed; transition: left 80ms linear; }
 .lm-rail__pin--old { opacity: .45; }
+.lm-rail__trail {
+  position: absolute;
+  top: 34px;
+  max-width: 40%;
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--ink-muted-on-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lm-rail__trail--theirs { right: 0; text-align: right; }
+.lm-rail__trail--mine { left: 0; text-align: left; }
 
 /* my position: one private limit card + my offer, one quiet band */
 .lm-myband {
@@ -240,11 +254,18 @@
   flex-direction: column;
   gap: 2px;
   padding: 7px 12px;
-  border: 2.5px solid var(--outline-ink);
+  border: 2px solid var(--vault-trim);
   border-radius: 6px;
-  background: linear-gradient(160deg, #FF8A5E, #C2452A);
-  color: #FFF4E8;
+  background: linear-gradient(160deg, var(--vault-ink), var(--vault-ink-deep));
+  color: var(--ink-on-vault);
   box-shadow: 0 6px 0 rgba(42,26,46,.3);
+}
+.lm-limit__seal {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--brand-gold);
 }
 .lm-limit__k { display: flex; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 1.1px; font-weight: 800; text-transform: uppercase; }
 .lm-limit__v { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 24px; line-height: 1.1; }
@@ -431,6 +452,21 @@
 .lm-coins__coin--spent { opacity: .45; }
 .lm-coins__count { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; font-size: 12px; }
 
+/* PV-Juice INTENSITY 6: "close" — the room warms from public data only */
+.lm-world::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse 55% 45% at 50% 62%, rgba(240,150,46,.16), rgba(240,150,46,0) 70%);
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+.lm-world--close::before { opacity: 1; }
+.lm-world--close .lm-world__scene { filter: brightness(.98) sepia(.12) saturate(1.12); }
+.lm-world--close .lm-rail__gap { box-shadow: 0 0 18px rgba(240,150,46,.6); }
+
 /* quiet-row children are static flex items (the base rules above
    position the crossed ribbon / time warning for other contexts) */
 .lm-quiet-row .lm-ribbon { position: static; }
@@ -549,12 +585,49 @@
   box-shadow: 0 4px 12px rgba(6,8,10,.5);
 }
 
+/* ---- PV match-found card (PV-Seq frame 01: a person, not a queue) ------ */
+
+.pv-found {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 340px;
+  max-width: 460px;
+}
+.pv-found__k {
+  margin: 0;
+  font-family: var(--font-world);
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--brand-gold);
+}
+.pv-found__card { display: flex; gap: 16px; align-items: center; }
+.pv-found__face {
+  width: 88px;
+  height: 88px;
+  border-radius: 14px;
+  border: 3px solid var(--outline-ink);
+  background: #0B1E3A;
+  overflow: hidden;
+  box-shadow: 0 6px 0 rgba(42,26,46,.3);
+}
+.pv-found__face img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 8%; display: block; }
+.pv-found__sheet { width: 100%; height: 100%; background-size: auto 100%; background-repeat: no-repeat; }
+.pv-found__id { display: flex; flex-direction: column; gap: 3px; }
+.pv-found__name { font-family: var(--font-world); font-weight: 800; font-size: 22px; color: var(--ink-on-dark); }
+.pv-found__as { font-size: 13px; font-weight: 700; color: var(--brand-gold); text-transform: uppercase; letter-spacing: .6px; }
+.pv-found__stats { font-size: 12px; color: var(--ink-muted-on-dark); }
+.pv-found__deal { margin: 0; font-family: var(--font-world); font-weight: 800; font-size: 14px; letter-spacing: .6px; text-transform: uppercase; color: var(--ink-on-dark); }
+.pv-found__social { margin: 0; font-size: 13px; color: var(--ink-muted-on-dark); }
+
 /* ---- motion + accessibility -------------------------------------------- */
 
 @keyframes lm-plaque-land {
-  0% { transform: translate(-50%, -22px) rotate(-2deg); opacity: 0; }
-  60% { transform: translate(-50%, 4px) rotate(.4deg); opacity: 1; }
-  100% { transform: translate(-50%, 0) rotate(0deg); opacity: 1; }
+  0% { transform: translateY(-22px) rotate(-2deg); opacity: 0; }
+  60% { transform: translateY(4px) rotate(.4deg); opacity: 1; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 1; }
 }
 @keyframes lm-settle {
   0% { transform: scale(1.08); }
@@ -597,6 +670,7 @@
   /* zone 2 · negotiation state stacked */
   .lm-state-zone { position: relative; z-index: 2; flex: none; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 16px; }
   .lm-offer--theirs { position: relative; left: auto; top: auto; transform: none; width: 168px; margin-top: 2px; animation: none; }
+  .lm-offer--mine { position: relative; left: auto; top: auto; width: 130px; margin-top: 4px; }
   .lm-offer--theirs .lm-offer__v { font-size: 38px; }
   .lm-rail { position: relative; left: auto; top: auto; transform: none; width: 92vw; max-width: 640px; }
   .lm-myband { position: relative; left: auto; top: auto; transform: none; flex-direction: row; justify-content: space-between; width: 92vw; max-width: 640px; gap: 12px; }
@@ -608,7 +682,14 @@
   .lm-dossier[open] > section { max-height: 180px; }
 
   /* zone 3 · action band, persistent bottom interaction */
-  .lm-action-zone { position: relative; z-index: 3; flex: none; display: flex; align-items: flex-end; gap: 10px; padding: 0 16px; justify-content: center; }
+  .lm-action-zone { position: relative; z-index: 3; flex: none; display: flex; flex-direction: column; gap: 10px; padding: 0 16px; justify-content: center; background: #101A20; }
+  /* the PV sheet: my band, the action zone and the quiet row read as
+     ONE panel — top corners on the band, bottom corners on the row */
+  .lm-myband { background: #101A20; border-radius: 14px 14px 0 0; margin-top: 4px; padding-top: 10px; }
+  .lm-quiet-row { background: #101A20; border-radius: 0 0 14px 14px; margin-bottom: 0; }
+  .lm-state-zone { padding-bottom: 0; }
+  .lm-dossier { background: transparent; }
+  .lm-dossier summary { background: rgba(16,26,32,.9); }
   /* PV-Mobile intent: on THEIR turn the sheet shrinks to what the state
      needs — no controls to act on, so the action zone yields the height
      (the plaque/rail above carry the state). On MY turn the composer
@@ -617,9 +698,9 @@
   .lm-composer { position: relative; left: auto; bottom: auto; transform: none; padding: 9px 12px 11px; }
   .lm-composer__input { font-size: 34px; width: 4.5ch; }
   .lm-composer__cost { flex-wrap: wrap; gap: 5px 10px; font-size: 10.5px; max-width: 62vw; }
-  .lm-seal { position: relative; left: auto; bottom: auto; width: 92px; height: 92px; flex: none; }
-  .lm-seal__k { font-size: 14px; }
-  .lm-seal__v { font-size: 26px; }
+  .lm-seal { position: relative; left: auto; bottom: auto; width: 100%; height: 56px; border-radius: 14px; flex: none; flex-direction: row; gap: 10px; }
+  .lm-seal__k { font-size: 15px; }
+  .lm-seal__v { font-size: 20px; }
   .lm-accept { position: relative; right: auto; bottom: auto; }
   .lm-accept--crossed { position: relative; right: auto; bottom: auto; }
 
