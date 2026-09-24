@@ -4,6 +4,8 @@
  *
  * Local dev: loads the repo-root .env (dotenv never overrides already-set
  * variables, so production secrets from the deployment manager win).
+ * DA-P1: JSON logs in production (or when ENABLE_JSON_LOGS=1); process
+ * fatals go through the logger and exit non-zero.
  */
 
 import { fileURLToPath } from 'node:url';
@@ -24,6 +26,18 @@ const app = await buildApp({
   auth,
   prisma: createPrismaClient(),
   exposeDevAuth: auth.name === 'dev',
+  // DA-P1 §1: deployment tags resolve from BB_ENV/BB_RELEASE inside
+  // buildApp; structured JSON logs in production or on demand.
+  logger: process.env.NODE_ENV === 'production' || process.env.ENABLE_JSON_LOGS === '1',
+});
+
+process.on('unhandledRejection', (reason) => {
+  app.log.error({ err: reason }, 'unhandledRejection');
+  process.exit(1);
+});
+process.on('uncaughtException', (err) => {
+  app.log.error({ err }, 'uncaughtException');
+  process.exit(1);
 });
 
 const port = Number(process.env.API_PORT ?? 4000);

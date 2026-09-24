@@ -23,13 +23,19 @@ import { registerAiRoutes } from './ai/ai-routes';
 import { AiTurnEngine } from './ai/engine';
 import { attachRealtime } from './realtime';
 import { TimeoutScheduler } from './timeout-scheduler';
-import { createAnalyticsEmitter } from './analytics';
+import { createAnalyticsEmitter, type DeploymentTags } from './analytics';
 
 declare module 'fastify' {
   interface FastifyRequest {
     authSubject?: string;
     userId?: string;
   }
+}
+
+/** DA-P1 §1: BB_ENV wins; production when NODE_ENV says so; else development. */
+function resolveEnvironment(): string {
+  if (process.env.BB_ENV) return process.env.BB_ENV;
+  return process.env.NODE_ENV === 'production' ? 'production' : 'development';
 }
 
 export interface BuildAppOptions {
@@ -45,16 +51,25 @@ export interface BuildAppOptions {
    * rejects post-limit commands, GR-023).
    */
   timeoutScheduler?: TimeoutScheduler | null;
+  /** DA-P1 §1: deployment tags stamped on every analytics line (resolved from env when omitted). */
+  deployment?: DeploymentTags;
+  /** DA-P1 §2: Fastify built-in pino structured logging (default false). */
+  logger?: boolean;
 }
 
 /** Routes that require a verified token. */
 const PROTECTED_PREFIXES = ['/v1/me', '/v1/matches', '/v1/challenges', '/v1/analytics'];
 
 export async function buildApp(options: BuildAppOptions): Promise<FastifyInstance> {
-  const app = Fastify({ logger: false });
+  const app = Fastify({ logger: options.logger === true });
   const users = new UserRepository(options.prisma);
   const service = new MatchCommandService(options.prisma);
   const auth = options.auth;
+  const deployment: DeploymentTags =
+    options.deployment ?? { environment: resolveEnvironment(), release: process.env.BB_RELEASE ?? 'local' };
+  // DA-P1: created beside auth so every route below (dev signin,
+  // requireAuth, handle, analytics event) closes over the same emitter.
+  const analytics = createAnalyticsEmitter(undefined, deployment);
 
   // SI-005: baseline rate limiting (profile enumeration and command spam).
   await app.register(rateLimit, {
@@ -69,7 +84,31 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim()) : true,
   });
 
-  app.get('/health', async () => ({ ok: true, service: 'bounty-bay-api', version: '0.1.0' }));
+  // DA-P1 §2: unhandled route errors only — Zod 400s, domain 4xx/409s and
+  // 404s reply directly and are untouched. The 500 body is sanitized
+  // (never Fastify's default error.message echo — docs/10); the request id
+  // rides pino automatically. Never log tokens, RVs, or bodies here.
+  app.setErrorHandler((error, request, reply) => {
+    request.log.error(
+      {
+        err: error,
+        userId: request.userId ?? undefined,
+        matchId: (request.params as { matchId?: string } | undefined)?.matchId ?? undefined,
+        environment: deployment.environment,
+        release: deployment.release,
+      },
+      'unhandled request error',
+    );
+    void reply.code(500).send({ code: 'INTERNAL_ERROR', message: 'internal server error' });
+  });
+
+  app.get('/health', async () => ({
+    ok: true,
+    service: 'bounty-bay-api',
+    version: '0.1.0',
+    environment: deployment.environment,
+    release: deployment.release,
+  }));
 
   // -- public ---------------------------------------------------------------
 
@@ -107,9 +146,15 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         return reply.code(400).send({ code: 'INVALID_REQUEST', message: 'bot subjects cannot sign in' });
       }
       const ensured = await users.ensureUserBySubject(subject);
+      // DA-P1 §3.1: exactly once per human user (created is true only on
+      // row creation; bots can never reach this route).
+      if (ensured.created) analytics.emit('signup_completed', { playerId: ensured.userId, authProvider: auth.name });
       if (parsed.data.handle) {
         const set = await users.setHandle(ensured.userId, parsed.data.handle);
         if (!set.ok) return reply.code(set.code === 'HANDLE_TAKEN' ? 409 : 400).send(set);
+        // DA-P1 §3.2: every successful setHandle (possibly repeated; the
+        // funnel step derives from the stream).
+        analytics.emit('handle_created', { playerId: ensured.userId });
       }
       return { token: dev.signToken(subject), userId: ensured.userId, handle: (parsed.data.handle ?? ensured.handle) };
     });
@@ -125,9 +170,13 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     if (!verified) return null;
     // DEC-025: bots can never authenticate — ensureUserBySubject throws for
     // the bot: subject namespace, and the seeded bot rows are refused below.
-    let ensured: { userId: string; handle: string };
+    let ensured: { userId: string; handle: string; created: boolean };
     try {
       ensured = await users.ensureUserBySubject(verified.subject);
+      // DA-P1 §3.1 call site B: with Clerk (no dev signin) the first
+      // protected request creates the row; with dev auth the dev-signin
+      // route fired first and `created` is false here — no double fire.
+      if (ensured.created) analytics.emit('signup_completed', { playerId: ensured.userId, authProvider: auth.name });
     } catch {
       return null;
     }
@@ -159,6 +208,8 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     if (!parsed.success) return reply.code(400).send({ code: 'INVALID_HANDLE', message: 'handle must be 3-16 characters: letters, digits, underscore or hyphen' });
     const result = await users.setHandle(request.userId!, parsed.data.handle);
     if (!result.ok) return reply.code(result.code === 'HANDLE_TAKEN' ? 409 : 400).send(result);
+    // DA-P1 §3.2: every successful setHandle (possibly repeated).
+    analytics.emit('handle_created', { playerId: request.userId! });
     return { ok: true, handle: result.handle };
   });
 
@@ -218,7 +269,6 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     },
   });
   const engine = new AiTurnEngine({ service, prisma: options.prisma, broadcast });
-  const analytics = createAnalyticsEmitter();
   const timeoutScheduler =
     options.timeoutScheduler === undefined
       ? new TimeoutScheduler({ service, prisma: options.prisma, broadcast, analytics })
@@ -227,13 +277,22 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   timeoutRef.current = timeoutScheduler;
 
   /**
-   * POST /v1/analytics/event — client observability (docs/11, DEC-028 §41).
-   * IN-2 ships review_opened / review_step_viewed. Authenticated and
-   * rate-limited; the sink is stdout-only until P1-M9 replaces it.
+   * POST /v1/analytics/event — client observability (docs/11, DEC-028 §41;
+   * DA-P1 §3.4). IN-2 ships review_opened / review_step_viewed; DA-P1
+   * adds the W2 client events + meta + client deployment tags.
+   * Authenticated and rate-limited; the sink is stdout-only until P1-M9
+   * replaces it.
    */
   const analyticsEventSchema = z.object({
-    name: z.enum(['review_opened', 'review_step_viewed']),
+    name: z.enum(['review_opened', 'review_step_viewed', 'rematch_clicked', 'play_again_clicked', 'client_exception']),
     matchId: z.string().uuid().optional(),
+    meta: z.object({
+      message: z.string().max(500).optional(),
+      stack: z.string().max(2000).optional(),
+      path: z.string().max(200).optional(),
+    }).optional(),
+    client_environment: z.string().max(40).optional(),
+    client_release: z.string().max(40).optional(),
   });
   app.post('/v1/analytics/event', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (request, reply) => {
     const parsed = analyticsEventSchema.safeParse(request.body);
@@ -241,6 +300,9 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     analytics.emit(parsed.data.name, {
       playerId: request.userId!,
       ...(parsed.data.matchId ? { matchId: parsed.data.matchId } : {}),
+      ...(parsed.data.meta ?? {}),
+      ...(parsed.data.client_environment ? { client_environment: parsed.data.client_environment } : {}),
+      ...(parsed.data.client_release ? { client_release: parsed.data.client_release } : {}),
     });
     return { ok: true };
   });

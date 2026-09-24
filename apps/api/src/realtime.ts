@@ -145,7 +145,7 @@ export function attachRealtime(app: FastifyInstance, options: RealtimeOptions): 
                   options.onMatchStateChange?.(matchId); // the frozen clock pauses the deadline
                 }
               })
-              .catch((err) => app.log.error(err));
+              .catch((err) => app.log.error({ err, matchId, userId }, 'disconnect freeze failed'));
           }, debounceMs);
           pendingFreeze.set(key, timer);
         }
@@ -192,7 +192,7 @@ export function attachRealtime(app: FastifyInstance, options: RealtimeOptions): 
               io!.to(`match:${matchId}`).emit('match:clock-sync', { matchId, serverNow: Date.now() });
             }
           })
-          .catch(() => null);
+          .catch((err) => app.log.warn({ err, matchId }, 'heartbeat snapshot load failed'));
       }, 5000);
       heartbeats.set(matchId, timer);
     } else if (!active && existing) {

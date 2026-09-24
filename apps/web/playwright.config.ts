@@ -40,6 +40,7 @@ export default defineConfig({
         DATABASE_URL,
         DEV_AUTH_SECRET: 'e2e-secret',
         API_PORT: String(API_PORT),
+        BB_ENV: 'e2e',
       },
     },
     {
@@ -51,6 +52,7 @@ export default defineConfig({
         ...process.env,
         PORT: String(WEB_PORT),
         NEXT_PUBLIC_API_URL: API_URL,
+        NEXT_PUBLIC_BB_ENV: 'e2e',
       },
     },
   ],
