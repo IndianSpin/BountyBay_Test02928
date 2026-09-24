@@ -52,423 +52,563 @@
     },
     "CAST-HERON-Animation.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "GREYLOT · 8 — ANIMATION KEY-POSE SHEET",
       "w": 1200,
-      "x": 7740,
-      "y": 0
+      "x": 0,
+      "y": 4750
     },
     "CAST-HERON-BeforeAfter.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "GREYLOT · 9 — BEFORE / AFTER",
       "w": 1400,
-      "x": 9020,
-      "y": 0
+      "x": 1280,
+      "y": 4750
     },
     "CAST-HERON-Construction.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "GREYLOT · 5 — CONSTRUCTION / PROPORTION PASS",
       "w": 1200,
-      "x": 10500,
-      "y": 0
+      "x": 0,
+      "y": 3090
     },
     "CAST-HERON-Environment.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "GREYLOT · 7 — ENVIRONMENT / SCENE INTEGRATION",
       "w": 1200,
-      "x": 11780,
-      "y": 0
+      "x": 2760,
+      "y": 3090
     },
     "CAST-HERON-Expressions.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "GREYLOT · 3 — EXPRESSION SHEET (8 targets)",
       "w": 2000,
-      "x": 13060,
-      "y": 0
+      "x": 0,
+      "y": 1510
     },
     "CAST-HERON-FullBody.dc.html": {
       "h": 1200,
+      "page": "cast",
+      "title": "GREYLOT · 1 — FULL-BODY SHEET",
       "w": 2000,
-      "x": 15140,
+      "x": 0,
       "y": 0
     },
     "CAST-HERON-Gestures.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "GREYLOT · 4 — GESTURE SHEET (8 signature gestures)",
       "w": 2000,
-      "x": 17220,
-      "y": 0
+      "x": 2080,
+      "y": 1510
     },
     "CAST-HERON-LiveMatch.dc.html": {
       "h": 1250,
+      "page": "cast",
+      "title": "GREYLOT · 2 — LIVE-MATCH crop, lit to match the shared negotiation table",
       "w": 1000,
-      "x": 19300,
+      "x": 2080,
       "y": 0
     },
     "CAST-HERON-Materials.dc.html": {
       "h": 900,
+      "page": "cast",
+      "title": "GREYLOT · 6 — MATERIALS PASS",
       "w": 1400,
-      "x": 20380,
-      "y": 0
+      "x": 1280,
+      "y": 3090
     },
     "CAST-HERON-Rationale.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "GREYLOT · 10 — DESIGN RATIONALE",
       "w": 1400,
-      "x": 21860,
-      "y": 0
+      "x": 2760,
+      "y": 4750
     },
     "CAST-HOGSHEAD-Animation.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "HOGSHEAD · 8 — ANIMATION KEY-POSE SHEET",
       "w": 1200,
-      "x": 23340,
-      "y": 0
+      "x": 0,
+      "y": 11400
     },
     "CAST-HOGSHEAD-BeforeAfter.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "HOGSHEAD · 9 — BEFORE / AFTER",
       "w": 1400,
-      "x": 24620,
-      "y": 0
+      "x": 1280,
+      "y": 11400
     },
     "CAST-HOGSHEAD-Construction.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "HOGSHEAD · 5 — CONSTRUCTION / PROPORTION PASS",
       "w": 1200,
-      "x": 26100,
-      "y": 0
+      "x": 0,
+      "y": 9740
     },
     "CAST-HOGSHEAD-Environment.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "HOGSHEAD · 7 — ENVIRONMENT / SCENE INTEGRATION",
       "w": 1200,
-      "x": 27380,
-      "y": 0
+      "x": 2760,
+      "y": 9740
     },
     "CAST-HOGSHEAD-Expressions.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "HOGSHEAD · 3 — EXPRESSION SHEET (8 targets)",
       "w": 2000,
-      "x": 28660,
-      "y": 0
+      "x": 0,
+      "y": 8160
     },
     "CAST-HOGSHEAD-FullBody.dc.html": {
       "h": 1200,
+      "page": "cast",
+      "title": "HOGSHEAD · 1 — FULL-BODY SHEET",
       "w": 2000,
-      "x": 30740,
-      "y": 0
+      "x": 0,
+      "y": 6650
     },
     "CAST-HOGSHEAD-Gestures.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "HOGSHEAD · 4 — GESTURE SHEET (8 signature gestures)",
       "w": 2000,
-      "x": 32820,
-      "y": 0
+      "x": 2080,
+      "y": 8160
     },
     "CAST-HOGSHEAD-LiveMatch.dc.html": {
       "h": 1250,
+      "page": "cast",
+      "title": "HOGSHEAD · 2 — LIVE-MATCH crop, lit to match the shared negotiation table",
       "w": 1000,
-      "x": 34900,
-      "y": 0
+      "x": 2080,
+      "y": 6650
     },
     "CAST-HOGSHEAD-Materials.dc.html": {
       "h": 900,
+      "page": "cast",
+      "title": "HOGSHEAD · 6 — MATERIALS PASS",
       "w": 1400,
-      "x": 35980,
-      "y": 0
+      "x": 1280,
+      "y": 9740
     },
     "CAST-HOGSHEAD-Rationale.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "HOGSHEAD · 10 — DESIGN RATIONALE",
       "w": 1400,
-      "x": 37460,
-      "y": 0
+      "x": 2760,
+      "y": 11400
     },
     "CAST-MARIGOLD-Animation.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "MARIGOLD FENN · 8 — ANIMATION KEY-POSE SHEET",
       "w": 1200,
-      "x": 38940,
-      "y": 0
+      "x": 0,
+      "y": 38000
     },
     "CAST-MARIGOLD-BeforeAfter.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "MARIGOLD FENN · 9 — BEFORE / AFTER",
       "w": 1400,
-      "x": 40220,
-      "y": 0
+      "x": 1280,
+      "y": 38000
     },
     "CAST-MARIGOLD-Construction.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "MARIGOLD FENN · 5 — CONSTRUCTION / PROPORTION PASS",
       "w": 1200,
-      "x": 41700,
-      "y": 0
+      "x": 0,
+      "y": 36340
     },
     "CAST-MARIGOLD-Environment.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "MARIGOLD FENN · 7 — ENVIRONMENT / SCENE INTEGRATION",
       "w": 1200,
-      "x": 42980,
-      "y": 0
+      "x": 2760,
+      "y": 36340
     },
     "CAST-MARIGOLD-Expressions.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "MARIGOLD FENN · 3 — EXPRESSION SHEET (8 targets)",
       "w": 2000,
-      "x": 44260,
-      "y": 0
+      "x": 0,
+      "y": 34760
     },
     "CAST-MARIGOLD-FullBody.dc.html": {
       "h": 1200,
+      "page": "cast",
+      "title": "MARIGOLD FENN · 1 — FULL-BODY SHEET",
       "w": 2000,
-      "x": 46340,
-      "y": 0
+      "x": 0,
+      "y": 33250
     },
     "CAST-MARIGOLD-Gestures.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "MARIGOLD FENN · 4 — GESTURE SHEET (8 signature gestures)",
       "w": 2000,
-      "x": 48420,
-      "y": 0
+      "x": 2080,
+      "y": 34760
     },
     "CAST-MARIGOLD-LiveMatch.dc.html": {
       "h": 1250,
+      "page": "cast",
+      "title": "MARIGOLD FENN · 2 — LIVE-MATCH crop, lit to match the shared negotiation table",
       "w": 1000,
-      "x": 50500,
-      "y": 0
+      "x": 2080,
+      "y": 33250
     },
     "CAST-MARIGOLD-Materials.dc.html": {
       "h": 900,
+      "page": "cast",
+      "title": "MARIGOLD FENN · 6 — MATERIALS PASS",
       "w": 1400,
-      "x": 51580,
-      "y": 0
+      "x": 1280,
+      "y": 36340
     },
     "CAST-MARIGOLD-Rationale.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "MARIGOLD FENN · 10 — DESIGN RATIONALE",
       "w": 1400,
-      "x": 53060,
-      "y": 0
+      "x": 2760,
+      "y": 38000
     },
     "CAST-MOSSBACK-Animation.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "OLD MOSSBACK · 8 — ANIMATION KEY-POSE SHEET",
       "w": 1200,
-      "x": 54540,
-      "y": 0
+      "x": 0,
+      "y": 31350
     },
     "CAST-MOSSBACK-BeforeAfter.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "OLD MOSSBACK · 9 — BEFORE / AFTER",
       "w": 1400,
-      "x": 55820,
-      "y": 0
+      "x": 1280,
+      "y": 31350
     },
     "CAST-MOSSBACK-Construction.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "OLD MOSSBACK · 5 — CONSTRUCTION / PROPORTION PASS",
       "w": 1200,
-      "x": 57300,
-      "y": 0
+      "x": 0,
+      "y": 29690
     },
     "CAST-MOSSBACK-Environment.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "OLD MOSSBACK · 7 — ENVIRONMENT / SCENE INTEGRATION",
       "w": 1200,
-      "x": 58580,
-      "y": 0
+      "x": 2760,
+      "y": 29690
     },
     "CAST-MOSSBACK-Expressions.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "OLD MOSSBACK · 3 — EXPRESSION SHEET (8 targets)",
       "w": 2000,
-      "x": 59860,
-      "y": 0
+      "x": 0,
+      "y": 28110
     },
     "CAST-MOSSBACK-FullBody.dc.html": {
       "h": 1200,
+      "page": "cast",
+      "title": "OLD MOSSBACK · 1 — FULL-BODY SHEET",
       "w": 2000,
-      "x": 61940,
-      "y": 0
+      "x": 0,
+      "y": 26600
     },
     "CAST-MOSSBACK-Gestures.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "OLD MOSSBACK · 4 — GESTURE SHEET (8 signature gestures)",
       "w": 2000,
-      "x": 64020,
-      "y": 0
+      "x": 2080,
+      "y": 28110
     },
     "CAST-MOSSBACK-LiveMatch.dc.html": {
       "h": 1250,
+      "page": "cast",
+      "title": "OLD MOSSBACK · 2 — LIVE-MATCH crop, lit to match the shared negotiation table",
       "w": 1000,
-      "x": 66100,
-      "y": 0
+      "x": 2080,
+      "y": 26600
     },
     "CAST-MOSSBACK-Materials.dc.html": {
       "h": 900,
+      "page": "cast",
+      "title": "OLD MOSSBACK · 6 — MATERIALS PASS",
       "w": 1400,
-      "x": 67180,
-      "y": 0
+      "x": 1280,
+      "y": 29690
     },
     "CAST-MOSSBACK-Rationale.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "OLD MOSSBACK · 10 — DESIGN RATIONALE",
       "w": 1400,
-      "x": 68660,
-      "y": 0
+      "x": 2760,
+      "y": 31350
     },
     "CAST-PIPQUILL-Animation.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "PIP QUILL · 8 — ANIMATION KEY-POSE SHEET",
       "w": 1200,
-      "x": 70140,
-      "y": 0
+      "x": 0,
+      "y": 18050
     },
     "CAST-PIPQUILL-BeforeAfter.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "PIP QUILL · 9 — BEFORE / AFTER",
       "w": 1400,
-      "x": 71420,
-      "y": 0
+      "x": 1280,
+      "y": 18050
     },
     "CAST-PIPQUILL-Construction.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "PIP QUILL · 5 — CONSTRUCTION / PROPORTION PASS",
       "w": 1200,
-      "x": 72900,
-      "y": 0
+      "x": 0,
+      "y": 16390
     },
     "CAST-PIPQUILL-Environment.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "PIP QUILL · 7 — ENVIRONMENT / SCENE INTEGRATION",
       "w": 1200,
-      "x": 74180,
-      "y": 0
+      "x": 2760,
+      "y": 16390
     },
     "CAST-PIPQUILL-Expressions.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "PIP QUILL · 3 — EXPRESSION SHEET (8 targets)",
       "w": 2000,
-      "x": 75460,
-      "y": 0
+      "x": 0,
+      "y": 14810
     },
     "CAST-PIPQUILL-FullBody.dc.html": {
       "h": 1200,
+      "page": "cast",
+      "title": "PIP QUILL · 1 — FULL-BODY SHEET",
       "w": 2000,
-      "x": 77540,
-      "y": 0
+      "x": 0,
+      "y": 13300
     },
     "CAST-PIPQUILL-Gestures.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "PIP QUILL · 4 — GESTURE SHEET (8 signature gestures)",
       "w": 2000,
-      "x": 79620,
-      "y": 0
+      "x": 2080,
+      "y": 14810
     },
     "CAST-PIPQUILL-LiveMatch.dc.html": {
       "h": 1250,
+      "page": "cast",
+      "title": "PIP QUILL · 2 — LIVE-MATCH crop, lit to match the shared negotiation table",
       "w": 1000,
-      "x": 81700,
-      "y": 0
+      "x": 2080,
+      "y": 13300
     },
     "CAST-PIPQUILL-Materials.dc.html": {
       "h": 900,
+      "page": "cast",
+      "title": "PIP QUILL · 6 — MATERIALS PASS",
       "w": 1400,
-      "x": 82780,
-      "y": 0
+      "x": 1280,
+      "y": 16390
     },
     "CAST-PIPQUILL-Rationale.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "PIP QUILL · 10 — DESIGN RATIONALE",
       "w": 1400,
-      "x": 84260,
-      "y": 0
+      "x": 2760,
+      "y": 18050
     },
     "CAST-VESPERINE-Animation.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "VESPERINE · 8 — ANIMATION KEY-POSE SHEET",
       "w": 1200,
-      "x": 85740,
-      "y": 0
+      "x": 0,
+      "y": 24700
     },
     "CAST-VESPERINE-BeforeAfter.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "VESPERINE · 9 — BEFORE / AFTER",
       "w": 1400,
-      "x": 87020,
-      "y": 0
+      "x": 1280,
+      "y": 24700
     },
     "CAST-VESPERINE-Construction.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "VESPERINE · 5 — CONSTRUCTION / PROPORTION PASS",
       "w": 1200,
-      "x": 88500,
-      "y": 0
+      "x": 0,
+      "y": 23040
     },
     "CAST-VESPERINE-Environment.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "VESPERINE · 7 — ENVIRONMENT / SCENE INTEGRATION",
       "w": 1200,
-      "x": 89780,
-      "y": 0
+      "x": 2760,
+      "y": 23040
     },
     "CAST-VESPERINE-Expressions.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "VESPERINE · 3 — EXPRESSION SHEET (8 targets)",
       "w": 2000,
-      "x": 91060,
-      "y": 0
+      "x": 0,
+      "y": 21460
     },
     "CAST-VESPERINE-FullBody.dc.html": {
       "h": 1200,
+      "page": "cast",
+      "title": "VESPERINE · 1 — FULL-BODY SHEET",
       "w": 2000,
-      "x": 93140,
-      "y": 0
+      "x": 0,
+      "y": 19950
     },
     "CAST-VESPERINE-Gestures.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "VESPERINE · 4 — GESTURE SHEET (8 signature gestures)",
       "w": 2000,
-      "x": 95220,
-      "y": 0
+      "x": 2080,
+      "y": 21460
     },
     "CAST-VESPERINE-LiveMatch.dc.html": {
       "h": 1250,
+      "page": "cast",
+      "title": "VESPERINE · 2 — LIVE-MATCH crop, lit to match the shared negotiation table",
       "w": 1000,
-      "x": 97300,
-      "y": 0
+      "x": 2080,
+      "y": 19950
     },
     "CAST-VESPERINE-Materials.dc.html": {
       "h": 900,
+      "page": "cast",
+      "title": "VESPERINE · 6 — MATERIALS PASS",
       "w": 1400,
-      "x": 98380,
-      "y": 0
+      "x": 1280,
+      "y": 23040
     },
     "CAST-VESPERINE-Rationale.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "VESPERINE · 10 — DESIGN RATIONALE",
       "w": 1400,
-      "x": 99860,
-      "y": 0
+      "x": 2760,
+      "y": 24700
     },
     "CAST-ZIPPA-Animation.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "ZIPPA RATCHET · 8 — ANIMATION KEY-POSE SHEET",
       "w": 1200,
-      "x": 101340,
-      "y": 0
+      "x": 0,
+      "y": 44650
     },
     "CAST-ZIPPA-BeforeAfter.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "ZIPPA RATCHET · 9 — BEFORE / AFTER",
       "w": 1400,
-      "x": 102620,
-      "y": 0
+      "x": 1280,
+      "y": 44650
     },
     "CAST-ZIPPA-Construction.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "ZIPPA RATCHET · 5 — CONSTRUCTION / PROPORTION PASS",
       "w": 1200,
-      "x": 104100,
-      "y": 0
+      "x": 0,
+      "y": 42990
     },
     "CAST-ZIPPA-Environment.dc.html": {
       "h": 1400,
+      "page": "cast",
+      "title": "ZIPPA RATCHET · 7 — ENVIRONMENT / SCENE INTEGRATION",
       "w": 1200,
-      "x": 105380,
-      "y": 0
+      "x": 2760,
+      "y": 42990
     },
     "CAST-ZIPPA-Expressions.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "ZIPPA RATCHET · 3 — EXPRESSION SHEET (8 targets)",
       "w": 2000,
-      "x": 106660,
-      "y": 0
+      "x": 0,
+      "y": 41410
     },
     "CAST-ZIPPA-FullBody.dc.html": {
       "h": 1200,
+      "page": "cast",
+      "title": "ZIPPA RATCHET · 1 — FULL-BODY SHEET",
       "w": 2000,
-      "x": 108740,
-      "y": 0
+      "x": 0,
+      "y": 39900
     },
     "CAST-ZIPPA-Gestures.dc.html": {
       "h": 1320,
+      "page": "cast",
+      "title": "ZIPPA RATCHET · 4 — GESTURE SHEET (8 signature gestures)",
       "w": 2000,
-      "x": 110820,
-      "y": 0
+      "x": 2080,
+      "y": 41410
     },
     "CAST-ZIPPA-LiveMatch.dc.html": {
       "h": 1250,
+      "page": "cast",
+      "title": "ZIPPA RATCHET · 2 — LIVE-MATCH crop, lit to match the shared negotiation table",
       "w": 1000,
-      "x": 112900,
-      "y": 0
+      "x": 2080,
+      "y": 39900
     },
     "CAST-ZIPPA-Materials.dc.html": {
       "h": 900,
+      "page": "cast",
+      "title": "ZIPPA RATCHET · 6 — MATERIALS PASS",
       "w": 1400,
-      "x": 113980,
-      "y": 0
+      "x": 1280,
+      "y": 42990
     },
     "CAST-ZIPPA-Rationale.dc.html": {
       "h": 1000,
+      "page": "cast",
+      "title": "ZIPPA RATCHET · 10 — DESIGN RATIONALE",
       "w": 1400,
-      "x": 115460,
-      "y": 0
+      "x": 2760,
+      "y": 44650
     },
     "CC-Bible.dc.html": {
       "h": 1740,
@@ -1622,6 +1762,30 @@
       "x": 2820,
       "y": 2120
     },
+    "OS-Rationale.dc.html": {
+      "h": 760,
+      "page": "os",
+      "title": "OS · 3 — DESIGN RATIONALE",
+      "w": 1400,
+      "x": 1990,
+      "y": 0
+    },
+    "OS-TitleD.dc.html": {
+      "h": 900,
+      "page": "os",
+      "title": "OS · 1 — TITLE SCREEN (desktop)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "OS-TitleM.dc.html": {
+      "h": 844,
+      "page": "os",
+      "title": "OS · 2 — TITLE SCREEN (mobile)",
+      "w": 390,
+      "x": 1520,
+      "y": 0
+    },
     "PA-D-Practice.dc.html": {
       "h": 900,
       "is_interactive": true,
@@ -1737,6 +1901,134 @@
       "page": "p18",
       "title": "PROTOTYPE · Core loop — rival found → deal → negotiate → DEAL! → 3-beat result → rematch",
       "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "PV-Attention.dc.html": {
+      "h": 940,
+      "page": "pv1",
+      "title": "PV1 · D — Attention model",
+      "w": 1880,
+      "x": 0,
+      "y": 1040
+    },
+    "PV-Comms.dc.html": {
+      "h": 920,
+      "page": "pv1",
+      "title": "PV1 · E — Communication model",
+      "w": 1880,
+      "x": 1960,
+      "y": 1040
+    },
+    "PV-Cred-Verified.dc.html": {
+      "h": 1360,
+      "page": "pv2",
+      "title": "PV2 · 4 — “The appraisal”",
+      "w": 1880,
+      "x": 1960,
+      "y": 1600
+    },
+    "PV-Cred-Wall.dc.html": {
+      "h": 1360,
+      "page": "pv2",
+      "title": "PV2 · 3 — “The wall”",
+      "w": 1880,
+      "x": 0,
+      "y": 1600
+    },
+    "PV-Decisions.dc.html": {
+      "h": 1160,
+      "page": "pv0",
+      "title": "PV0 · N — Product decisions required (19)",
+      "w": 1880,
+      "x": 0,
+      "y": 1140
+    },
+    "PV-Info.dc.html": {
+      "h": 840,
+      "page": "pv1",
+      "title": "PV1 · C — Information model",
+      "w": 1880,
+      "x": 1960,
+      "y": 0
+    },
+    "PV-Juice.dc.html": {
+      "h": 980,
+      "page": "pv3",
+      "title": "PV3 · K — Game-juice intensity system",
+      "w": 1880,
+      "x": 1960,
+      "y": 0
+    },
+    "PV-Loop.dc.html": {
+      "h": 800,
+      "page": "pv1",
+      "title": "PV1 · B — Core PvP loop",
+      "w": 1880,
+      "x": 0,
+      "y": 0
+    },
+    "PV-Mobile.dc.html": {
+      "h": 1040,
+      "page": "pv2",
+      "title": "PV2 · M — Mobile: the same story on a phone",
+      "w": 1580,
+      "x": 0,
+      "y": 3160
+    },
+    "PV-Rivalry.dc.html": {
+      "h": 820,
+      "page": "pv4",
+      "title": "PV4 · H — Rivalry: first, fifth, tied",
+      "w": 1880,
+      "x": 0,
+      "y": 1300
+    },
+    "PV-RulesCheck.dc.html": {
+      "h": 940,
+      "page": "pv0",
+      "title": "PV0 · Rules check — brief vs docs/02, docs/17",
+      "w": 1880,
+      "x": 1960,
+      "y": 0
+    },
+    "PV-Seq-1.dc.html": {
+      "h": 1400,
+      "page": "pv2",
+      "title": "PV2 · 1 — “The other buyer” 01–06",
+      "w": 1880,
+      "x": 0,
+      "y": 0
+    },
+    "PV-Seq-2.dc.html": {
+      "h": 1400,
+      "page": "pv2",
+      "title": "PV2 · 2 — “The other buyer” 07–12",
+      "w": 1880,
+      "x": 1960,
+      "y": 0
+    },
+    "PV-Showdown.dc.html": {
+      "h": 1990,
+      "page": "pv3",
+      "title": "PV3 · J — Showdown, frame by frame",
+      "w": 1880,
+      "x": 0,
+      "y": 0
+    },
+    "PV-Swap.dc.html": {
+      "h": 1100,
+      "page": "pv4",
+      "title": "PV4 · G — SWAP SIDES. PROVE IT.",
+      "w": 2440,
+      "x": 0,
+      "y": 0
+    },
+    "PV-Thesis.dc.html": {
+      "h": 880,
+      "page": "pv0",
+      "title": "PV0 · A — Product experience thesis",
+      "w": 1880,
       "x": 0,
       "y": 0
     },
@@ -2095,134 +2387,6 @@
       "w": 390,
       "x": 3510,
       "y": 0
-    },
-    "PV-Thesis.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 1880,
-      "h": 880,
-      "title": "PV0 · A — Product experience thesis",
-      "page": "pv0"
-    },
-    "PV-RulesCheck.dc.html": {
-      "x": 1960,
-      "y": 0,
-      "w": 1880,
-      "h": 940,
-      "title": "PV0 · Rules check — brief vs docs/02, docs/17",
-      "page": "pv0"
-    },
-    "PV-Decisions.dc.html": {
-      "x": 0,
-      "y": 1140,
-      "w": 1880,
-      "h": 1160,
-      "title": "PV0 · N — Product decisions required (19)",
-      "page": "pv0"
-    },
-    "PV-Loop.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 1880,
-      "h": 800,
-      "title": "PV1 · B — Core PvP loop",
-      "page": "pv1"
-    },
-    "PV-Info.dc.html": {
-      "x": 1960,
-      "y": 0,
-      "w": 1880,
-      "h": 840,
-      "title": "PV1 · C — Information model",
-      "page": "pv1"
-    },
-    "PV-Attention.dc.html": {
-      "x": 0,
-      "y": 1040,
-      "w": 1880,
-      "h": 940,
-      "title": "PV1 · D — Attention model",
-      "page": "pv1"
-    },
-    "PV-Comms.dc.html": {
-      "x": 1960,
-      "y": 1040,
-      "w": 1880,
-      "h": 920,
-      "title": "PV1 · E — Communication model",
-      "page": "pv1"
-    },
-    "PV-Seq-1.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 1880,
-      "h": 1400,
-      "title": "PV2 · 1 — “The other buyer” 01–06",
-      "page": "pv2"
-    },
-    "PV-Seq-2.dc.html": {
-      "x": 1960,
-      "y": 0,
-      "w": 1880,
-      "h": 1400,
-      "title": "PV2 · 2 — “The other buyer” 07–12",
-      "page": "pv2"
-    },
-    "PV-Cred-Wall.dc.html": {
-      "x": 0,
-      "y": 1600,
-      "w": 1880,
-      "h": 1360,
-      "title": "PV2 · 3 — “The wall”",
-      "page": "pv2"
-    },
-    "PV-Cred-Verified.dc.html": {
-      "x": 1960,
-      "y": 1600,
-      "w": 1880,
-      "h": 1360,
-      "title": "PV2 · 4 — “The appraisal”",
-      "page": "pv2"
-    },
-    "PV-Mobile.dc.html": {
-      "x": 0,
-      "y": 3160,
-      "w": 1580,
-      "h": 1040,
-      "title": "PV2 · M — Mobile: the same story on a phone",
-      "page": "pv2"
-    },
-    "PV-Showdown.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 1880,
-      "h": 1990,
-      "title": "PV3 · J — Showdown, frame by frame",
-      "page": "pv3"
-    },
-    "PV-Juice.dc.html": {
-      "x": 1960,
-      "y": 0,
-      "w": 1880,
-      "h": 980,
-      "title": "PV3 · K — Game-juice intensity system",
-      "page": "pv3"
-    },
-    "PV-Swap.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 2440,
-      "h": 1100,
-      "title": "PV4 · G — SWAP SIDES. PROVE IT.",
-      "page": "pv4"
-    },
-    "PV-Rivalry.dc.html": {
-      "x": 0,
-      "y": 1300,
-      "w": 1880,
-      "h": 820,
-      "title": "PV4 · H — Rivalry: first, fifth, tied",
-      "page": "pv4"
     }
   },
   "createdOnFiles": {
@@ -2432,6 +2596,15 @@
       "x": 0,
       "y": -320
     },
+    "heron_t": {
+      "kind": "title1",
+      "maxW": 4200,
+      "page": "cast",
+      "text": "GREYLOT — The Auctioneer (Heron). Built on the shared cast4 engine to the GoldenOtter v4 standard: structure, expression, gesture, materials, scene integration and animation readiness.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
     "hm_t": {
       "kind": "title1",
       "maxW": 2000,
@@ -2449,6 +2622,15 @@
       "w": 240,
       "x": 0,
       "y": -320
+    },
+    "hogshead_t": {
+      "kind": "title1",
+      "maxW": 4200,
+      "page": "cast",
+      "text": "HOGSHEAD — The Wholesaler (Walrus). Built on the shared cast4 engine to the GoldenOtter v4 standard: structure, expression, gesture, materials, scene integration and animation readiness.",
+      "w": 240,
+      "x": 0,
+      "y": 6350
     },
     "j1_scope": {
       "fill": "red",
@@ -2585,6 +2767,15 @@
       "x": 0,
       "y": 944
     },
+    "marigold_t": {
+      "kind": "title1",
+      "maxW": 4200,
+      "page": "cast",
+      "text": "MARIGOLD FENN — The Patron (Human). Built on the shared cast4 engine to the GoldenOtter v4 standard: structure, expression, gesture, materials, scene integration and animation readiness.",
+      "w": 240,
+      "x": 0,
+      "y": 32950
+    },
     "mm_n": {
       "page": "p08",
       "text": "NEW DEALMAKER: when an opponent has fewer than 10 rated deals, stats are replaced with the seaglass NEW DEALMAKER pill — never “0 games / 0%”.",
@@ -2609,6 +2800,15 @@
       "w": 240,
       "x": 0,
       "y": 944
+    },
+    "mossback_t": {
+      "kind": "title1",
+      "maxW": 4200,
+      "page": "cast",
+      "text": "OLD MOSSBACK — The Collector (Tortoise). Built on the shared cast4 engine to the GoldenOtter v4 standard: structure, expression, gesture, materials, scene integration and animation readiness.",
+      "w": 240,
+      "x": 0,
+      "y": 26300
     },
     "ob_n1": {
       "page": "p06",
@@ -2643,6 +2843,15 @@
       "x": 0,
       "y": 1800
     },
+    "os_t": {
+      "kind": "title1",
+      "maxW": 2600,
+      "page": "os",
+      "text": "Opening screen: the first thing a signed-out visitor sees. Same Lantern Wharf scene and GoldenOtter render as the live-match screen, so title and first match feel continuous. Reuses the newly built 7-character cast as a teaser strip.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
     "pa_t": {
       "kind": "title1",
       "maxW": 3000,
@@ -2661,6 +2870,15 @@
       "x": 0,
       "y": -320
     },
+    "pipquill_t": {
+      "kind": "title1",
+      "maxW": 4200,
+      "page": "cast",
+      "text": "PIP QUILL — The Accountant (Hedgehog). Built on the shared cast4 engine to the GoldenOtter v4 standard: structure, expression, gesture, materials, scene integration and animation readiness.",
+      "w": 240,
+      "x": 0,
+      "y": 13000
+    },
     "pr_t": {
       "kind": "title1",
       "maxW": 2400,
@@ -2669,6 +2887,59 @@
       "w": 240,
       "x": 0,
       "y": -320
+    },
+    "pv0_stop": {
+      "fill": "red",
+      "page": "pv0",
+      "text": "STOP FOR FOUNDER REVIEW. Delivered: the core loop, one live negotiation, one showdown, one role-reversal rematch, one rivalry state (brief §19). Not yet drawn: spectator/caster (I), liquidity (L). Nothing here is propagated to pages 00–19.",
+      "w": 360,
+      "x": -420,
+      "y": -40
+    },
+    "pv0_t": {
+      "kind": "title1",
+      "maxW": 5000,
+      "page": "pv0",
+      "text": "PvP redesign — outnegotiate real people. Experience and game flow first; no screens are propagated. Read PV0 → PV4 in order.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "pv1_t": {
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "pv1",
+      "text": "The system under the story: one loop, one information boundary, one hero per state, and a hard line between offers and talk.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "pv2_t": {
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "pv2",
+      "text": "One live negotiation between two people, frame by frame, seen from the buyer's seat. Then two shorter stories: an honest wall, and a bluff that was read right and still lost.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "pv3_t": {
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "pv3",
+      "text": "The poker moment: hidden limits turn over one at a time. Then the volume rules for every human event.",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "pv4_t": {
+      "kind": "title1",
+      "maxW": 4400,
+      "page": "pv4",
+      "text": "Why they come back: the other side of the same deal, and the same person again.",
+      "w": 240,
+      "x": 0,
+      "y": -300
     },
     "r2_n": {
       "page": "p05",
@@ -2755,6 +3026,15 @@
       "x": 0,
       "y": 1000
     },
+    "vesperine_t": {
+      "kind": "title1",
+      "maxW": 4200,
+      "page": "cast",
+      "text": "VESPERINE — The Curio Dealer (Moth). Built on the shared cast4 engine to the GoldenOtter v4 standard: structure, expression, gesture, materials, scene integration and animation readiness.",
+      "w": 240,
+      "x": 0,
+      "y": 19650
+    },
     "vo_n": {
       "page": "p04",
       "text": "Voice-only rotating mode: same screens with the text chat section removed from the voice panel and the chat bar replaced by the voice bar; if the mic fails in Voice Only, the player is offered to leave the queue before a match starts — never mid-match text-less.",
@@ -2779,53 +3059,14 @@
       "x": 0,
       "y": -320
     },
-    "pv0_t": {
-      "x": 0,
-      "y": -300,
-      "text": "PvP redesign — outnegotiate real people. Experience and game flow first; no screens are propagated. Read PV0 → PV4 in order.",
-      "page": "pv0",
+    "zippa_t": {
       "kind": "title1",
-      "maxW": 5000
-    },
-    "pv0_stop": {
-      "x": -420,
-      "y": -40,
-      "text": "STOP FOR FOUNDER REVIEW. Delivered: the core loop, one live negotiation, one showdown, one role-reversal rematch, one rivalry state (brief §19). Not yet drawn: spectator/caster (I), liquidity (L). Nothing here is propagated to pages 00–19.",
-      "page": "pv0",
-      "w": 360,
-      "fill": "red"
-    },
-    "pv1_t": {
+      "maxW": 4200,
+      "page": "cast",
+      "text": "ZIPPA RATCHET — The Inventor-Trader (Human). Built on the shared cast4 engine to the GoldenOtter v4 standard: structure, expression, gesture, materials, scene integration and animation readiness.",
+      "w": 240,
       "x": 0,
-      "y": -300,
-      "text": "The system under the story: one loop, one information boundary, one hero per state, and a hard line between offers and talk.",
-      "page": "pv1",
-      "kind": "title1",
-      "maxW": 3900
-    },
-    "pv2_t": {
-      "x": 0,
-      "y": -300,
-      "text": "One live negotiation between two people, frame by frame, seen from the buyer's seat. Then two shorter stories: an honest wall, and a bluff that was read right and still lost.",
-      "page": "pv2",
-      "kind": "title1",
-      "maxW": 3900
-    },
-    "pv3_t": {
-      "x": 0,
-      "y": -300,
-      "text": "The poker moment: hidden limits turn over one at a time. Then the volume rules for every human event.",
-      "page": "pv3",
-      "kind": "title1",
-      "maxW": 3900
-    },
-    "pv4_t": {
-      "x": 0,
-      "y": -300,
-      "text": "Why they come back: the other side of the same deal, and the same person again.",
-      "page": "pv4",
-      "kind": "title1",
-      "maxW": 4400
+      "y": 39600
     }
   },
   "order": [
@@ -3118,7 +3359,10 @@
     "PV-Showdown.dc.html",
     "PV-Juice.dc.html",
     "PV-Swap.dc.html",
-    "PV-Rivalry.dc.html"
+    "PV-Rivalry.dc.html",
+    "OS-TitleD.dc.html",
+    "OS-TitleM.dc.html",
+    "OS-Rationale.dc.html"
   ],
   "pages": [
     {
@@ -3142,8 +3386,16 @@
       "name": "PV4 · Swap sides + rivalry"
     },
     {
+      "id": "os",
+      "name": "OS · Opening screen"
+    },
+    {
       "id": "c2",
       "name": "C2 · GoldenOtter refinement"
+    },
+    {
+      "id": "cast",
+      "name": "CAST · The 7 new characters (GREYLOT → ZIPPA)"
     },
     {
       "id": "c1",

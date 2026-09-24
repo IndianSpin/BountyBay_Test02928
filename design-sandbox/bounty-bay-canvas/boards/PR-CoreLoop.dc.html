@@ -133,7 +133,7 @@ class Component extends DCLogic {
     this.setState({ prevTheir: s.their, their: next, turn: 'me', proposed: s.mine, arrived: s.arrived + 1, say: lines[s.arrived % lines.length], bounty: Math.max(30, s.bounty - 3) });
   }
   renderVals() {
-    const IMG = {"otter-idle": "../assets/old-otter.svg", "otter-thinking": "../assets/otter-thinking.svg", "otter-offer": "../assets/otter-offer.svg", "otter-smug": "../assets/otter-smug.svg", "otter-rematch": "../assets/otter-rematch.svg", "parrot-idle": "../assets/parrot-idle.svg", "parrot-win": "../assets/parrot-win.svg", "parrot-lose": "../assets/parrot-lose.svg"};
+    const IMG = {"otter-idle": "../assets/old-otter.svg", "otter-thinking": "../assets/otter-thinking.svg", "otter-offer": "../assets/otter-offer.svg", "otter-smug": "../assets/otter-smug.svg", "otter-rematch": "../assets/otter-rematch.svg", "parrot-idle": "../assets/parrot-idle.svg", "parrot-win": "../assets/parrot-win.svg", "parrot-lose": "/_blob/f8887632bbf1bf558491b3c9245f0109"};
     const s = this.state;
     const move = s.proposed - s.mine;
     const cost = this.cost(move);

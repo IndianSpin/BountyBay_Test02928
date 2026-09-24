@@ -1,33 +1,184 @@
 # Bounty Bay design canvas — export
 
-Exported from the claude.ai Design canvas "Bounty Bay — Product Design v1" (all 27 pages, 184 boards).
+Exported from the claude.ai Design canvas "Bounty Bay — Product Design v2" (refreshed 2026-09-24: 40 pages, 293 boards on the canvas; 272 current boards here — superseded ones moved out, see below).
 
 > **Status: design reference, NOT canonical.** `AGENTS.md` source-of-truth order still applies: `docs/` wins over anything here. Where this folder and `docs/` disagree, stop and report — do not infer intent. Visual/frontend guidance is governed by `docs/09_UI_DESIGN_SYSTEM.md`.
+
+## START HERE — the current design, in priority order
+
+| # | Pages / boards | What it is | Target visuals |
+|---|---|---|---|
+| 1 | **PV0–PV4** (`PV-*`) | PvP product vision (founder direction, D-48): thesis, loop, information boundary, attention per state, communication, live sequence, showdown, juice ladder, swap sides, rivalry. Experience/flow direction — **not new game rules**. | `renders/PV-*.jpg` |
+| 2 | **OS** (`OS-*`) | Opening / title screen. | `renders/OS-*.jpg` |
+| 3 | **C2** (`GO2-*`) | GoldenOtter v4 — the approved character quality benchmark. | `renders/GO2-*.jpg` |
+| 4 | **CAST** (`CAST-*`) | The other 7 characters (GREYLOT heron, HOGSHEAD, PIP QUILL, VESPERINE, OLD MOSSBACK, MARIGOLD FENN, ZIPPA RATCHET) at the v4 standard. | `renders/CAST-*-{FullBody,Expressions,Gestures}.jpg` |
+| 5 | **A6** (`LMR-*`), **A1/A5/A7**, **J1–J4** | Live-match composition authority; art direction; juice system (`motion-spec.md`). | existing `renders/` |
+| 6 | **Pages 00–19** | Flow and state coverage for every screen. Drawn in the **pre-v4 art style**: use them for states, content and copy — **not** for character art or visual style. Where they overlap with rows 1–5, rows 1–5 win. | — |
+
+## Character art for the app (v4 export, drop-in)
+
+`apps/web/public/game/` (and a copy in `assets/`) now holds the v4 art in the **same file names and formats** the app already loads, so no code change is needed:
+
+| File | Format | Used by |
+|---|---|---|
+| `otter-{idle,thinking,speaking,offer,smug,offline,rematch}.svg` | 520×560, one pose each | GoldenOtter (`kind: 'files'`), opening screen |
+| `ch-{hogshead,pipquill,vesperine,mossback,marigold,zippa}.svg` | 9000×900 sheet, 15 cells of 600×900 | `kind: 'sheet'` characters |
+| `ironheron.svg` | 120×120 portrait | GREYLOT (`kind: 'avatar'`) |
+| `ch-greylot.svg` | 9000×900 sheet | **new, not yet wired**: flip GREYLOT to `kind: 'sheet'` in `character-registry.ts` to use its poses |
+| `ch-goldenotter.svg` | 9000×900 sheet | not used by the app today (GoldenOtter uses the `otter-*` files) |
+
+Sheet cell order (unchanged): idle, thinking, listening, speaking, offer, holding, surprised, pleased, smug, frustrated, accepted, nodeal, disconnected, rematch, seller.
+
+## Superseded — never implement from these
+
+Moved to `design-sandbox/_superseded/` (kept for history only): C1 `GO-*` (replaced by C2 `GO2-*`), A2 `CR-*` character routes (decided: Route A), A3 `CC-*` old cast lineup and A4 `PE-*` old pose/expression matrix (replaced by `GO2-*` + `CAST-*` and PV0's rule that a human's avatar only performs what the human did), the pre-canvas concept pages (`concepts/`, `arena.html`, `deal-table.html`, `comparison.html`), their screenshots, and rejected character art (routes B/C, BLACK PARROT → replaced by the GREYLOT heron).
 
 ## What is here
 
 | Path | What it is | Use it for |
 |---|---|---|
-| `motion-spec.md` | Juice pass as plain text: intensity classes, tokens, all 24 events × 10 dimensions, sequences A–H, full-path storyboard | **Start here** for any animation / feedback / reward work |
-| `renders/*.jpg` | Screenshots of the art-direction (A1–A7) and juice (J1–J4) boards | Looking at the target visuals (read an image with `@`) |
+| `motion-spec.md` | Juice pass as plain text: intensity classes, tokens, all 24 events × 10 dimensions, sequences A–H, full-path storyboard | Animation / feedback / reward work (PV3 · Juice refines the intensity ladder) |
+| `renders/*.jpg` | Screenshots of the current boards (PV, OS, GO2, CAST, art direction, juice, revised live match) | Looking at the target visuals (read an image with `@`) |
 | `styles/bb.css` | Tokens + component styles used by the boards, incl. `v1.3 JUICE PASS` keyframes | Porting colours, keyframes, easings |
-| `boards/*.dc.html` | Source of every board (HTML + inline styles; `{{…}}`/`<sc-if>` are canvas template syntax) | Exact positions, sizes, copy |
-| `assets/` | Character sprite sheets (`ch-*.svg`, 600×900 cells), scenes, hero assets, table foregrounds | Art used by the boards |
-| `canvas.json` | Index: pages, boards, positions | Finding which board belongs to which page |
+| `boards/*.dc.html` | Source of every current board (HTML + inline styles; `{{…}}`/`<sc-if>` are canvas template syntax; images are `/_blob/…` canvas URLs — use `renders/` to see them) | Exact positions, sizes, copy |
+| `assets/` | v4 character exports (see above), scenes, hero assets, table foregrounds, v0 avatars used by pages 00–19 | Art |
+| `canvas.json` | Index of the live canvas: pages, boards, positions (still lists the superseded boards; their files are in `_superseded/`) | Finding which board belongs to which page |
 
 Boards are mockups, not production components. They need the canvas runtime (not included) to evaluate `{{…}}` / `<sc-if>`; opened directly in a browser they show raw template text. Interactive boards (e.g. `JX-Playable`, `PR-CoreLoop`) only play on the canvas itself.
 
-Character sprite sheets: one SVG per character, poses side by side in 600×900 cells, in this order for Route A: idle, thinking, listening, speaking, offer, holding, surprised, pleased, smug, frustrated, accepted, nodeal, disconnected, rematch, seller.
-
 ## Known conflicts / checks against `docs/`
 
-- `docs/09_UI_DESIGN_SYSTEM.md` explicitly rejects **"parrot mascots"**; the canvas cast includes **BLACK PARROT** (a street auctioneer). Needs a decision before implementation.
+- Resolved: `docs/09` rejects "parrot mascots" — BLACK PARROT was replaced by **GREYLOT**, a heron auctioneer (CAST pages; persona mapping D-45).
 - Colour roles: the canvas uses **ember = me, violet = opponent, gold = value, green = deal possible**; `docs/09` names `--accent` turquoise as the primary accent and `--rival` purple. Confirm the mapping.
 - Vocabulary: canvas says *limit* / *bounty multiplier*; binding repo terms are **Reservation value** / **Clock multiplier** / **Concession chips**.
 - Fonts: boards load Google Fonts at runtime (mockup only); `docs/09` requires self-hosted fonts via `next/font`.
 - All items listed under "Open decisions" in `motion-spec.md` are PRODUCT DECISIONS, not rules.
 
 ## Pages and boards
+
+### PV0 · PvP thesis, rules check, decisions
+
+- `boards/PV-Thesis.dc.html` — PV0 · A — Product experience thesis · render: `renders/PV-Thesis.jpg`
+- `boards/PV-RulesCheck.dc.html` — PV0 · Rules check — brief vs docs/02, docs/17 · render: `renders/PV-RulesCheck.jpg`
+- `boards/PV-Decisions.dc.html` — PV0 · N — Product decisions required (19) · render: `renders/PV-Decisions.jpg`
+
+### PV1 · Core loop, information, attention, communication
+
+- `boards/PV-Loop.dc.html` — PV1 · B — Core PvP loop · render: `renders/PV-Loop.jpg`
+- `boards/PV-Info.dc.html` — PV1 · C — Information model · render: `renders/PV-Info.jpg`
+- `boards/PV-Attention.dc.html` — PV1 · D — Attention model · render: `renders/PV-Attention.jpg`
+- `boards/PV-Comms.dc.html` — PV1 · E — Communication model · render: `renders/PV-Comms.jpg`
+
+### PV2 · Live sequence + credibility stories
+
+- `boards/PV-Seq-1.dc.html` — PV2 · 1 — “The other buyer” 01–06 · render: `renders/PV-Seq-1.jpg`
+- `boards/PV-Seq-2.dc.html` — PV2 · 2 — “The other buyer” 07–12 · render: `renders/PV-Seq-2.jpg`
+- `boards/PV-Cred-Wall.dc.html` — PV2 · 3 — “The wall” · render: `renders/PV-Cred-Wall.jpg`
+- `boards/PV-Cred-Verified.dc.html` — PV2 · 4 — “The appraisal” · render: `renders/PV-Cred-Verified.jpg`
+- `boards/PV-Mobile.dc.html` — PV2 · M — Mobile: the same story on a phone · render: `renders/PV-Mobile.jpg`
+
+### PV3 · Showdown + game juice
+
+- `boards/PV-Showdown.dc.html` — PV3 · J — Showdown, frame by frame · render: `renders/PV-Showdown.jpg`
+- `boards/PV-Juice.dc.html` — PV3 · K — Game-juice intensity system · render: `renders/PV-Juice.jpg`
+
+### PV4 · Swap sides + rivalry
+
+- `boards/PV-Swap.dc.html` — PV4 · G — SWAP SIDES. PROVE IT. · render: `renders/PV-Swap.jpg`
+- `boards/PV-Rivalry.dc.html` — PV4 · H — Rivalry: first, fifth, tied · render: `renders/PV-Rivalry.jpg`
+
+### OS · Opening screen
+
+- `boards/OS-TitleD.dc.html` — OS · 1 — TITLE SCREEN (desktop) · render: `renders/OS-TitleD.jpg`
+- `boards/OS-TitleM.dc.html` — OS · 2 — TITLE SCREEN (mobile) · render: `renders/OS-TitleM.jpg`
+- `boards/OS-Rationale.dc.html` — OS · 3 — DESIGN RATIONALE · render: `renders/OS-Rationale.jpg`
+
+### C2 · GoldenOtter refinement
+
+- `boards/GO2-FullBody.dc.html` — C2 · 1 — REFINED FULL-BODY SHEET · render: `renders/GO2-FullBody.jpg`
+- `boards/GO2-LiveMatch.dc.html` — C2 · 2 — LIVE MATCH close crop: repainted wharf + lit GoldenOtter (your move) · render: `renders/GO2-LiveMatch.jpg`
+- `boards/GO2-Expressions.dc.html` — C2 · 3 — FACIAL EXPRESSION SHEET (8 targets + 4 support) · render: `renders/GO2-Expressions.jpg`
+- `boards/GO2-Gestures.dc.html` — C2 · 4 — NEGOTIATION GESTURE SHEET (8) · render: `renders/GO2-Gestures.jpg`
+- `boards/GO2-Construction.dc.html` — C2 · 5 — BODY CONSTRUCTION / PROPORTION PASS · render: `renders/GO2-Construction.jpg`
+- `boards/GO2-Materials.dc.html` — C2 · 6 — MATERIALS / RENDERING PASS (fur · wool · silk · metal · paper · leather) · render: `renders/GO2-Materials.jpg`
+- `boards/GO2-Environment.dc.html` — C2 · 7 — ENVIRONMENT STYLE-MATCHED PASS (Lantern Wharf v4) · render: `renders/GO2-Environment.jpg`
+- `boards/GO2-Animation.dc.html` — C2 · 8 — ANIMATION KEY-POSE SHEET (10 states) · render: `renders/GO2-Animation.jpg`
+- `boards/GO2-BeforeAfter.dc.html` — C2 · 9 — BEFORE / AFTER · render: `renders/GO2-BeforeAfter.jpg`
+- `boards/GO2-Rationale.dc.html` — C2 · 10 — RATIONALE · render: `renders/GO2-Rationale.jpg`
+
+### CAST · The 7 new characters (GREYLOT → ZIPPA)
+
+- `boards/CAST-HERON-Animation.dc.html` — GREYLOT · 8 — ANIMATION KEY-POSE SHEET
+- `boards/CAST-HERON-BeforeAfter.dc.html` — GREYLOT · 9 — BEFORE / AFTER
+- `boards/CAST-HERON-Construction.dc.html` — GREYLOT · 5 — CONSTRUCTION / PROPORTION PASS
+- `boards/CAST-HERON-Environment.dc.html` — GREYLOT · 7 — ENVIRONMENT / SCENE INTEGRATION
+- `boards/CAST-HERON-Expressions.dc.html` — GREYLOT · 3 — EXPRESSION SHEET (8 targets) · render: `renders/CAST-HERON-Expressions.jpg`
+- `boards/CAST-HERON-FullBody.dc.html` — GREYLOT · 1 — FULL-BODY SHEET · render: `renders/CAST-HERON-FullBody.jpg`
+- `boards/CAST-HERON-Gestures.dc.html` — GREYLOT · 4 — GESTURE SHEET (8 signature gestures) · render: `renders/CAST-HERON-Gestures.jpg`
+- `boards/CAST-HERON-LiveMatch.dc.html` — GREYLOT · 2 — LIVE-MATCH crop, lit to match the shared negotiation table
+- `boards/CAST-HERON-Materials.dc.html` — GREYLOT · 6 — MATERIALS PASS
+- `boards/CAST-HERON-Rationale.dc.html` — GREYLOT · 10 — DESIGN RATIONALE
+- `boards/CAST-HOGSHEAD-Animation.dc.html` — HOGSHEAD · 8 — ANIMATION KEY-POSE SHEET
+- `boards/CAST-HOGSHEAD-BeforeAfter.dc.html` — HOGSHEAD · 9 — BEFORE / AFTER
+- `boards/CAST-HOGSHEAD-Construction.dc.html` — HOGSHEAD · 5 — CONSTRUCTION / PROPORTION PASS
+- `boards/CAST-HOGSHEAD-Environment.dc.html` — HOGSHEAD · 7 — ENVIRONMENT / SCENE INTEGRATION
+- `boards/CAST-HOGSHEAD-Expressions.dc.html` — HOGSHEAD · 3 — EXPRESSION SHEET (8 targets) · render: `renders/CAST-HOGSHEAD-Expressions.jpg`
+- `boards/CAST-HOGSHEAD-FullBody.dc.html` — HOGSHEAD · 1 — FULL-BODY SHEET · render: `renders/CAST-HOGSHEAD-FullBody.jpg`
+- `boards/CAST-HOGSHEAD-Gestures.dc.html` — HOGSHEAD · 4 — GESTURE SHEET (8 signature gestures) · render: `renders/CAST-HOGSHEAD-Gestures.jpg`
+- `boards/CAST-HOGSHEAD-LiveMatch.dc.html` — HOGSHEAD · 2 — LIVE-MATCH crop, lit to match the shared negotiation table
+- `boards/CAST-HOGSHEAD-Materials.dc.html` — HOGSHEAD · 6 — MATERIALS PASS
+- `boards/CAST-HOGSHEAD-Rationale.dc.html` — HOGSHEAD · 10 — DESIGN RATIONALE
+- `boards/CAST-MARIGOLD-Animation.dc.html` — MARIGOLD FENN · 8 — ANIMATION KEY-POSE SHEET
+- `boards/CAST-MARIGOLD-BeforeAfter.dc.html` — MARIGOLD FENN · 9 — BEFORE / AFTER
+- `boards/CAST-MARIGOLD-Construction.dc.html` — MARIGOLD FENN · 5 — CONSTRUCTION / PROPORTION PASS
+- `boards/CAST-MARIGOLD-Environment.dc.html` — MARIGOLD FENN · 7 — ENVIRONMENT / SCENE INTEGRATION
+- `boards/CAST-MARIGOLD-Expressions.dc.html` — MARIGOLD FENN · 3 — EXPRESSION SHEET (8 targets) · render: `renders/CAST-MARIGOLD-Expressions.jpg`
+- `boards/CAST-MARIGOLD-FullBody.dc.html` — MARIGOLD FENN · 1 — FULL-BODY SHEET · render: `renders/CAST-MARIGOLD-FullBody.jpg`
+- `boards/CAST-MARIGOLD-Gestures.dc.html` — MARIGOLD FENN · 4 — GESTURE SHEET (8 signature gestures) · render: `renders/CAST-MARIGOLD-Gestures.jpg`
+- `boards/CAST-MARIGOLD-LiveMatch.dc.html` — MARIGOLD FENN · 2 — LIVE-MATCH crop, lit to match the shared negotiation table
+- `boards/CAST-MARIGOLD-Materials.dc.html` — MARIGOLD FENN · 6 — MATERIALS PASS
+- `boards/CAST-MARIGOLD-Rationale.dc.html` — MARIGOLD FENN · 10 — DESIGN RATIONALE
+- `boards/CAST-MOSSBACK-Animation.dc.html` — OLD MOSSBACK · 8 — ANIMATION KEY-POSE SHEET
+- `boards/CAST-MOSSBACK-BeforeAfter.dc.html` — OLD MOSSBACK · 9 — BEFORE / AFTER
+- `boards/CAST-MOSSBACK-Construction.dc.html` — OLD MOSSBACK · 5 — CONSTRUCTION / PROPORTION PASS
+- `boards/CAST-MOSSBACK-Environment.dc.html` — OLD MOSSBACK · 7 — ENVIRONMENT / SCENE INTEGRATION
+- `boards/CAST-MOSSBACK-Expressions.dc.html` — OLD MOSSBACK · 3 — EXPRESSION SHEET (8 targets) · render: `renders/CAST-MOSSBACK-Expressions.jpg`
+- `boards/CAST-MOSSBACK-FullBody.dc.html` — OLD MOSSBACK · 1 — FULL-BODY SHEET · render: `renders/CAST-MOSSBACK-FullBody.jpg`
+- `boards/CAST-MOSSBACK-Gestures.dc.html` — OLD MOSSBACK · 4 — GESTURE SHEET (8 signature gestures) · render: `renders/CAST-MOSSBACK-Gestures.jpg`
+- `boards/CAST-MOSSBACK-LiveMatch.dc.html` — OLD MOSSBACK · 2 — LIVE-MATCH crop, lit to match the shared negotiation table
+- `boards/CAST-MOSSBACK-Materials.dc.html` — OLD MOSSBACK · 6 — MATERIALS PASS
+- `boards/CAST-MOSSBACK-Rationale.dc.html` — OLD MOSSBACK · 10 — DESIGN RATIONALE
+- `boards/CAST-PIPQUILL-Animation.dc.html` — PIP QUILL · 8 — ANIMATION KEY-POSE SHEET
+- `boards/CAST-PIPQUILL-BeforeAfter.dc.html` — PIP QUILL · 9 — BEFORE / AFTER
+- `boards/CAST-PIPQUILL-Construction.dc.html` — PIP QUILL · 5 — CONSTRUCTION / PROPORTION PASS
+- `boards/CAST-PIPQUILL-Environment.dc.html` — PIP QUILL · 7 — ENVIRONMENT / SCENE INTEGRATION
+- `boards/CAST-PIPQUILL-Expressions.dc.html` — PIP QUILL · 3 — EXPRESSION SHEET (8 targets) · render: `renders/CAST-PIPQUILL-Expressions.jpg`
+- `boards/CAST-PIPQUILL-FullBody.dc.html` — PIP QUILL · 1 — FULL-BODY SHEET · render: `renders/CAST-PIPQUILL-FullBody.jpg`
+- `boards/CAST-PIPQUILL-Gestures.dc.html` — PIP QUILL · 4 — GESTURE SHEET (8 signature gestures) · render: `renders/CAST-PIPQUILL-Gestures.jpg`
+- `boards/CAST-PIPQUILL-LiveMatch.dc.html` — PIP QUILL · 2 — LIVE-MATCH crop, lit to match the shared negotiation table
+- `boards/CAST-PIPQUILL-Materials.dc.html` — PIP QUILL · 6 — MATERIALS PASS
+- `boards/CAST-PIPQUILL-Rationale.dc.html` — PIP QUILL · 10 — DESIGN RATIONALE
+- `boards/CAST-VESPERINE-Animation.dc.html` — VESPERINE · 8 — ANIMATION KEY-POSE SHEET
+- `boards/CAST-VESPERINE-BeforeAfter.dc.html` — VESPERINE · 9 — BEFORE / AFTER
+- `boards/CAST-VESPERINE-Construction.dc.html` — VESPERINE · 5 — CONSTRUCTION / PROPORTION PASS
+- `boards/CAST-VESPERINE-Environment.dc.html` — VESPERINE · 7 — ENVIRONMENT / SCENE INTEGRATION
+- `boards/CAST-VESPERINE-Expressions.dc.html` — VESPERINE · 3 — EXPRESSION SHEET (8 targets) · render: `renders/CAST-VESPERINE-Expressions.jpg`
+- `boards/CAST-VESPERINE-FullBody.dc.html` — VESPERINE · 1 — FULL-BODY SHEET · render: `renders/CAST-VESPERINE-FullBody.jpg`
+- `boards/CAST-VESPERINE-Gestures.dc.html` — VESPERINE · 4 — GESTURE SHEET (8 signature gestures) · render: `renders/CAST-VESPERINE-Gestures.jpg`
+- `boards/CAST-VESPERINE-LiveMatch.dc.html` — VESPERINE · 2 — LIVE-MATCH crop, lit to match the shared negotiation table
+- `boards/CAST-VESPERINE-Materials.dc.html` — VESPERINE · 6 — MATERIALS PASS
+- `boards/CAST-VESPERINE-Rationale.dc.html` — VESPERINE · 10 — DESIGN RATIONALE
+- `boards/CAST-ZIPPA-Animation.dc.html` — ZIPPA RATCHET · 8 — ANIMATION KEY-POSE SHEET
+- `boards/CAST-ZIPPA-BeforeAfter.dc.html` — ZIPPA RATCHET · 9 — BEFORE / AFTER
+- `boards/CAST-ZIPPA-Construction.dc.html` — ZIPPA RATCHET · 5 — CONSTRUCTION / PROPORTION PASS
+- `boards/CAST-ZIPPA-Environment.dc.html` — ZIPPA RATCHET · 7 — ENVIRONMENT / SCENE INTEGRATION
+- `boards/CAST-ZIPPA-Expressions.dc.html` — ZIPPA RATCHET · 3 — EXPRESSION SHEET (8 targets) · render: `renders/CAST-ZIPPA-Expressions.jpg`
+- `boards/CAST-ZIPPA-FullBody.dc.html` — ZIPPA RATCHET · 1 — FULL-BODY SHEET · render: `renders/CAST-ZIPPA-FullBody.jpg`
+- `boards/CAST-ZIPPA-Gestures.dc.html` — ZIPPA RATCHET · 4 — GESTURE SHEET (8 signature gestures) · render: `renders/CAST-ZIPPA-Gestures.jpg`
+- `boards/CAST-ZIPPA-LiveMatch.dc.html` — ZIPPA RATCHET · 2 — LIVE-MATCH crop, lit to match the shared negotiation table
+- `boards/CAST-ZIPPA-Materials.dc.html` — ZIPPA RATCHET · 6 — MATERIALS PASS
+- `boards/CAST-ZIPPA-Rationale.dc.html` — ZIPPA RATCHET · 10 — DESIGN RATIONALE
+
 
 ### J1 · Juice system: rules & tokens
 
@@ -64,25 +215,7 @@ Character sprite sheets: one SVG per character, poses side by side in 600×900 c
 - `boards/AD-Palette.dc.html` — A · COLOUR — semantic vs world palette, six moods · render: `renders/AD-Palette.jpg`
 - `boards/AD-Materials.dc.html` — A · MATERIALS — plaque, wax card, limit card, chips, clock, stamp, notice · render: `renders/AD-Materials.jpg`
 
-### A2 · Character routes (A / B / C)
-
-- `boards/CR-RouteA.dc.html` — B · ROUTE A — Merchant Adventurers · render: `renders/CR-RouteA.jpg`
-- `boards/CR-RouteB.dc.html` — B · ROUTE B — Creature Dealmakers · render: `renders/CR-RouteB.jpg`
-- `boards/CR-RouteC.dc.html` — B · ROUTE C — Premium Traders · render: `renders/CR-RouteC.jpg`
-- `boards/CR-Recommend.dc.html` — C · RECOMMENDATION — tests across A / B / C · render: `renders/CR-Recommend.jpg`
-
-### A3 · Core cast (Route A)
-
-- `boards/CC-Lineup.dc.html` — D · LINEUP + silhouettes — 8 core characters · render: `renders/CC-Lineup.jpg`
-- `boards/CC-Bible.dc.html` — D · CAST BIBLE — attributes per character · render: `renders/CC-Bible.jpg`
-- `boards/CC-Tests.dc.html` — D · TESTS — face, 64/96 px, differentiation · render: `renders/CC-Tests.jpg`
-- `boards/CC-Derivation.dc.html` — D · DERIVATION — full → portrait → bust → avatar → icon · render: `renders/CC-Derivation.jpg`
-
-### A4 · Pose & expression system
-
-- `boards/PE-Matrix.dc.html` — E · MATRIX — 14 states × 8 characters · render: `renders/PE-Matrix.jpg`
-- `boards/PE-Rules.dc.html` — E · RULES — triggers, allowed inputs, motion · render: `renders/PE-Rules.jpg`
-- `boards/PE-FaceKit.dc.html` — E · FACE KIT — lids, brows, mouths · render: `renders/PE-FaceKit.jpg`
+### A2 · A3 · A4 — moved to `design-sandbox/_superseded/` (see above)
 
 ### A5 · Asset art & environments
 
