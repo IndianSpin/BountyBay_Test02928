@@ -79,6 +79,19 @@ describe.skipIf(!RUN)('DA-P1 observability (PostgreSQL)', () => {
     expect(missing.statusCode).toBe(404);
   });
 
+  it('passes framework parser errors through as sanitized 400 INVALID_REQUEST (BB-233)', async () => {
+    // Malformed JSON body: Fastify throws FST_ERR_CTP_INVALID_JSON_BODY
+    // (statusCode 400) — a client error, not a 500.
+    const malformed = await app.inject({
+      method: 'POST',
+      url: '/v1/auth/dev/signin',
+      headers: { 'content-type': 'application/json' },
+      payload: 'not-json',
+    });
+    expect(malformed.statusCode).toBe(400);
+    expect(malformed.json()).toEqual({ code: 'INVALID_REQUEST', message: 'invalid request body' });
+  });
+
   it('emits signup_completed exactly once per user (dev signin + protected request paths)', async () => {
     const first = await app.inject({ method: 'POST', url: '/v1/auth/dev/signin', payload: { subject: 'dev_dap1_signup' } });
     expect(first.statusCode).toBe(200);

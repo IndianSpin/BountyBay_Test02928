@@ -12,7 +12,7 @@ import { GAME_RULES_VERSION, DEFAULT_ECONOMY_CONFIG } from '@bounty-bay/config';
 import { MatchCommandService, UserRepository, ensureAiBotUsers } from '@bounty-bay/db';
 import type { PrismaClient } from '@bounty-bay/db';
 import { z } from 'zod';
-import Fastify, { type FastifyInstance } from 'fastify';
+import Fastify, { type FastifyInstance, type FastifyError } from 'fastify';
 import rateLimit from '@fastify/rate-limit';
 import cors from '@fastify/cors';
 import type { AuthAdapter } from './auth/adapters';
@@ -88,8 +88,16 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   // 404s reply directly and are untouched. The 500 body is sanitized
   // (never Fastify's default error.message echo — docs/10); the request id
   // rides pino automatically. Never log tokens, RVs, or bodies here.
-  app.setErrorHandler((error, request, reply) => {
-    request.log.error(
+  // BB-233 (BB-229-1): framework-thrown parser errors (malformed JSON,
+  // wrong content-type) carry a 4xx statusCode — pass them through as
+  // sanitized INVALID_REQUEST at warn level instead of misreporting client
+  // errors as 500s.
+  app.setErrorHandler((error: FastifyError, request, reply) => {
+    const status =
+      typeof error.statusCode === 'number' && error.statusCode >= 400 && error.statusCode < 500
+        ? error.statusCode
+        : 500;
+    request.log[status === 500 ? 'error' : 'warn'](
       {
         err: error,
         userId: request.userId ?? undefined,
@@ -97,9 +105,13 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
         environment: deployment.environment,
         release: deployment.release,
       },
-      'unhandled request error',
+      status === 500 ? 'unhandled request error' : 'invalid request',
     );
-    void reply.code(500).send({ code: 'INTERNAL_ERROR', message: 'internal server error' });
+    void reply.code(status).send(
+      status === 500
+        ? { code: 'INTERNAL_ERROR', message: 'internal server error' }
+        : { code: 'INVALID_REQUEST', message: 'invalid request body' },
+    );
   });
 
   app.get('/health', async () => ({
