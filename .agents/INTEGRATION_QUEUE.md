@@ -59,3 +59,11 @@ ACCEPTed work merges (D-8).
 - DD-M2 dossiers (W1) — after founder checkpoint (W1-02).
 - P1-M2 rating — after IN checkpoint.
 - DEC-030 negotiation agent — unscheduled.
+
+### IQ-6 — DA-P1 telemetry (BB-229 + BB-230, pending)
+- Contract change: /v1/analytics/event enum +5 names (signup_completed,
+  handle_created, result_viewed, rematch_clicked, play_again_clicked)
+  + meta fields; 500-path response body sanitized (docs/10). Additive
+  only.
+- Depends on: BB-228 spec (landed).
+- Verifier: Data (§5 of DA-P1-SPEC.md) before ACCEPT.

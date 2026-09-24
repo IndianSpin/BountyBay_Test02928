@@ -566,3 +566,17 @@ match, hidden live-deals pill, v2-era cast faces until a v3 asset
 export, scrolling mobile strip). PDR-4 switch SHOW_TITLE_ON_RETURN
 ships default SHOW; founder's routing ruling remains open (one flag).
 W2 next: BB-225 cast pose system.
+
+## D-40 — BB-228 spec ACCEPTED; DA-P1 rulings (2026-09-24)
+
+Data's DA-P1-SPEC.md reviewed — all seven decisions ratified: (1)
+BB_ENV/BB_RELEASE + NEXT_PUBLIC mirrors → client_environment/
+client_release; (2) signup_completed from ensureUserBySubject's
+created flag, bot namespace excluded; (3) handle_created on every
+setHandle (first-occurrence derivable; no schema change); (4)
+result_viewed at-most-once-per-process in-emitter dedup, documented;
+(5) 500-path sanitized body — deliberate docs/10 improvement
+(INTERNAL_ERROR, no error.message echo); (6) emitter creation at top
+of buildApp; (7) /v1/analytics/event enum extension = additive API
+contract change → INTEGRATION_QUEUE. BB-229 (W1, api) and BB-230 (W2,
+web) proceed per spec; Data verifies post-merge.
