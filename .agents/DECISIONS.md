@@ -603,3 +603,19 @@ DRAFT → REVIEWED (reviewed_by: founder, 2026-09-24). IN-4 checkpoint
 thereby SIGNED OFF → IN-5 (retrieval + coaching composer) unblocked
 for W3 as BB-231; the seed REVIEWED marking rides the BB-231 branch.
 No other pending founder items.
+
+## D-43 — BB-225 merged; PDR-5 opened (2026-09-24)
+
+Cast pose system merged (all 8 characters render through the BB-216
+pose system; AI personas mapped via registry: closer=GOLDENOTTER,
+anchor=GREYLOT, grinder=HOGSHEAD, wall=OLD MOSSBACK, mirror=PIP QUILL;
+VESPERINE/ZIPPA await personas; humans stay GoldenOtter; registry is
+the seam for character selection). Gate: tc 0, unit 264, lint 0.
+
+## PDR-5 — PRODUCT DECISION REQUIRED: persona→character mapping
+
+W2's archetype-reasoned mapping above is a product assumption. Founder
+review requested: confirm the mapping (or reassign). One-commit
+registry edit either way. Also flagged: asset-export request —
+GREYLOT needs the v3 heron pose set (only a v1-era portrait exists);
+the six cast sheets are v2-era art, v3 files upgrade in place.
