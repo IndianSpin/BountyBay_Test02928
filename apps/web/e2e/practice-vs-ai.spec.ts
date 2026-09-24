@@ -12,6 +12,8 @@ import { expect, test } from '@playwright/test';
 test('a full practice match vs the Closer ends in a labeled deal', async ({ page }) => {
   await page.goto('/');
   await page.getByTestId('dev-play-button').click();
+  await expect(page).toHaveURL(/\/bay/);
+  await page.getByTestId('bay-play-ranked').click();
   await expect(page).toHaveURL(/\/play/);
 
   // pick the persona from the practice section

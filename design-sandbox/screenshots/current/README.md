@@ -14,5 +14,7 @@ board it implements.
 | live-match-desktop-accept-stamp.png | Live match, desktop | PV-Juice 8 | The stamp is the full stop |
 | live-match-mobile.png | Live match, mobile | PV-Mobile | Top half = the table; the sheet below changes with state |
 | live-match-mobile-chat-sheet.png | Mobile chat sheet | PV-Mobile + PV-Comms | One gold control in the thumb zone |
+| bay-desktop.png | The Bay, desktop | SH-BayIA + SH-Battle + SH-Nav | One gold table; future slots labelled SOON |
+| bay-mobile.png | The Bay, mobile | SH-BayIA + SH-Nav | Bottom tab bar, stacked slots |
 | bb224-title-desktop.png | Title screen, desktop | TITLE-* boards | One dominant PLAY NOW |
 | bb224-title-mobile.png | Title screen, mobile | TITLE-* boards | Thumb-zone CTA |

@@ -14,6 +14,8 @@ import { expect, test, type Page } from '@playwright/test';
 async function createChallenge(page: Page): Promise<string> {
   await page.goto('/');
   await page.getByTestId('dev-play-button').click();
+  await expect(page).toHaveURL(/\/bay/);
+  await page.getByTestId('bay-play-ranked').click();
   await expect(page).toHaveURL(/\/play/);
   await page.getByRole('button', { name: 'Create challenge' }).click();
   const shareInput = page.locator('input.share-input');

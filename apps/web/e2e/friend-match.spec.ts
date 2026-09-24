@@ -17,6 +17,8 @@ async function createChallenge(page: Page): Promise<string> {
   // identity and lands on /play (the same path a founder takes manually).
   await page.goto('/');
   await page.getByTestId('dev-play-button').click();
+  await expect(page).toHaveURL(/\/bay/);
+  await page.getByTestId('bay-play-ranked').click();
   await expect(page).toHaveURL(/\/play/);
   await page.getByRole('button', { name: 'Create challenge' }).click();
   const shareInput = page.locator('input.share-input');

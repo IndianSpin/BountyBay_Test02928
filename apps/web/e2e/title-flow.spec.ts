@@ -35,9 +35,12 @@ test('the opening screen fronts the game and PLAY NOW enters the flow', async ({
   }
   await expect(strip.getByRole('button')).toHaveCount(0);
 
-  // ONE dominant action → the existing play flow (dev identity created,
-  // the challenge panel renders)
+  // ONE dominant action → The Bay (SH-Journey), then the battle
+  // selection, then the existing play flow
   await page.getByTestId('dev-play-button').click();
+  await expect(page).toHaveURL(/\/bay/, { timeout: 15_000 });
+  await expect(page.getByTestId('bay')).toBeVisible({ timeout: 15_000 });
+  await page.getByTestId('bay-play-ranked').click();
   await expect(page).toHaveURL(/\/play/, { timeout: 15_000 });
   await expect(page.getByRole('button', { name: 'Create challenge' })).toBeVisible({ timeout: 15_000 });
 });

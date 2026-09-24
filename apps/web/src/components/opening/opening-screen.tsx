@@ -60,7 +60,9 @@ export default function OpeningScreen() {
     setError(null);
     try {
       if (devMode) await ensureDevIdentity();
-      router.push('/play');
+      // SH-Journey: the title lands on The Bay — the set table is the
+      // only gold object there.
+      router.push('/bay');
     } catch {
       setError('Dev sign-in is unavailable. Is the API running on port 4000?');
       setBusy(false);

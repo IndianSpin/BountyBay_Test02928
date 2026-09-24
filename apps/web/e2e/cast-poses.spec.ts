@@ -12,6 +12,8 @@ import { expect, test, type Page } from '@playwright/test';
 async function startPractice(page: Page, persona: string): Promise<void> {
   await page.goto('/');
   await page.getByTestId('dev-play-button').click();
+  await expect(page).toHaveURL(/\/bay/);
+  await page.getByTestId('bay-play-ranked').click();
   await expect(page).toHaveURL(/\/play/);
   await page.getByTestId(`persona-${persona}`).click();
   await expect(page.getByTestId('ready-button')).toBeVisible({ timeout: 15_000 });
@@ -62,6 +64,8 @@ test('human opponents keep the GoldenOtter file poses', async ({ browser }) => {
   const pageB = await ctxB.newPage();
   await pageA.goto('/');
   await pageA.getByTestId('dev-play-button').click();
+  await expect(pageA).toHaveURL(/\/bay/);
+  await pageA.getByTestId('bay-play-ranked').click();
   await expect(pageA).toHaveURL(/\/play/);
   await pageA.getByRole('button', { name: 'Create challenge' }).click();
   const shareInput = pageA.locator('input.share-input');
