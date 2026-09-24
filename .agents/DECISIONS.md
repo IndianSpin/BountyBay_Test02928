@@ -695,3 +695,17 @@ only page-level scroll in dev builds (absent in production, documented).
 Gate: tc 0, unit 280, lint 0, E2E 15/15 (worker-run). Captures:
 design-sandbox/screenshots/bb232/. QA mobile re-check + founder review
 next.
+
+## D-51 — Design-reference cleanup + PV as build spec (2026-09-24)
+
+Founder feedback ("low quality; don't see the new designs; competing
+folders"): (1) ONE review surface —
+`design-sandbox/screenshots/current/` with an index README; per-task
+capture folders archived; agent-internal evidence stays internal.
+(2) The PV-* boards are the ACTIVE build spec for the current screens
+— my earlier "vision-only" classification under-delivered; BB-234
+(W2): implement the PV live-match direction (PV-Seq-1/2, PV-Mobile,
+PV-Attention, PV-Comms, PV-Juice per board intent) as the new
+composition target; BB-232's fit remains the floor until it lands.
+PV-Swap and PV-Rivalry remain feature-vision (later scheduling).
+(3) Quality bar: founder reviews against the PV boards themselves.
