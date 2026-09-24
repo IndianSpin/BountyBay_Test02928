@@ -1,8 +1,11 @@
 # Worker 3 — analytics / coaching / content infrastructure (IN track)
 
-Session: `jeremydommnich-c7` · Branch: `w3-intelligence` · Worktree:
-`~/projects/bay-w3` (one-time `pnpm install`; work there — the original
-`~/projects/bay` checkout is manager-only).
+Session: `jeremydommnich-c7` · Branch: `w3-knowledge-base` (cut from
+`golden-baseline-1` per manager instruction) · Worktree: `~/projects/bay-w3`
+(one-time `pnpm install`; work there — the original `~/projects/bay`
+checkout is manager-only). Prior branch `w3-intelligence` carries
+W3-01/W3-02 (both ACCEPTED + merged) and the verdict-record commit
+`b50a74e`.
 
 Update this file BEFORE starting a substantial task and AFTER each
 checkpoint. You own docs/19 and docs/20 as working specs; any change to a
@@ -18,107 +21,108 @@ REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
   (domain, config, contracts) — flag breakage in others' files, don't fix
   them silently.
 
-## CURRENT TASK — W3-02 / BB-205: IN-3 longitudinal profile
-(contract in ~/projects/bounty-control/inbox/worker-3.md; founder
-sign-off D-21; docs/18 §9; docs/16 IN-3 row)
+## CURRENT TASK — W3-03 / BB-227: IN-4 negotiation knowledge base
+(contract in ~/projects/bounty-control/inbox/worker-3.md; docs/18 §4–5;
+founder signed off IN-3 → IN-4 unblocked)
 
 **Plan (before-code contract):**
-- Objective: versioned pure profile engine over gameplay tendencies
-  (opening aggressiveness, concession frequency/size/reciprocity,
-  decision speed, agreement rate, surplus capture, no-deal tendency,
-  information use, closing behavior, time-pressure performance,
-  buyer/seller split); confidence bands; windowed trends; threshold-only
-  style descriptors; structured coaching state. Never personality
-  claims, never causal attribution.
-- Files: NEW packages/intelligence/src/profile.ts (engine),
-  src/coaching-state.ts (structured state + pure reducers), index.ts
-  exports; NEW tests/profile.test.ts, tests/coaching-state.test.ts;
-  docs/20 gets a "Longitudinal profile (IN-3)" section (my lane).
-- Out of scope: rating cohorts/benchmarks (P1-M2, D-21), IN-4..IN-8,
-  personality claims, DEC-030, any schema change, apps/api + apps/web
-  wiring (the docs/16 "Insights API" is a cross-package need — FLAGGED
-  here for manager routing, like the timeline was).
-- Tests (AGENTS.md): valid (multi-match aggregate, windows, trends,
-  descriptors, coaching reducers), invalid (empty history, duplicate
-  matchId, band/descriptor misuse), boundary (band edges 1/4/5/14/15/
-  29/30; recent/previous window edges; descriptor cap), property
-  (determinism, input-order independence, no causal language in any
-  output).
+- Objective: pure, versioned knowledge base in packages/intelligence —
+  the §4 ontology as typed constants; the §5 record schema (id, title,
+  summary, ontology_tags, claim, practical_implication, conditions,
+  limitations, evidence_level A–D, source_type, authors, year,
+  publication, doi/url, citation_text, license/access metadata,
+  review_status, reviewed_by, created_at, version); deterministic
+  validation enforcing the grade rules (A/B require empirical source
+  types) and provenance rules (authors + year + publication +
+  citation_text on every record); fixed per-grade register phrases
+  (§5: A/B "Research suggests…", C "A widely used negotiation framework
+  recommends…", D "One practitioner approach is…"); a pure store
+  (byId/byTag/byGrade, conflicting claims preserved with conditions);
+  ~24 curated seed records — real scholarship only, open-access papers /
+  bibliographic references / curated summaries, no invented DOIs,
+  review_status DRAFT with reviewed_by null pending IN-5 use.
+- Files: NEW src/ontology.ts, src/knowledge.ts, src/knowledge-seeds.ts;
+  index.ts exports; NEW tests/knowledge.test.ts + knowledge-seeds.test.ts;
+  docs/20 "Knowledge base (IN-4)" section (my lane).
+- Out of scope: retrieval/RAG and coaching composer (IN-5), benchmarks
+  (IN-8), any LLM call, DB migration (seeds are in-code; flag if a
+  table is wanted later), §6 observation→concept mappings — docs/16's
+  IN-4 row lists mappings but BB-227 does not; FLAGGED below for the
+  manager (contract vs canonical row).
+- Tests (AGENTS.md): valid (every seed passes validation + grade rules;
+  register phrases per grade), invalid (missing fields, unknown tag,
+  bad grade/source pairing, empty authors, non-finite created_at, bad
+  version), boundary (empty store; duplicate id rejected; conflicting
+  records for the same tag preserved side by side), property
+  (determinism, pure lookup semantics).
 
-## NEXT (after IN-3 ACCEPT)
-IN-4 knowledge system (ontology + 20–30 records + mappings) — only after
-ACCEPT; stop at READY FOR REVIEW, do not auto-continue.
+## NEXT (after IN-4 ACCEPT)
+IN-5 retrieval + coach — only after ACCEPT; stop at READY FOR REVIEW.
 
-## STATUS — W3-02 READY FOR REVIEW (2026-09-23)
-IN-3 engine implemented per BB-205 / docs/18 §9 / docs/16 IN-3 row.
-Evidence: 56/56 intelligence tests (12 new); full non-db suite 238
-passed / 48 db-gated skipped; typecheck clean across the package +
-domain/config/contracts; lint clean. No schema, no API/web, no domain
-changes. NOT starting IN-4 — awaiting ACCEPT.
+## STATUS — W3-03 READY FOR REVIEW (2026-09-24)
+IN-4 knowledge base implemented per BB-227 / docs/18 §4–5. Evidence:
+69/69 intelligence tests (13 new); full non-db suite 264 passed / 61
+db-gated skipped; typecheck clean; lint clean. No schema/API/domain
+changes, no LLM calls. NOT starting IN-5 — awaiting ACCEPT.
 
-**FOUNDER CHECKPOINT REPORT — IN-3 longitudinal profile**
-- Changed files: NEW packages/intelligence/src/profile.ts
-  (longitudinal-profile-0.1.0: confidence bands, 23 dimensions,
-  lifetime/recent/previous/rolling windows, delta+direction trends,
-  threshold-only style descriptors with evidence, role split) +
-  src/coaching-state.ts (coaching-state-0.1.0: focus/topics/
-  assignments/completions/before-after/repeat-issues, pure transitions)
-  + index.ts + tests/profile.test.ts + tests/coaching-state.test.ts +
-  docs/20 "Longitudinal profile (IN-3)" section (my lane).
-- Behavior: versioned profile over gameplay tendencies; band edges
-  1/4/5/14/15/29/30 exact; trends report metric+windows+delta+direction
-  only — no causal text anywhere; descriptors fire only on numeric
-  thresholds (gate 5 matches, cap 3, priority order), each with numeric
-  evidence; ABORTED matches excluded; role split buyer/seller; no
-  rating key (D-21); no clock reads — deterministic and input-order
-  independent.
-- Tests: valid (single-match, windows, trends DOWN delta −2, descriptors
-  priority+cap+gate, role split, coaching lifecycle immutability),
-  invalid (empty history, all-aborted, duplicate matchId, non-finite
-  endedAt, band(0), duplicate/unknown/double/early completion,
-  non-finite timestamps, unknown focus), boundary (band edges, window
-  shrink, empty-state coaching ops), property (determinism +
-  order-independence, no interpretive vocabulary in output).
-- Unresolved: (a) docs/16 names an "Insights API" for IN-3 — serving
-  the profile needs apps/api wiring (cross-package) → FLAGGED for
-  manager routing (like D-11); (b) OQ-025 descriptor thresholds remain
-  OPEN — all 10 defaults are PROVISIONAL, configurable, versioned;
-  founder close-out would make them canonical.
-- Spec ambiguity: none blocking; docs/18 §9 gave tendencies + bands,
-  the exact dimension list is derived 1:1 from BehaviorFeatures in
-  docs/19 and recorded in docs/20.
+**FOUNDER CHECKPOINT REPORT — IN-4 negotiation knowledge base**
+- Changed files: NEW src/ontology.ts (§4 taxonomy: 9 categories,
+  structured tag vocabulary, multi-category tags), src/knowledge.ts
+  (knowledge-base-0.1.0: §5 schema, deterministic validation with
+  structural grade rules — A/B require empirical source types — and
+  provenance rules, fixed per-grade register phrasing, pure store with
+  byId/byTag/byGrade and a conflicts map that preserves opposing claims
+  side by side), src/knowledge-seeds.ts (27 curated records: 3 A
+  meta-analytic, 11 B empirical, 12 C frameworks, 1 D contested), index
+  exports; NEW tests/knowledge.test.ts + knowledge-seeds.test.ts;
+  docs/20 "Knowledge base (IN-4)" section (my lane).
+- Behavior: every record carries the full §5 schema with provenance
+  (authors + year + publication + citation always; DOIs only where
+  confidently known — 4 records); all seeds ship DRAFT / reviewed_by
+  null (human review required before IN-5 cites them); one seeded
+  conflict pair (first-offer anchoring vs "never open first") preserved
+  with conditions on both sides; no LLM, no I/O, no clock reads.
+- Tests: valid (typed lookups, register phrasing per grade, conflicts
+  map, coverage), invalid (13 schema/grade violations incl. grade-A
+  book source), boundary (empty base, duplicate ids), property
+  (determinism); seeds: 20–30 count, provenance on all, all 9 §4
+  categories covered, conflict pair present, doi_url shape.
+- Unresolved / flags: (a) docs/16's IN-4 row includes §6
+  observation→concept mappings but BB-227 scopes §4–5 — mappings NOT
+  implemented; propose they ride IN-5 retrieval (flag for manager
+  routing); (b) seed review (DRAFT → REVIEWED) needs a human/founder
+  pass before IN-5.
 - No canonical spec change beyond docs/20 (W3's working spec).
 
 ## BLOCKERS
-- None. (Insights API wiring flagged as cross-package need, not a
-  blocker: manager routes it like D-11 did.)
+- None. Flag (not blocker): §6 mappings routing — IN-4 (per docs/16
+  row) vs IN-5 (per BB-227 scope); awaiting manager ruling.
+
+## BLOCKERS
+- None. Flag (not blocker): docs/16 IN-4 row says "ontology, ~20–30
+  records, observation→concept mappings" while BB-227 scopes §4–5
+  (ontology + records + grades) — mappings (§6) not implemented;
+  confirm with manager whether they ride IN-4 or IN-5.
 
 ## PRODUCT ASSUMPTIONS (record before building)
-- OQ-025 is OPEN on descriptor thresholds — all descriptor defaults
-  below are PROVISIONAL, configurable, versioned; not canonical until
-  the founder closes OQ-025. Proposed defaults: AGGRESSIVE_OPENER
-  (mean openingPositionInZopa ≤ 0.35), CAUTIOUS_OPENER (≥ 0.65),
-  HARD_BARGAINER (mean surplus capture ≥ 0.60), FREQUENT_CONCEDER
-  (mean concessionCount ≥ 3), SILENT_NEGOTIATOR (mean messagesSent = 0
-  and mean offerCount ≥ 3), QUICK_DECIDER (mean decision ≤ 8000 ms),
-  SLOW_DECIDER (≥ 25000 ms), PATIENT_CLOSER (mean crossing→settlement
-  ≥ 60000 ms), QUICK_CLOSER (≤ 5000 ms), TIME_PRESSURED (mean pressure
-  exposure ≥ 0.25). Gate: matchCount ≥ 5 (EARLY SIGNAL); cap: 3
-  descriptors by priority order.
-- ABORTED matches are excluded from the profile entirely (technical
-  termination is not a negotiation; counts would poison aggregates).
-  Recorded in docs/20.
-- Window defaults: recent N = 10, previous N = 10, rolling N = 5 —
-  configurable; all windows derive from the same endedAt-sorted history.
-- Trend direction uses a relative flat epsilon (default 0.001): change
-  is reported as UP/DOWN/FLAT with delta only — no text, no cause.
-- Profile carries NO generated timestamp (pure/deterministic); ordering
-  is from input `endedAt`, the profile reports `lastMatchEndedAt`.
+- All seeds ship review_status DRAFT, reviewed_by null — human/founder
+  review is a pre-requisite before IN-5 retrieval can cite them.
+- Grade discipline is enforced structurally: A/B ⇒ source_type in
+  {OPEN_ACCESS_PAPER, LICENSED_MATERIAL}; C/D allow bibliographic
+  references and curated summaries; D marks contested/practitioner-only
+  claims. Conflicting research is preserved (both records kept with
+  their conditions), never merged.
+- Provenance rule: authors (non-empty) + year + publication +
+  citation_text required; doi/url optional but never invented —
+  DOIs included only where confident; omitted otherwise.
+- created_at values are explicit data in the seeds (no clock reads —
+  purity rule as in profile/coaching-state).
 
-## COMPLETED — W3-01 (record)
-IN takeover + IN-2 Game Review V1: ACCEPTED and merged (D-12). 44/44
-tests, typecheck clean, no contract changes; buildTimeline +
-buildGameReview in packages/intelligence; docs/20 Timeline + envelope
-specs; D-10 handoff review CONFIRMED (c70a448); timeline API wiring
-done by W1-03 (D-11); docs/18 §3 now points to docs/20 for timeline
-event kinds (D-13).
+## COMPLETED — W3-01 / W3-02 (record)
+- W3-01 IN-2 Game Review V1: ACCEPTED + merged (D-12); timeline +
+  review envelope; D-10 handoff CONFIRMED; timeline API wiring done by
+  W1-03 (D-11); docs/18 §3 → docs/20 pointer (D-13).
+- W3-02 IN-3 longitudinal profile: ACCEPTED + merged (D-25, f26c7f6);
+  profile 0.1.0 + coaching-state 0.1.0; manager-verified 56/56; flags
+  ruled: Insights API → BB-220 (W1), OQ-025 thresholds provisional →
+  founder close-out batch.
