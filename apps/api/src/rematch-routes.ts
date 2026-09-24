@@ -194,6 +194,33 @@ export function registerRematchRoutes(app: FastifyInstance, options: RematchRout
     },
   );
 
+  /**
+   * GET /v1/me/rematch-letters — BB-239 (SH4 frame 16): the open rematch
+   * proposals addressed to the caller, as The Bay letters. Read-only;
+   * the caller is the fixed opponent of each CREATED proposal row.
+   */
+  app.get('/v1/me/rematch-letters', async (request, _reply) => {
+    const rows = await prisma.match.findMany({
+      where: { rematchOpponentUserId: request.userId, status: 'CREATED' },
+      orderBy: { createdAt: 'asc' },
+      include: { participants: { include: { user: { select: { handle: true } } } } },
+    });
+    const titles = new Map<string, string>();
+    const scenarioKeys = rows.map((row) => ({ id: row.scenarioId, version: row.scenarioVersion }));
+    const scenarios = await prisma.scenario.findMany({ where: { OR: scenarioKeys }, select: { id: true, version: true, title: true } });
+    for (const scenario of scenarios) titles.set(`${scenario.id}:${scenario.version}`, scenario.title);
+
+    return {
+      letters: rows.map((row) => ({
+        proposalMatchId: row.id,
+        sourceMatchId: row.rematchFromMatchId,
+        fromHandle: row.participants[0]?.user.handle ?? null,
+        scenarioTitle: titles.get(`${row.scenarioId}:${row.scenarioVersion}`) ?? null,
+        createdAt: row.createdAt.toISOString(),
+      })),
+    };
+  });
+
   // -- pending-proposal query (the BB-219b in-session prompt) -----------------
 
   /** GET /v1/matches/:matchId/rematch — open proposals attached to this source match. */

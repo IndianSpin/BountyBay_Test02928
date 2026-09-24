@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { parseAmountTenths } from '@bounty-bay/domain';
 
 import { formatTenthsGrouped } from '../../lib/format';
@@ -165,6 +166,25 @@ export default function NegotiationBoard(props: {
         : parsedProposed.tenths >= view.myReservationValueTenths));
   const sealAmount = sealLegal && parsedProposed.ok ? formatTenthsGrouped(parsedProposed.tenths) : undefined;
 
+  // PV-Juice INTENSITY 4: a large concession (their step ≥ 2× their
+  // previous step, public data) plays the concede one-shot once, then
+  // the character returns to the state pose.
+  const [reactionPose, setReactionPose] = useState<CharacterPose | 'concede' | null>(null);
+  useEffect(() => {
+    if (theirTrail.length < 3) return;
+    const latest = theirTrail[theirTrail.length - 1]!;
+    const prior = theirTrail[theirTrail.length - 2]!;
+    const before = theirTrail[theirTrail.length - 3]!;
+    const step = Math.abs(latest - prior);
+    const prevStep = Math.abs(prior - before);
+    if (prevStep > 0 && step >= prevStep * 2) {
+      setReactionPose('concede');
+      const timer = setTimeout(() => setReactionPose(null), 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [theirTrail.length]);
+  const effectivePose = reactionPose ?? opponentPose;
+
   const theirKey = `their-${opponent.latestOfferTenths ?? 'none'}`;
   const mineKey = `mine-${me.latestOfferTenths ?? 'none'}`;
 
@@ -192,21 +212,21 @@ export default function NegotiationBoard(props: {
           {opponentCharacter.kind === 'files' && (
             /* canvas v2 (GO2): the Closer poses ship as single SVGs; the
                key remounts a crossfade on every reaction change */
-            <img key={opponentPose} className="lm-opponent__pose" src={`${opponentCharacter.src}-${opponentPose}.svg`} alt="" />
+            <img key={opponentPose} className="lm-opponent__pose" src={`${opponentCharacter.src}-${effectivePose}.svg`} alt="" />
           )}
           {opponentCharacter.kind === 'sheet' && (
             /* cast-v2 sheets: a cell per key state (600px grid); the
                position transition slides between poses */
-            <div className="lm-opponent__sheet" data-pose={opponentPose} style={{ backgroundImage: `url('${opponentCharacter.src}')` }} />
+            <div className="lm-opponent__sheet" data-pose={effectivePose} style={{ backgroundImage: `url('${opponentCharacter.src}')` }} />
           )}
           {opponentCharacter.kind === 'avatar' && (
             /* single-portrait character (GREYLOT until the v3 pose set
                is exported): static, keyed crossfade only */
-            <img key={opponentPose} className="lm-opponent__pose lm-opponent__avatar" src={opponentCharacter.src} alt="" />
+            <img key={effectivePose} className="lm-opponent__pose lm-opponent__avatar" src={opponentCharacter.src} alt="" />
           )}
           {/* BB-242: the founder's 12 fps sprite clips play over the
               static pose; reduced motion keeps the static layer only */}
-          <AnimatedOpponent character={opponentCharacter.key} pose={opponentPose} />
+          <AnimatedOpponent character={opponentCharacter.key} pose={effectivePose} />
         </div>
         <ChatPanel
           timeline={props.timeline}

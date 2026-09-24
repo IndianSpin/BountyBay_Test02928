@@ -105,7 +105,7 @@ test('mutual-consent rematch: propose → accept → both land on a new ACTIVE m
   await ctxB.close();
 });
 
-test('decline closes the offer cleanly on both sides', async ({ browser }) => {
+test('NOT NOW sets the offer aside as the letter at The Bay, then ANSWER completes it', async ({ browser }) => {
   const ctxA = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const ctxB = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const pageA = await ctxA.newPage();
@@ -124,15 +124,30 @@ test('decline closes the offer cleanly on both sides', async ({ browser }) => {
   await pageA.getByTestId('result').click();
   await pageB.getByTestId('result').click();
 
+  // A proposes; B sees the offer with the 12s window copy.
   await pageA.getByTestId('rematch-button').click();
   await expect(pageB.getByTestId('rematch-prompt')).toBeVisible({ timeout: 15_000 });
+  await expect(pageB.getByTestId('rematch-prompt')).toContainText('becomes a letter at The Bay');
+
+  // NOT NOW dismisses the prompt — the proposal stands as a letter.
   await pageB.getByTestId('rematch-decline').click();
   await expect(pageB.getByTestId('rematch-prompt')).toBeHidden();
-  // The proposer's poll surfaces the closed offer; the button re-enables.
-  await expect(pageA.getByTestId('rematch-button')).toBeEnabled({ timeout: 15_000 });
-  await expect(pageA.locator('.lm-rematch-status')).toContainText('no longer open');
-  // The original match is untouched (still the result screen).
+  await expect(pageA.getByTestId('rematch-button')).toBeDisabled(); // still waiting
   await expect(pageA.getByTestId('result')).toBeVisible();
+
+  // SH4 frame 16: the letter waits at B's Bay; ANSWER re-opens and
+  // completes the mutual-consent rematch.
+  await pageB.goto('/bay');
+  const letter = pageB.getByTestId('bay-letter');
+  await expect(letter).toBeVisible({ timeout: 15_000 });
+  await expect(letter).toContainText('wants a rematch');
+  await letter.click();
+  await expect(pageB.getByTestId('rematch-prompt')).toBeVisible({ timeout: 15_000 });
+  await pageB.getByTestId('rematch-accept').click();
+  await expect(pageA).toHaveURL(/play\?resume=/, { timeout: 20_000 });
+  await expect(pageB).toHaveURL(/play\?resume=/, { timeout: 20_000 });
+  await expect(pageA.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
+  await expect(pageB.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
 
   await ctxA.close();
   await ctxB.close();

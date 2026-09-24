@@ -57,7 +57,14 @@ export default function GapMeter({
       <div className="lm-rail__track" />
       {gapStyle && <div className={crossed ? 'lm-rail__overlap' : 'lm-rail__gap'} style={gapStyle} />}
       {mineTenths !== null && (
-        <span className="lm-rail__pin lm-rail__pin--player" style={{ left: `${minePct}%` }} title="your standing offer" />
+        /* the key remounts the pin on every change: the number flies into
+           the rail and slams (motion-spec "Submitting an offer") */
+        <span
+          key={mineTenths}
+          className="lm-rail__pin lm-rail__pin--player lm-rail__pin--slam"
+          style={{ left: `${minePct}%` }}
+          title="your standing offer"
+        />
       )}
       {proposedTenths !== null && proposedTenths !== undefined && proposedTenths.trim() !== '' && !crossed && (
         <span
@@ -67,7 +74,12 @@ export default function GapMeter({
         />
       )}
       {theirsTenths !== null && (
-        <span className="lm-rail__pin lm-rail__pin--opponent" style={{ left: `${theirsPct}%` }} title="their standing offer" />
+        <span
+          key={theirsTenths}
+          className="lm-rail__pin lm-rail__pin--opponent lm-rail__pin--slam"
+          style={{ left: `${theirsPct}%` }}
+          title="their standing offer"
+        />
       )}
       {/* PV-Seq: words vs behaviour side by side — the trail is public
           data, displayed without interpretation */}

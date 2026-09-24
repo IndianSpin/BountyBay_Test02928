@@ -57,7 +57,12 @@ const POSE_CLIPS: Record<string, string> = {
   speaking: 'speak',
   offer: 'offer',
   smug: 'react',
+  concede: 'concede',
   offline: 'idle',
+  // the SH4 result sequence clips resolve to themselves
+  accept: 'accept',
+  nodeal: 'nodeal',
+  rematch: 'rematch',
 };
 
 export default function AnimatedOpponent({ character, pose }: { character: string; pose: string }) {
@@ -86,7 +91,7 @@ export default function AnimatedOpponent({ character, pose }: { character: strin
     void loadManifest()
       .then((manifest) => {
         if (cancelled) return;
-        const clipName = POSE_CLIPS[pose] ?? 'idle';
+        const clipName = POSE_CLIPS[pose] ?? pose;
         const clip = manifest.characters[character]?.[clipName] ?? manifest.characters.goldenotter?.[clipName];
         if (!clip) return;
         const stepMs = 1000 / manifest.fps;

@@ -14,6 +14,9 @@ board it implements.
 | live-match-desktop-accept-stamp.png | Live match, desktop | PV-Juice 8 | The stamp is the full stop |
 | live-match-mobile.png | Live match, mobile | PV-Mobile | Top half = the table; the sheet below changes with state |
 | live-match-mobile-chat-sheet.png | Mobile chat sheet | PV-Mobile + PV-Comms | One gold control in the thumb zone |
+| sh4-result.png | Result, desktop | SH4 frames 13–14 | The opponent stays in frame and speaks |
+| sh4-rematch-offer.png | Rematch offer, desktop | SH4 frame 15 | The 12 s ring — then it becomes a letter |
+| sh4-bay-letter.png | The Bay, desktop | SH4 frame 16 | The sealed letter — ANSWER completes it |
 | bay-desktop.png | The Bay, desktop | SH-BayIA + SH-Battle + SH-Nav | One gold table; future slots labelled SOON |
 | bay-mobile.png | The Bay, mobile | SH-BayIA + SH-Nav | Bottom tab bar, stacked slots |
 | bb224-title-desktop.png | Title screen, desktop | TITLE-* boards | One dominant PLAY NOW |
