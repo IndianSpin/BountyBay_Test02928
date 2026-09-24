@@ -1074,3 +1074,11 @@ via the repair sequence after founder review. Ownership: BB-263 (W2)
 registry/CTA/visual-map from implementation; BB-264 (QA) QA-status/
 defects/journey-health/CTA-destination verification; manager assembles
 the canonical docs + top-15 + sequence, then stops for the founder.
+
+## D-80 — AI table talk GREEN (2026-09-24)
+
+QA re-walk: a live match vs The Wall completed legally with exactly
+one persisted MESSAGE_SENT whose body is an exact PROBE fixture —
+the pipeline supplies deterministic talk, the persona owns the
+economic action, non-response impossible. Matrix row: GREEN. Journey
+B has one remaining YELLOW (profile surface, BB-262).
