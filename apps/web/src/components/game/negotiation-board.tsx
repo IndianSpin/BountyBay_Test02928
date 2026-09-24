@@ -215,17 +215,23 @@ export default function NegotiationBoard(props: {
             testId="my-standing"
           />
         </div>
-        {/* BB-213: W1's private dossier (DD-M2) wired into the private zone.
-            Role-scoped by the API — only the viewer's own dossier renders. */}
+        {/* BB-213 + BB-232: W1's private dossier (DD-M2) wired into the
+            private zone — collapsed behind a disclosure so the composition
+            fits both reference viewports (the panel is on demand; its DOM
+            and testids are untouched). Role-scoped by the API. */}
         {scenario !== null && (
-          <div className="lm-dossier">
+          <details className="lm-dossier">
+            <summary>
+              <span>Private dossier</span>
+              <span className="lm-dossier__hint">only you can see this</span>
+            </summary>
             <Dossier
               sharedContext={scenario.sharedContext}
               privateContext={scenario.myPrivateContext}
               facts={scenario.myPrivateFacts}
               role={view.myRole}
             />
-          </div>
+          </details>
         )}
       </section>
 

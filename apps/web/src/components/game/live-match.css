@@ -259,8 +259,9 @@
 .lm-asset { position: absolute; left: 26%; top: 52%; width: 150px; z-index: 1; pointer-events: none; opacity: .92; }
 .lm-asset img { width: 100%; display: block; filter: drop-shadow(0 10px 18px rgba(10,8,4,.5)); }
 
-/* private dossier (BB-213): W1's vault panel lives in the private zone,
-   left of the rail on desktop, a row under my band on mobile */
+/* private dossier (BB-213, BB-232): W1's vault panel lives in the
+   private zone — collapsed behind a disclosure (private info on demand)
+   so the composition fits both reference viewports. */
 .lm-dossier {
   position: absolute;
   left: 24px;
@@ -268,6 +269,29 @@
   width: min(260px, 20vw);
   z-index: 2;
 }
+.lm-dossier summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 6px 12px;
+  border: 2px solid var(--brand-gold);
+  border-radius: var(--radius-md);
+  background: var(--vault-ink);
+  color: var(--ink-on-vault);
+  font-family: var(--font-world);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  box-shadow: var(--shadow-card-elevated);
+}
+.lm-dossier summary::-webkit-details-marker { display: none; }
+.lm-dossier__hint { font-family: var(--font-ui); font-weight: 600; font-size: 10px; text-transform: none; letter-spacing: 0; color: var(--ink-muted-on-dark); }
+.lm-dossier[open] summary { border-radius: var(--radius-md) var(--radius-md) 0 0; }
+/* the expanded panel scrolls inside its zone (W1's section root) */
+.lm-dossier[open] > section { max-height: 230px; overflow-y: auto; }
 
 /* crossed ribbon: quiet deal signal under the plaque */
 .lm-ribbon {
@@ -556,13 +580,13 @@
 /* ---- mobile (≤780 px): zone rows, no absolute scatter, no clipping ------ */
 
 @media (max-width: 780px) {
-  .lm-world { display: flex; flex-direction: column; }
+  .lm-world { display: flex; flex-direction: column; overflow-y: auto; }
 
   /* zone 1 · opponent dominates the top ~45% */
   /* z-index 5: the zone carries the fixed Talk button + chat sheet — they
      must paint above the quiet row (z 3) and every other zone */
   .lm-opponent-zone { position: relative; z-index: 5; flex: none; }
-  .lm-opponent { position: relative; left: auto; top: auto; transform: none; height: 42dvh; max-height: 340px; margin: 4px auto 0; }
+  .lm-opponent { position: relative; left: auto; top: auto; transform: none; height: 28dvh; max-height: 250px; margin: 2px auto 0; }
   .lm-opponent--avatar { height: auto; width: min(46vw, 220px); }
   .lm-opponent--ai .lm-opponent__portrait { position: relative; left: auto; top: auto; transform: none; width: 44vw; max-width: 200px; margin: 10px auto 0; }
   .lm-plaque { position: relative; left: auto; top: auto; transform: none; margin: 6px auto 0; max-width: 88vw; }
@@ -571,7 +595,7 @@
   .lm-chat-bubble { position: absolute; left: auto; right: 8px; top: 34%; max-width: 46vw; font-size: 12.5px; padding: 8px 10px; }
 
   /* zone 2 · negotiation state stacked */
-  .lm-state-zone { position: relative; z-index: 2; flex: none; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 16px; }
+  .lm-state-zone { position: relative; z-index: 2; flex: none; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 16px; }
   .lm-offer--theirs { position: relative; left: auto; top: auto; transform: none; width: 168px; margin-top: 2px; animation: none; }
   .lm-offer--theirs .lm-offer__v { font-size: 38px; }
   .lm-rail { position: relative; left: auto; top: auto; transform: none; width: 92vw; max-width: 640px; }
@@ -580,6 +604,8 @@
   .lm-offer--mine .lm-offer__v { font-size: 20px; }
   .lm-asset { display: none; } /* world decoration yields the stage on mobile */
   .lm-dossier { position: relative; left: auto; top: auto; width: 92vw; max-width: 640px; }
+  .lm-dossier summary { font-size: 10px; }
+  .lm-dossier[open] > section { max-height: 180px; }
 
   /* zone 3 · action band, persistent bottom interaction */
   .lm-action-zone { position: relative; z-index: 3; flex: none; display: flex; align-items: flex-end; gap: 10px; padding: 0 16px; justify-content: center; }
@@ -593,7 +619,7 @@
   .lm-accept--crossed { position: relative; right: auto; bottom: auto; }
 
   /* quiet row */
-  .lm-quiet-row { position: relative; left: auto; bottom: auto; transform: none; padding: 10px 16px calc(env(safe-area-inset-bottom, 0px) + 10px); gap: 8px; }
+  .lm-quiet-row { position: relative; left: auto; bottom: auto; transform: none; padding: 6px 16px calc(env(safe-area-inset-bottom, 0px) + 10px); gap: 8px; }
   .lm-world [data-testid="time-warning"] { position: relative; right: auto; bottom: auto; order: 10; }
 
   /* communication: Talk stays bottom-left; compose is a bottom sheet */

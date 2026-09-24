@@ -193,9 +193,18 @@ test('canvas checkpoint: live-match screen vs design boards', async ({ browser }
     await mobilePage.goto(`/play?resume=${matchId}`);
     await expect(mobilePage.getByTestId('match-status')).toContainText('ACTIVE', { timeout: 25_000 });
     await expect(mobilePage.locator('.lm-composer')).toBeVisible();
-    // D-24 #6: no horizontal scroll at 390 px.
-    const hasHScroll = await mobilePage.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
-    expect(hasHScroll).toBe(false);
+    // D-24 #6 / BB-232: the composition fits the viewport — no scroll in
+    // either axis at the reference viewports.
+    const mobileScroll = await mobilePage.evaluate(() => ({
+      h: document.documentElement.scrollHeight > document.documentElement.clientHeight + 1,
+      w: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+    }));
+    expect(mobileScroll).toEqual({ h: false, w: false });
+    const desktopScroll = await activePage.evaluate(() => ({
+      h: document.documentElement.scrollHeight > document.documentElement.clientHeight + 1,
+      w: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+    }));
+    expect(desktopScroll).toEqual({ h: false, w: false });
     // D-26 #4: chat is ambient on mobile until Talk opens the bottom sheet.
     await expect(mobilePage.locator('.lm-chat-sheet')).toBeHidden();
     // The Next dev-overlay portal sits in the bottom-left corner in dev
@@ -206,8 +215,8 @@ test('canvas checkpoint: live-match screen vs design boards', async ({ browser }
     });
     await mobilePage.getByRole('button', { name: 'Open chat' }).click();
     await expect(mobilePage.locator('.lm-chat-sheet')).toBeVisible();
-    await mobilePage.screenshot({ path: path.join(OUT_DIR, 'live-match-mobile.png') });
-    await mobilePage.screenshot({ path: path.join(OUT_DIR, 'live-match-mobile-chat-sheet.png') });
+    await mobilePage.screenshot({ path: path.join(OUT_DIR, 'live-match-mobile.png'), fullPage: true });
+    await mobilePage.screenshot({ path: path.join(OUT_DIR, 'live-match-mobile-chat-sheet.png'), fullPage: true });
     await mobileCtx.close();
 
     // ACCEPTANCE slice (sequence E, LMD-06): mid-hold capture; early release
