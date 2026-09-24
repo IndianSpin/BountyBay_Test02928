@@ -9,6 +9,8 @@ import { expect, test } from '@playwright/test';
 test('a completed match reviews into deterministic moments and a linked timeline', async ({ page }) => {
   await page.goto('/');
   await page.getByTestId('dev-play-button').click();
+  await expect(page).toHaveURL(/\/bay/);
+  await page.getByTestId('bay-play-ranked').click();
   await expect(page).toHaveURL(/\/play/);
 
   // quickest terminal match: the Closer accepts any legal crossing offer

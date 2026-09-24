@@ -30,6 +30,8 @@ function captureEvents(page: Page): { events: CapturedEvent[] } {
 async function createChallenge(page: Page): Promise<string> {
   await page.goto('/');
   await page.getByTestId('dev-play-button').click();
+  await expect(page).toHaveURL(/\/bay/);
+  await page.getByTestId('bay-play-ranked').click();
   await expect(page).toHaveURL(/\/play/);
   await page.getByRole('button', { name: 'Create challenge' }).click();
   const shareInput = page.locator('input.share-input');
@@ -129,6 +131,8 @@ test('rematch_clicked fires on the AI-mode REMATCH', async ({ browser }) => {
 
   await page.goto('/');
   await page.getByTestId('dev-play-button').click();
+  await expect(page).toHaveURL(/\/bay/);
+  await page.getByTestId('bay-play-ranked').click();
   await expect(page).toHaveURL(/\/play/);
   await page.getByTestId('persona-closer').click();
   await expect(page.getByTestId('ready-button')).toBeVisible({ timeout: 15_000 });
@@ -162,6 +166,8 @@ test('ErrorCatcher sends client_exception with sanitized meta and no query strin
   const captured = captureEvents(page);
   await page.goto('/');
   await page.getByTestId('dev-play-button').click();
+  await expect(page).toHaveURL(/\/bay/);
+  await page.getByTestId('bay-play-ranked').click();
   await expect(page).toHaveURL(/\/play/);
   // force a fake query on the URL to prove the path is the pathname only
   await page.goto(`/play?practice=1&secret=shouldnotappear`);

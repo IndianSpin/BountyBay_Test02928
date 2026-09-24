@@ -11,6 +11,8 @@
 import { AI_PERSONAS, type PersonaKey } from '@bounty-bay/ai';
 import { useEffect, useState } from 'react';
 import { trackEvent } from '../../lib/analytics';
+import HubBar from '../../components/hub/hub-bar';
+import '../../components/hub/hub.css';
 import { useApiToken } from '../../hooks/use-api-token';
 import MatchScreen from './match-screen';
 
@@ -247,9 +249,15 @@ export default function PlayPage() {
 
   return (
     <main className="home">
+      <HubBar active="play" me={{}} />
       <div className="panel">
-        <p className="home-kicker">Bounty Bay</p>
-        <h2>Friend challenge</h2>
+        <p className="home-kicker">PLAY · choose your battle</p>
+        <h2>PLAY A PERSON</h2>
+        {/* the ranked row is a P1-M2 slot — labelled, never functional */}
+        <p className="home-sub">
+          <span className="bay-slot__soon">SOON</span> Ranked matchmaking opens with the ranked milestone.
+        </p>
+        <h2 className="play-section">CHALLENGE SOMEONE · FRIEND</h2>
         {phase === 'joining' && <p>Joining challenge…</p>}
         {phase === 'waiting' && challenge && (
           <>
