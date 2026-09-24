@@ -270,3 +270,33 @@ Claim levels ride on every field so UI/API/data can distinguish L1–L4
   (moment headline/detail when available), certainty STATES.
 - The 27 knowledge seeds are founder-REVIEWED (D-42, reviewed_by
   founder, 2026-09-24) and are citable by the composer.
+
+## Practice system (IN-6)
+
+Version `practice-system-0.1.0`, deterministic, pure. Drills train
+isolated decisions — WHAT WOULD YOU DO? — with scenario state (role,
+reservation value, opponent's standing offer, time remaining, chips,
+round), private info, options, teaching objective, concept tags,
+explanation, sources, and an optional benchmark (always null until
+IN-8 fills it).
+
+**No-universal-answer rule, enforced structurally:** every drill needs
+≥ 2 options with pairwise DISTINCT outcomes, and the schema has no
+correctness field — no option can be marked "the answer", and
+validation rejects anything that smuggles one in.
+
+**Micro-lessons** are 1–5 minutes (validated), structured L1/L3/L4
+steps, cited from the knowledge base, and carry `callableFrom` — the
+observation types whose Game Review moments may surface them.
+
+**Practice recommendations** map all 26 observation types to at least
+one drill and at most one DEC-025 persona (keys as strings —
+anchor/grinder/closer/wall/mirror; the intelligence package never
+imports packages/ai). The canonical §8 example holds:
+UNRECIPROCATED_CONCESSIONS → PLAY THE WALL (`wall`). Unknown types
+fall back deterministically to a fallback drill with no persona.
+
+**Starter set:** 10 drills + 5 micro-lessons, every source resolved
+against the founder-REVIEWED seed citations (a fabricated reference
+fails the build). Daily/skill drills and streaks are OUT until core
+drills prove useful (OQ-026); drill UI is later.
