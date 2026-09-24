@@ -65,6 +65,14 @@ IN-5 retrieval + coaching composer implemented per BB-231 / docs/18
 schema/API/domain changes; the only LLM surface is a stub seam that is
 rejected when it proposes anything. NOT starting IN-6 — awaiting ACCEPT.
 
+**MANAGER VERDICT: ACCEPT** — merged `5f1d894` (D-47). Gate: tc 0,
+unit 276, lint 0. Flag ruled: mapping relevance weights are provisional
+editorial judgments (versioned) → founder close-out batch, same class
+as OQ-025. **FOUNDER CHECKPOINT: SIGNED OFF** (founder "accept",
+2026-09-24, relayed in-session; D-47 records the gate). IN-6
+unblocking goes through the manager (pull-based tasking — I do not
+self-assign). STANDING DOWN until the IN-6 contract lands in the inbox.
+
 **FOUNDER CHECKPOINT REPORT — IN-5 retrieval + coaching composer**
 - Changed files: NEW src/mappings.ts (observation-concept-mappings
   0.1.0: all 26 observation types mapped to ontology concepts with
