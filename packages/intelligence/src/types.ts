@@ -132,6 +132,36 @@ export interface MatchObservation {
   source: 'deterministic';
 }
 
+/** Runtime list of the 26 deterministic observation types (docs/20) — the mapping store's coverage check uses it. */
+export const OBSERVATION_TYPES: readonly ObservationType[] = [
+  'STRONG_OPENING_POSITION',
+  'CONSERVATIVE_OPENING',
+  'LARGE_OPENING',
+  'UNRECIPROCATED_CONCESSION',
+  'CONSECUTIVE_UNILATERAL_CONCESSIONS',
+  'LARGEST_CONCESSION',
+  'LATE_LARGE_CONCESSION',
+  'DECLINING_CONCESSIONS',
+  'INCREASING_CONCESSIONS',
+  'FAST_CONCESSION_AFTER_RESISTANCE',
+  'LONG_HOLD',
+  'TIME_PRESSURE_EXPOSURE',
+  'HIGH_CHIP_SPEND',
+  'LOW_CHIP_SPEND',
+  'EFFICIENT_CLOSE',
+  'DEAL_NEAR_OWN_LIMIT',
+  'DEAL_NEAR_OPPONENT_LIMIT',
+  'STRONG_SURPLUS_CAPTURE',
+  'LOW_SURPLUS_CAPTURE',
+  'MISSED_STANDING_OFFER',
+  'FAILED_POSITIVE_ZOPA',
+  'DEADLOCK',
+  'TIMEOUT',
+  'FAST_CLOSE',
+  'SILENT_NEGOTIATION',
+  'OFFER_WITH_PITCH',
+];
+
 export interface PlayerAnalysis {
   playerId: PlayerId;
   features: BehaviorFeatures;

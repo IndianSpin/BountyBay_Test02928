@@ -36,7 +36,12 @@ export const ONTOLOGY_TAGS: Readonly<Record<OntologyCategory, readonly string[]>
   INTEGRATIVE: ['INTERESTS', 'MULTI_ISSUE_TRADING', 'LOGROLLING', 'CONTINGENT_AGREEMENTS', 'VALUE_CREATION'],
 };
 
-export const ALL_ONTOLOGY_TAGS: readonly string[] = Object.values(ONTOLOGY_TAGS).flat();
+/**
+ * The unique tag vocabulary (a tag may appear under several categories,
+ * e.g. ANCHORING — deduplicated here; ONTOLOGY_TAGS keeps the per-category
+ * structure).
+ */
+export const ALL_ONTOLOGY_TAGS: readonly string[] = [...new Set(Object.values(ONTOLOGY_TAGS).flat())];
 
 export function isOntologyTag(value: string): boolean {
   return ALL_ONTOLOGY_TAGS.includes(value);
