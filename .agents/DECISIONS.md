@@ -862,3 +862,14 @@ runbook + env matrix), BB-247 (Data, alpha analytics verification),
 BB-248 (feedback capture, W1 api + W2 ui after P0), BB-249 (QA,
 hosted realtime matrix + release-gate passes). BB-243 (suite stall)
 continues — it feeds release confidence.
+
+## D-65 — BB-243 ACCEPTED; QA-009 → BB-250 (2026-09-24)
+
+Suite stall root-caused: POST /ready rateLimit 30/min vs the
+BB-241-era suite's ~35 ready calls → late-suite 429s reject the second
+player's ready → matches never start (same six tests, both runs).
+BB-222 pattern fix: dev-only generous caps on match-command endpoints,
+production unchanged. Challenges (20/min) + offers (60/min) are the
+next walls — per-endpoint cap audit folded into the golden-baseline
+checklist. Tasking: BB-250 (W1, FIRST — small; unblocks release-gate
+suite confidence), then BB-245 (Clerk).
