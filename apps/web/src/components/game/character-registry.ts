@@ -52,7 +52,7 @@ const sheet = (key: string, displayName: string, epithet: string, file: string):
 
 export const CAST: Record<string, CastCharacter> = {
   goldenotter: { key: 'goldenotter', displayName: 'GOLDENOTTER', epithet: 'The Closer', kind: 'files', src: '/game/otter', cells: {} },
-  greylot: { key: 'greylot', displayName: 'GREYLOT', epithet: 'The Auctioneer', kind: 'avatar', src: '/game/ironheron.svg', cells: {} },
+  greylot: sheet('greylot', 'GREYLOT', 'The Auctioneer', 'ch-greylot.svg'),
   hogshead: sheet('hogshead', 'HOGSHEAD', 'The Wholesaler', 'ch-hogshead.svg'),
   pipquill: sheet('pipquill', 'PIP QUILL', 'The Accountant', 'ch-pipquill.svg'),
   vesperine: sheet('vesperine', 'VESPERINE', 'The Curio Dealer', 'ch-vesperine.svg'),

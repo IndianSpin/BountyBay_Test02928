@@ -10,6 +10,7 @@
 
 import { AI_PERSONAS, type PersonaKey } from '@bounty-bay/ai';
 import { useEffect, useState } from 'react';
+import { trackEvent } from '../../lib/analytics';
 import { useApiToken } from '../../hooks/use-api-token';
 import MatchScreen from './match-screen';
 
@@ -190,6 +191,9 @@ export default function PlayPage() {
   }
 
   function rematch(): void {
+    // DA-P1-SPEC §4.2: the AI-mode REMATCH path (friend mode tracks
+    // inside result-reveal instead).
+    trackEvent('rematch_clicked', token, activeMatch?.matchId ?? challenge?.matchId);
     setChallenge(null);
     setOpponentJoined(false);
     setActiveMatch(null);

@@ -11,6 +11,7 @@
 
 import { useEffect, useState } from 'react';
 import { formatPercent, formatTenthsGrouped } from '../../lib/format';
+import { trackEvent } from '../../lib/analytics';
 import ZopaBar from '../../components/zopa-bar';
 import type { MatchSnapshot } from '../../components/game/types';
 
@@ -63,6 +64,8 @@ export default function ResultReveal({
   const authHeaders = { authorization: `Bearer ${token}` };
 
   async function proposeRematch(): Promise<void> {
+    // DA-P1-SPEC §4.2: a real rematch click is observable (friend mode).
+    trackEvent('rematch_clicked', token, matchId);
     setRematchPhase('proposing');
     try {
       const res = await fetch(`${API_URL}/v1/matches/${matchId}/rematch`, {

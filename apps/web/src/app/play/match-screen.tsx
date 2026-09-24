@@ -11,6 +11,7 @@
  */
 
 import { concessionCostChips, concessionMagnitude, parseAmountTenths } from '@bounty-bay/domain';
+import { PERSONA_CHARACTER, castCharacter } from '../../components/game/character-registry';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { io, type Socket } from 'socket.io-client';
 import { formatTenthsGrouped } from '../../lib/format';
@@ -95,15 +96,38 @@ export default function MatchScreen({ matchId, token, userId, opponentJoined, on
       setServerNow(payload.serverNow);
     });
     socket.on('match:event', (payload: { events: { type: string; actorPlayerId: string | null; payload: Record<string, unknown> }[] }) => {
-      setTimeline((prev) => [
-        ...prev,
-        ...payload.events
-          .map((e) => toTimelineItem(e, userId))
-          .filter((item): item is TimelineItem => item !== null),
-      ]);
+      setTimeline((prev) => {
+        const seen = new Set(prev.map(seenSig));
+        return [
+          ...prev,
+          ...payload.events
+            .map((e) => toTimelineItem(e, userId))
+            .filter((item): item is TimelineItem => item !== null && !seen.has(seenSig(item))),
+        ];
+      });
     });
     socket.on('match:clock-sync', (payload: { serverNow: number }) => setServerNow(payload.serverNow));
     socket.emit('user:register', { userId });
+
+    // PV-Seq: the rail trail needs the full public offer history — fetch
+    // the event stream once and prepend it (deduped) to the live timeline.
+    const seenSig = (item: TimelineItem): string =>
+      `${item.kind}|${item.actor}|${item.amountTenths ?? ''}|${item.text}`;
+    void fetch(`${API_URL}/v1/matches/${matchId}/events`, { headers: { authorization: `Bearer ${token}` } })
+      .then((res) => (res.ok ? (res.json() as Promise<{ events?: { type: string; actorPlayerId: string | null; payload: Record<string, unknown> }[] }>) : null))
+      .then((body) => {
+        if (cancelled || !body?.events) return;
+        setTimeline((prev) => {
+          const seen = new Set(prev.map(seenSig));
+          const fresh = body.events!
+            .map((e) => toTimelineItem(e, userId))
+            .filter((item): item is TimelineItem => item !== null && !seen.has(seenSig(item)));
+          return [...fresh, ...prev];
+        });
+      })
+      .catch(() => {
+        /* the trail is best-effort presentation */
+      });
 
     async function refreshSnapshot(): Promise<void> {
       const res = await fetch(`${API_URL}/v1/matches/${matchId}`, { headers: { authorization: `Bearer ${token}` } });
@@ -323,6 +347,11 @@ export default function MatchScreen({ matchId, token, userId, opponentJoined, on
 
   if (view.status === 'CREATED' || view.status === 'READY') {
     const aiOpponent = snapshot.aiOpponents[0] ?? null;
+    // PV-Seq frame 01: the opponent card first — a person, not a queue
+    // result — then the deal, then my role. No stats wall.
+    const personaCharacter = aiOpponent !== null ? castCharacter(PERSONA_CHARACTER[aiOpponent.personaKey as keyof typeof PERSONA_CHARACTER]) : castCharacter('goldenotter');
+    const opponentName = aiOpponent?.displayName ?? snapshot.handles[opponent.playerId] ?? 'Goldenotter';
+    const scenarioTitle = snapshot.scenario?.title ?? 'The Deal';
     return (
       <main>
         <span aria-live="polite" className="sr-only">{announcement}</span>
@@ -330,12 +359,40 @@ export default function MatchScreen({ matchId, token, userId, opponentJoined, on
           <MerchantSceneStaging />
         </div>
         <div className="world-overlay">
-          <div className="staging-card">
-            <h2>{aiOpponent ? `${aiOpponent.displayName} has taken the table` : 'Waiting for both players to be ready'}</h2>
-            <p>
+          <div className="staging-card pv-found" data-testid="opponent-found">
+            <p className="pv-found__k">OPPONENT FOUND · {aiOpponent ? 'PRACTICE' : 'FRIENDLY'}</p>
+            <div className="pv-found__card">
+              <div className="pv-found__face" aria-hidden="true">
+                {personaCharacter.kind === 'files' ? (
+                  <img src={`${personaCharacter.src}-smug.svg`} alt="" />
+                ) : (
+                  <div
+                    className="pv-found__sheet"
+                    style={{ backgroundImage: `url('${personaCharacter.src}')`, backgroundPositionX: 'calc((8 + .5) / 15 * 100%)' }}
+                  />
+                )}
+              </div>
+              <div className="pv-found__id">
+                <span className="pv-found__name">{opponentName}</span>
+                <span className="pv-found__as">{aiOpponent ? personaCharacter.displayName : 'Goldenotter'}</span>
+                <span className="pv-found__stats">
+                  {aiOpponent
+                    ? 'practice match · unrated'
+                    : opponentStats?.games !== undefined && opponentStats.games > 0
+                      ? `${opponentStats.games} games`
+                      : 'first deal together'}
+                </span>
+              </div>
+            </div>
+            <p className="pv-found__deal">
+              {scenarioTitle.toUpperCase()} · you are the {view.myRole}
+            </p>
+            <p className="pv-found__social">
               {aiOpponent
-                ? 'Practice match · unrated. Ready up and the deal opens.'
-                : `Your opponent has ${view.status === 'READY' ? 'readied up' : 'joined'}. The deal opens when both of you are ready.`}
+                ? `${personaCharacter.displayName} — ${personaCharacter.epithet} — has taken the table.`
+                : view.status === 'READY'
+                  ? 'Your opponent has readied up.'
+                  : 'Your opponent has joined.'}
             </p>
             <button type="button" className="counter-btn" data-testid="ready-button" onClick={readyUp} disabled={pending}>
               {view.status === 'READY' ? 'Waiting for opponent…' : 'Ready'}
@@ -428,7 +485,7 @@ function toTimelineItem(
       const isOpening = event.payload.isOpening === true;
       const cost = event.payload.concessionCostChips as number;
       const text = `${actor === 'me' ? 'You' : 'Opponent'} offered ${amount}${isOpening ? ' (opening · free)' : ` (−${cost} chips)`}`;
-      return { kind: event.type, text, actor };
+      return { kind: event.type, text, actor, amountTenths: event.payload.amountTenths as number, isOpening: event.payload.isOpening === true };
     }
     case 'MESSAGE_SENT':
       return { kind: event.type, text: `${String(event.payload.body)}`, actor };

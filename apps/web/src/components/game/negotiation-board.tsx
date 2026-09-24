@@ -3,6 +3,19 @@
 import { parseAmountTenths } from '@bounty-bay/domain';
 
 import { formatTenthsGrouped } from '../../lib/format';
+import type { CharacterPose } from './character-registry';
+
+/** PV-Comms: quick lines are PERFORMED — a pose per shared line
+ *  (signature gestures per character are art-level, not exported). */
+const QUICK_LINE_POSES: Record<string, CharacterPose> = {
+  'why?': 'speaking',
+  'too far.': 'smug',
+  "i'm holding.": 'idle',
+  'you need to move.': 'speaking',
+  "we're close.": 'offer',
+  'is that final?': 'thinking',
+  'what would get this done?': 'speaking',
+};
 
 /**
  * NegotiationBoard (BB-216, founder D-24 + D-26): the first-person live
@@ -95,10 +108,11 @@ export default function NegotiationBoard(props: {
   const atFloor = (view.myTurn ? me : opponent).clockMultiplier <= 0.3005;
 
   // Character reactions (canvas v2, GO2-Animation key states; D-24 #2,
-  // D-26 #3): key-pose swap per state — the rig in-betweening lives in
-  // the canvas, the exported poses are what ships. Conversation first:
-  // while the opponent's latest message bubbles beside them they hold
-  // the speaking pose; then the negotiation state speaks.
+  // D-26 #3, PV-Comms): key-pose swap per state — the rig in-betweening
+  // lives in the canvas, the exported poses are what ships. Conversation
+  // first: while the opponent's latest message bubbles beside them they
+  // hold the speaking pose (quick lines get their own pose); then the
+  // negotiation state speaks.
   const lastMessage = props.messages.length > 0 ? props.messages[props.messages.length - 1]! : null;
   const opponentPose =
     view.status === 'PAUSED'
@@ -108,12 +122,34 @@ export default function NegotiationBoard(props: {
         : !view.myTurn
           ? 'thinking'
           : lastMessage !== null && lastMessage.actor === 'opponent'
-            ? 'speaking'
+            ? (QUICK_LINE_POSES[lastMessage.text.toLowerCase()] ?? 'speaking')
             : crossed
               ? 'smug'
               : opponent.latestOfferTenths !== null
                 ? 'offer'
                 : 'idle';
+
+  // PV-Seq: the public trail — every offer in order, both sides. The
+  // board never interprets it; the player does (the words vs the trail
+  // sit on screen together and the game never connects them).
+  const offers = props.timeline
+    .filter((item) => item.kind === 'OFFER_SUBMITTED' && item.amountTenths !== undefined)
+    .map((item) => ({ amountTenths: item.amountTenths!, actor: item.actor, isOpening: item.isOpening === true }));
+  const myTrail = offers.filter((o) => o.actor === 'me').map((o) => o.amountTenths);
+  const theirTrail = offers.filter((o) => o.actor === 'opponent').map((o) => o.amountTenths);
+  const openingOffers = offers.filter((o) => o.isOpening);
+
+  // PV-Juice INTENSITY 6: "close" is computed ONLY from public offers
+  // (the warm light never hints at anyone's limit).
+  const myLastTrail = myTrail.length > 0 ? myTrail[myTrail.length - 1]! : null;
+  const theirLastTrail = theirTrail.length > 0 ? theirTrail[theirTrail.length - 1]! : null;
+  const close =
+    view.status === 'ACTIVE' &&
+    !crossed &&
+    myLastTrail !== null &&
+    theirLastTrail !== null &&
+    openingOffers.length === 2 &&
+    Math.abs(myLastTrail - theirLastTrail) <= 0.2 * Math.abs(openingOffers[0]!.amountTenths - openingOffers[1]!.amountTenths);
 
   const proposed = props.composer.value.trim() !== '' ? props.composer.value : undefined;
 
@@ -135,7 +171,7 @@ export default function NegotiationBoard(props: {
     <div
       className={`lm-world ${crossed ? 'lm-world--crossed' : ''} ${ai ? 'lm-world--ai' : ''} ${
         view.myTurn && view.status === 'ACTIVE' ? 'lm-world--mine' : ''
-      }`}
+      } ${close ? 'lm-world--close' : ''}`}
       data-testid="market-world"
     >
       <FirstPersonScene spotOn={view.myTurn ? 'mine' : 'theirs'} crossed={crossed} />
@@ -204,26 +240,35 @@ export default function NegotiationBoard(props: {
           theirsTenths={opponent.latestOfferTenths}
           crossed={crossed}
           proposedTenths={proposed}
+          myTrail={myTrail}
+          theirTrail={theirTrail}
         />
         <div className="lm-myband">
-          {/* my private limit card */}
+          {/* my private limit card — MY MAX · SEALED (PV-Seq frame 02) */}
           <ConfidentialPosition limitTenths={view.myReservationValueTenths} mandate={scenario?.myNarrative} pulse={inReach} />
-          {/* my standing offer — a quiet readout, not a second plaque */}
-          <OfferPlate
-            key={mineKey}
-            kind="mine"
-            who="YOUR OFFER"
-            amountTenths={me.latestOfferTenths}
-            tag={me.latestOfferTenths === null ? 'you have not moved yet' : 'committed · cannot move back'}
-            active={view.myTurn && view.status === 'ACTIVE'}
-            crossed={crossed}
-            testId="my-standing"
-          />
         </div>
-        {/* BB-213 + BB-232: W1's private dossier (DD-M2) wired into the
-            private zone — collapsed behind a disclosure so the composition
-            fits both reference viewports (the panel is on demand; its DOM
-            and testids are untouched). Role-scoped by the API. */}
+        {/* my standing offer — a plaque at MY end of the rail (PV-Seq:
+            plaques live ON the rail; MY MAX stays the private card) */}
+        <OfferPlate
+          key={mineKey}
+          kind="mine"
+          who="YOUR OFFER"
+          amountTenths={me.latestOfferTenths}
+          tag={me.latestOfferTenths === null ? 'you have not moved yet' : 'committed · cannot move back'}
+          active={view.myTurn && view.status === 'ACTIVE'}
+          crossed={crossed}
+          testId="my-standing"
+        />
+      </section>
+
+      {/* ZONE 3 · action: the composer and the ONE seal */}
+      <section className="lm-action-zone">
+        <OfferComposer model={props.composer} />
+        <MatchActions {...props.actions} sealAmount={sealAmount} crossed={crossed} />
+        {/* BB-213 + BB-232: W1's private dossier (DD-M2) — collapsed behind
+            a disclosure (the panel is on demand; its DOM and testids are
+            untouched). In the action zone so the mobile sheet stays one
+            contiguous panel. Role-scoped by the API. */}
         {scenario !== null && (
           <details className="lm-dossier">
             <summary>
@@ -238,12 +283,6 @@ export default function NegotiationBoard(props: {
             />
           </details>
         )}
-      </section>
-
-      {/* ZONE 3 · action: the composer and the ONE seal */}
-      <section className="lm-action-zone">
-        <OfferComposer model={props.composer} />
-        <MatchActions {...props.actions} sealAmount={sealAmount} crossed={crossed} />
       </section>
 
       {/* quiet row: turn chip · clock · chips · time warning (body size) */}

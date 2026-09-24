@@ -1,5 +1,7 @@
 'use client';
 
+import { formatTenthsGrouped } from '../../lib/format';
+
 /**
  * Price rail (canvas v1): schematic positions only — the opponent's
  * reservation value is NEVER drawn pre-result (GR-002), so the rail has
@@ -12,13 +14,19 @@ export default function GapMeter({
   theirsTenths,
   crossed,
   proposedTenths,
+  myTrail = [],
+  theirTrail = [],
 }: {
   mineTenths: number | null;
   theirsTenths: number | null;
   crossed: boolean;
   /** The composer's raw value; presence only — the rail is schematic, so the ghost pin rides a fixed offset toward their pin. */
   proposedTenths?: string | null;
+  /** PV-Seq: the public offer trails (oldest first) — shown under each rail end, never interpreted. */
+  myTrail?: number[];
+  theirTrail?: number[];
 }) {
+  const format = (n: number): string => formatTenthsGrouped(n);
   let minePct = 40;
   let theirsPct = 60;
   let gapOn = false;
@@ -60,6 +68,14 @@ export default function GapMeter({
       )}
       {theirsTenths !== null && (
         <span className="lm-rail__pin lm-rail__pin--opponent" style={{ left: `${theirsPct}%` }} title="their standing offer" />
+      )}
+      {/* PV-Seq: words vs behaviour side by side — the trail is public
+          data, displayed without interpretation */}
+      {theirTrail.length > 0 && (
+        <span className="lm-rail__trail lm-rail__trail--theirs">{theirTrail.map(format).join(' → ')}</span>
+      )}
+      {myTrail.length > 0 && (
+        <span className="lm-rail__trail lm-rail__trail--mine">{myTrail.map(format).join(' → ')}</span>
       )}
     </div>
   );

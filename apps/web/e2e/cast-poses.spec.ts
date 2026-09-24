@@ -41,14 +41,16 @@ test('AI personas render through the cast character system', async ({ browser })
     expect(await sheet.getAttribute('data-pose')).toMatch(/idle|thinking|offer|speaking|smug|offline/);
     await ctx.close();
   }
-  // the Anchor fronts as the GREYLOT portrait (v3 pose set pending export)
+  // the Anchor fronts as the GREYLOT sheet (BB-235: the founder's
+  // exported pose sheet replaced the portrait)
   {
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
     const page = await ctx.newPage();
     await startPractice(page, 'anchor');
-    const avatar = page.locator('.lm-opponent--avatar .lm-opponent__avatar');
-    await expect(avatar).toBeVisible({ timeout: 15_000 });
-    expect(await avatar.getAttribute('src')).toContain('ironheron.svg');
+    const sheet = page.locator('.lm-opponent--sheet .lm-opponent__sheet');
+    await expect(sheet).toBeVisible({ timeout: 15_000 });
+    expect(await sheet.getAttribute('style')).toContain('ch-greylot.svg');
+    expect(await sheet.getAttribute('data-pose')).toMatch(/idle|thinking|offer|speaking|smug|offline/);
     await ctx.close();
   }
 });

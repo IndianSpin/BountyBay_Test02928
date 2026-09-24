@@ -25,11 +25,12 @@ export default function ConfidentialPosition({
             <rect x="1" y="6" width="10" height="8" rx="2" fill="#FFF4E8" />
             <path d="M3 6 V4 a3 3 0 0 1 6 0 V6" stroke="#FFF4E8" strokeWidth="2" fill="none" />
           </svg>
-          MY LIMIT · ONLY YOU
+          MY MAX · ONLY YOU
         </span>
         <span className="lm-limit__v num" data-testid="my-rv">
           {limitTenths !== undefined ? formatTenthsGrouped(limitTenths) : '—'}
         </span>
+        <span className="lm-limit__seal" aria-hidden="true">· SEALED</span>
       </summary>
       <div className="lm-limit__body">
         {mandate && <p>{mandate}</p>}
