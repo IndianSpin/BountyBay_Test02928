@@ -709,3 +709,15 @@ PV-Attention, PV-Comms, PV-Juice per board intent) as the new
 composition target; BB-232's fit remains the floor until it lands.
 PV-Swap and PV-Rivalry remain feature-vision (later scheduling).
 (3) Quality bar: founder reviews against the PV boards themselves.
+
+## D-52 — BB-226 DD-M3 ACCEPTED (2026-09-24)
+
+Merged. Manager gate: typecheck 0 · unit 290 · lint 0 · reveal 4/4
+(manager-run) · no migration (reveal state rides the domain snapshot +
+event stream). One integration conflict resolved during merge: the
+da-p1 test fixtures needed `verifiableFactIds` under DD-M3's
+ParticipantInput — manager-applied 2-line test fix, recorded. Doc
+proposals (docs/02 GR-028 wording, docs/07 fields + no-migration note,
+docs/08 reveal endpoint + codes + revealedFacts shape, docs/14 OQ-019
+branch) queued for manager application with the next docs batch.
+Reveal UI is a later W2 task (API-level E2E only).
