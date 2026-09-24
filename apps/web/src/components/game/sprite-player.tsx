@@ -126,6 +126,8 @@ export default function AnimatedOpponent({ character, pose }: { character: strin
     };
   }, [reduced, character, pose]);
 
-  if (reduced) return null;
+  // The layer always renders (hydration-safe — SSR and the first
+  // client paint agree) but stays at opacity 0 until a clip paints;
+  // with reduced motion nothing ever paints, which is the whole story.
   return <div ref={layerRef} className="lm-opponent__anim" aria-hidden="true" />;
 }

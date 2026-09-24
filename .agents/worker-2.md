@@ -252,3 +252,27 @@ Unit/typecheck/build: `npx vitest run` · `pnpm typecheck` · `npx next build` (
 
 ## STATUS (W2-02 done)
 Handoff statement above; debug `console.log` instrumentation confirmed removed (grep clean across `apps/web/src/components/game/*` and `apps/web/src/app/play/*`). No new UI work until the founder checkpoint verdict.
+
+---
+
+UPDATE: **STARTED — BB-256** (Golden Reference system), tip `cf3ed1d`
+(CTA_ROUTE_CONTRACT guard GREEN 2/2 + ME hub repair committed).
+
+Plan (founder's five points, Journey A first):
+1. `components/golden/journey-data.ts` — fixed reference data (BOB vs
+   KESTREL, THE RUBY COMPASS, deal at 74) + per-state animation
+   timelines (a file drives the choreography, not hardcoded delays).
+2. `components/golden/contracts.ts` — per-state contract as DATA:
+   required elements, min sizes, no-overlap pairs, forbidden patterns,
+   timeline beats, golden+live selector maps.
+3. `app/golden/[state]` — golden pages (dev-only), real art via the
+   pose/SVG + sprite-player seams, responsive 1440×900 + 390×844.
+4. `app/golden/` — dev-only gallery rendering any state from data.
+5. `e2e/golden-gate.spec.ts` — the GATE: golden + live at both
+   viewports, hard-fail on missing/overlap/clipped, timeline
+   order/timing check, side-by-side composites into
+   design-sandbox/screenshots/golden-gate/ (committed per change).
+6. Proof: hard-fail against a real clipping state, then pass on the
+   fix (probing live mobile states for a current overflow now).
+7. Repoint CANONICAL_CONTRACTS §2 + add the review-rule line to
+   DESIGN_ACCEPTANCE (flag both for manager blessing).
