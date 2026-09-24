@@ -1,0 +1,41 @@
+{
+  "_about": "The one reference match every golden state uses (SH0-SH4, RW0-RW2). Economy numbers follow the active config economy-0.3.0 (DEC-031): match bounty 100, concession budget 100, 7:00 decision budget, multiplier floor 30% reached after 120 s (GE-008/009/010). Values marked pending belong to layers that wait on a product decision.",
+  "asset": { "name": "THE RUBY COMPASS", "image": "asset-compass.svg" },
+  "me": { "handle": "BOB", "role": "buyer", "character": "pipquill", "rating": 1482, "reservationValue": 100 },
+  "opponent": { "handle": "KESTREL", "role": "seller", "character": "goldenotter", "rating": 1494, "reservationValue": 59, "deals": 131 },
+  "offers": [
+    { "by": "opponent", "value": 120 }, { "by": "me", "value": 55 }, { "by": "opponent", "value": 96 }, { "by": "me", "value": 61 },
+    { "by": "opponent", "value": 84 }, { "by": "me", "value": 67 }, { "by": "opponent", "value": 78 }, { "by": "me", "value": 72 },
+    { "by": "opponent", "value": 74, "pitch": "Seventy-four. That's the last step." }
+  ],
+  "live": {
+    "state": "my-decision-close",
+    "theirs": 74, "mine": 72, "openingGap": 65,
+    "clock": { "active": "me", "meRemaining": "6:33", "themRemaining": "6:45", "meMultiplier": "84%", "themMultiplier": "91%", "tier": "quiet" },
+    "chips": { "remaining": 88, "budget": 100 }
+  },
+  "result": {
+    "settlement": 74, "zopa": 41,
+    "share": { "me": 63, "opponent": 37 },
+    "clockMultiplier": { "me": 84, "opponent": 91 },
+    "timeUsed": { "me": "0:27", "opponent": "0:15" },
+    "chipsSpent": { "me": 12, "opponent": 15 },
+    "bounty": { "match": 100, "gross": 53.3, "net": 41.3 },
+    "rating": { "from": 1482, "to": 1500, "delta": 18 },
+    "pending": {
+      "division": { "from": "MERCHANT III", "to": "MERCHANT II", "next": "MERCHANT I", "toNext": 100, "decision": "PDR-13 divisions" },
+      "treasury": { "from": 1203.4, "to": 1244.7, "decision": "GE-004 (no persistent balance in V1) — needs a decision" },
+      "monthlyBounty": { "from": 3, "to": 4, "of": 5, "decision": "PDR-11" },
+      "confetti": { "on": "promotion", "decision": "docs/09 'No confetti by default' — needs a DEC to change" }
+    },
+    "rematch": { "line": "Good deal. Same compass — I buy this time?", "windowSec": 12 }
+  },
+  "bay": {
+    "letters": [
+      { "from": "KESTREL", "title": "KESTREL wants the other side", "sub": "Rematch · 1–0 you · “Next time I sell.”", "cta": "ANSWER", "hot": true },
+      { "from": "REVIEW", "title": "Review: The Ruby Compass", "sub": "Deal at 74 · you took 63%", "cta": "REVIEW", "hot": false }
+    ],
+    "todaysDeal": { "name": "THE BRASS ENGINE", "endsIn": "14:12:40" },
+    "liveTables": 3
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "state": "result",
+  "title": "Result — deal at 74: the deal stays on the table, the person stays in frame, the reward flies to counters",
+  "sources": ["SH1 frames 12-15", "SH4-8 result → rematch", "RW0-RW2 events 15, 18-23", "docs/09 result reveal (signature moment)", "docs/03 GE-009/GE-010 (show surplus, clock multiplier, concession spend, net)", "UF-08", "DESIGN_ACCEPTANCE §Non-negotiable 1/3/5"],
+  "fixture": "result",
+  "appRoute": "/dev/states/result",
+  "viewports": [{ "name": "desktop", "w": 1440, "h": 900 }, { "name": "mobile", "w": 390, "h": 844 }],
+  "required": [
+    { "id": "market-world", "why": "the result is a scene, not a dark panel over the scene" },
+    { "id": "result-person", "why": "the person does not leave — she stays in frame", "largest": true, "unoccluded": "top-half",
+      "zone": { "desktop": [0.55, 0.0, 1.0, 0.9], "mobile": [0.4, 0.0, 1.0, 0.45] }, "minArea": { "desktop": 0.10, "mobile": 0.05 } },
+    { "id": "result-stamp", "why": "DEAL · 74 stays on the table", "text": "DEAL · 74", "unoccluded": true },
+    { "id": "result-limit-mine", "why": "my limit turned over", "text": "100", "unoccluded": true },
+    { "id": "result-limit-theirs", "why": "her limit turned over (GR-018: only after the deal)", "text": "59", "unoccluded": true },
+    { "id": "result-range", "why": "the zone, split at the settlement", "zone": { "desktop": [0.2, 0.4, 0.75, 0.7], "mobile": [0.0, 0.15, 0.75, 0.42] } },
+    { "id": "result-headline", "why": "one sentence first", "text": "63% of the deal", "unoccluded": true },
+    { "id": "result-split", "why": "the split, large (docs/09 step 4)", "text": "YOU 63%", "unoccluded": true, "minSize": { "desktop": [260, 44], "mobile": [200, 34] } },
+    { "id": "result-ledger", "why": "GE-010 minimum: surplus, clock multiplier, concession spend, net", "unoccluded": true },
+    { "id": "reward-bounty-counter", "why": "the bounty flies into a counter", "unoccluded": true, "text": "41.3" },
+    { "id": "rating-counter", "why": "rating movement (UF-08)", "unoccluded": true, "text": "1,500" },
+    { "id": "rematch-prompt", "why": "her rematch offer, next to her", "near": "result-person" },
+    { "id": "rematch-button", "why": "primary: SWAP SIDES · REMATCH (UF-01 step 10)", "unoccluded": true, "minSize": { "desktop": [280, 60], "mobile": [300, 54] },
+      "zone": { "desktop": [0.25, 0.8, 0.75, 1.0], "mobile": [0.0, 0.8, 1.0, 1.0] } },
+    { "id": "analyze-deal", "why": "secondary: review", "unoccluded": true, "minSize": { "desktop": [44, 44], "mobile": [44, 44] } },
+    { "id": "back-to-bay", "why": "leave the tunnel", "unoccluded": true, "minSize": { "desktop": [44, 44], "mobile": [44, 44] } },
+    { "id": "treasury-counter", "pending": "GE-004", "viewports": ["desktop"], "why": "persistent treasury — waits on an economy decision" },
+    { "id": "division-bar", "pending": "PDR-13", "viewports": ["desktop"], "why": "division progress — waits on the divisions decision" }
+  ],
+  "noOverlap": [
+    ["result-headline", "result-ledger"], ["result-headline", "result-range"], ["result-split", "result-range"], ["result-ledger", "result-range"],
+    ["rematch-prompt", "result-hud"], ["result-ledger", "result-actions"], ["result-split", "result-ledger"], ["rematch-prompt", "result-headline"],
+    ["result-hud", "result-headline"], ["rematch-prompt", "result-limit-mine"], ["result-stamp", "result-limit-theirs"], ["result-stamp", "result-limit-mine"]
+  ],
+  "forbidden": {
+    "text": ["MY MAX", "Seller captured 100%", "Buyer captured 0%"],
+    "selectors": ["[role=dialog][data-testid=result]"],
+    "why": "no modal result panel; no internal RV/percentage labels"
+  },
+  "timeline": [
+    { "id": "deal-lock", "at": 0, "action": "stamp", "target": "result-stamp" },
+    { "id": "actions-available", "at": 1200, "action": "show", "target": "result-actions" },
+    { "id": "limit-mine-turns", "at": 1200, "action": "show", "target": "result-limit-mine" },
+    { "id": "limit-theirs-turns", "at": 2000, "action": "show", "target": "result-limit-theirs" },
+    { "id": "zone-fills", "at": 2800, "action": "class", "target": "result-range", "cls": "filled" },
+    { "id": "headline", "at": 3600, "action": "show", "target": "result-headline" },
+    { "id": "split", "at": 3900, "action": "show", "target": "result-split" },
+    { "id": "ledger", "at": 4500, "action": "show", "target": "result-ledger" },
+    { "id": "bounty-pop", "at": 5000, "action": "pop", "target": "result-ledger", "text": "+41.3" },
+    { "id": "bounty-fly", "at": 5100, "action": "fly", "target": "result-ledger", "to": "reward-bounty-counter", "n": 14 },
+    { "id": "bounty-count", "at": 5500, "action": "count", "target": "bountyV", "from": 0, "to": 41.3, "dur": 900, "decimals": 1 },
+    { "id": "rating-pop", "at": 6400, "action": "pop", "target": "rating-counter", "text": "+18" },
+    { "id": "rating-count", "at": 6400, "action": "count", "target": "ratingV", "from": 1482, "to": 1500, "dur": 900 },
+    { "id": "treasury-fly", "at": 7200, "action": "fly", "target": "reward-bounty-counter", "to": "treasury-counter", "n": 8, "pending": "GE-004" },
+    { "id": "treasury-count", "at": 7600, "action": "count", "target": "treasuryV", "from": 1203.4, "to": 1244.7, "dur": 800, "decimals": 1, "pending": "GE-004" },
+    { "id": "division-fill", "at": 7800, "action": "fill", "target": "division-bar", "to": 100, "pending": "PDR-13" },
+    { "id": "promotion", "at": 8600, "action": "show", "target": "promotion-banner", "pending": "PDR-13" },
+    { "id": "confetti", "at": 8700, "action": "confetti", "pending": "DEC confetti (docs/09)" },
+    { "id": "promotion-out", "at": 10400, "action": "hide", "target": "promotion-banner", "pending": "PDR-13" },
+    { "id": "rematch-offer", "at": 9200, "action": "clip", "target": "result-person", "character": "goldenotter", "clip": "rematch", "loop": true },
+    { "id": "rematch-card", "at": 9300, "action": "show", "target": "rematch-prompt" }
+  ]
+}

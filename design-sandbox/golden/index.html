@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Golden reference — Bounty Bay</title>
+<link rel="stylesheet" href="golden.css">
+<style>
+body { overflow: auto; padding: 28px; background: var(--surface-world-deep); }
+h1 { font-family: var(--font-world); font-weight: 800; font-size: 34px; margin: 0; color: var(--brand-gold); }
+p.lead { max-width: 900px; color: var(--ink-on-dark); line-height: 1.5; }
+.state { margin: 28px 0; padding: 18px; border-radius: 18px; background: var(--surface-elevated); border: 2px solid rgba(243,238,221,.18); }
+.state h2 { margin: 0 0 4px; font-family: var(--font-world); font-weight: 800; }
+.state .links a { display: inline-block; margin: 6px 8px 12px 0; padding: 6px 12px; border-radius: 10px; background: var(--surface-interactive); color: var(--ink-on-dark); text-decoration: none; font-weight: 700; font-size: 13px; }
+.state .links a.hot { background: var(--brand-gold); color: var(--ink-on-gold); }
+.frames { display: flex; gap: 18px; align-items: flex-start; flex-wrap: wrap; }
+.frame { border: 3px solid var(--outline-ink); border-radius: 12px; overflow: hidden; background: #000; }
+.frame iframe { border: 0; transform-origin: 0 0; }
+.d { width: 576px; height: 360px; } .d iframe { width: 1440px; height: 900px; transform: scale(.4); }
+.m { width: 156px; height: 338px; border-radius: 18px; } .m iframe { width: 390px; height: 844px; transform: scale(.4); }
+</style>
+</head>
+<body>
+<h1>Golden reference — Bounty Bay</h1>
+<p class="lead">Each state below is the design, built as a page: the app's own colours and fonts, the character art and animation sheets it ships, and the reference match (BOB vs KESTREL, THE RUBY COMPASS, deal at 74). Its contract (contracts/*.json) lists what must be on screen, where, how big, what must never overlap or be covered, and the timeline. The checker enforces it: <code>node design-sandbox/golden/check/golden-check.mjs</code>. <b>“Buildable now”</b> shows only what the canonical docs already allow; <b>“With pending decisions”</b> adds the layers that wait on a founder decision (tagged in red).</p>
+<div id="list"></div>
+<script>
+const S = [['live-match', 'Live match — my decision, the gap is small'], ['result', 'Result — deal at 74'], ['bay', 'The Bay — after the deal']];
+document.getElementById('list').innerHTML = S.map(([id, t]) => `<section class="state"><h2>${t}</h2>
+  <div class="links"><a class="hot" href="states/${id}.html">Play from the start</a><a href="states/${id}.html?t=end">Final state</a>
+  <a href="states/${id}.html?pending=1">Play · with pending decisions</a><a href="contracts/${id}.json">Contract</a></div>
+  <div class="frames"><div class="frame d"><iframe src="states/${id}.html?t=end" title="${t} desktop"></iframe></div>
+  <div class="frame m"><iframe src="states/${id}.html?t=end" title="${t} mobile"></iframe></div>
+  <div class="frame d"><iframe src="states/${id}.html?t=end&pending=1" title="${t} desktop with pending"></iframe></div></div></section>`).join('');
+</script>
+</body>
+</html>
