@@ -1168,3 +1168,14 @@ GREEN. The Product Health Matrix now has ZERO N cells: every journey
 state is evidence-backed on desktop and mobile. Remaining non-GREEN:
 SH4 result VISUAL (fixed in code, founder review pending) and the
 profile-surface YELLOW (BB-266 in flight).
+
+## D-88 — BB-267 ACCEPTED (2026-09-24)
+
+Review-envelope findings resolved: QA's named fields were a name
+mismatch — surplusShareCaptured / settlementTenths / totalActiveMs
+are FILLED from authoritative state (null only where data genuinely
+doesn't exist; documented in docs/20). Real defect fixed: RESULT
+moment eventRefs was empty — curateReview now takes a terminalEventRef
+(curation 0.2.0), buildGameReview threads the terminal event. One-line
+API follow-up (W1's match-routes: pass the terminal sequence) → BB-269.
+Gate: tc 0, unit 318, lint 0.
