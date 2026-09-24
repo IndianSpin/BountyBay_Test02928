@@ -348,3 +348,12 @@ Gate: golden-check --target app --states result GREEN at desktop
 rematch-consent, practice-vs-ai, hold-accept, telemetry,
 review-flow, cta-route-map); typecheck 0; lint clean. Side-by-sides
 committed in design-sandbox/golden/check/out/.
+
+---
+
+UPDATE: **G-1 + G-2 ACCEPTED — merged (d2e9df7)**. The rebuilt result
+passes golden-check 76/76 at both viewports; the dark-modal SH4
+failure is gone; gallery route live; E2E 15/15. W1's friend-match
+spec-body update flagged for W1's blessing. design-sandbox/** is now
+eslint-excluded (founder tooling). G-3 (live match to golden) opens
+after the founder's G-2 review — standing down until then.
