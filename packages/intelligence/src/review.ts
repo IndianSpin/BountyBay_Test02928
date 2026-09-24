@@ -51,6 +51,10 @@ export function buildGameReview(
   if (!player) {
     throw new Error(`player ${playerId} is not a participant of match ${state.matchId}`);
   }
+  // Terminal event sequence for the RESULT moment's timeline linkage (BB-267).
+  const terminal = events.find(
+    (event) => event.type === 'OFFER_ACCEPTED' || event.type === 'WALKED_AWAY' || event.type === 'TIMED_OUT' || event.type === 'MATCH_ABORTED',
+  );
   return {
     version: GAME_REVIEW_VERSION,
     curationVersion: REVIEW_CURATION_VERSION,
@@ -59,7 +63,7 @@ export function buildGameReview(
     matchId: state.matchId,
     playerId,
     outcome: player.features.outcome,
-    moments: curateReview(player.features, player.observations),
+    moments: curateReview(player.features, player.observations, terminal?.sequence ?? null),
     timeline: buildTimeline(state, events),
   };
 }

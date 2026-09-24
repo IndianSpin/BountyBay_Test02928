@@ -21,69 +21,66 @@ REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
   (domain, config, contracts) — flag breakage in others' files, don't fix
   them silently.
 
-## CURRENT TASK — W3-07 / BB-258: post-match progress payload
-(contract in ~/projects/bounty-control/inbox/worker-3.md; D-76 BB-257
-merged → dependency satisfied)
+## CURRENT TASK — W3-08 / BB-267: review-envelope nulls + RESULT eventRefs
+(contract in ~/projects/bounty-control/inbox/worker-3.md; QA BB-206
+INFO, D-86 functionality-first window)
 
 **Plan (before-code contract):**
-- Objective: engine-side computation + payload spec for the second
-  Journey B RED — deterministic post-match progress for the result
-  screen, built from the existing IN-3 profile + IN-6 practice data:
-  training history (profile matchCount + confidence band +
-  band transition), personal records (best surplus capture, fastest
-  close, longest hold, largest single concession — each with the
-  matchId they came from), skill observations (this match's
-  observations mapped to drills/persona/lessons via the practice
-  store), active training goal (coaching-state focus + label), AI
-  mastery (per-persona matches/deals/deal rate/avg surplus capture/
-  current deal streak, plus an overall AI row).
-- Files: NEW src/post-match-progress.ts (post-match-progress-0.1.0);
-  index.ts exports; NEW tests/post-match-progress.test.ts; docs/20
-  "Post-match progress (BB-258)" section = the payload spec (my lane).
-- Out of scope: the UI seam (W2's, coordinated via the manager),
-  persistence (the payload is computed on demand from stored rows —
-  no schema change), rating/cohorts (P1-M2/IN-8), any LLM.
-- Tests (AGENTS.md): valid (full payload per contract; band
-  transitions FIRST_MATCH/ADVANCED/SAME; records carry correct
-  matchIds; skill observations map through the practice store; mastery
-  rates + streaks; active goal from coaching state), invalid (aborted
-  current match, duplicate matchId, non-finite endedAt), boundary
-  (first match, human-PvP match, empty coaching state), property
-  (determinism; no clock reads — every timestamp is input data).
+- Objective: resolve the QA INFO. Investigation (QA wire capture at
+  /tmp/qa-discovery.json) shows: (a) the fields QA named —
+  surplusShareBp / settled / timeUsedMs — do NOT exist in the
+  envelope; the canonical fields surplusShareCaptured /
+  settlementTenths / totalActiveMs are FILLED from authoritative match
+  state (193 / 0 / 12 in the capture). → Mark intentional-with-reason:
+  docs/20 gets the name mapping + fill/nil rules. (b) The RESULT
+  moment genuinely has eventRefs: [] — curateReview never receives the
+  terminal event. → FIX: optional terminalEventRef parameter threaded
+  from the event stream; curation version bumps to
+  review-curation-0.2.0.
+- Files: EDIT src/curate.ts (terminalEventRef + version bump),
+  src/review.ts (buildGameReview passes the terminal event sequence),
+  tests/curate.test.ts + review.test.ts (RESULT refs + version),
+  docs/20 (name mapping + curation 0.2.0 note — my lane).
+- Out of scope: apps/api review route (worker-1's file — the route
+  should pass the terminal sequence to curateReview; FLAGGED for the
+  manager to route as a one-line follow-up), web review page rendering.
+- Tests: valid (RESULT moment carries the terminal event ref when
+  provided — deal/walk/timeout variants; absent parameter keeps []
+  backward-compatible), invalid (none — parameter is optional data),
+  boundary (ABORTED terminal ref), property (determinism preserved).
 
-## NEXT (after BB-258 ACCEPT)
-IN-7 improvement tracking (pull-based; founder IN-6 checkpoint +
-manager contract).
+## NEXT (after BB-267 ACCEPT)
+IN-7 improvement tracking (stabilization exit pending).
 
-## STATUS — W3-07 READY FOR REVIEW (2026-09-24)
-Post-match progress payload implemented per BB-258. Evidence: 107/107
-intelligence tests (7 new); full non-db suite 316 passed / 81 db-gated
-skipped; typecheck clean; lint clean. No schema/API/domain changes.
-NOT starting IN-7 — awaiting ACCEPT.
+## STATUS — W3-08 READY FOR REVIEW (2026-09-24)
+BB-267 resolved. Evidence: 109/109 intelligence tests (2 new); full
+non-db suite 318 passed / 81 db-gated skipped; typecheck clean; lint
+clean. NOT starting IN-7 — awaiting ACCEPT.
 
-**FOUNDER CHECKPOINT REPORT — post-match progress (BB-258)**
-- Changed files: NEW src/post-match-progress.ts
-  (post-match-progress-0.1.0: buildPostMatchProgress — profile
-  recomputed including the current match; trainingHistory with band
-  transitions FIRST_MATCH/ADVANCED/SAME; personalRecords with matchIds;
-  skillObservations mapped through the practice store; activeTrainingGoal
-  from structured coaching state; aiMastery overall + per-persona with
-  deal rates, avg surplus capture, streaks), index exports; NEW
-  tests/post-match-progress.test.ts; docs/20 "Post-match progress
-  (BB-258)" section = the payload spec for the result screen (my lane).
-- Behavior: deterministic, clock-free (every timestamp is input data);
-  guards reject ABORTED current match, non-finite endedAt, duplicate
-  matchIds; human-PvP matches (personaKey null) count toward the
-  profile but not AI mastery; nothing persists — computed on demand.
-- Tests: valid (full payload, band transitions ×3, records carry the
-  right matchIds, skill observations → drills/persona/lessons, mastery
-  rates + streaks, active goal from focus), invalid (aborted, NaN,
-  duplicate id), boundary (first match, empty history, human-PvP, no
-  focus), property (determinism on identical inputs, no clock reads).
-- Unresolved / flags: (a) the UI seam is W2's — the payload spec in
-  docs/20 is what the result screen should show; surface coordination
-  goes through the manager; (b) PRODUCT_HEALTH "Profile/training
-  update" row is the manager's to flip on ACCEPT (engine now exists).
+**FOUNDER CHECKPOINT REPORT — review-envelope nulls (BB-267)**
+- Changed files: EDIT src/curate.ts (curateReview gains an optional
+  terminalEventRef; the RESULT moment now carries it — curation bumps
+  to review-curation-0.2.0), src/review.ts (buildGameReview passes the
+  terminal event sequence from the stream), tests/curate.test.ts +
+  review.test.ts (RESULT refs for deal/walk/timeout + backward
+  compatibility), docs/20 (name mapping + fill/nil rules + 0.2.0 note —
+  my lane).
+- Behavior: (a) the three "null" fields QA named (surplusShareBp /
+  settled / timeUsedMs) do not exist in the envelope — the canonical
+  fields surplusShareCaptured / settlementTenths / totalActiveMs are
+  filled from the authoritative match state and null only where the
+  data genuinely does not exist (no deal → no settlement/surplus);
+  documented with the mapping in docs/20. (b) RESULT moment eventRefs
+  now point at the terminal event (accept/walk/timeout/abort) when the
+  caller supplies it — timeline links can render for the RESULT
+  moment too; omitted parameter keeps [] (backward compatible).
+- Tests: valid (RESULT refs = terminal seq for every outcome; ref
+  exists in the timeline; version const 0.2.0), boundary (parameter
+  omitted → []), property (determinism preserved).
+- Unresolved / flags: the API review route (apps/api, worker-1's file)
+  should pass the terminal sequence into curateReview so the served
+  envelope picks the fix up — one-line follow-up, FLAGGED for manager
+  routing (the package already enables it).
 - No canonical spec change beyond docs/20 (W3's working spec).
 
 ## PRODUCT ASSUMPTIONS (record before building)
@@ -128,6 +125,8 @@ NOT starting IN-7 — awaiting ACCEPT.
   error).
 
 ## COMPLETED (record)
+- W3-07 post-match progress (BB-258): ACCEPTED + merged (D-78,
+  98404cb); matrix YELLOW pending W2 BB-262 seam.
 - W3-06 AI table talk: ACCEPTED + merged (D-74, 05bff7f); six-stage
   deterministic pipeline, matrix YELLOW pending BB-257 wiring (now
   wired, D-76).

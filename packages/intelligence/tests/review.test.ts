@@ -78,6 +78,31 @@ describe('game review (IN-2)', () => {
     expect(abortReview.timeline.at(-1)!.kind).toBe('ABORTED');
   });
 
+  it('fills the RESULT moment refs from the terminal event for every outcome (BB-267)', () => {
+    const match = dealMatch();
+    const terminal = match.events.find((e) => e.type === 'OFFER_ACCEPTED')!;
+    const review = reviewOf(match, BUYER_ID);
+    expect(review.moments[0]!.kind).toBe('RESULT');
+    expect(review.moments[0]!.eventRefs).toEqual([terminal.sequence]);
+    // the ref points at a real timeline entry
+    expect(review.timeline.map((e) => e.seq)).toContain(terminal.sequence);
+
+    const walked = play((commit) => {
+      readyBoth(commit);
+      commit({ kind: 'WALK_AWAY', playerId: BUYER_ID, now: START_NOW + 1000 });
+    });
+    const walkTerminal = walked.events.find((e) => e.type === 'WALKED_AWAY')!;
+    expect(reviewOf(walked, BUYER_ID).moments[0]!.eventRefs).toEqual([walkTerminal.sequence]);
+
+    const timed = play((commit, api) => {
+      readyBoth(commit);
+      commit({ kind: 'OFFER', playerId: BUYER_ID, offerId: api.offer(1), amountTenths: 500, now: START_NOW + 1000 });
+      commit({ kind: 'TIMEOUT', playerId: SELLER_ID, now: START_NOW + 91_000 });
+    });
+    const timeoutTerminal = timed.events.find((e) => e.type === 'TIMED_OUT')!;
+    expect(reviewOf(timed, SELLER_ID).moments[0]!.eventRefs).toEqual([timeoutTerminal.sequence]);
+  });
+
   it('rejects a match that is not complete', () => {
     const active = play((commit, api) => {
       readyBoth(commit);

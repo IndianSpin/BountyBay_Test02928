@@ -1,17 +1,17 @@
 /**
- * Game Review curation (IN-2, DEC-028, docs/20 "Review curation").
- *
  * Deterministic selection of the 1–5 most important moments of a match,
  * with objective game-language copy built from measurements. Pure — no
  * LLM, no interpretation. Every statement is a Level 1 objective fact
  * (docs/18 §2): numbers come from the feature engine, phrasing is fixed
- * per type. Version: review-curation-0.1.0.
+ * per type. Version: review-curation-0.2.0 (0.2.0: the RESULT moment
+ * carries the terminal event reference when the caller supplies it —
+ * BB-267).
  */
 
 import { formatTenths } from '@bounty-bay/domain';
 import type { BehaviorFeatures, MatchObservation, ObservationType } from './types';
 
-export const REVIEW_CURATION_VERSION = 'review-curation-0.1.0';
+export const REVIEW_CURATION_VERSION = 'review-curation-0.2.0';
 
 export interface ReviewMoment {
   kind: 'RESULT' | ObservationType;
@@ -57,8 +57,13 @@ function pct(fraction: number): number {
   return Math.round(fraction * 100);
 }
 
-export function curateReview(features: BehaviorFeatures, observations: MatchObservation[]): ReviewMoment[] {
-  const moments: ReviewMoment[] = [resultMoment(features)];
+export function curateReview(
+  features: BehaviorFeatures,
+  observations: MatchObservation[],
+  /** Terminal event sequence (accept/walk/timeout/abort) — fills the RESULT moment's refs (BB-267). */
+  terminalEventRef: number | null = null,
+): ReviewMoment[] {
+  const moments: ReviewMoment[] = [resultMoment(features, terminalEventRef)];
 
   // The RESULT moment already states the outcome facts; matching
   // observation moments would duplicate it.
@@ -84,13 +89,14 @@ export function curateReview(features: BehaviorFeatures, observations: MatchObse
   return moments;
 }
 
-function resultMoment(features: BehaviorFeatures): ReviewMoment {
+function resultMoment(features: BehaviorFeatures, terminalEventRef: number | null): ReviewMoment {
+  const refs = terminalEventRef !== null ? [terminalEventRef] : [];
   if (features.outcome === 'DEAL' && features.surplusShareCaptured !== null) {
     return {
       kind: 'RESULT',
       headline: `YOU CAPTURED ${pct(features.surplusShareCaptured)}%`,
       detail: `Agreement reached at ${formatTenths(features.settlementTenths ?? 0)} with ${features.chipsRemaining} chips remaining.`,
-      eventRefs: [],
+      eventRefs: refs,
       measurements: {
         surplusShareCaptured: features.surplusShareCaptured,
         settlementTenths: features.settlementTenths ?? 0,
@@ -103,7 +109,7 @@ function resultMoment(features: BehaviorFeatures): ReviewMoment {
       kind: 'RESULT',
       headline: 'TIME RAN OUT',
       detail: `The decision budget expired after ${Math.round(features.totalActiveMs / 1000)}s of active thinking. Zero bounty for both.`,
-      eventRefs: [],
+      eventRefs: refs,
       measurements: { totalActiveMs: features.totalActiveMs },
     };
   }
@@ -112,7 +118,7 @@ function resultMoment(features: BehaviorFeatures): ReviewMoment {
       kind: 'RESULT',
       headline: 'MATCH ABORTED',
       detail: 'The match ended by technical termination. No bounty was awarded.',
-      eventRefs: [],
+      eventRefs: refs,
       measurements: {},
     };
   }
@@ -123,7 +129,7 @@ function resultMoment(features: BehaviorFeatures): ReviewMoment {
       features.foregoneValueTenths !== null
         ? `You walked away while a standing offer inside your limit remained — ${formatTenths(features.foregoneValueTenths)} of value stayed on the table.`
         : 'Both sides walked away. No bounty for either player.',
-    eventRefs: [],
+    eventRefs: refs,
     measurements: { foregoneValueTenths: features.foregoneValueTenths ?? 0 },
   };
 }
