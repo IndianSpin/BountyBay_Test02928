@@ -20,87 +20,79 @@ REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
   (domain, config, contracts) — flag breakage in others' files, don't fix
   them silently.
 
-## CURRENT TASK — W3-04 / BB-231: IN-5 retrieval + coaching composer
-(contract in ~/projects/bounty-control/inbox/worker-3.md; docs/18 §5–7;
-D-42 founder approvals)
+## CURRENT TASK — W3-05 / BB-237: IN-6 practice system
+(contract in ~/projects/bounty-control/inbox/worker-3.md; docs/18 §8;
+D-56 founder sign-off → IN-6 unblocked)
 
 **Plan (before-code contract):**
-- Objective: (a) mark the 27 knowledge seeds REVIEWED — founder-approved
-  2026-09-24, reviewed_by 'founder'; (b) §6 observation→concept
-  mappings: explicit structured store for all 26 observation types
-  (concept = ontology tag, relevance weight, conditions, version),
-  validated, deterministic lookup — structured mappings first, RAG
-  supplements later (no RAG now); (c) coaching composer: structured
-  input → validated structured output (headline, observation,
-  why_it_matters, research_context, suggested_action,
-  practice_recommendation, citations, certainty_language) with fixed
-  L1–L4 claim levels per field, evidence-grade register phrasing from
-  IN-4's gradeStatement, deterministic templates; unsupported free-form
-  output REJECTED (throws); LLM is a stub seam (NOOP provider; any
-  free-form suggestion rejected, never repeated); §13 fallbacks — no
-  research found → no invented citations + deterministic fallback text;
-  unknown observation type → fall back to the deterministic Game Review
-  facts.
-- Files: NEW src/mappings.ts, src/coach.ts; EDIT src/knowledge-seeds.ts
-  (REVIEWED/founder), index.ts; NEW tests/mappings.test.ts,
-  tests/coach.test.ts; EDIT tests/knowledge-seeds.test.ts (review
-  status assertions); docs/20 additions (my lane).
-- Out of scope: RAG infrastructure, LLM integration beyond the stub
-  seam, IN-6 practice system, benchmarks, schema/API/web changes.
-- Tests (AGENTS.md): valid (lookup ordering, full coverage, template
-  output, register phrasing, determinism), invalid (unknown concept,
-  weight out of range, duplicate concept, missing coverage, free-form
-  rejection, output validator rejects tampered citations),
-  boundary (empty research → fallback, empty concepts), property
-  (deterministic output for fixed input; LLM stub cannot change
-  output).
+- Objective: deterministic practice system in packages/intelligence —
+  drill schema (WHAT WOULD YOU DO?: scenario state, private info,
+  options, teaching objective, concept tags, explanation, sources,
+  optional benchmark — null until IN-8), with the
+  no-universal-answer rule enforced structurally (≥2 options, pairwise
+  distinct outcomes; the schema has no correctness field); micro-lessons
+  1–5 minutes callable from review observation types; practice
+  recommendations mapping all 26 observation types to drills + the five
+  DEC-025 personas (canonical: UNRECIPROCATED_CONCESSIONS → PLAY THE
+  WALL = persona 'wall'); starter set of 10 drills + 5 micro-lessons,
+  every one cited from the founder-REVIEWED knowledge seeds (sources
+  validated against KB citation texts).
+- Files: NEW src/drills.ts (schema + validation + stores/lookups),
+  src/drill-seeds.ts (starter drills + lessons + recommendation table);
+  index.ts exports; NEW tests/drills.test.ts + drill-seeds.test.ts;
+  docs/20 "Practice system (IN-6)" section (my lane).
+- Out of scope: daily/skill drills and streaks (OQ-026 gate), any UI
+  (drill UI later), LLM beyond the stub convention, benchmarks (IN-8 —
+  the benchmark field exists, always null in the starter set).
+- Tests (AGENTS.md): valid (every seed validates; options ≥2 with
+  distinct outcomes; minutes 1–5; tags in ontology; sources = real KB
+  citations; canonical mapping present; all 26 types covered by
+  recommendations), invalid (single-option drill rejected, duplicate
+  outcomes rejected, minutes out of range, unknown tag, fabricated
+  source, duplicate drill id, lesson >5 min), boundary (unknown
+  observation type lookup → fallback drill, empty practice plan),
+  property (deterministic lookups, validated set stable across builds).
 
-## NEXT (after IN-5 ACCEPT)
-IN-6 practice system — only after ACCEPT; stop at READY FOR REVIEW.
+## NEXT (after IN-6 ACCEPT)
+IN-7 improvement tracking — only after ACCEPT; stop at READY FOR
+REVIEW.
 
-## STATUS — W3-04 READY FOR REVIEW (2026-09-24)
-IN-5 retrieval + coaching composer implemented per BB-231 / docs/18
-§5–7. Evidence: 81/81 intelligence tests (12 new); full non-db suite
-276 passed / 62 db-gated skipped; typecheck clean; lint clean. No
-schema/API/domain changes; the only LLM surface is a stub seam that is
-rejected when it proposes anything. NOT starting IN-6 — awaiting ACCEPT.
+## STATUS — W3-05 READY FOR REVIEW (2026-09-24)
+IN-6 practice system implemented per BB-237 / docs/18 §8. Evidence:
+92/92 intelligence tests (11 new); full non-db suite 301 passed / 73
+db-gated skipped; typecheck clean; lint clean. No schema/API/domain
+changes. NOT starting IN-7 — awaiting ACCEPT.
 
-**MANAGER VERDICT: ACCEPT** — merged `5f1d894` (D-47). Gate: tc 0,
-unit 276, lint 0. Flag ruled: mapping relevance weights are provisional
-editorial judgments (versioned) → founder close-out batch, same class
-as OQ-025. **FOUNDER CHECKPOINT: SIGNED OFF** (founder "accept",
-2026-09-24, relayed in-session; D-47 records the gate). IN-6
-unblocking goes through the manager (pull-based tasking — I do not
-self-assign). STANDING DOWN until the IN-6 contract lands in the inbox.
-
-**FOUNDER CHECKPOINT REPORT — IN-5 retrieval + coaching composer**
-- Changed files: NEW src/mappings.ts (observation-concept-mappings
-  0.1.0: all 26 observation types mapped to ontology concepts with
-  weights/conditions/version; coverage enforced; deterministic
-  weight-ordered lookup; moat audit helpers), src/coach.ts
-  (coaching-composer-0.1.0: structured input → validated structured
-  output; L1–L4 levels on every field; grade-register phrasing via
-  IN-4's gradeStatement; deterministic research selection ≤3; free-form
-  LLM output REJECTED — stub seam only; §13 fallbacks for no-research
-  and unknown-type), EDIT src/knowledge-seeds.ts (all 27 seeds
-  founder-REVIEWED per D-42), src/types.ts (OBSERVATION_TYPES runtime
-  list), src/ontology.ts (ALL_ONTOLOGY_TAGS deduped), index.ts; NEW
-  tests/mappings.test.ts + coach.test.ts; EDIT
-  tests/knowledge-seeds.test.ts; docs/20 sections (my lane).
-- Behavior: deterministic output for a fixed input (property-tested);
-  certainty language = §5 register names + STATES/ONE_POSSIBILITY;
-  citations always from input research; unknown observation types fall
-  back to objective Game Review facts; no evidence ever invented.
-- Tests: valid (coverage, ordering, register phrasing A/B/C, moment
-  facts override, selection rules), invalid (unknown concept, weight
-  range, duplicate concept/type, version, missing coverage, tampered
-  citations, wrong claim levels, unknown certainty, free-form
-  rejection), boundary (empty research, empty concepts, citation cap),
-  property (determinism, NOOP stub invariance).
-- Unresolved: none blocking. Note: mapping weights are provisional
-  editorial judgments (versioned with the set) — same OQ-class
-  provenance as IN-3 descriptor thresholds; flagged for the founder
-  close-out batch if one exists for IN-5.
+**FOUNDER CHECKPOINT REPORT — IN-6 practice system**
+- Changed files: NEW src/drills.ts (practice-system-0.1.0: drill +
+  micro-lesson schemas, structural no-universal-answer rule — ≥2
+  options with pairwise distinct outcomes, no correctness field —
+  source validation against KB citations, lesson minutes 1–5,
+  store with drillsById / lessonsByObservation /
+  recommendForObservation / practicePlan, full 26-type recommendation
+  coverage enforced, deterministic fallback), src/drill-seeds.ts
+  (10 WHAT WOULD YOU DO drills + 5 micro-lessons + 26-row
+  recommendation table; canonical UNRECIPROCATED_CONCESSIONS → PLAY
+  THE WALL ('wall'); every source resolved via a cite() helper that
+  throws on fabricated references), index.ts; NEW tests/drills.test.ts
+  + drill-seeds.test.ts; docs/20 "Practice system (IN-6)" section (my
+  lane).
+- Behavior: drills train isolated decisions with scenario state +
+  private info + distinct-outcome options; micro-lessons 1–5 min
+  callable from review observation types; recommendations map every
+  weakness to drills + the five DEC-025 personas; daily/streaks
+  correctly absent (OQ-026 gate); benchmark field present, null until
+  IN-8; pure — no I/O, no LLM.
+- Tests: valid (store lookups, canonical mapping, full coverage,
+  seed integrity incl. schema-shape assertion that options carry only
+  id/label/outcome/teachingNote), invalid (single-option drill,
+  duplicate outcomes, unknown tag, fabricated source, benchmark
+  non-null, bad minutes, unknown drill id, missing fallback, missing
+  coverage), boundary (unknown-type fallback, empty plan, duplicate
+  collapse), property (deterministic store builds and lookups).
+- Unresolved: none blocking. Drill scenarios use Bounty Bay-flavored
+  numbers (tenths/chips) as illustrative practice states — playability
+  in the eventual drill UI is the later wiring task's concern.
 - No canonical spec change beyond docs/20 (W3's working spec).
 
 ## BLOCKERS
@@ -118,6 +110,19 @@ self-assign). STANDING DOWN until the IN-6 contract lands in the inbox.
   grade, tie-break by record id (document order); at most 3 citations.
 - certainty_language values are the §5 register names plus STATES (L1
   fact) and ONE_POSSIBILITY (L4 with no research).
+- (IN-6) Drill sources must be real KB citation texts — validation
+  rejects fabricated references the same way the composer rejects
+  invented citations.
+- (IN-6) No-universal-answer is structural: ≥2 options, pairwise
+  distinct outcomes, and the schema simply has no correctness field —
+  no drill can mark an option as "the answer".
+- (IN-6) Persona references are DEC-025 persona keys as strings
+  (anchor/grinder/closer/wall/mirror); the intelligence package never
+  imports packages/ai (purity boundary).
+- (IN-6) Recommendation coverage: all 26 observation types map to at
+  least one drill + at most one persona; drills may be shared across
+  weaknesses (many-to-one is fine, a missing row is a validation
+  error).
 
 ## COMPLETED (record)
 - W3-01 IN-2 Game Review V1: ACCEPTED + merged (D-12); timeline API
@@ -125,5 +130,9 @@ self-assign). STANDING DOWN until the IN-6 contract lands in the inbox.
 - W3-02 IN-3 longitudinal profile: ACCEPTED + merged (D-25, f26c7f6);
   flags → BB-220 / founder close-out.
 - W3-03 IN-4 knowledge base: ACCEPTED + merged (D-38, 28007b8);
-  27 curated seeds (3 A / 11 B / 12 C / 1 D); §6 mappings ruled OUT of
-  IN-4 → ride IN-5 (this task); seeds now founder-REVIEWED (D-42).
+  27 curated seeds (3 A / 11 B / 12 C / 1 D); seeds founder-REVIEWED
+  (D-42).
+- W3-04 IN-5 retrieval + coach: ACCEPTED + merged (D-47, 5f1d894);
+  mappings 26/26 + deterministic composer; founder checkpoint SIGNED
+  OFF (D-56).
+
