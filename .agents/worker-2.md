@@ -31,13 +31,16 @@ not propagate the visual language to additional screens. You may only:
   servers on 3100/4100.
 - **No longer yours:** `packages/intelligence/` — handing to worker-3.
 
-## CURRENT TASK — post-BB-216 queue COMPLETE — READY FOR REVIEW
-BB-213 dossier wiring (`a628293`) · BB-215 joiner refresh recovery
-(`04a4919`) · BB-219b mutual-consent rematch (`f705e9b`) + lint debt
-(`a628293`, `2b5989f`). Tip `f705e9b`. Gates: typecheck 0, unit 251,
-lint clean, acceptance specs green (join-refresh, rematch-consent 2/2),
-regression green. GR-007 in-sequence flake flagged to W1 (their
-helper's active-match read, not touched). Waiting for ACCEPT/REWORK.
+## CURRENT TASK — BB-224 opening/title screen — READY FOR REVIEW
+Branch `w2-title-screen` (from `golden-baseline-1` + cast-v3 export),
+tip `211556b`. OS-* boards implemented (wharf + v4 otter, one PLAY
+NOW, 8-face teaser strip, desktop + mobile); PDR-4 as the named
+SHOW_TITLE_ON_RETURN switch (default SHOW). Gates: typecheck 0, unit
+251, lint clean, title-flow 3/3, friend/practice regression green.
+Screenshots bb224-title-{desktop,mobile}.png in design-sandbox/
+screenshots/. Waiting for ACCEPT/REWORK. BB-225 queued after.
+
+## DONE — post-BB-216 queue ACCEPTED, merged `44c39da` (D-32)
 
 ## DONE — BB-216: live-match composition redesign — ACCEPTED + merged (5935792)
 Committed to `w2-frontend-design` (tip `fa6ad69`, rebased on main
