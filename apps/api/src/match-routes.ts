@@ -389,17 +389,23 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
     if (!analysis) {
       return reply.code(409).send({ code: 'MATCH_NOT_ACTIVE', message: 'analysis has not been computed' });
     }
+    // W1-03 (D-11): the server-built shared timeline rides the same
+    // versioned envelope as buildGameReview (game-review-0.1.0). Derived
+    // from the authoritative event stream — no second source of truth.
+    const events = await service.listEvents(matchId);
+    // BB-269 (D-88): the RESULT moment's eventRefs point at the terminal
+    // transition (accept/walk-away/timeout/abort), per BB-267.
+    const terminalEvent = [...events]
+      .reverse()
+      .find((e) => e.type === 'OFFER_ACCEPTED' || e.type === 'WALKED_AWAY' || e.type === 'TIMED_OUT' || e.type === 'MATCH_ABORTED');
     // IN-2: deterministic moment curation over the stored rows. The casts
     // are safe: rows were written by the same engine versions the loader
     // reads back (feature-engine-0.1.0 / observation-engine-0.1.0).
     const moments = curateReview(
       analysis.features as unknown as BehaviorFeatures,
       analysis.observations as unknown as MatchObservation[],
+      terminalEvent?.sequence ?? null,
     );
-    // W1-03 (D-11): the server-built shared timeline rides the same
-    // versioned envelope as buildGameReview (game-review-0.1.0). Derived
-    // from the authoritative event stream — no second source of truth.
-    const events = await service.listEvents(matchId);
     const timeline = buildTimeline(snapshot.state, events);
     return {
       matchId,

@@ -167,7 +167,7 @@ describe.skipIf(!RUN)('Game Review API (PostgreSQL)', () => {
     expect(body.version).toBe('game-review-0.1.0');
     expect(body.featureVersion).toBe('feature-engine-0.1.0');
     expect(body.observationVersion).toBe('observation-engine-0.1.0');
-    expect(body.curationVersion).toBe('review-curation-0.1.0');
+    expect(body.curationVersion).toBe('review-curation-0.2.0');
     expect(body.outcome).toBe('DEAL');
     expect(body.player.playerId).toBe(buyer.userId);
     expect(body.player.features.outcome).toBe('DEAL');
@@ -181,6 +181,8 @@ describe.skipIf(!RUN)('Game Review API (PostgreSQL)', () => {
     expect(body.player.moments.length).toBeGreaterThanOrEqual(1);
     expect(body.player.moments[0]!.kind).toBe('RESULT');
     expect(body.player.moments[0]!.headline).toContain('YOU CAPTURED');
+    // BB-269 (BB-267): the RESULT moment's refs point at the terminal event.
+    expect(body.player.moments[0]!.eventRefs.length).toBe(1);
     for (const moment of body.player.moments.slice(1)) {
       expect(moment.eventRefs.length).toBeGreaterThan(0);
     }
