@@ -43,6 +43,14 @@ export function createMatch(input: CreateMatchInput, config: EconomyConfig): Dom
   for (const p of [buyer, seller]) {
     if (!isValidAmountTenths(p.reservationValueTenths, config.maxAmountTenths))
       return failure('INVALID_MATCH_INPUT', `invalid reservation value for ${p.playerId}`);
+    // DD-M3 (GR-028): the reveal authority is this exact id set — blanks,
+    // oversize ids, or duplicates would shadow facts, so reject them.
+    for (const id of p.verifiableFactIds) {
+      if (typeof id !== 'string' || id.length === 0 || id.length > 200)
+        return failure('INVALID_MATCH_INPUT', `invalid verifiable fact id for ${p.playerId}`);
+    }
+    if (new Set(p.verifiableFactIds).size !== p.verifiableFactIds.length)
+      return failure('INVALID_MATCH_INPUT', `duplicate verifiable fact ids for ${p.playerId}`);
   }
   // GR-002 + 07_DATA_MODEL: ranked scenarios require a positive ZOPA.
   // Non-ranked matches may exist with zopa <= 0 (no settlement is then legal).
@@ -65,6 +73,10 @@ export function createMatch(input: CreateMatchInput, config: EconomyConfig): Dom
     standingOfferId: null,
     disconnected: false,
     ready: false,
+    // DD-M3 (GR-028): validated above — the reveal authority is this exact
+    // id set; duplicates and blanks would shadow facts, so they are refused.
+    verifiableFactIds: [...p.verifiableFactIds],
+    revealedFactIds: [],
   });
 
   const state: MatchState = {
@@ -127,6 +139,8 @@ export function applyCommand(prev: MatchState, command: DomainCommand, config: E
       return applyDisconnect(w(state), command);
     case 'RECONNECT':
       return applyReconnect(w(state), command);
+    case 'REVEAL':
+      return applyReveal(w(state), command);
     case 'ABORT':
       return applyAbort(w(state), command, config);
     case 'TIMEOUT':
@@ -134,8 +148,10 @@ export function applyCommand(prev: MatchState, command: DomainCommand, config: E
   }
 }
 
-function isGameplayCommand(command: DomainCommand): command is Extract<DomainCommand, { kind: 'OFFER' | 'ACCEPT' | 'WALK_AWAY' }> {
-  return command.kind === 'OFFER' || command.kind === 'ACCEPT' || command.kind === 'WALK_AWAY';
+// DD-M3 (GR-028): REVEAL is a gameplay command — turn-gated like OFFER and
+// subject to the GR-023 hard decision-time guard.
+function isGameplayCommand(command: DomainCommand): command is Extract<DomainCommand, { kind: 'OFFER' | 'ACCEPT' | 'WALK_AWAY' | 'REVEAL' }> {
+  return command.kind === 'OFFER' || command.kind === 'ACCEPT' || command.kind === 'WALK_AWAY' || command.kind === 'REVEAL';
 }
 
 // ---------------------------------------------------------------------------
@@ -370,6 +386,43 @@ function applyMessage(working: Working, command: { playerId: PlayerId; messageId
   emit(working, 'MESSAGE_SENT', command.now, player.playerId, {
     messageId: command.messageId,
     body: command.body,
+  });
+  return done(working);
+}
+
+// ---------------------------------------------------------------------------
+// REVEAL (DD-M3, GR-028): formally reveal a verifiable dossier fact
+// ---------------------------------------------------------------------------
+
+/**
+ * A reveal is a formal game action, distinct from chat claims: only the
+ * active player may reveal, only facts in their OWN verifiable set, and
+ * reveals are immutable once made. The reveal consumes the turn (GR-014
+ * clock transfer, like OFFER); it is free of chip cost (OQ-020 unresolved
+ * — no cost invented). Fact ids stay hidden from the opponent until the
+ * reveal commits; the reveal itself is part of the replayable stream.
+ */
+function applyReveal(working: Working, command: { playerId: PlayerId; factId: string; now: number }): DomainResult {
+  const { state } = working;
+  if (state.status !== 'ACTIVE') return failure('MATCH_NOT_ACTIVE', 'reveals are only available during active play');
+  const player = findPlayer(state, command.playerId);
+  if (!player) return failure('NOT_YOUR_TURN', 'player is not a match participant');
+  if (state.activePlayerId !== player.playerId) return failure('NOT_YOUR_TURN', 'it is not your turn (GR-014)');
+
+  if (!player.verifiableFactIds.includes(command.factId))
+    return failure('REVEAL_NOT_VERIFIABLE', 'fact is not in your verifiable dossier (GR-028)');
+  if (player.revealedFactIds.includes(command.factId))
+    return failure('REVEAL_ALREADY_MADE', 'fact has already been revealed (GR-028)');
+
+  // GR-014: sender's clock stops; opponent's starts — a reveal spends the move.
+  freezeRunningClock(state, command.now);
+  player.revealedFactIds = [...player.revealedFactIds, command.factId];
+  const other = opponentOf(state, player.playerId);
+  state.activePlayerId = other.playerId;
+  state.turnStartedAt = command.now;
+
+  emit(working, 'FACT_REVEALED', command.now, player.playerId, {
+    factId: command.factId,
   });
   return done(working);
 }

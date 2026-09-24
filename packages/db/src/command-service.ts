@@ -36,6 +36,24 @@ import { randomUUID } from 'node:crypto';
 
 export type CommandOutcome = DomainResult;
 
+/**
+ * DD-M3 (GR-028): the reveal authority for a role — ids of the scenario's
+ * verifiable facts. Legacy rows without dossier fields yield an empty set
+ * (reveals are impossible, never broken).
+ */
+export function verifiableFactIdsForRole(
+  scenario: { buyerPrivateFacts: unknown; sellerPrivateFacts: unknown },
+  role: 'BUYER' | 'SELLER',
+): string[] {
+  const facts = (role === 'BUYER' ? scenario.buyerPrivateFacts : scenario.sellerPrivateFacts) as
+    | { id?: unknown; verifiable?: unknown }[]
+    | null;
+  if (!Array.isArray(facts)) return [];
+  return facts
+    .filter((fact): fact is { id: string; verifiable: boolean } => Boolean(fact) && typeof fact.id === 'string' && fact.verifiable === true)
+    .map((fact) => fact.id);
+}
+
 /** Challenge lifecycle (08: POST /v1/challenges → /:token/join). */
 export interface ChallengeCreatorInput {
   matchId: string;
@@ -121,6 +139,11 @@ export interface MessageCommand extends CommandBase {
   messageId: string;
   body: string;
 }
+/** DD-M3 (GR-028): formally reveal a verifiable dossier fact. */
+export interface RevealCommand extends CommandBase {
+  kind: 'REVEAL';
+  factId: string;
+}
 export interface AbortCommand {
   kind: 'ABORT';
   matchId: string;
@@ -128,7 +151,7 @@ export interface AbortCommand {
   now: number;
 }
 
-export type MatchCommand = OfferCommand | AcceptCommand | SimpleCommand | TimeoutCommand | MessageCommand | AbortCommand;
+export type MatchCommand = OfferCommand | AcceptCommand | SimpleCommand | TimeoutCommand | MessageCommand | RevealCommand | AbortCommand;
 
 export class MatchCommandService {
   constructor(private readonly prisma: PrismaClient) {}
@@ -248,6 +271,10 @@ export class MatchCommandService {
 
       const configRow = await tx.gameBalanceConfig.findUniqueOrThrow({ where: { version: row.economyConfigVersion } });
       const config = economyConfigFromRow(configRow);
+      // DD-M3 (GR-028): the reveal authority comes from the scenario row.
+      const scenarioRow = await tx.scenario.findFirstOrThrow({ where: { id: row.scenarioId, version: row.scenarioVersion } });
+      const buyerFacts = verifiableFactIdsForRole(scenarioRow, 'BUYER');
+      const sellerFacts = verifiableFactIdsForRole(scenarioRow, 'SELLER');
 
       const createInput: CreateMatchInput = {
         matchId: row.id,
@@ -259,12 +286,12 @@ export class MatchCommandService {
         ratingVersion: row.ratingVersion,
         buyer:
           creator.role === 'BUYER'
-            ? { playerId: creator.userId, role: 'BUYER', reservationValueTenths: Number(creator.reservationValueTenths) }
-            : { playerId: input.joiner.userId, role: 'BUYER', reservationValueTenths: input.joiner.reservationValueTenths },
+            ? { playerId: creator.userId, role: 'BUYER', reservationValueTenths: Number(creator.reservationValueTenths), verifiableFactIds: buyerFacts }
+            : { playerId: input.joiner.userId, role: 'BUYER', reservationValueTenths: input.joiner.reservationValueTenths, verifiableFactIds: buyerFacts },
         seller:
           creator.role === 'SELLER'
-            ? { playerId: creator.userId, role: 'SELLER', reservationValueTenths: Number(creator.reservationValueTenths) }
-            : { playerId: input.joiner.userId, role: 'SELLER', reservationValueTenths: input.joiner.reservationValueTenths },
+            ? { playerId: creator.userId, role: 'SELLER', reservationValueTenths: Number(creator.reservationValueTenths), verifiableFactIds: sellerFacts }
+            : { playerId: input.joiner.userId, role: 'SELLER', reservationValueTenths: input.joiner.reservationValueTenths, verifiableFactIds: sellerFacts },
         firstPlayerId: input.firstPlayerId,
         createdAt: row.createdAt.getTime(),
       };
@@ -376,6 +403,10 @@ export class MatchCommandService {
 
       const configRow = await tx.gameBalanceConfig.findUniqueOrThrow({ where: { version: row.economyConfigVersion } });
       const config = economyConfigFromRow(configRow);
+      // DD-M3 (GR-028): the reveal authority comes from the scenario row.
+      const scenarioRow = await tx.scenario.findFirstOrThrow({ where: { id: row.scenarioId, version: row.scenarioVersion } });
+      const buyerFacts = verifiableFactIdsForRole(scenarioRow, 'BUYER');
+      const sellerFacts = verifiableFactIdsForRole(scenarioRow, 'SELLER');
 
       const createInput: CreateMatchInput = {
         matchId: row.id,
@@ -387,12 +418,12 @@ export class MatchCommandService {
         ratingVersion: null,
         buyer:
           proposer.role === 'BUYER'
-            ? { playerId: proposer.userId, role: 'BUYER', reservationValueTenths: Number(proposer.reservationValueTenths) }
-            : { playerId: input.joiner.userId, role: 'BUYER', reservationValueTenths: input.joiner.reservationValueTenths },
+            ? { playerId: proposer.userId, role: 'BUYER', reservationValueTenths: Number(proposer.reservationValueTenths), verifiableFactIds: buyerFacts }
+            : { playerId: input.joiner.userId, role: 'BUYER', reservationValueTenths: input.joiner.reservationValueTenths, verifiableFactIds: buyerFacts },
         seller:
           proposer.role === 'SELLER'
-            ? { playerId: proposer.userId, role: 'SELLER', reservationValueTenths: Number(proposer.reservationValueTenths) }
-            : { playerId: input.joiner.userId, role: 'SELLER', reservationValueTenths: input.joiner.reservationValueTenths },
+            ? { playerId: proposer.userId, role: 'SELLER', reservationValueTenths: Number(proposer.reservationValueTenths), verifiableFactIds: sellerFacts }
+            : { playerId: input.joiner.userId, role: 'SELLER', reservationValueTenths: input.joiner.reservationValueTenths, verifiableFactIds: sellerFacts },
         firstPlayerId: input.firstPlayerId,
         createdAt: row.createdAt.getTime(),
       };
@@ -495,6 +526,15 @@ export class MatchCommandService {
       playerId: input.playerId,
       messageId: input.messageId,
       body: input.body,
+      now: input.now,
+    }));
+  }
+  /** DD-M3 (GR-028): a formal reveal — same authoritative path as every command. */
+  async reveal(input: RevealCommand): Promise<CommandOutcome> {
+    return this.execute(input.matchId, input.commandId, () => ({
+      kind: 'REVEAL',
+      playerId: input.playerId,
+      factId: input.factId,
       now: input.now,
     }));
   }

@@ -343,8 +343,8 @@ describe.skipIf(!RUN)('match routes (PostgreSQL)', () => {
         gameRulesVersion: 'game-rules-0.1.0',
         economyConfigVersion: 'economy-ttl-route',
         ratingVersion: null,
-        buyer: { playerId: buyerId, role: 'BUYER', reservationValueTenths: 1000 },
-        seller: { playerId: sellerId, role: 'SELLER', reservationValueTenths: 400 },
+        buyer: { playerId: buyerId, role: 'BUYER', reservationValueTenths: 1000, verifiableFactIds: [] },
+        seller: { playerId: sellerId, role: 'SELLER', reservationValueTenths: 400, verifiableFactIds: [] },
         firstPlayerId: buyerId,
         createdAt: Date.now(),
       });

@@ -42,6 +42,13 @@ export interface ParticipantView {
    * match is terminal (GR-018 reveal). Absent key pre-result.
    */
   reservationValueTenths?: number;
+  /**
+   * DD-M3 (GR-028): ids of the facts this participant has formally revealed
+   * — shared information (both players see the same list). The participant's
+   * UNREVEALED fact ids (verifiableFactIds) are never serialized anywhere
+   * (SI-001, same severity as the RV).
+   */
+  revealedFactIds: string[];
 }
 
 export interface MatchView {
@@ -102,6 +109,9 @@ export function viewMatchFor(state: MatchState, viewerId: PlayerId, now: number,
       clockMultiplier: clockMultiplier(elapsedActiveMs(p, state, now), config),
       decisionTimeRemainingMs: remainingMs,
       timeTier: tier,
+      // DD-M3 (GR-028): revealed ids are shared; the unrevealed verifiable
+      // set is NEVER serialized into any view (SI-001).
+      revealedFactIds: [...p.revealedFactIds],
     };
     // GR-002: own RV always; opponent RV only after completion (GR-018).
     if (p.playerId === viewerId || terminal) {

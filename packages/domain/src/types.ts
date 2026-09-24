@@ -41,7 +41,10 @@ export type DomainErrorCode =
   | 'TIMEOUT_NOT_DUE'
   | 'COMMAND_ALREADY_PROCESSED'
   | 'INVALID_MATCH_INPUT'
-  | 'MESSAGE_EMPTY';
+  | 'MESSAGE_EMPTY'
+  // DD-M3 (GR-028): verified-information reveal.
+  | 'REVEAL_NOT_VERIFIABLE'
+  | 'REVEAL_ALREADY_MADE';
 
 /** Event types (docs/07_DATA_MODEL.md MatchEvent — an open list, "include"). */
 export type DomainEventType =
@@ -56,7 +59,9 @@ export type DomainEventType =
   | 'WALKED_AWAY'
   | 'TIMED_OUT'
   | 'MATCH_COMPLETED'
-  | 'MATCH_ABORTED';
+  | 'MATCH_ABORTED'
+  // DD-M3 (GR-028): a verifiable dossier fact was formally revealed.
+  | 'FACT_REVEALED';
 
 export interface DomainEvent {
   /** Strict per-match ordering, starts at 1. */
@@ -73,6 +78,12 @@ export interface ParticipantInput {
   role: Role;
   /** Private hard boundary, integer tenths (GR-002/GR-003). */
   reservationValueTenths: number;
+  /**
+   * DD-M3 (GR-028): ids of the player's verifiable dossier facts — the only
+   * facts a REVEAL command may authenticate. Scenario-authored, passed in at
+   * match creation (like the RV); never serialized to the opponent.
+   */
+  verifiableFactIds: string[];
 }
 
 export interface CreateMatchInput {
@@ -106,6 +117,13 @@ export interface ParticipantState {
   standingOfferId: string | null;
   disconnected: boolean;
   ready: boolean;
+  /**
+   * DD-M3 (GR-028): the player's verifiable dossier fact ids (server-only —
+   * hidden like the RV until the fact is revealed) and the ids formally
+   * revealed so far (immutable, append-only; exposed to both players).
+   */
+  verifiableFactIds: string[];
+  revealedFactIds: string[];
 }
 
 export interface PlayerEconomy {
@@ -162,6 +180,8 @@ export type DomainCommand =
   | { kind: 'MESSAGE'; playerId: PlayerId; messageId: string; body: string; now: number }
   | { kind: 'DISCONNECT'; playerId: PlayerId; now: number }
   | { kind: 'RECONNECT'; playerId: PlayerId; now: number }
+  /** DD-M3 (GR-028): formally reveal a verifiable dossier fact (turn-gated). */
+  | { kind: 'REVEAL'; playerId: PlayerId; factId: string; now: number }
   /** Administrative technical termination (GR: "administrative termination"). */
   | { kind: 'ABORT'; now: number }
   /**

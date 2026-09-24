@@ -20,22 +20,22 @@ const config = makeEconomyConfig();
 
 describe('GR-001/GR-002 factory validation', () => {
   it('rejects non-distinct players', () => {
-    const r = createMatch({ ...makeInput(), seller: { playerId: BUYER_ID, role: 'SELLER', reservationValueTenths: 400 } }, config);
+    const r = createMatch({ ...makeInput(), seller: { playerId: BUYER_ID, role: 'SELLER', reservationValueTenths: 400, verifiableFactIds: [] } }, config);
     expect(mustFail(r).code).toBe('INVALID_MATCH_INPUT');
   });
 
   it('rejects a second buyer (roles must be one of each)', () => {
-    const r = createMatch({ ...makeInput(), seller: { playerId: SELLER_ID, role: 'BUYER', reservationValueTenths: 400 } }, config);
+    const r = createMatch({ ...makeInput(), seller: { playerId: SELLER_ID, role: 'BUYER', reservationValueTenths: 400, verifiableFactIds: [] } }, config);
     expect(mustFail(r).code).toBe('INVALID_MATCH_INPUT');
   });
 
   it('rejects invalid reservation values', () => {
-    const zero = createMatch({ ...makeInput(), buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: 0 } }, config);
+    const zero = createMatch({ ...makeInput(), buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: 0, verifiableFactIds: [] } }, config);
     expect(mustFail(zero).code).toBe('INVALID_MATCH_INPUT');
-    const neg = createMatch({ ...makeInput(), seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: -5 } }, config);
+    const neg = createMatch({ ...makeInput(), seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: -5, verifiableFactIds: [] } }, config);
     expect(mustFail(neg).code).toBe('INVALID_MATCH_INPUT');
     const huge = createMatch(
-      { ...makeInput(), seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 9_999_999_999 } },
+      { ...makeInput(), seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 9_999_999_999, verifiableFactIds: [] } },
       config,
     );
     expect(mustFail(huge).code).toBe('INVALID_MATCH_INPUT');
@@ -43,7 +43,7 @@ describe('GR-001/GR-002 factory validation', () => {
 
   it('rejects ranked matches without positive ZOPA (07_DATA_MODEL)', () => {
     const r = createMatch(
-      { ...makeInput(), seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 1000 } },
+      { ...makeInput(), seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 1000, verifiableFactIds: [] } },
       config,
     );
     expect(mustFail(r).code).toBe('INVALID_MATCH_INPUT');
@@ -51,7 +51,7 @@ describe('GR-001/GR-002 factory validation', () => {
 
   it('allows non-ranked matches with zopa <= 0 (no settlement is then legal)', () => {
     const state = create(
-      { mode: 'FRIEND_LIVE', seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 1000 } },
+      { mode: 'FRIEND_LIVE', seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 1000, verifiableFactIds: [] } },
       config,
     );
     expect(state.status).toBe('CREATED');
@@ -128,8 +128,8 @@ describe('GR-006 opening offer', () => {
     expect(byId(low.state, BUYER_ID).latestOfferTenths).toBe(1);
 
     const { state: highState } = startedMatch({
-      buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: 9_999_999_999 },
-      seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 9_999_999_990 },
+      buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: 9_999_999_999, verifiableFactIds: [] },
+      seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: 9_999_999_990, verifiableFactIds: [] },
     });
     const high = mustOk(
       applyCommand(highState, { kind: 'OFFER', playerId: BUYER_ID, offerId: offerId(1), amountTenths: 9_999_999_999, now: START_NOW }, config),

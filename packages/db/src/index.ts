@@ -9,8 +9,18 @@
 export { Prisma, PrismaClient } from './generated/prisma/client';
 export type { PrismaClient as PrismaClientType } from './generated/prisma/client';
 export { createPrismaClient } from './client';
-export { MatchCommandService, persistAnalysis } from './command-service';
-export type { CommandOutcome, MatchCommand, OfferCommand, AcceptCommand, SimpleCommand, MessageCommand, AbortCommand, StoredAnalysis } from './command-service';
+export { MatchCommandService, persistAnalysis, verifiableFactIdsForRole } from './command-service';
+export type {
+  CommandOutcome,
+  MatchCommand,
+  OfferCommand,
+  AcceptCommand,
+  SimpleCommand,
+  MessageCommand,
+  RevealCommand,
+  AbortCommand,
+  StoredAnalysis,
+} from './command-service';
 export { UserRepository } from './user-repository';
 export type { MeDto, PublicProfileDto } from './user-repository';
 export { HANDLE_PATTERN } from './user-repository';

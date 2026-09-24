@@ -59,6 +59,13 @@ function randomCommand(state: MatchState, rng: () => number, seq: number): Domai
   if (roll < 0.3) {
     return { kind: 'MESSAGE', playerId: owner, messageId: `msg-${seq}`, body: 'hello', now: now + nowOffset };
   }
+  // DD-M3 (GR-028): occasionally reveal — sometimes the owner's verifiable
+  // fact (legal once), sometimes the opponent's or a repeat (rejected).
+  if (roll < 0.32) {
+    const pick = Math.floor(rng() * 3);
+    const factId = pick === 0 ? 'fact-b1' : pick === 1 ? 'fact-s1' : 'fact-b1'; // repeats exercise REVEAL_ALREADY_MADE
+    return { kind: 'REVEAL', playerId: owner, factId, now: now + nowOffset };
+  }
   // DD Phase 1 (GR-024): occasionally issue a TIMEOUT — often not yet due
   // (rejected without mutation), occasionally due (terminal transition).
   if (roll < 0.34) {
@@ -141,8 +148,8 @@ describe('property: random legal-ish play never breaks invariants', () => {
       const s = makeSeed(rng);
 
       let state = create({
-        buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: s.buyerRv },
-        seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: s.sellerRv },
+        buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: s.buyerRv, verifiableFactIds: ['fact-b1'] },
+        seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: s.sellerRv, verifiableFactIds: ['fact-s1'] },
         firstPlayerId: s.firstPlayerId,
       });
       state = apply(state, { kind: 'READY', playerId: BUYER_ID, now: state.createdAt }, config);
@@ -175,8 +182,8 @@ describe('property: random legal-ish play never breaks invariants', () => {
     const rng = mulberry32(42);
     const s = makeSeed(rng);
     let state = create({
-      buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: s.buyerRv },
-      seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: s.sellerRv },
+      buyer: { playerId: BUYER_ID, role: 'BUYER', reservationValueTenths: s.buyerRv, verifiableFactIds: ['fact-b1'] },
+      seller: { playerId: SELLER_ID, role: 'SELLER', reservationValueTenths: s.sellerRv, verifiableFactIds: ['fact-s1'] },
       firstPlayerId: s.firstPlayerId,
     });
     state = apply(state, { kind: 'READY', playerId: BUYER_ID, now: state.createdAt }, config);

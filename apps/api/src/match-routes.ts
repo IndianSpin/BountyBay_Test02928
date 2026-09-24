@@ -6,7 +6,7 @@
  */
 
 import type { MatchCommandService, PrismaClient } from '@bounty-bay/db';
-import { commandIdSchema, offerRequestSchema, acceptRequestSchema, walkAwayRequestSchema, messageRequestSchema } from '@bounty-bay/contracts';
+import { commandIdSchema, offerRequestSchema, acceptRequestSchema, walkAwayRequestSchema, messageRequestSchema, revealRequestSchema } from '@bounty-bay/contracts';
 import type { DomainErrorCode } from '@bounty-bay/domain';
 import { viewMatchFor } from '@bounty-bay/domain';
 import { personaByKey } from '@bounty-bay/ai';
@@ -42,6 +42,8 @@ const HTTP_STATUS: Record<string, number> = {
   TIMEOUT_NOT_DUE: 409,
   INVALID_MATCH_INPUT: 400,
   MESSAGE_EMPTY: 400,
+  REVEAL_NOT_VERIFIABLE: 400,
+  REVEAL_ALREADY_MADE: 409,
 };
 
 export interface MatchRoutesOptions {
@@ -96,6 +98,27 @@ export function scenarioForRole(scenario: ScenarioContentRow, role: 'BUYER' | 'S
   };
 }
 
+/**
+ * DD-M3 (GR-028): per-participant formally-revealed facts WITH content,
+ * derived from the domain state's revealedFactIds (authoritative) joined to
+ * the scenario row. Facts the participant has not revealed are never
+ * serialized — SI-001, same severity as the reservation value.
+ */
+export function revealedFactsFor(
+  state: { participants: { playerId: string; role: 'BUYER' | 'SELLER'; revealedFactIds: string[] }[] },
+  scenario: ScenarioContentRow | null,
+): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
+  if (!scenario) return result;
+  type RowFact = { id?: unknown; text?: unknown; category?: unknown; verifiable?: unknown; optionalRevealLabel?: unknown };
+  for (const participant of state.participants) {
+    const facts = ((participant.role === 'BUYER' ? scenario.buyerPrivateFacts : scenario.sellerPrivateFacts) ?? []) as RowFact[];
+    const revealed = new Set(participant.revealedFactIds);
+    result[participant.playerId] = facts.filter((fact) => typeof fact.id === 'string' && revealed.has(fact.id));
+  }
+  return result;
+}
+
 export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOptions): void {
   const { service, prisma, broadcast } = options;
 
@@ -127,7 +150,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
   };
 
   /** Commits a command through the service and broadcasts committed events. */
-  const commitAndBroadcast = async (matchId: string, command: Parameters<MatchCommandService['offer']>[0] | Parameters<MatchCommandService['accept']>[0] | Parameters<MatchCommandService['ready']>[0] | Parameters<MatchCommandService['walkAway']>[0] | Parameters<MatchCommandService['message']>[0]) => {
+  const commitAndBroadcast = async (matchId: string, command: Parameters<MatchCommandService['offer']>[0] | Parameters<MatchCommandService['accept']>[0] | Parameters<MatchCommandService['ready']>[0] | Parameters<MatchCommandService['walkAway']>[0] | Parameters<MatchCommandService['message']>[0] | Parameters<MatchCommandService['reveal']>[0]) => {
     let outcome;
     switch (command.kind) {
       case 'OFFER': outcome = await service.offer(command); break;
@@ -135,6 +158,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       case 'READY': outcome = await service.ready(command); break;
       case 'WALK_AWAY': outcome = await service.walkAway(command); break;
       case 'MESSAGE': outcome = await service.message(command); break;
+      case 'REVEAL': outcome = await service.reveal(command); break;
       default: outcome = { ok: false as const, code: 'INVALID_MATCH_INPUT' as const, message: 'unknown command' };
     }
     if (!outcome.ok) return { outcome };
@@ -271,6 +295,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       economyConfig: snapshot.config,
       handles,
       scenario,
+      revealedFacts: revealedFactsFor(snapshot.state, scenarioRow),
       aiOpponents: await aiOpponentsFor(matchId, request.userId!),
       serverNow,
       timeoutPlayerId: row.timeoutPlayerId ?? null,
@@ -307,6 +332,7 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
       economyConfig: snapshot.config,
       handles,
       scenario,
+      revealedFacts: revealedFactsFor(snapshot.state, scenarioRow),
       aiOpponents: await aiOpponentsFor(matchId, request.userId!),
       serverNow,
       timeoutPlayerId: row.timeoutPlayerId ?? null,
@@ -459,6 +485,28 @@ export function registerMatchRoutes(app: FastifyInstance, options: MatchRoutesOp
     });
     if (!outcome.ok) return reply.code(statusFor(outcome.code)).send(outcome);
     return { eventSequence: outcome.state.eventSequence, serverTimestamp: Date.now() };
+  });
+
+  /**
+   * POST /v1/matches/:matchId/reveals — DD-M3 (GR-028): formally reveal a
+   * verifiable dossier fact. Turn-gated and GR-023-subject in the domain;
+   * reveals are immutable once made.
+   */
+  app.post<{ Params: { matchId: string } }>('/v1/matches/:matchId/reveals', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (request, reply) => {
+    const { matchId } = request.params;
+    if (!(await requireParticipant(matchId, request.userId!))) return rejectNotParticipant(reply);
+    const parsed = revealRequestSchema.safeParse(request.body);
+    if (!parsed.success) return reply.code(400).send({ code: 'INVALID_REQUEST', message: 'invalid reveal request' });
+    const { outcome } = await commitAndBroadcast(matchId, {
+      kind: 'REVEAL',
+      matchId,
+      playerId: request.userId!,
+      factId: parsed.data.factId,
+      commandId: parsed.data.commandId,
+      now: Date.now(),
+    });
+    if (!outcome.ok) return reply.code(statusFor(outcome.code)).send(outcome);
+    return { eventSequence: outcome.state.eventSequence, factId: parsed.data.factId, serverTimestamp: Date.now() };
   });
 }
 

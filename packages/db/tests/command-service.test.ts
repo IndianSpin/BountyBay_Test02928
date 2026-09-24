@@ -37,8 +37,8 @@ function makeMatchInput(matchId: string): CreateMatchInput {
     gameRulesVersion: 'game-rules-0.1.0',
     economyConfigVersion: CONFIG_VERSION,
     ratingVersion: 'rating-0.1.0',
-    buyer: { playerId: buyerId, role: 'BUYER', reservationValueTenths: 1000 },
-    seller: { playerId: sellerId, role: 'SELLER', reservationValueTenths: 400 },
+    buyer: { playerId: buyerId, role: 'BUYER', reservationValueTenths: 1000, verifiableFactIds: [] },
+    seller: { playerId: sellerId, role: 'SELLER', reservationValueTenths: 400, verifiableFactIds: [] },
     firstPlayerId: buyerId,
     createdAt: Date.now(),
   };
@@ -242,8 +242,8 @@ describe.skipIf(!RUN)('MatchCommandService (PostgreSQL)', () => {
       gameRulesVersion: row.gameRulesVersion,
       economyConfigVersion: row.economyConfigVersion,
       ratingVersion: row.ratingVersion,
-      buyer: { playerId: buyerRow.userId, role: 'BUYER', reservationValueTenths: Number(buyerRow.reservationValueTenths) },
-      seller: { playerId: sellerRow.userId, role: 'SELLER', reservationValueTenths: Number(sellerRow.reservationValueTenths) },
+      buyer: { playerId: buyerRow.userId, role: 'BUYER', reservationValueTenths: Number(buyerRow.reservationValueTenths), verifiableFactIds: [] },
+      seller: { playerId: sellerRow.userId, role: 'SELLER', reservationValueTenths: Number(sellerRow.reservationValueTenths), verifiableFactIds: [] },
       firstPlayerId: row.firstPlayerId!,
       createdAt: row.createdAt.getTime(),
     };
@@ -325,7 +325,7 @@ describe.skipIf(!RUN)('MatchCommandService (PostgreSQL)', () => {
       ...makeMatchInput(matchId),
       mode: 'AI',
       ratingVersion: null,
-      seller: { playerId: bot!.id, role: 'SELLER', reservationValueTenths: 400 },
+      seller: { playerId: bot!.id, role: 'SELLER', reservationValueTenths: 400, verifiableFactIds: [] },
     };
     const created = await service.createMatch(input, { aiPersonaKey: 'closer', aiPersonaVersion: 'ai-personas-0.1.0' });
     expect(created.ok).toBe(true);
@@ -353,7 +353,7 @@ describe.skipIf(!RUN)('MatchCommandService (PostgreSQL)', () => {
       ...makeMatchInput(matchId),
       mode: 'AI',
       ratingVersion: null,
-      seller: { playerId: bot.id, role: 'SELLER', reservationValueTenths: 400 },
+      seller: { playerId: bot.id, role: 'SELLER', reservationValueTenths: 400, verifiableFactIds: [] },
     };
     const created = await service.createMatch(input, { aiPersonaKey: 'closer', aiPersonaVersion: 'ai-personas-0.1.0' });
     if (!created.ok) throw new Error('create failed');

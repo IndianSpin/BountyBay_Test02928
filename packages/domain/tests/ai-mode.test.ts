@@ -68,8 +68,8 @@ describe('mode: AI', () => {
   it('enforces positive ZOPA for ranked only; AI stays permissive', () => {
     const config = makeEconomyConfig();
     const negativeZopa = {
-      buyer: { playerId: BUYER_ID, role: 'BUYER' as const, reservationValueTenths: 100 },
-      seller: { playerId: SELLER_ID, role: 'SELLER' as const, reservationValueTenths: 900 },
+      buyer: { playerId: BUYER_ID, role: 'BUYER' as const, reservationValueTenths: 100, verifiableFactIds: [] },
+      seller: { playerId: SELLER_ID, role: 'SELLER' as const, reservationValueTenths: 900, verifiableFactIds: [] },
     };
     const ranked = createMatch(makeInput({ mode: 'RANKED_LIVE', ...negativeZopa }), config);
     expect(mustFail(ranked).code).toBeTruthy();

@@ -65,6 +65,8 @@ function commandForEvent(event: DomainEvent): DomainCommand | null {
         body: payload.body as string,
         now: event.at,
       };
+    case 'FACT_REVEALED':
+      return { kind: 'REVEAL', playerId: actorOf(event), factId: payload.factId as string, now: event.at };
     case 'PLAYER_DISCONNECTED':
       return { kind: 'DISCONNECT', playerId: actorOf(event), now: event.at };
     case 'PLAYER_RECONNECTED':
