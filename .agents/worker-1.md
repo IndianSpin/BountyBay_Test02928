@@ -24,7 +24,28 @@ FOR REVIEW; the manager returns ACCEPT / REWORK / BLOCK (D-8).**
 - E2E infra: isolated `bounty_bay_e2e` DB (5433) + alt ports 3100/4100
   (D-4). Do not kill other sessions' dev servers on 3000/4000.
 
-## CURRENT TASK — BB-257 (table-talk wiring, AI_BEHAVIOR_CONTRACT §3) — READY FOR REVIEW
+## CURRENT TASK — BB-260 (Phase 6 localhost/URL audit, D-75) — READY FOR REVIEW
+
+Audit table (runtime code; tests/E2E configs excluded — those are
+dev-only by construction):
+
+| Occurrence | Class | Disposition |
+|---|---|---|
+| 10× `NEXT_PUBLIC_API_URL ?? 'http://localhost:4000'` (bay/page, profile-client, review, replay, match-screen, play/page, result-reveal, use-api-token, analytics lib, dev-auth) | Valid-development-only fallback | Left as-is; deployments set NEXT_PUBLIC_API_URL (runbook matrix) — no localhost ships to players when configured. |
+| 2× challenge share URLs `window.location.origin` (play/page.tsx resume + create paths) | Deployment bug (contract: configured hosted origin) | FIXED — share URLs now use `NEXT_PUBLIC_APP_URL` (new env, added to .env.example) with the runtime origin as the local-dev fallback only. |
+| API server bind `0.0.0.0` | Correct | — |
+| `apps/web/playwright.config.ts` + E2E specs localhost ports | Test-only | Left as-is. |
+
+No localhost URLs remain in browser runtime outside the documented
+dev-fallback pattern; the share URLs carry the hosted origin.
+
+Evidence: `pnpm --filter web typecheck` exit 0; `pnpm test` — 309
+passed / 81 skipped; `pnpm lint` exit 0; friend-match spec 3/3 (share
+URLs intact via the fallback path in E2E).
+
+### BB-257 — ACCEPTED and merged (b66b89b); table talk live.
+
+## OLD CURRENT TASK — BB-257 (table-talk wiring, AI_BEHAVIOR_CONTRACT §3) — READY FOR REVIEW
 
 Wired the merged BB-254 pipeline (packages/intelligence runAiTurn,
 table-talk-0.1.0) into AiTurnEngine.performAiTurn: the persona layer
