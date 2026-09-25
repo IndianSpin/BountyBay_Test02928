@@ -1,0 +1,17 @@
+{
+  "_about": "Sound + haptics spec (rec 10). Every timeline step may name one cue with \"sfx\". The golden pages synthesise placeholder cues with WebAudio (turn on with ?sound=1 or the speaker button) so timing can be judged; the app replaces them with produced audio of the same name, length and loudness. Haptics are navigator.vibrate patterns (ms) on mobile. All cues respect the OS mute switch and the in-game sound setting; nothing plays under prefers-reduced-motion except the tick and ding.",
+  "loudness": "-16 LUFS integrated for the mix; cues peak at -6 dBFS; the stamp is the loudest cue in the game",
+  "cues": {
+    "offer-ding":   { "when": "an offer lands on the rail", "sound": "small brass bell, bright, 300 ms decay", "haptic": [12] },
+    "gap-snap":     { "when": "the gap between offers shrinks", "sound": "wooden click + a short rising tone; higher pitch the smaller the gap", "haptic": [8, 30, 8] },
+    "clock-tick":   { "when": "your face runs below the warning line (30 s, then 10 s)", "sound": "dry mechanical tick once per second, faster under 10 s", "haptic": [] },
+    "coin-drain":   { "when": "a coin falls off your pile while you think", "sound": "single soft coin drop into water, very quiet", "haptic": [] },
+    "stamp":        { "when": "the deal locks", "sound": "heavy wax-and-wood stamp thud, low body (80 Hz) + paper slap", "haptic": [40] },
+    "card-flip":    { "when": "a sealed limit card turns over", "sound": "card swish then a soft paper land; her card lands 150 ms later than yours feels right", "haptic": [10] },
+    "reveal-sting": { "when": "the zone splits and 'left on the table' appears", "sound": "two-note sting: warm major for your part, a lower note for hers", "haptic": [] },
+    "coin-tick":    { "when": "each coin lands in a counter during a count-up", "sound": "short bright coin tick, pitch rises through the count", "haptic": [6] },
+    "rating-up":    { "when": "rating counter moves up", "sound": "soft rising chime, 3 notes", "haptic": [15] },
+    "trophy":       { "when": "the traded item lands in the cabinet (pending)", "sound": "glass cabinet door + a velvet thump", "haptic": [20] },
+    "letter":       { "when": "a rival's letter lands in the Bay", "sound": "paper slide + wax seal tap", "haptic": [12] }
+  }
+}

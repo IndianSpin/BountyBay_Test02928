@@ -13,9 +13,11 @@
     t: Q.get('t') === 'end' || reduced ? Infinity : Number(Q.get('t') || 0),
     speed: Number(Q.get('speed') || 1),
     pending: Q.get('pending') === '1',
+    sound: Q.get('sound') === '1',
   };
   const G = (window.__golden = { ready: false, events: [], params: P });
   if (P.pending) document.body.classList.add('pending');
+  if (P.t === Infinity) document.documentElement.classList.add('g-instant');   // seek to the end: no transitions in flight
   const ROOT = '../../../apps/web/public/game/';
   const $ = (s, r = document) => r.querySelector(s);
   const tid = (id) => document.querySelector(`[data-testid="${id}"]`);
@@ -42,6 +44,34 @@
     if (!opts.hold && !(P.t === Infinity)) el._t = setInterval(step, 1000 / manifest.fps / P.speed);
     el.dataset.clip = clip;
   }
+
+  // ---------------------------------------------------------------- sound (placeholder synth; spec in ../sfx.json)
+  const Sfx = { on: P.sound, ctx: null, spec: null,
+    ensure() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); return this.ctx; },
+    tone(f, d, type = 'sine', vol = .2, t0 = 0, f2) { const c = this.ensure(), o = c.createOscillator(), g = c.createGain(), t = c.currentTime + t0;
+      o.type = type; o.frequency.setValueAtTime(f, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + d);
+      g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g).connect(c.destination); o.start(t); o.stop(t + d + .02); },
+    noise(d, vol = .2, t0 = 0, hp = 800) { const c = this.ensure(), b = c.createBuffer(1, c.sampleRate * d, c.sampleRate), x = b.getChannelData(0);
+      for (let i = 0; i < x.length; i++) x[i] = (Math.random() * 2 - 1) * (1 - i / x.length); const s = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain();
+      f.type = 'highpass'; f.frequency.value = hp; g.gain.value = vol; s.buffer = b; s.connect(f).connect(g).connect(c.destination); s.start(c.currentTime + t0); },
+    play(name) {
+      if (this.spec && this.spec.cues[name] && navigator.vibrate) { const h = this.spec.cues[name].haptic; if (h && h.length) navigator.vibrate(h); }
+      if (!this.on) return;
+      const T = this;
+      ({ 'offer-ding': () => { T.tone(1318, .35, 'triangle', .18); T.tone(2637, .2, 'sine', .05); },
+        'gap-snap': () => { T.noise(.03, .25, 0, 2000); T.tone(660, .12, 'triangle', .12, .02, 990); },
+        'clock-tick': () => T.noise(.02, .2, 0, 3000),
+        'coin-drain': () => T.tone(1800, .08, 'sine', .05, 0, 900),
+        'stamp': () => { T.tone(90, .35, 'sine', .5, 0, 45); T.noise(.12, .35, 0, 300); },
+        'card-flip': () => { T.noise(.16, .12, 0, 1500); T.noise(.05, .1, .17, 400); },
+        'reveal-sting': () => { T.tone(523, .5, 'triangle', .14); T.tone(659, .5, 'triangle', .12, .08); T.tone(330, .6, 'sine', .08, .3); },
+        'coin-tick': () => T.tone(2200 + Math.random() * 600, .06, 'square', .04),
+        'rating-up': () => { [784, 988, 1175].forEach((f, i) => T.tone(f, .3, 'sine', .12, i * .09)); },
+        'trophy': () => { T.noise(.08, .15, 0, 2500); T.tone(220, .25, 'sine', .25, .06); },
+        'letter': () => { T.noise(.2, .08, 0, 1200); T.tone(400, .08, 'sine', .15, .2); },
+      }[name] || (() => {}))();
+    } };
+  window.Sfx = Sfx;
 
   // ---------------------------------------------------------------- reward-layer primitives
   function fmt(v, d) { return v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }); }
@@ -72,7 +102,7 @@
       const kf = [];
       for (let i = 0; i <= 12; i++) { const t = i / 12, a = (1 - t) * (1 - t), b = 2 * (1 - t) * t, d = t * t;
         kf.push({ transform: `translate(${a * sx + b * mx + d * x1 - 13}px, ${a * sy + b * my + d * y1 - 13}px) scale(${1 + .35 * Math.sin(Math.PI * t)})` }); }
-      c.animate(kf, { duration: (620 + k * 35) / P.speed, easing: 'cubic-bezier(.5,0,.75,.5)', fill: 'forwards' }).onfinish = () => { c.remove(); punch(to); };
+      c.animate(kf, { duration: (620 + k * 35) / P.speed, easing: 'cubic-bezier(.5,0,.75,.5)', fill: 'forwards' }).onfinish = () => { c.remove(); punch(to); Sfx.play('coin-tick'); };
       await sleep(40);
     }
   }
@@ -103,6 +133,7 @@
     else if (A === 'fly') { if (!instant && el) fly(el, tid(s.to), s.n || 12); }
     else if (A === 'clip') { if (el) await sprite(el, s.character, s.clip, { hold: instant && !s.loop }); }
     else if (A === 'confetti') { if (!instant) confetti(s.n || 140); }
+    if (s.sfx && !instant) Sfx.play(s.sfx);
     G.events.push({ id: s.id, at: s.at, t: Math.round(performance.now() - G.t0) });
   }
   async function timeline(steps) {
@@ -117,10 +148,16 @@
   }
 
   // ---------------------------------------------------------------- boot
-  window.Golden = { sprite, countTo, pop, fly, confetti, punch, timeline, json, P,
+  window.Golden = { Sfx, sprite, countTo, pop, fly, confetti, punch, timeline, json, P,
     async boot(state) {
       const [fx, contract] = await Promise.all([json('../fixture/reference-match.json'), json(`../contracts/${state}.json`)]);
       G.fixture = fx; G.contract = contract;
+      json('../sfx.json').then((j) => (Sfx.spec = j)).catch(() => {});
+      const tg = document.createElement('button'); tg.className = 'glass sound-toggle'; tg.dataset.testid = 'sound-toggle';
+      tg.setAttribute('aria-label', 'Sound'); tg.textContent = Sfx.on ? '🔊' : '🔈';
+      tg.onclick = () => { Sfx.on = !Sfx.on; Sfx.ensure().resume(); tg.textContent = Sfx.on ? '🔊' : '🔈'; };
+      document.body.appendChild(tg);
+      if (window.World) World.mount();
       document.querySelectorAll('[data-fx]').forEach((el) => {           // fill text from the fixture: data-fx="path.to.value"
         const v = el.dataset.fx.split('.').reduce((o, k) => (o == null ? o : o[k]), fx); if (v != null) el.textContent = v;
       });

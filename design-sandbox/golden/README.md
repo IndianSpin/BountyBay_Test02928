@@ -82,8 +82,11 @@ Also always checked: every required element fully on screen, and no horizontal s
 
 ## Files
 
-- `golden.css` — tokens (copied from the app) + shared components: chunky buttons, plaques, chess clock, counters, bars, stamp.
-- `golden.js` — runtime: sprite player (same manifest and sheets as `apps/web/.../sprite-player.tsx`), timeline, reward-layer moves (count-up, pop, fly-to-counter, bar fill, confetti), `?t` / `?speed` / `?pending`.
+- `world.js` + `img/` — **Lantern Luxe**, the world behind every state: the approved painted v4 wharf (`img/scene-wharf4.jpg`) and first-person table (`img/table-fp4.png`), warm grade, vignette, lantern glows that breathe. No drifting or floating decoration. Port as `<World/>` / `<Counter/>`; the images ship to `apps/web/public/game/scene/`.
+- `golden.css` — tokens (copied from the app) + the Lantern Luxe skin (`--lx-*`): walnut surfaces with a fine gold rim and soft depth (no cartoon outlines), brass primary button, enamel-and-brass chess clock, plaques, counters, bars, stamp, light bloom behind reward moments.
+- `VISUAL-AUDIT.md` — **start here for v4**: what was measured, the 20 changes, and where each one lives.
+- `sfx.json` — sound + haptics spec (cue name, when, sound, haptic); timeline steps name a cue with `"sfx"`.
+- `golden.js` — runtime: sprite player (same manifest and sheets as `apps/web/.../sprite-player.tsx`), timeline, reward-layer moves (count-up, pop, fly-to-counter, bar fill, confetti), placeholder sound cues (WebAudio), `?t` / `?speed` / `?pending` / `?sound=1`. `?t=end` also disables transitions so screenshots never catch a card mid-turn.
 - `fixture/reference-match.json` — the reference match; economy numbers follow economy-0.3.0 (DEC-031).
 - `contracts/*.json` — one per state; the checker and the golden page read the same file.
 - `check/golden-check.mjs` — the checker.

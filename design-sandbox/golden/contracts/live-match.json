@@ -1,49 +1,463 @@
 {
   "state": "live-match",
-  "title": "Live match — my decision, the gap is small (her 74, my 72)",
-  "sources": ["SH1 frame 11", "SH2 frame 11", "SH4-7 attention hierarchy", "DESIGN_ACCEPTANCE §Non-negotiable 2/3/8 and §Chat 1-3", "docs/09 live negotiation screen"],
+  "title": "Live match v4 — my decision, the gap is small (her 74, my 72): the band on the table is the focal point",
+  "sources": [
+    "SH1 frame 11",
+    "SH2 frame 11",
+    "SH4-7 attention hierarchy",
+    "DESIGN_ACCEPTANCE §Non-negotiable 2/3/8 and §Chat 1-3",
+    "docs/09 live negotiation screen",
+    "VISUAL-AUDIT.md (v4: V1-V10, recs 2, 3, 5, 9, 10)"
+  ],
   "fixture": "live",
   "appRoute": "/dev/states/live-match",
-  "viewports": [{ "name": "desktop", "w": 1440, "h": 900 }, { "name": "mobile", "w": 390, "h": 844 }],
+  "viewports": [
+    {
+      "name": "desktop",
+      "w": 1440,
+      "h": 900
+    },
+    {
+      "name": "mobile",
+      "w": 390,
+      "h": 844
+    }
+  ],
   "required": [
-    { "id": "market-world", "why": "the illustrated scene is the screen, not a background" },
-    { "id": "opponent-character", "why": "the person across the table is the social centre", "largest": true, "unoccluded": "top-half",
-      "zone": { "desktop": [0.30, 0.00, 0.70, 0.95], "mobile": [0.10, 0.00, 0.90, 0.60] }, "minArea": { "desktop": 0.14, "mobile": 0.14 } },
-    { "id": "opponent-hud", "why": "who am I facing", "zone": { "desktop": [0.70, 0.00, 1.00, 0.25], "mobile": [0.45, 0.00, 1.00, 0.15] }, "unoccluded": true },
-    { "id": "clock-medallion", "why": "one chess clock, only the active face lit", "zone": { "desktop": [0.30, 0.00, 0.70, 0.12], "mobile": [0.00, 0.45, 1.00, 0.62] }, "unoccluded": true },
-    { "id": "clock-mine", "why": "my face of the clock" },
-    { "id": "clock-theirs", "why": "her face of the clock (GR-016 both visible)" },
-    { "id": "turn-banner", "why": "whose decision it is — never colour only", "text": "YOUR MOVE" },
-    { "id": "price-rail", "why": "both offers on one rail", "zone": { "desktop": [0.20, 0.50, 0.80, 0.72], "mobile": [0.00, 0.35, 1.00, 0.56] } },
-    { "id": "rail-offer-theirs", "why": "her current offer", "text": "74", "unoccluded": true, "minSize": { "desktop": [80, 44], "mobile": [60, 36] } },
-    { "id": "rail-offer-mine", "why": "my current offer", "text": "72", "unoccluded": true, "minSize": { "desktop": [80, 44], "mobile": [60, 36] } },
-    { "id": "opponent-bubble", "why": "her latest words live next to her, not in a panel", "near": "opponent-character" },
-    { "id": "my-rv", "why": "my private limit (reservation value), always visible to me", "unoccluded": true,
-      "zone": { "desktop": [0.00, 0.50, 0.30, 0.90], "mobile": [0.00, 0.55, 0.60, 0.80] } },
-    { "id": "chip-meter", "why": "concession chips left", "unoccluded": true },
-    { "id": "dossier", "why": "dossier reachable" },
-    { "id": "decision-row", "why": "one row of formal responses", "zone": { "desktop": [0.25, 0.75, 0.75, 1.00], "mobile": [0.00, 0.78, 1.00, 1.00] } },
-    { "id": "make-offer", "why": "primary action", "unoccluded": true, "minSize": { "desktop": [200, 60], "mobile": [300, 54] } },
-    { "id": "accept-button", "why": "close state: ACCEPT the same height class as MAKE OFFER", "text": "ACCEPT 74", "unoccluded": true, "minSize": { "desktop": [200, 60], "mobile": [150, 48] } },
-    { "id": "walk-button", "why": "walk away, quieter", "unoccluded": true, "minSize": { "desktop": [44, 44], "mobile": [44, 44] } },
-    { "id": "chat-panel", "why": "compact composer, not a slab", "maxSize": { "desktop": [420, 140] } },
-    { "id": "match-menu", "why": "the only navigation in the match tunnel", "zone": { "desktop": [0, 0, 0.1, 0.12], "mobile": [0, 0, 0.2, 0.1] } }
+    {
+      "id": "market-world",
+      "why": "the illustrated scene is the screen, not a background"
+    },
+    {
+      "id": "opponent-character",
+      "why": "the person across the table is the social centre",
+      "largest": true,
+      "unoccluded": "top-half",
+      "zone": {
+        "desktop": [
+          0.3,
+          0.0,
+          0.7,
+          0.95
+        ],
+        "mobile": [
+          0.1,
+          0.0,
+          0.9,
+          0.6
+        ]
+      },
+      "minArea": {
+        "desktop": 0.14,
+        "mobile": 0.14
+      }
+    },
+    {
+      "id": "opponent-hud",
+      "why": "who am I facing — a name plate next to her, with the rivalry record",
+      "zone": {
+        "desktop": [
+          0.55,
+          0.05,
+          0.9,
+          0.42
+        ],
+        "mobile": [
+          0.45,
+          0.0,
+          1.0,
+          0.18
+        ]
+      },
+      "unoccluded": true
+    },
+    {
+      "id": "clock-medallion",
+      "why": "one chess clock, only the active face lit",
+      "zone": {
+        "desktop": [
+          0.3,
+          0.0,
+          0.7,
+          0.26
+        ],
+        "mobile": [
+          0.0,
+          0.45,
+          1.0,
+          0.62
+        ]
+      },
+      "unoccluded": true
+    },
+    {
+      "id": "clock-mine",
+      "why": "my face of the clock"
+    },
+    {
+      "id": "clock-theirs",
+      "why": "her face of the clock (GR-016 both visible)"
+    },
+    {
+      "id": "turn-banner",
+      "why": "whose decision it is — never colour only",
+      "text": "YOUR MOVE"
+    },
+    {
+      "id": "price-rail",
+      "why": "THE BAND: both offers and every round's gap on one track — the largest object on the table",
+      "zone": {
+        "desktop": [
+          0.12,
+          0.55,
+          0.88,
+          0.8
+        ],
+        "mobile": [
+          0.0,
+          0.35,
+          1.0,
+          0.56
+        ]
+      },
+      "minSize": {
+        "desktop": [
+          820,
+          24
+        ],
+        "mobile": [
+          330,
+          16
+        ]
+      }
+    },
+    {
+      "id": "rail-offer-theirs",
+      "why": "her current offer",
+      "text": "74",
+      "unoccluded": true,
+      "minSize": {
+        "desktop": [
+          110,
+          66
+        ],
+        "mobile": [
+          70,
+          42
+        ]
+      }
+    },
+    {
+      "id": "rail-offer-mine",
+      "why": "my current offer",
+      "text": "72",
+      "unoccluded": true,
+      "minSize": {
+        "desktop": [
+          110,
+          66
+        ],
+        "mobile": [
+          70,
+          42
+        ]
+      }
+    },
+    {
+      "id": "opponent-bubble",
+      "why": "her latest words live next to her, not in a panel",
+      "near": "opponent-character"
+    },
+    {
+      "id": "my-rv",
+      "why": "my private limit (reservation value), always visible to me",
+      "unoccluded": true,
+      "zone": {
+        "desktop": [
+          0.0,
+          0.45,
+          0.3,
+          0.9
+        ],
+        "mobile": [
+          0.0,
+          0.55,
+          0.7,
+          0.8
+        ]
+      }
+    },
+    {
+      "id": "chip-meter",
+      "why": "concession chips left",
+      "unoccluded": true
+    },
+    {
+      "id": "dossier",
+      "why": "dossier reachable"
+    },
+    {
+      "id": "decision-row",
+      "why": "one row of formal responses",
+      "zone": {
+        "desktop": [
+          0.25,
+          0.75,
+          0.75,
+          1.0
+        ],
+        "mobile": [
+          0.0,
+          0.78,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "id": "make-offer",
+      "why": "primary action",
+      "unoccluded": true,
+      "minSize": {
+        "desktop": [
+          220,
+          70
+        ],
+        "mobile": [
+          300,
+          56
+        ]
+      }
+    },
+    {
+      "id": "accept-button",
+      "why": "close state: ACCEPT the same height class as MAKE OFFER",
+      "text": "ACCEPT 74",
+      "unoccluded": true,
+      "minSize": {
+        "desktop": [
+          220,
+          70
+        ],
+        "mobile": [
+          150,
+          50
+        ]
+      }
+    },
+    {
+      "id": "walk-button",
+      "why": "walk away, quieter",
+      "unoccluded": true,
+      "minSize": {
+        "desktop": [
+          44,
+          44
+        ],
+        "mobile": [
+          44,
+          44
+        ]
+      }
+    },
+    {
+      "id": "chat-panel",
+      "why": "compact composer, not a slab",
+      "maxSize": {
+        "desktop": [
+          420,
+          140
+        ]
+      }
+    },
+    {
+      "id": "match-menu",
+      "why": "the only navigation in the match tunnel",
+      "zone": {
+        "desktop": [
+          0,
+          0,
+          0.1,
+          0.26
+        ],
+        "mobile": [
+          0,
+          0,
+          0.2,
+          0.16
+        ]
+      }
+    },
+    {
+      "id": "bounty-drain",
+      "why": "rec 3: what the clock costs you, next to the clock",
+      "unoccluded": true,
+      "near": "clock-medallion"
+    },
+    {
+      "id": "rival-record",
+      "why": "rec 5: head-to-head record on her plate",
+      "text": "1–0"
+    },
+    {
+      "id": "opponent-tell",
+      "why": "rec 9: a readable tell from public information only (her step sizes)",
+      "near": "opponent-bubble"
+    },
+    {
+      "id": "gap-label",
+      "why": "the gap, sized as a number that matters",
+      "text": "2",
+      "unoccluded": true
+    },
+    {
+      "id": "sound-toggle",
+      "why": "rec 10: sound is part of the design (placeholder cues, spec in sfx.json)"
+    }
   ],
   "noOverlap": [
-    ["rail-offer-theirs", "rail-offer-mine"], ["make-offer", "accept-button"], ["make-offer", "walk-button"], ["accept-button", "walk-button"],
-    ["my-rv", "decision-row"], ["chat-panel", "decision-row"], ["clock-medallion", "opponent-hud"], ["opponent-bubble", "opponent-hud"],
-    ["chat-panel", "my-rv"], ["opponent-bubble", "price-rail"], ["turn-banner", "clock-medallion"]
+    [
+      "rail-offer-theirs",
+      "rail-offer-mine"
+    ],
+    [
+      "make-offer",
+      "accept-button"
+    ],
+    [
+      "make-offer",
+      "walk-button"
+    ],
+    [
+      "accept-button",
+      "walk-button"
+    ],
+    [
+      "my-rv",
+      "decision-row"
+    ],
+    [
+      "chat-panel",
+      "decision-row"
+    ],
+    [
+      "clock-medallion",
+      "opponent-hud"
+    ],
+    [
+      "opponent-bubble",
+      "opponent-hud"
+    ],
+    [
+      "chat-panel",
+      "my-rv"
+    ],
+    [
+      "opponent-bubble",
+      "price-rail"
+    ],
+    [
+      "turn-banner",
+      "clock-medallion"
+    ],
+    [
+      "bounty-drain",
+      "opponent-hud"
+    ],
+    [
+      "opponent-tell",
+      "price-rail"
+    ],
+    [
+      "gap-label",
+      "decision-row"
+    ],
+    [
+      "gap-label",
+      "turn-banner"
+    ],
+    [
+      "turn-banner",
+      "decision-row"
+    ],
+    [
+      "opponent-tell",
+      "opponent-bubble"
+    ],
+    [
+      "my-hand",
+      "chat-panel"
+    ],
+    [
+      "my-hand",
+      "price-rail"
+    ]
   ],
   "forbidden": {
-    "text": ["MY MAX", "Opponent found", "Waiting for opponent", "Loading", "Connecting"],
+    "text": [
+      "MY MAX",
+      "Opponent found",
+      "Waiting for opponent",
+      "Loading",
+      "Connecting"
+    ],
     "why": "DESIGN_ACCEPTANCE §7 vocabulary; SH4-5 banned phrases"
   },
   "timeline": [
-    { "id": "offer-arrived", "at": 0, "action": "show", "target": "rail-offer-theirs" },
-    { "id": "offer-step-pop", "at": 250, "action": "pop", "target": "rail-offer-theirs", "text": "−4" },
-    { "id": "pitch-bubble", "at": 350, "action": "show", "target": "opponent-bubble" },
-    { "id": "clock-switch", "at": 600, "action": "class", "target": "clock-medallion", "cls": "switched" },
-    { "id": "decision-row-rises", "at": 700, "action": "show", "target": "decision-row" }
+    {
+      "id": "offer-arrived",
+      "at": 0,
+      "action": "show",
+      "target": "rail-offer-theirs",
+      "sfx": "offer-ding"
+    },
+    {
+      "id": "offer-step-pop",
+      "at": 250,
+      "action": "pop",
+      "target": "rail-offer-theirs",
+      "text": "−4"
+    },
+    {
+      "id": "gap-snap",
+      "at": 320,
+      "action": "class",
+      "target": "gap-label",
+      "cls": "snap",
+      "sfx": "gap-snap"
+    },
+    {
+      "id": "pitch-bubble",
+      "at": 450,
+      "action": "show",
+      "target": "opponent-bubble"
+    },
+    {
+      "id": "clock-switch",
+      "at": 600,
+      "action": "class",
+      "target": "clock-medallion",
+      "cls": "switched"
+    },
+    {
+      "id": "decision-row-rises",
+      "at": 700,
+      "action": "show",
+      "target": "decision-row"
+    },
+    {
+      "id": "drain-starts",
+      "at": 900,
+      "action": "class",
+      "target": "bounty-drain",
+      "cls": "draining"
+    },
+    {
+      "id": "tell",
+      "at": 1400,
+      "action": "show",
+      "target": "opponent-tell"
+    }
   ],
   "pending": []
 }

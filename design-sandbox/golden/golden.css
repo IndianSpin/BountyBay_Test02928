@@ -34,6 +34,29 @@
   --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
   --outline-ink: #2A1A2E;
 
+  /* LANTERN LUXE v4 skin tokens (golden-only; proposed for the app, built from the canvas palette above)
+   COLOUR ROLES — one meaning each: gold = value (bounty, the primary action, value numbers) · ember = you ·
+   violet = her · green = the deal · cream = text. Frames and rims are NEUTRAL, never gold. */
+  --lx-ink: #F6E7C8;  --lx-muted: #BFA88A;  --lx-faint: #8C7A66;
+  --lx-gold: #FFD27A; --lx-gold-deep: #B07A26;
+  --lx-rim: rgba(255,236,205,.16);          /* neutral hairline on every surface */
+  --lx-rim-strong: rgba(255,236,205,.30);
+  --lx-rim-soft: rgba(255,236,205,.10);
+  --lx-brass: linear-gradient(#FFE7A8, #E9B45A 50%, #B07A26);
+  /* three material tiers */
+  --lx-glass: rgba(16,9,7,.66);              /* tier 1 — HUD chips over the scene (blurred behind) */
+  --lx-walnut: linear-gradient(165deg, rgba(58,37,27,.96), rgba(26,16,13,.97));   /* tier 2 — cards */
+  --lx-lift: 0 0 0 1px rgba(0,0,0,.55), 0 18px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,236,205,.10);
+  --lx-lift-sm: 0 0 0 1px rgba(0,0,0,.5), 0 8px 18px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,236,205,.10);
+  --lx-text-lift: 0 2px 0 rgba(40,20,5,.85), 0 8px 26px rgba(0,0,0,.55);
+  --lx-walnut-solid: linear-gradient(160deg, #3E271C, #1E1210);
+  /* type scale — six steps, nothing below 12px */
+  --fs-cap: 12px; --fs-body: 14px; --fs-lead: 18px; --fs-h3: 24px; --fs-h2: 36px; --fs-h1: 64px; --fs-hero: 88px;
+  /* radii — three */
+  --r-sm: 12px; --r-md: 20px; --r-pill: 999px;
+  /* motion — three speeds, each with a job */
+  --t-snap: 180ms; --t-settle: 450ms; --t-ceremony: 900ms;
+
   /* golden-only motion tokens (proposed for the app) */
   --ease-pop: cubic-bezier(.2, 1.4, .3, 1);
   --ease-snap: cubic-bezier(.16, 1, .3, 1);
@@ -42,114 +65,187 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
-body { background: var(--surface-world-deep); color: var(--ink-on-dark); font-family: var(--font-ui); overflow: hidden; -webkit-font-smoothing: antialiased; }
+body { background: #140C0A; color: var(--lx-ink); font-family: var(--font-ui); overflow: hidden; -webkit-font-smoothing: antialiased; }
 button { font: inherit; }
 .num { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: 700; }
 .world { font-family: var(--font-world); font-weight: 800; letter-spacing: .01em; }
-.kicker { font-family: var(--font-ui); font-weight: 800; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.kicker { font-family: var(--font-ui); font-weight: 800; font-size: var(--fs-cap); letter-spacing: .1em; text-transform: uppercase; }
 
-/* ------------------------------------------------------------------ stage (the scene box) */
-.stage { position: fixed; inset: 0; overflow: hidden; }
-.scene-bg { position: absolute; inset: 0; background: url('../../apps/web/public/game/scene-wharf.svg') center / cover no-repeat; }
-.scene-bg.dim { filter: brightness(.55) saturate(1.05); }
-.scene-bg.blur { filter: blur(6px) brightness(.5); transform: scale(1.04); }
-.table-fg { position: absolute; left: 0; right: 0; bottom: 0; height: 44%; background: url('../../apps/web/public/game/table-fp.svg') center top / cover no-repeat; }
 
-/* the opponent: a sprite cell from /game/anim (400x600, same framing as ch-*.svg) */
-.sprite { position: absolute; background-repeat: no-repeat; image-rendering: auto; }
+/* ================================================================== THE WORLD — three depth planes
+ * back: the painting, softly defocused and dimmed so props never compete with play (V2)
+ * mid:  the person, sharp, rim-lit (V10)
+ * front: the table and the fight
+ * A spotlight (data-focus="x% y%") lifts the one place the eye should go (V1). */
+.stage { position: fixed; inset: 0; overflow: hidden; background: #140C0A; }
+.w-scene, .w-counter { position: absolute; overflow: hidden; }
+.w-scene { inset: 0; container-type: size; }
+.w-paint { position: absolute; left: 50%; top: 50%; width: max(100cqw, 160cqh); aspect-ratio: 16 / 10; transform: translate(-50%, -50%); }
+.w-bg { position: absolute; inset: -8px; background: url(img/scene-wharf4.jpg) center / 100% 100% no-repeat; filter: blur(2.2px) brightness(.74) saturate(.92) contrast(1.02); }
+.w-glow { position: absolute; width: 14%; aspect-ratio: 1; margin: -7% 0 0 -7%; border-radius: 50%; pointer-events: none; mix-blend-mode: screen;
+  background: radial-gradient(circle, rgba(255,196,110,.42), rgba(255,170,80,.14) 40%, rgba(255,170,80,0) 68%); animation: w-flicker 5.2s ease-in-out infinite; }
+@keyframes w-flicker { 0%, 100% { opacity: .7; } 30% { opacity: 1; } 55% { opacity: .8; } 70% { opacity: .92; } }
+.w-spot { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light;
+  background: radial-gradient(ellipse 34% 40% at var(--focus-x, 50%) var(--focus-y, 55%), rgba(255,226,170,.75), rgba(255,226,170,0) 100%); }
+.w-grade { position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 60% 55% at var(--focus-x, 50%) var(--focus-y, 55%), rgba(0,0,0,0), rgba(8,4,10,.42)); }
+.w-vignette { position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 200px 50px rgba(10,5,14,.7); }
+.w-counter { left: 0; right: 0; bottom: 0; height: 36%; }
+.w-table { position: absolute; inset: 0; background: url(img/table-fp4.png) center top / cover no-repeat; }
 
-/* ------------------------------------------------------------------ chunky buttons (press depth) */
-.btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 22px;
-  border-radius: 14px; border: 3px solid var(--outline-ink); cursor: pointer; font-family: var(--font-world); font-weight: 800; font-size: 18px;
-  letter-spacing: .02em; transition: transform .08s, box-shadow .08s; }
-.btn:active { transform: translateY(4px); }
-.btn-gold { background: linear-gradient(#F6CC74, var(--brand-gold) 55%, #C9913A); color: var(--ink-on-gold); box-shadow: 0 6px 0 var(--brand-gold-deep), 0 10px 18px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.55); }
-.btn-gold:active { box-shadow: 0 2px 0 var(--brand-gold-deep), inset 0 2px 0 rgba(255,255,255,.4); }
-.btn-green { background: linear-gradient(#6FDB93, var(--positive) 60%, var(--positive-deep)); color: var(--ink-on-positive); box-shadow: 0 6px 0 #1E6B3A, 0 10px 18px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.5); }
-.btn-quiet { background: rgba(16,26,32,.72); color: var(--ink-on-dark); border-color: rgba(243,238,221,.35); box-shadow: 0 4px 0 rgba(0,0,0,.45); font-size: 15px; }
-.btn-sub { display: block; font-family: var(--font-ui); font-weight: 700; font-size: 11px; opacity: .8; margin-top: -2px; letter-spacing: 0; }
-.btn .stack { display: flex; flex-direction: column; align-items: center; line-height: 1.05; }
+/* the person: sharp, warm rim light from the lanterns, a contact shadow on the table */
+.sprite { position: absolute; background-repeat: no-repeat;
+  filter: drop-shadow(0 0 1px rgba(255,214,150,.9)) drop-shadow(-6px -2px 14px rgba(255,190,110,.28)) drop-shadow(0 18px 20px rgba(0,0,0,.5)); }
 
-/* ------------------------------------------------------------------ plaques, pills, parchment */
-.plaque { position: absolute; min-width: 92px; height: 50px; padding: 0 14px; border-radius: 10px; border: 3px solid var(--outline-ink);
-  display: flex; align-items: center; justify-content: center; color: #fff; font-family: var(--font-num); font-weight: 700; font-size: 28px;
-  box-shadow: 0 5px 0 rgba(0,0,0,.4); transform: translateX(-50%); }
-.plaque.me { background: linear-gradient(#FF9A76, var(--player) 60%, var(--player-deep)); }
-.plaque.them { background: linear-gradient(#A68BE3, var(--opponent) 60%, var(--opponent-deep)); }
-.plaque.hero { box-shadow: 0 0 0 4px var(--brand-gold), 0 0 28px 6px rgba(217,166,83,.75), 0 5px 0 rgba(0,0,0,.4); }
-.plaque.locked { background: linear-gradient(#7BE39E, var(--positive) 60%, var(--positive-deep)); color: var(--ink-on-positive);
-  box-shadow: 0 0 0 4px #BFF3D0, 0 0 30px 8px rgba(63,190,107,.7), 0 5px 0 rgba(0,0,0,.4); }
-.plaque .lab { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-family: var(--font-ui); font-size: 10px;
-  font-weight: 800; letter-spacing: .1em; color: var(--ink-on-dark); text-shadow: 0 1px 2px rgba(0,0,0,.8); }
+/* ================================================================== MATERIALS (V8) — three tiers, three radii, one shadow each */
+/* tier 1: glass HUD chip over the scene */
+.glass { background: var(--lx-glass); -webkit-backdrop-filter: blur(10px) saturate(1.1); backdrop-filter: blur(10px) saturate(1.1);
+  border: 1px solid var(--lx-rim); border-radius: var(--r-pill); color: var(--lx-ink); box-shadow: 0 8px 22px rgba(0,0,0,.35); }
+/* tier 2: walnut card */
+.card, .parch { background: var(--lx-walnut); color: var(--lx-ink); border: 1px solid var(--lx-rim); border-radius: var(--r-md); box-shadow: var(--lx-lift); }
+/* tier 3: objects (brass, enamel, the stamp, plaques) — defined per component below */
 
-.pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(16,26,32,.82);
-  border: 2px solid rgba(243,238,221,.28); color: var(--ink-on-dark); font-size: 13px; font-weight: 700; white-space: nowrap; }
+.ribbon { display: inline-block; position: relative; padding: 5px 14px 6px; color: var(--lx-ink); font-family: var(--font-ui); font-weight: 800; font-size: var(--fs-cap);
+  letter-spacing: .14em; text-transform: uppercase; background: var(--lx-glass); border: 1px solid var(--lx-rim); border-radius: var(--r-pill); }
+.t3d { font-family: var(--font-world); font-weight: 800; letter-spacing: .005em; color: #FFF6E4; text-shadow: var(--lx-text-lift); }
+.t3d em, .t3d .gold { font-style: normal; color: var(--lx-gold); }
+.t3d.gold { color: var(--lx-gold); text-shadow: 0 2px 0 #6A3E10, 0 0 26px rgba(255,190,90,.55), 0 10px 26px rgba(0,0,0,.5); }
 
-.parch { background: linear-gradient(var(--surface-parchment), var(--surface-parchment-deep)); color: var(--ink-on-parchment);
-  border: 3px solid var(--outline-ink); border-radius: 8px 20px 8px 20px; box-shadow: 0 8px 0 rgba(0,0,0,.35), 0 18px 40px rgba(0,0,0,.35); }
+/* a warm light bloom behind the ONE reward moment (no spinning rays, no sparkles) */
+.rays { position: absolute; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(255,222,150,.45), rgba(255,200,110,.14) 38%, rgba(255,200,110,0) 66%);
+  animation: g-bloom 4s ease-in-out infinite; }
+@keyframes g-bloom { 0%, 100% { opacity: .8; scale: 1; } 50% { opacity: 1; scale: 1.05; } }
+@keyframes g-rays { to { rotate: 0deg; } }
+.sparkle { display: none; }
 
-.bubble { position: absolute; max-width: 280px; padding: 10px 14px 12px; border-radius: 16px; background: #FFFBF3; color: var(--ink-on-parchment);
-  border: 3px solid var(--opponent); font-size: 16px; font-weight: 600; line-height: 1.3; box-shadow: 0 8px 18px rgba(0,0,0,.4); }
-.bubble .kicker { color: var(--opponent-deep); display: block; margin-bottom: 2px; font-size: 10px; }
-.bubble::after { content: ''; position: absolute; right: 34px; bottom: -11px; width: 16px; height: 16px; background: #FFFBF3;
-  border-right: 3px solid var(--opponent); border-bottom: 3px solid var(--opponent); transform: rotate(45deg); }
+/* ================================================================== BUTTONS — one brass primary per screen */
+.btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 24px;
+  border-radius: var(--r-sm); border: 0; cursor: pointer; font-family: var(--font-world); font-weight: 800; font-size: var(--fs-lead); white-space: nowrap;
+  letter-spacing: .02em; transition: transform var(--t-snap), box-shadow var(--t-snap), filter var(--t-snap); }
+.btn:hover { filter: brightness(1.07); }
+.btn:active { transform: translateY(3px); }
+.btn .stack { position: relative; display: flex; flex-direction: column; align-items: center; line-height: 1.05; }
+.btn-gold { background: var(--lx-brass); color: #3A2208; text-shadow: 0 1px 0 rgba(255,255,255,.45);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.55), 0 5px 0 #6E4712, 0 16px 34px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.7); }
+.btn-gold:active { box-shadow: 0 0 0 1px rgba(0,0,0,.55), 0 2px 0 #6E4712, inset 0 1px 0 rgba(255,255,255,.7); }
+.btn-gold::after { content: ''; position: absolute; top: -20%; bottom: -20%; width: 22%; left: -40%; transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.42), transparent); animation: g-shine 6s ease-in-out infinite; pointer-events: none; }
+@keyframes g-shine { 0%, 80% { left: -40%; } 100% { left: 130%; } }
+.btn-gold.breathe { animation: g-breathe 3s ease-in-out infinite; }
+@keyframes g-breathe { 0%, 100% { box-shadow: 0 0 0 1px rgba(0,0,0,.55), 0 5px 0 #6E4712, 0 16px 34px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.7), 0 0 18px rgba(255,200,100,.2); }
+  50% { box-shadow: 0 0 0 1px rgba(0,0,0,.55), 0 5px 0 #6E4712, 0 16px 34px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.7), 0 0 40px rgba(255,200,100,.55); } }
+.btn-green { background: linear-gradient(#7FE3A3, #3FBE6B 50%, #23804A); color: #0B2A16; text-shadow: 0 1px 0 rgba(255,255,255,.4);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.55), 0 5px 0 #14522C, 0 16px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.6); }
+.btn-quiet { background: var(--lx-glass); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: var(--lx-ink); border: 1px solid var(--lx-rim-strong); box-shadow: 0 8px 20px rgba(0,0,0,.35); font-size: var(--fs-body); }
+.btn-sub { display: block; font-family: var(--font-ui); font-weight: 700; font-size: var(--fs-cap); opacity: .78; margin-top: 2px; letter-spacing: .02em; text-shadow: none; }
 
-/* ------------------------------------------------------------------ the chess clock (one object, two faces) */
-.clock { position: absolute; display: flex; align-items: center; gap: 4px; padding: 4px; border-radius: 14px; background: rgba(24,16,30,.9);
-  border: 2px solid #8A6A3A; white-space: nowrap; }
-.clock .face { display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 10px; }
-.clock .who { font-weight: 800; font-size: 11px; letter-spacing: .08em; }
-.clock .t { font-family: var(--font-num); font-weight: 700; font-size: 22px; font-variant-numeric: tabular-nums; }
-.clock .m { font-family: var(--font-num); font-weight: 600; font-size: 13px; color: var(--ink-muted-on-dark); }
-.clock .face.on { background: rgba(255,255,255,.09); }
-.clock .face.on .t { color: var(--brand-gold); }
-.clock .face.off .t { color: var(--ink-muted-on-dark); }
-.clock .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand-gold); box-shadow: 0 0 8px var(--brand-gold); }
-.clock .lever { width: 3px; height: 26px; background: #C9A15A; border-radius: 2px; transition: transform .18s var(--ease-snap); }
-.clock.low { box-shadow: 0 0 0 3px var(--player), 0 0 22px rgba(255,122,80,.6); }
-.clock.low .face.mine.on .t { color: var(--player); }
-.clock.critical { box-shadow: 0 0 0 4px var(--crimson), 0 0 34px 8px rgba(226,73,90,.75); }
-.clock.critical .face.mine.on .t { color: var(--crimson); }
+/* ================================================================== PLAQUES (offers) — enamel objects */
+.plaque { position: absolute; min-width: 120px; height: 72px; padding: 0 18px; border-radius: var(--r-sm); overflow: visible;
+  display: flex; align-items: center; justify-content: center; color: #fff; font-family: var(--font-num); font-weight: 700; font-size: 40px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.5), 0 14px 28px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -3px 0 rgba(0,0,0,.18); transform: translateX(-50%); text-shadow: 0 2px 0 rgba(0,0,0,.28); }
+.plaque.me { background: linear-gradient(#FF9C78, #E0602E 60%, #A03A18); }
+.plaque.them { background: linear-gradient(#A58BE0, #6A4FB3 60%, #43317D); }
+.plaque.hero { animation: g-hero 2.4s ease-in-out infinite; }
+@keyframes g-hero { 0%, 100% { box-shadow: 0 0 0 1.5px rgba(255,236,205,.8), 0 0 16px 2px rgba(180,150,255,.35), 0 14px 28px rgba(0,0,0,.5); }
+  50% { box-shadow: 0 0 0 1.5px rgba(255,236,205,.8), 0 0 30px 8px rgba(180,150,255,.6), 0 14px 28px rgba(0,0,0,.5); } }
+.plaque .lab { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-family: var(--font-ui); font-size: var(--fs-cap);
+  font-weight: 800; letter-spacing: .12em; color: #FFE8C0; text-shadow: 0 1px 3px rgba(0,0,0,.9); }
 
-/* ------------------------------------------------------------------ reward layer */
-.counter { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 6px; border-radius: 999px; background: rgba(16,26,32,.86);
-  border: 2px solid var(--brand-gold); box-shadow: 0 4px 0 rgba(0,0,0,.4); }
-.counter .ico { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px;
-  background: radial-gradient(circle at 35% 30%, #FFE7A6, var(--brand-gold) 55%, var(--brand-gold-deep)); border: 2px solid var(--outline-ink); color: var(--ink-on-gold); font-weight: 800; }
-.counter .v { font-family: var(--font-num); font-weight: 700; font-size: 20px; color: var(--ink-on-dark); font-variant-numeric: tabular-nums; }
-.counter .l { font-size: 10px; font-weight: 800; letter-spacing: .1em; color: var(--ink-muted-on-dark); }
-.counter.punch { animation: g-punch .42s var(--ease-pop); }
-@keyframes g-punch { 0% { transform: scale(1); } 35% { transform: scale(1.22); } 100% { transform: scale(1); } }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: var(--r-pill); background: var(--lx-glass);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid var(--lx-rim); color: var(--lx-ink); font-size: var(--fs-body); font-weight: 700; white-space: nowrap; }
 
-.bar { position: relative; height: 14px; border-radius: 999px; background: rgba(0,0,0,.45); border: 2px solid var(--outline-ink); overflow: hidden; }
-.bar > i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--brand-gold-deep), var(--brand-gold) 70%, #FFE7A6);
-  transition: width 1.1s var(--ease-out); }
-.bar > i::after { content: ''; position: absolute; right: -2px; top: -6px; width: 14px; height: 26px; border-radius: 50%; background: radial-gradient(#FFFFFF, rgba(255,231,166,.0) 70%); opacity: 0; transition: opacity .2s; }
+.bubble { position: absolute; max-width: 300px; padding: 12px 16px 14px; border-radius: var(--r-md); background: var(--lx-walnut); color: var(--lx-ink);
+  border: 1px solid var(--lx-rim-strong); font-size: var(--fs-lead); font-weight: 600; line-height: 1.3; box-shadow: var(--lx-lift); }
+.bubble .kicker { color: #C7B3F0; display: block; margin-bottom: 4px; }
+.bubble::after { content: ''; position: absolute; right: 34px; bottom: -8px; width: 14px; height: 14px; background: #221510;
+  border-right: 1px solid var(--lx-rim-strong); border-bottom: 1px solid var(--lx-rim-strong); transform: rotate(45deg); }
+
+/* ================================================================== THE CHESS CLOCK — brass and enamel, the bounty drains while you think (rec 3) */
+.clock { position: absolute; display: flex; align-items: center; gap: 6px; padding: 5px; border-radius: 18px; white-space: nowrap;
+  background: var(--lx-brass); box-shadow: 0 0 0 1px rgba(0,0,0,.6), 0 14px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.6); }
+.clock .face { position: relative; display: flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 13px; background: linear-gradient(#2A1A14, #160D0A); box-shadow: inset 0 2px 6px rgba(0,0,0,.6); }
+.clock .who { font-weight: 800; font-size: var(--fs-cap); letter-spacing: .1em; color: var(--lx-muted) !important; }
+.clock .t { font-family: var(--font-num); font-weight: 700; font-size: 28px; font-variant-numeric: tabular-nums; color: #FFF3DA; }
+.clock .m { font-family: var(--font-num); font-weight: 700; font-size: var(--fs-body); color: var(--lx-muted); }
+.clock .face.on { background: linear-gradient(#3A2414, #221409); box-shadow: inset 0 0 0 1px rgba(255,210,120,.7), 0 0 18px rgba(255,190,90,.5); }
+.clock .face.on .t { color: var(--lx-gold); text-shadow: 0 0 12px rgba(255,190,90,.6); }
+.clock .face.off { opacity: .66; }
+.clock .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--player); box-shadow: 0 0 8px var(--player); animation: w-pulse 1.2s ease-in-out infinite; }
+.clock .lever { width: 5px; height: 34px; background: linear-gradient(#5A3A1A, #2A1A0C); border-radius: 3px; transition: transform var(--t-snap) var(--ease-snap); }
+.clock.low { box-shadow: 0 0 0 2px var(--player), 0 0 26px rgba(255,122,80,.7), 0 14px 30px rgba(0,0,0,.5); }
+.clock.critical { box-shadow: 0 0 0 2px var(--crimson), 0 0 36px 8px rgba(226,73,90,.7), 0 14px 30px rgba(0,0,0,.5); }
+@keyframes w-pulse { 0%, 100% { opacity: .55; transform: scale(.92); } 50% { opacity: 1; transform: scale(1.08); } }
+@keyframes w-spin { to { transform: rotate(360deg); } }
+
+/* the drain: your share of the bounty, a coin pile that thins while your face runs */
+.drain { position: absolute; display: flex; align-items: center; gap: 10px; padding: 6px 14px 6px 8px; }
+.drain .pile { position: relative; width: 34px; height: 26px; }
+.drain .pile i { position: absolute; left: 3px; width: 28px; height: 8px; border-radius: 50%; background: radial-gradient(ellipse at 40% 30%, #FFF1C8, #E9B45A 50%, #8E5E1C); box-shadow: 0 1px 0 #6E4712; }
+.drain .pile i:nth-child(1) { bottom: 0; } .drain .pile i:nth-child(2) { bottom: 5px; } .drain .pile i:nth-child(3) { bottom: 10px; } .drain .pile i:nth-child(4) { bottom: 15px; opacity: .45; }
+.drain .fall { position: absolute; left: 12px; top: 22px; width: 10px; height: 10px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FFF1C8, #E9B45A 45%, #8E5E1C); opacity: 0; }
+.drain.draining .fall { animation: g-fall 1.6s ease-in infinite; } .drain.draining .fall + .fall { animation-delay: .8s; }
+@keyframes g-fall { 0% { opacity: 0; transform: translateY(0) scale(1); } 15% { opacity: 1; } 100% { opacity: 0; transform: translateY(38px) scale(.6); } }
+.drain .v { font-family: var(--font-num); font-weight: 700; font-size: var(--fs-lead); color: var(--lx-gold); line-height: 1; }
+.drain .l { font-size: var(--fs-cap); font-weight: 700; color: var(--lx-muted); }
+.drain .meter { width: 90px; height: 6px; border-radius: 3px; background: rgba(255,236,205,.12); overflow: hidden; margin-top: 4px; }
+.drain .meter b { display: block; height: 100%; background: var(--lx-brass); border-radius: 3px; transition: width 1s linear; }
+
+/* ================================================================== REWARD LAYER */
+.counter { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 6px 18px 6px 7px; border-radius: var(--r-pill);
+  background: var(--lx-glass); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid var(--lx-rim); box-shadow: 0 8px 22px rgba(0,0,0,.35); }
+.counter .ico { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; font-family: var(--font-world);
+  background: radial-gradient(circle at 35% 30%, #FFF1C8, #E9B45A 45%, #8E5E1C); color: #3A2208; font-weight: 800; box-shadow: 0 0 0 1px rgba(0,0,0,.5), inset 0 -2px 3px rgba(0,0,0,.3); }
+.counter .v { font-family: var(--font-num); font-weight: 700; font-size: var(--fs-h3); color: #FFF3DA; font-variant-numeric: tabular-nums; line-height: 1; }
+.counter .l { font-size: var(--fs-cap); font-weight: 700; letter-spacing: .08em; color: var(--lx-muted); }
+.counter.punch { animation: g-punch var(--t-settle) var(--ease-pop); }
+.counter.punch .ico { animation: g-coin .6s var(--ease-out); }
+@keyframes g-punch { 0% { transform: scale(1); } 35% { transform: scale(1.18); } 100% { transform: scale(1); } }
+@keyframes g-coin { 0% { transform: rotateY(0); } 100% { transform: rotateY(360deg); } }
+
+.bar { position: relative; height: 10px; border-radius: var(--r-pill); background: rgba(12,6,6,.7); box-shadow: 0 0 0 1px var(--lx-rim-soft), inset 0 2px 3px rgba(0,0,0,.5); overflow: hidden; }
+.bar > i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: var(--r-pill); background: var(--lx-brass); transition: width 1.1s var(--ease-out); }
+.bar > i::after { content: ''; position: absolute; right: -4px; top: -6px; width: 16px; height: 24px; border-radius: 50%; background: radial-gradient(#FFFFFF, rgba(255,231,166,0) 70%); opacity: 0; transition: opacity .2s; }
 .bar.filling > i::after { opacity: 1; }
 
-.coin { position: fixed; width: 26px; height: 26px; border-radius: 50%; pointer-events: none; z-index: 60;
-  background: radial-gradient(circle at 35% 30%, #FFF1C4, var(--brand-gold) 55%, var(--brand-gold-deep)); border: 2px solid var(--outline-ink); }
-.pop { position: fixed; z-index: 61; pointer-events: none; font-family: var(--font-num); font-weight: 700; font-size: 34px; color: #FFF6DA;
-  text-shadow: 0 3px 0 var(--outline-ink), 0 0 18px rgba(217,166,83,.9); animation: g-pop 1.1s var(--ease-out) forwards; }
-@keyframes g-pop { 0% { transform: translate(-50%, 0) scale(.4); opacity: 0; } 25% { transform: translate(-50%, -18px) scale(1.15); opacity: 1; }
-  70% { transform: translate(-50%, -40px) scale(1); opacity: 1; } 100% { transform: translate(-50%, -60px) scale(1); opacity: 0; } }
+.coin { position: fixed; width: 24px; height: 24px; border-radius: 50%; pointer-events: none; z-index: 60;
+  background: radial-gradient(circle at 35% 30%, #FFF1C8, #E9B45A 45%, #8E5E1C); box-shadow: 0 0 0 1px rgba(0,0,0,.4), 0 0 14px rgba(255,200,110,.9); }
+.pop { position: fixed; z-index: 61; pointer-events: none; font-family: var(--font-world); font-weight: 800; font-size: 44px; color: #FFE3A0;
+  text-shadow: 0 2px 0 #6A3E10, 0 0 18px rgba(255,190,90,.9); animation: g-pop 1.2s var(--ease-out) forwards; }
+@keyframes g-pop { 0% { transform: translate(-50%, 0) scale(.4); opacity: 0; } 25% { transform: translate(-50%, -20px) scale(1.15); opacity: 1; }
+  70% { transform: translate(-50%, -40px) scale(1); opacity: 1; } 100% { transform: translate(-50%, -62px) scale(1); opacity: 0; } }
 
-.stamp { position: absolute; white-space: nowrap; transform: translate(-50%, -50%) rotate(-6deg); padding: 6px 22px; border-radius: 12px; border: 4px solid var(--ink-on-positive);
-  background: var(--positive); color: var(--ink-on-positive); font-family: var(--font-world); font-weight: 800; font-size: 44px; letter-spacing: .04em;
-  box-shadow: 0 6px 0 rgba(0,0,0,.4); }
-.enter-stamp { animation: g-stamp .5s var(--ease-pop) both; }
-@keyframes g-stamp { 0% { transform: translate(-50%, -50%) rotate(-6deg) scale(2.4); opacity: 0; } 60% { transform: translate(-50%, -50%) rotate(-6deg) scale(.92); opacity: 1; }
-  100% { transform: translate(-50%, -50%) rotate(-6deg) scale(1); opacity: 1; } }
+.stamp { position: absolute; white-space: nowrap; transform: translate(-50%, -50%) rotate(-5deg); padding: 8px 30px; border-radius: var(--r-sm);
+  background: linear-gradient(#5ED68A, #2E9E58 60%, #1D6E3C); color: #F3FFF6; font-family: var(--font-world); font-weight: 800; font-size: 48px; letter-spacing: .04em;
+  text-shadow: 0 2px 0 rgba(0,0,0,.25); box-shadow: 0 0 0 1.5px rgba(255,255,255,.35), 0 16px 34px rgba(0,0,0,.5), 0 0 60px rgba(90,230,140,.35); }
+.enter-stamp { animation: g-stamp .55s var(--ease-pop) both; }
+@keyframes g-stamp { 0% { transform: translate(-50%, -50%) rotate(-5deg) scale(2.4); opacity: 0; } 60% { transform: translate(-50%, -50%) rotate(-5deg) scale(.92); opacity: 1; }
+  100% { transform: translate(-50%, -50%) rotate(-5deg) scale(1); opacity: 1; } }
+
+/* a card that turns over (the limit reveal, rec 1) */
+.flip { perspective: 900px; }
+.flip .face-down, .flip .face-up { backface-visibility: hidden; -webkit-backface-visibility: hidden; transition: transform var(--t-ceremony) var(--ease-snap); }
+.flip .face-down { position: absolute; inset: 0; transform: rotateY(0); }
+.flip .face-up { transform: rotateY(-180deg); }
+.flip.turned .face-down { transform: rotateY(180deg); }
+.flip.turned .face-up { transform: rotateY(0); }
 
 .tl-hidden { opacity: 0; pointer-events: none; }
-.tl-show { animation: g-rise .5s var(--ease-out) both; }
-@keyframes g-rise { 0% { opacity: 0; transform: translateY(16px); } 100% { opacity: 1; transform: none; } }
+.tl-show { animation: g-rise var(--t-settle) var(--ease-pop) both; }
+@keyframes g-rise { 0% { opacity: 0; translate: 0 18px; scale: .95; } 100% { opacity: 1; translate: 0 0; scale: 1; } }
 
-.pending-tag { display: none; position: absolute; top: -12px; right: 0; padding: 2px 7px; border-radius: 6px; background: #FFE3E0; color: #B8323F;
+.sound-toggle { position: fixed; z-index: 40; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; }
+
+.pending-tag { display: none; position: absolute; top: -14px; right: 0; padding: 2px 8px; border-radius: 8px; background: #FFE3E0; color: #B8323F;
   border: 2px solid #B8323F; font-size: 9px; font-weight: 800; letter-spacing: .06em; white-space: nowrap; z-index: 5; }
 body.pending .pending-tag { display: block; }
 body:not(.pending) [data-pending] { display: none !important; }
 
+@media (max-width: 600px) {
+  :root { --fs-lead: 16px; --fs-h3: 20px; --fs-h2: 28px; --fs-h1: 40px; --fs-hero: 56px; }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; }
 }
+.sound-toggle { left: 84px; top: 22px; }
+@media (max-width: 600px) { .sound-toggle { left: 58px; top: 10px; width: 40px; height: 40px; font-size: 16px; } }
+.g-instant *, .g-instant *::before, .g-instant *::after { transition: none !important; }

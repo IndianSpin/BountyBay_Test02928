@@ -6,155 +6,188 @@
 <title>GOLDEN · Result — deal at 74</title>
 <link rel="stylesheet" href="../golden.css">
 <style>
-/* The result is a SCENE, not a panel: the table, the deal and the person stay; the reward flies to counters. */
+/* RESULT v4 — the climax is the reveal: her sealed card turns over and the zone splits into what you took and
+   what you left on the table (rec 1). Three reads in the first seconds (rec 8): the stamp + your share → the reveal
+   → the reward flying into the counter. The arithmetic is one receipt line, not a panel (GE-010 still met). */
 .sheet { display: none; }
-.rs-char { left: 77%; bottom: 17%; height: 72%; aspect-ratio: 2 / 3; transform: translateX(-50%); }
-.rs-menu { position: absolute; left: 20px; top: 20px; width: 46px; height: 46px; border-radius: 50%; border: 3px solid var(--outline-ink);
-  background: linear-gradient(#F6CC74, var(--brand-gold)); color: var(--ink-on-gold); font-size: 22px; font-weight: 800; box-shadow: 0 4px 0 var(--brand-gold-deep); }
-.rs-hud { position: absolute; left: 50%; top: 18px; transform: translateX(-50%); display: flex; gap: 12px; align-items: center; }
-.rs-hud .counter.rating { border-color: var(--player); }
-.rs-hud .counter.rating .ico { background: radial-gradient(circle at 35% 30%, #FFD2BF, var(--player) 60%, var(--player-deep)); color: var(--ink-on-ember); }
-.rs-div { display: flex; flex-direction: column; gap: 4px; width: 210px; padding: 6px 12px; border-radius: 14px; background: rgba(16,26,32,.86); border: 2px solid var(--brand-gold); }
-.rs-div .row { display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; letter-spacing: .08em; color: var(--brand-gold); }
+.rs-char { left: 81%; bottom: 27%; height: 62%; aspect-ratio: 2 / 3; transform: translateX(-50%); }
+.rs-menu { position: absolute; left: 20px; top: 18px; width: 52px; height: 52px; border-radius: 50%; font-size: 22px; font-weight: 800; }
+.rs-hud { position: absolute; left: 50%; top: 16px; transform: translateX(-50%); display: flex; gap: 12px; align-items: center; }
+.rs-hud .counter.rating .ico { background: radial-gradient(circle at 35% 30%, #FFE0D2, var(--player) 55%, var(--player-deep)); color: #fff; }
+.rs-hud .counter.cabinet .ico { background: radial-gradient(circle at 35% 30%, #F3E7FF, #8B6BD1 55%, #4E3A8E); color: #fff; font-size: 15px; }
+.rs-div { position: relative; display: flex; flex-direction: column; gap: 4px; width: 200px; padding: 8px 14px; border-radius: var(--r-md); }
+.rs-div .row { display: flex; justify-content: space-between; font-size: var(--fs-cap); font-weight: 800; letter-spacing: .06em; color: var(--lx-muted); }
 
-.rs-head { position: absolute; left: 44%; top: 9.5%; transform: translateX(-50%); text-align: center; width: 640px; }
-.rs-head .kicker { color: var(--positive); }
-.rs-head h1 { margin: 2px 0 0; font-family: var(--font-world); font-weight: 800; font-size: 52px; line-height: 1.02; color: #FFF6E4; text-shadow: 0 4px 0 rgba(0,0,0,.45); }
-.rs-split { position: absolute; left: 44%; top: calc(9.5% + 136px); transform: translateX(-50%); display: flex; gap: 14px; align-items: center; }
-.rs-split .me, .rs-split .them { font-family: var(--font-world); font-weight: 800; font-size: 30px; padding: 4px 16px; border-radius: 12px; border: 3px solid var(--outline-ink); }
-.rs-split .me { background: var(--player); color: var(--ink-on-ember); }
-.rs-split .them { background: var(--opponent); color: #fff; font-size: 22px; }
+/* the stage: everything that matters sits on one centre axis at x = 40% */
+.rs-head { position: absolute; left: 40%; top: 92px; transform: translateX(-50%); text-align: center; width: 820px; }
+.rs-head .ribbon { display: inline-flex; align-items: center; gap: 8px; }
+.rs-head .ribbon img { width: 22px; height: 22px; margin: -4px 0; }
+.rs-head h1 { margin: 12px 0 0; font-size: var(--fs-h1); line-height: 1; }
 
-.rs-table { position: absolute; left: 31%; width: 34%; top: 51%; height: 120px; pointer-events: none; }
-.rs-table > * , .rs-table [data-testid] { pointer-events: auto; }
-.rs-range { position: absolute; left: 0; right: 0; top: 62px; height: 26px; border-radius: 8px; background: rgba(0,0,0,.4); border: 3px solid var(--outline-ink); overflow: hidden; }
-.rs-range .seg { position: absolute; top: 0; bottom: 0; width: 0; transition: width 1s var(--ease-out); }
-.rs-range .seg.them { left: 0; background: linear-gradient(90deg, var(--opponent-deep), var(--opponent)); }
-.rs-range .seg.me { right: 0; background: linear-gradient(90deg, var(--player), var(--player-deep)); }
+.rs-table { position: absolute; left: 12%; width: 50%; top: 57%; height: 48px; pointer-events: none; }
+.rs-table > *, .rs-table [data-testid] { pointer-events: auto; }
+/* the zone bar: her part violet, your part ember, the split written on it */
+.rs-range { position: absolute; inset: 0; border-radius: var(--r-sm); background: linear-gradient(#120A08, #24160F); overflow: hidden;
+  box-shadow: inset 0 3px 8px rgba(0,0,0,.8), 0 0 0 1px rgba(255,236,205,.18), 0 14px 30px rgba(0,0,0,.5); }
+.rs-range .seg { position: absolute; top: 0; bottom: 0; width: 0; transition: width var(--t-ceremony) var(--ease-out); }
+.rs-range .seg.them { left: 0; background: linear-gradient(#A58BE0, #6A4FB3 60%, #43317D); }
+.rs-range .seg.me { right: 0; background: linear-gradient(#FF9C78, #E0602E 60%, #A03A18); }
 .rs-range.filled .seg.them { width: 36.6%; }
 .rs-range.filled .seg.me { width: 63.4%; }
-.rs-settle { position: absolute; left: 36.6%; top: 44px; width: 4px; height: 62px; background: #FFF; transform: translateX(-50%); box-shadow: 0 0 10px #fff; }
-.rs-settle b { position: absolute; top: 64px; left: 50%; transform: translateX(-50%); font-family: var(--font-num); font-size: 16px; color: #fff; text-shadow: 0 1px 3px #000; }
-.rs-card { position: absolute; top: -58px; width: 96px; height: 92px; border-radius: 12px; border: 3px solid var(--outline-ink); display: flex; flex-direction: column;
-  align-items: center; justify-content: center; color: #fff; box-shadow: 0 6px 0 rgba(0,0,0,.4); transform: translateX(-50%); }
-.rs-card .kicker { font-size: 10px; }
-.rs-card .num { font-size: 36px; line-height: 1; }
-.rs-card.me { left: 100%; background: linear-gradient(#FF9A76, var(--player) 60%, var(--player-deep)); }
-.rs-card.them { left: 0; background: linear-gradient(#A68BE3, var(--opponent) 60%, var(--opponent-deep)); }
-.rs-card.tl-show { animation: g-flip .55s var(--ease-pop) both; }
-@keyframes g-flip { 0% { transform: translateX(-50%) rotateY(90deg) scale(.8); } 100% { transform: translateX(-50%) rotateY(0) scale(1); } }
-.rs-stamp { left: 36.6%; top: 18px; }
+.rs-split { position: absolute; inset: 0; display: flex; opacity: 0; transition: opacity var(--t-settle) .5s; }
+.rs-range.filled + .rs-split { opacity: 1; }
+.rs-split span { display: flex; align-items: center; justify-content: center; gap: 8px; color: #fff; font-family: var(--font-world); font-weight: 800; text-shadow: 0 2px 0 rgba(0,0,0,.3); white-space: nowrap; }
+.rs-split .them { width: 36.6%; font-size: var(--fs-lead); }
+.rs-split .me { width: 63.4%; font-size: 28px; }
+.rs-split small { font-family: var(--font-num); font-size: var(--fs-body); opacity: .85; }
+.rs-settle { position: absolute; left: 36.6%; top: -10px; bottom: -10px; width: 5px; margin-left: -2.5px; background: #FFF6E4; border-radius: 3px; box-shadow: 0 0 14px #FFE3A0; }
+.rs-settle b { display: none; }
 
-.rs-ledger { position: absolute; left: 22px; top: 300px; width: 300px; padding: 14px 16px; }
-.rs-ledger h3 { margin: 0 0 6px; font-family: var(--font-world); font-weight: 800; font-size: 18px; }
-.rs-ledger .row { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-top: 1px dashed rgba(36,28,16,.25); font-size: 13px; }
-.rs-ledger .row b { font-family: var(--font-num); font-size: 16px; }
-.rs-ledger .row.net { border-top: 2px solid var(--ink-on-parchment); font-weight: 800; }
-.rs-ledger .row.net b { font-size: 22px; color: #2A7A45; }
-.rs-ledger .small { font-size: 11px; color: var(--ink-muted-on-parchment); }
+/* the sealed limit cards stand on the ends of the zone and turn over (rec 1) */
+.rs-card { position: absolute; bottom: 64px; width: 132px; height: 164px; transform: translateX(-50%); }
+.rs-card .face-down, .rs-card .face-up { position: absolute; inset: 0; border-radius: var(--r-md); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.5), 0 18px 34px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.3); }
+.rs-card .face-down { background: var(--lx-walnut); border: 1px solid var(--lx-rim-strong); color: var(--lx-muted); }
+.rs-card .face-down .seal { width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FF8A8A, #C73A4B 55%, #7E1B28); box-shadow: 0 2px 4px rgba(0,0,0,.5); }
+.rs-card .face-down .kicker { font-size: var(--fs-cap); }
+.rs-card .face-up { color: #fff; }
+.rs-card .face-up .kicker { font-size: var(--fs-cap); opacity: .9; }
+.rs-card .face-up .num { font-size: 56px; line-height: 1; text-shadow: 0 2px 0 rgba(0,0,0,.28); }
+.rs-card .face-up .s { font-size: var(--fs-cap); font-weight: 700; opacity: .85; }
+.rs-card.them { left: 0; } .rs-card.them .face-up { background: linear-gradient(#A58BE0, #6A4FB3 60%, #43317D); }
+.rs-card.me { left: 100%; } .rs-card.me .face-up { background: linear-gradient(#FF9C78, #E0602E 60%, #A03A18); }
+.rs-card.them.turned .face-up { box-shadow: 0 0 0 1.5px rgba(255,236,205,.8), 0 0 40px 10px rgba(160,130,240,.5), 0 18px 34px rgba(0,0,0,.55); }
 
-.rs-rematch { position: absolute; right: 22px; top: 54%; width: 290px; padding: 12px 14px; border-color: var(--opponent); }
-.rs-rematch .kicker { color: var(--opponent-deep); }
-.rs-rematch p { margin: 4px 0 0; font-weight: 700; font-size: 16px; }
-.rs-rematch .ring { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 12px; font-weight: 700; color: var(--ink-muted-on-parchment); }
-.rs-rematch .ring i { width: 26px; height: 26px; border-radius: 50%; border: 4px solid var(--brand-gold); border-right-color: #E9DCC0; }
+.rs-stamp { left: 36.6%; top: -150px; }
+.rs-rays { left: 36.6%; top: -150px; width: 520px; height: 520px; margin: -260px 0 0 -260px; }
+.rs-rays.tl-show { animation: g-bloom 4s ease-in-out infinite, g-fadein .5s both; }
+@keyframes g-fadein { from { opacity: 0; } to { opacity: 1; } }
 
-.rs-actions { position: absolute; left: 50%; bottom: 4.5%; transform: translateX(-50%); display: flex; gap: 14px; align-items: center; }
-.rs-actions .btn-gold { min-width: 300px; min-height: 68px; font-size: 24px; }
+/* what you left on the table: the honest near-miss, bracketed under her part of the zone */
+.rs-left { position: absolute; left: 0; width: 36.6%; top: 60px; text-align: center; }
+.rs-left .bracket { height: 10px; border: 2px solid rgba(185,162,240,.8); border-top: 0; border-radius: 0 0 6px 6px; }
+.rs-left .t { display: inline-block; margin-top: 8px; padding: 6px 14px; border-radius: var(--r-pill); background: var(--lx-glass); border: 1px solid rgba(185,162,240,.5);
+  font-size: var(--fs-body); font-weight: 700; color: #E4DAFB; white-space: nowrap; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.rs-left .t b { font-family: var(--font-num); color: #fff; font-size: var(--fs-lead); }
 
-.rs-promo { position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%); padding: 14px 30px; border-radius: 18px; background: #2B1A12; border: 4px solid var(--brand-gold);
-  box-shadow: 0 0 0 6px rgba(217,166,83,.35), 0 0 60px 20px rgba(217,166,83,.45); text-align: center; }
-.rs-promo .kicker { color: var(--brand-gold); }
-.rs-promo div.world { font-size: 40px; color: #FFE7A6; }
+/* one receipt line: GE-010 surplus · clock multiplier · concession spend · net */
+.rs-ledger { position: absolute; left: 40%; top: 77%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: var(--r-md); white-space: nowrap; }
+.rs-ledger .tok { display: flex; flex-direction: column; align-items: center; }
+.rs-ledger .tok b { font-family: var(--font-num); font-weight: 700; font-size: var(--fs-lead); line-height: 1.1; color: #FFF3DA; }
+.rs-ledger .tok span { font-size: var(--fs-cap); color: var(--lx-muted); font-weight: 600; }
+.rs-ledger .op { font-family: var(--font-num); color: var(--lx-faint); font-size: var(--fs-lead); }
+.rs-ledger .tok.net b { font-size: var(--fs-h3); color: var(--lx-gold); }
+
+.rs-rematch { position: absolute; right: 24px; top: 51%; width: 300px; }
+.rs-rematch .rival { margin-top: 10px; }
+.rs-rematch .ring { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: var(--fs-cap); font-weight: 700; color: var(--lx-muted); }
+.rs-rematch .ring i { width: 24px; height: 24px; border-radius: 50%; border: 4px solid var(--lx-gold); border-right-color: rgba(255,236,205,.15); animation: w-spin 3s linear infinite; }
+.rival { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: var(--r-pill); background: rgba(139,107,209,.22); border: 1px solid rgba(185,162,240,.5);
+  color: #D9CCFA; font-size: var(--fs-cap); font-weight: 800; letter-spacing: .06em; white-space: nowrap; }
+.rival b { font-family: var(--font-num); color: #fff; }
+
+.rs-actions { position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%); display: flex; gap: 14px; align-items: center; }
+.rs-actions .btn-gold { min-width: 340px; min-height: 76px; font-size: var(--fs-h3); }
+
+.rs-promo { position: absolute; left: 40%; top: 44%; transform: translate(-50%, -50%); text-align: center; }
+.rs-promo .rays { left: 50%; top: 50%; width: 720px; height: 720px; margin: -360px 0 0 -360px; }
+.rs-promo .t3d { position: relative; font-size: var(--fs-hero); }
+.rs-promo .ribbon { position: relative; margin-top: 10px; }
 
 @media (max-width: 600px) {
-  .sheet { display: block; position: absolute; left: 0; right: 0; bottom: 0; height: 58%; background: var(--surface-world-deep); border-top: 3px solid #8A6A3A; }
-  .table-fg { height: 14%; bottom: 58%; background-image: url('../../../apps/web/public/game/table-fp-m.svg'); }
-  .rs-char { left: 69%; bottom: 58%; height: 40%; }
-  .rs-menu { left: 10px; top: 10px; width: 38px; height: 38px; font-size: 18px; }
-  .rs-hud { left: 16px; right: 16px; transform: none; top: calc(42% + 12px); justify-content: space-between; gap: 8px; }
-  .rs-hud .counter .v { font-size: 16px; } .rs-hud .counter .ico { width: 24px; height: 24px; font-size: 13px; }
-  .rs-hud [data-testid=treasury-counter], .rs-hud [data-testid=division-bar] { display: none !important; }
-  .rs-table { left: 5%; width: 60%; top: 33%; height: 80px; }
-  .rs-card.them { transform: none; left: 0; } .rs-card.me { transform: none; left: auto; right: 0; }
-  .rs-card.tl-show { animation: none; }
-  .rs-card { width: 64px; height: 64px; top: -44px; } .rs-card .num { font-size: 24px; } .rs-card .kicker { font-size: 8px; }
-  .rs-range { top: 30px; height: 20px; } .rs-settle { top: 18px; height: 44px; } .rs-settle b { top: 44px; font-size: 13px; }
-  .rs-stamp { left: 50%; top: -92px; font-size: 20px; padding: 3px 12px; border-width: 3px; }
-  .rs-head { left: 16px; right: 16px; width: auto; transform: none; top: calc(42% + 72px); text-align: left; }
-  .rs-head h1 { font-size: 30px; }
-  .rs-split { left: 16px; transform: none; top: calc(42% + 152px); }
-  .rs-split .me { font-size: 22px; } .rs-split .them { font-size: 16px; }
-  .rs-ledger { left: 16px; right: 16px; width: auto; top: auto; bottom: 146px; padding: 8px 12px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; }
-  .rs-ledger .opt2 { display: none; }
-  .rs-ledger h3 { display: none; }
-  .rs-ledger .row { font-size: 12px; padding: 3px 0; } .rs-ledger .row b { font-size: 14px; } .rs-ledger .row.net b { font-size: 16px; }
-  .rs-ledger .opt { display: none; }
-  .rs-rematch { left: 10px; right: auto; top: 10px; width: 180px; padding: 7px 9px; }
-  .rs-rematch .kicker { font-size: 9px; } .rs-rematch .ring { font-size: 10px; margin-top: 4px; } .rs-rematch .ring i { width: 18px; height: 18px; border-width: 3px; }
-  .rs-rematch p { font-size: 12px; }
-  .rs-actions { left: 16px; right: 16px; transform: none; bottom: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .rs-actions .btn-gold { grid-column: 1 / 3; grid-row: 1; min-width: 0; min-height: 58px; font-size: 20px; }
-  .rs-actions .btn-quiet { min-height: 46px; font-size: 14px; }
-  .rs-promo div.world { font-size: 28px; }
+  /* mobile: the scene (her, her offer, the stamp) on top; the reveal opens the sheet, then the sentence, the receipt, the thumb */
+  .sheet { display: block; position: absolute; left: 0; right: 0; bottom: 0; height: 62%; background: linear-gradient(#24160F, #120A08); border-top: 1px solid var(--lx-rim); box-shadow: 0 -18px 40px rgba(0,0,0,.45); }
+  .w-counter { height: 11%; bottom: 62%; }
+  .rs-char { left: 71%; bottom: 62%; height: 29%; }
+  .rs-menu { left: 10px; top: 10px; width: 40px; height: 40px; font-size: 18px; }
+  .rs-hud { left: auto; right: 8px; transform: none; top: 10px; gap: 6px; }
+  .rs-hud .counter { padding: 3px 10px 3px 3px; gap: 6px; } .rs-hud .counter .v { font-size: var(--fs-body); } .rs-hud .counter .l { font-size: 12px; letter-spacing: .02em; } .rs-hud .counter .ico { width: 28px; height: 28px; font-size: 13px; }
+  .rs-hud [data-testid=treasury-counter], .rs-hud [data-testid=division-bar], .rs-hud [data-testid=cabinet-counter] { display: none !important; }
+  .rs-table { left: 20px; right: 20px; width: auto; top: calc(38% + 106px); height: 30px; }
+  .rs-card { width: 78px; height: 80px; bottom: 44px; } .rs-card .face-up .num { font-size: 30px; } .rs-card .face-up .s { display: none; }
+  .rs-card.them { left: 39px; } .rs-card.me { left: calc(100% - 39px); }
+  .rs-card .face-down .seal { width: 26px; height: 26px; } .rs-card .kicker { font-size: 12px !important; letter-spacing: .02em; }
+  .rs-split .me { font-size: var(--fs-lead); } .rs-split .them { font-size: var(--fs-cap); } .rs-split small { display: none; }
+  .rs-stamp { left: 26%; top: -196px; font-size: 20px; padding: 4px 12px; }
+  .rs-rays { left: 26%; top: -196px; width: 240px; height: 240px; margin: -120px 0 0 -120px; }
+  .rs-left { top: 38px; } .rs-left .t { font-size: var(--fs-cap); padding: 3px 10px; margin-top: 6px; } .rs-left .t b { font-size: var(--fs-body); }
+  .rs-head { left: 14px; right: 14px; width: auto; transform: none; top: calc(38% + 190px); text-align: left; }
+  .rs-head h1 { font-size: 29px; margin-top: 8px; white-space: nowrap; }
+  .rs-ledger { left: 12px; right: 12px; transform: none; top: calc(38% + 296px); justify-content: center; gap: 6px; padding: 8px 10px; }
+  .rs-ledger .tok b { font-size: var(--fs-body); } .rs-ledger .tok.net b { font-size: var(--fs-lead); } .rs-ledger .op { font-size: var(--fs-body); } .rs-ledger .tok span { font-size: 12px; }
+  .rs-rematch { left: 8px; right: auto; top: 60px; width: 176px; padding: 8px 10px 10px; font-size: var(--fs-body); }
+  .rs-rematch .kicker { font-size: 12px; } .rs-rematch .ring { display: none; } .rs-rematch .rival { margin-top: 6px; }
+  .rs-rematch::after { right: 20px; }
+  .rs-actions { left: 12px; right: 12px; transform: none; bottom: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .rs-actions .btn-gold { grid-column: 1 / 3; grid-row: 1; min-width: 0; min-height: 62px; font-size: var(--fs-h3); }
+  .rs-actions .btn-quiet { min-height: 48px; }
+  .rs-promo { left: 50%; } .rs-promo .rays { width: 420px; height: 420px; margin: -210px 0 0 -210px; }
 }
 </style>
 </head>
 <body>
 <main class="stage" data-testid="market-world">
-  <div class="scene-bg dim"></div>
+  <div data-world data-focus="40% 58%"></div>
   <div class="sprite rs-char" data-testid="result-person" data-sprite="goldenotter:listen" role="img" aria-label="KESTREL as Golden Otter"></div>
-  <div class="table-fg"></div>
+  <div data-counter></div>
   <div class="sheet"></div>
-  <button class="rs-menu" aria-label="Match menu" data-testid="match-menu">⋯</button>
+  <button class="glass rs-menu" aria-label="Match menu" data-testid="match-menu">⋯</button>
 
   <!-- reward HUD: counters the reward flies into -->
   <div class="rs-hud" data-testid="result-hud">
-    <div class="counter" data-testid="reward-bounty-counter"><span class="ico">B</span><span><div class="l">BOUNTY THIS DEAL</div><div class="v" data-testid="bountyV">0.0</div></span></div>
-    <div class="counter rating" data-testid="rating-counter"><span class="ico">★</span><span><div class="l">BOUNTY RATING</div><div class="v" data-testid="ratingV">1,482</div></span></div>
+    <div class="counter" data-testid="reward-bounty-counter"><span class="ico">B</span><span><div class="l">BOUNTY</div><div class="v" data-testid="bountyV">0.0</div></span></div>
+    <div class="counter rating" data-testid="rating-counter"><span class="ico">★</span><span><div class="l">RATING</div><div class="v" data-testid="ratingV">1,482</div></span></div>
+    <div class="counter cabinet" data-testid="cabinet-counter" data-pending="collection"><span class="pending-tag">PENDING · DEC collection</span><span class="ico">⌂</span><span><div class="l">NAVIGATOR'S SET</div><div class="v" data-testid="cabinetV">2 / 4</div></span></div>
     <div class="counter" data-testid="treasury-counter" data-pending="treasury"><span class="pending-tag">PENDING · GE-004</span><span class="ico">⚓</span><span><div class="l">TREASURY</div><div class="v" data-testid="treasuryV">1,203.4</div></span></div>
-    <div class="rs-div" data-testid="division-bar" data-pending="divisions"><span class="pending-tag">PENDING · PDR-13</span><div class="row"><span>MERCHANT III</span><span>→ II</span></div><div class="bar"><i style="width:82%"></i></div></div>
+    <div class="glass rs-div" data-testid="division-bar" data-pending="divisions"><span class="pending-tag">PENDING · PDR-13</span><div class="row"><span>MERCHANT III</span><span>→ II</span></div><div class="bar"><i style="width:82%"></i></div></div>
   </div>
+
+  <div class="rs-head tl-hidden" data-testid="result-headline"><span class="ribbon"><img data-testid="traded-item" src="../../../apps/web/public/game/asset-compass.svg" alt="">DEAL · THE RUBY COMPASS</span><h1 class="t3d">You took <em>63%</em> of the deal</h1></div>
 
   <!-- the deal on the table -->
   <div class="rs-table">
+    <div class="rays rs-rays tl-hidden" data-testid="deal-rays" style="pointer-events:none"></div>
     <div data-testid="result-limits">
-      <div class="rs-card them tl-hidden" data-testid="result-limit-theirs"><span class="kicker">HER LIMIT</span><span class="num">59</span></div>
-      <div class="rs-card me tl-hidden" data-testid="result-limit-mine"><span class="kicker">YOUR LIMIT</span><span class="num">100</span></div>
+      <div class="rs-card them flip" data-testid="result-limit-theirs">
+        <div class="face-down"><span class="seal"></span><span class="kicker">HER LIMIT</span><span class="kicker">SEALED</span></div>
+        <div class="face-up"><span class="kicker">HER LIMIT</span><span class="num">59</span></div>
+      </div>
+      <div class="rs-card me flip" data-testid="result-limit-mine">
+        <div class="face-down"><span class="seal"></span><span class="kicker">YOUR LIMIT</span><span class="kicker">SEALED</span></div>
+        <div class="face-up"><span class="kicker">YOUR LIMIT</span><span class="num">100</span></div>
+      </div>
     </div>
     <div class="rs-range" data-testid="result-range" role="img" aria-label="Deal zone 59 to 100, settled at 74: you 63 percent, KESTREL 37 percent"><span class="seg them"></span><span class="seg me"></span></div>
+    <div class="rs-split" data-testid="result-split"><span class="them">KESTREL 37%</span><span class="me">YOU 63% <small>26 of 41</small></span></div>
     <div class="rs-settle"><b>74</b></div>
+    <div class="rs-left tl-hidden" data-testid="left-on-table"><div class="bracket"></div><span class="t">She'd have gone to 59 — <b>15</b> left on the table</span></div>
     <div class="stamp rs-stamp tl-hidden" data-testid="result-stamp">DEAL · 74</div>
   </div>
 
-  <div class="rs-head tl-hidden" data-testid="result-headline"><div class="kicker">DEAL · THE RUBY COMPASS · 74</div><h1>You took 63% of the deal.</h1></div>
-  <div class="rs-split tl-hidden" data-testid="result-split"><span class="me">YOU 63%</span><span class="them">KESTREL 37%</span></div>
-
-  <section class="parch rs-ledger tl-hidden" data-testid="result-ledger">
-    <h3>The ledger</h3>
-    <div class="row"><span>Surplus captured</span><b>63%</b></div>
-    <div class="row"><span>Clock multiplier <span class="small">you · her</span></span><b>×84% · ×91%</b></div>
-    <div class="row opt"><span>Decision time used</span><b>0:27 · 0:15</b></div>
-    <div class="row"><span>Concession chips spent</span><b>12</b></div>
-    <div class="row opt2" id="grossRow"><span>Gross bounty <span class="small">100 × 63% × 84%</span></span><b>53.3</b></div>
-    <div class="row net"><span>Net result</span><b>41.3</b></div>
-    <div class="row opt"><span class="small">Rated · rating change</span><b>+18</b></div>
+  <section class="glass rs-ledger tl-hidden" data-testid="result-ledger" aria-label="How the bounty is counted">
+    <span class="tok"><b>100</b><span>bounty</span></span><span class="op">×</span>
+    <span class="tok"><b>63.4%</b><span>your share</span></span><span class="op">×</span>
+    <span class="tok"><b>84%</b><span>clock</span></span><span class="op">−</span>
+    <span class="tok"><b>12</b><span>chips</span></span><span class="op">=</span>
+    <span class="tok net"><b>41.3</b><span>net</span></span>
   </section>
 
-  <section class="parch rs-rematch tl-hidden" data-testid="rematch-prompt">
+  <section class="bubble rs-rematch tl-hidden" data-testid="rematch-prompt">
     <span class="kicker">KESTREL WANTS THE OTHER SIDE</span>
-    <p>“Good deal. Same compass — I buy this time?”</p>
-    <span class="ring"><i></i>offer stands 0:12 · then it becomes a letter</span>
+    “Good deal. Same compass — I buy this time?”
+    <div><span class="rival" data-testid="rival-record">RIVAL · <b>1–0</b> you</span></div>
+    <span class="ring"><i></i>offer stands 0:12</span>
   </section>
 
-  <div class="rs-promo tl-hidden" data-testid="promotion-banner" data-pending="divisions"><span class="pending-tag">PENDING · PDR-13</span><div class="kicker">PROMOTED</div><div class="world">MERCHANT II</div></div>
+  <div class="rs-promo tl-hidden" data-testid="promotion-banner" data-pending="divisions"><div class="rays"></div><span class="pending-tag">PENDING · PDR-13</span><div class="t3d gold">PROMOTED</div><span class="ribbon">MERCHANT II</span></div>
 
   <div class="rs-actions tl-hidden" data-testid="result-actions">
     <button class="btn btn-quiet" data-testid="analyze-deal">Review the deal</button>
-    <button class="btn btn-gold" data-testid="rematch-button"><span class="stack">SWAP SIDES · REMATCH<span class="btn-sub">she buys · you sell · same compass</span></span></button>
+    <button class="btn btn-gold breathe" data-testid="rematch-button"><span class="stack">SWAP SIDES · REMATCH<span class="btn-sub">she buys · you sell</span></span></button>
     <button class="btn btn-quiet" data-testid="back-to-bay">Back to The Bay</button>
   </div>
 </main>
+<script src="../world.js"></script>
 <script src="../golden.js"></script>
 <script>Golden.boot('result');</script>
 </body>

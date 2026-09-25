@@ -1,34 +1,275 @@
 {
   "state": "bay",
-  "title": "The Bay — after the deal at 74: one gold table, then who is waiting on me",
-  "sources": ["SH1 frames 01 and 16", "SH2 frames 01 and 16", "SH3-3 Bay IA", "SH3-9 navigation", "RW2 event 24", "UF-09 profile fields", "DESIGN_ACCEPTANCE §Non-negotiable 1/6"],
+  "title": "The Bay v4 — one hero (the table), one 'almost there' (the rival waiting on you), one reason to return (pending), everything else small",
+  "sources": [
+    "SH1 frames 01 and 16",
+    "SH2 frames 01 and 16",
+    "SH3-3 Bay IA",
+    "SH3-9 navigation",
+    "RW2 event 24",
+    "UF-09 profile fields",
+    "DESIGN_ACCEPTANCE §Non-negotiable 1/6",
+    "VISUAL-AUDIT.md (v4: V1-V10, recs 4, 5, 6, 7)"
+  ],
   "fixture": "bay",
   "appRoute": "/dev/states/bay",
-  "viewports": [{ "name": "desktop", "w": 1440, "h": 900 }, { "name": "mobile", "w": 390, "h": 844 }],
-  "required": [
-    { "id": "hub-bar", "why": "three hubs: THE BAY · PLAY · ME", "zone": { "desktop": [0, 0, 1, 0.1], "mobile": [0, 0, 1, 0.1] } },
-    { "id": "rating-counter", "why": "my standing, always visible", "unoccluded": true },
-    { "id": "bay-table", "why": "the ONE gold object: play a person", "largest": true, "container": false,
-      "zone": { "desktop": [0.0, 0.1, 0.5, 1.0], "mobile": [0.0, 0.05, 1.0, 0.45] }, "minArea": { "desktop": 0.2, "mobile": 0.2 } },
-    { "id": "bay-play-ranked", "why": "primary action, chunky and unmissable", "unoccluded": true, "minSize": { "desktop": [400, 76], "mobile": [300, 58] } },
-    { "id": "bay-letters", "why": "unfinished business second", "container": true },
-    { "id": "bay-letter", "why": "KESTREL's rematch letter — a person waiting on me", "text": "KESTREL", "unoccluded": true },
-    { "id": "event-rail", "why": "today · this month · watch · practise, compact", "container": true, "zone": { "desktop": [0.7, 0.1, 1.0, 1.0], "mobile": [0.0, 0.4, 1.0, 1.0] } },
-    { "id": "bay-today", "why": "Today's Deal slot (live values PENDING PDR-10)" },
-    { "id": "bay-bounty", "why": "Monthly Bounty slot (live values PENDING PDR-11)" },
-    { "id": "bay-live", "why": "Live Tables slot (PENDING PDR-12)" },
-    { "id": "bay-practice", "why": "AI is a room, labelled, never the front door", "text": "AI" },
-    { "id": "bay-practice-go", "why": "practice reachable", "minSize": { "desktop": [44, 44], "mobile": [44, 44] } },
-    { "id": "bay-me", "why": "standing (UF-09 fields)", "viewports": ["desktop"] },
-    { "id": "tab-bar", "why": "mobile hubs at the thumb", "viewports": ["mobile"], "zone": { "mobile": [0, 0.9, 1, 1] } },
-    { "id": "treasury-counter", "pending": "GE-004", "why": "persistent treasury", "viewports": ["desktop"] },
-    { "id": "division-bar", "pending": "PDR-13", "why": "division progress", "viewports": ["desktop"] }
+  "viewports": [
+    {
+      "name": "desktop",
+      "w": 1440,
+      "h": 900
+    },
+    {
+      "name": "mobile",
+      "w": 390,
+      "h": 844
+    }
   ],
-  "noOverlap": [["bay-table", "bay-letters"], ["bay-letters", "event-rail"], ["bay-table", "event-rail"], ["hub-bar", "bay-table"], ["bay-me", "bay-letters"]],
-  "forbidden": { "text": ["SOON", "Loading"], "why": "no bare 'SOON' labels — a slot that is not live yet still says what it will be and when" },
+  "required": [
+    {
+      "id": "hub-bar",
+      "why": "three hubs: THE BAY · PLAY · ME",
+      "zone": {
+        "desktop": [
+          0,
+          0,
+          1,
+          0.1
+        ],
+        "mobile": [
+          0,
+          0,
+          1,
+          0.1
+        ]
+      }
+    },
+    {
+      "id": "rating-counter",
+      "why": "my standing, always visible",
+      "unoccluded": true
+    },
+    {
+      "id": "bay-table",
+      "why": "the ONE gold object: play a person",
+      "largest": true,
+      "container": false,
+      "zone": {
+        "desktop": [
+          0.0,
+          0.1,
+          0.6,
+          1.0
+        ],
+        "mobile": [
+          0.0,
+          0.05,
+          1.0,
+          0.45
+        ]
+      },
+      "minArea": {
+        "desktop": 0.35,
+        "mobile": 0.2
+      }
+    },
+    {
+      "id": "bay-play-ranked",
+      "why": "primary action, chunky and unmissable",
+      "unoccluded": true,
+      "minSize": {
+        "desktop": [
+          600,
+          90
+        ],
+        "mobile": [
+          340,
+          60
+        ]
+      }
+    },
+    {
+      "id": "bay-letters",
+      "why": "unfinished business second",
+      "container": true
+    },
+    {
+      "id": "bay-letter",
+      "why": "the rival waiting on me — the one 'almost there' (rec 5, rec 6)",
+      "text": "KESTREL",
+      "unoccluded": true
+    },
+    {
+      "id": "event-rail",
+      "why": "today · this month · watch · practise — one compact list, no dead tiles",
+      "container": true,
+      "zone": {
+        "desktop": [
+          0.55,
+          0.1,
+          1.0,
+          1.0
+        ],
+        "mobile": [
+          0.0,
+          0.4,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "id": "bay-today",
+      "why": "Today's Deal slot (live values PENDING PDR-10)"
+    },
+    {
+      "id": "bay-bounty",
+      "why": "Monthly Bounty slot (live values PENDING PDR-11)"
+    },
+    {
+      "id": "bay-live",
+      "why": "Live Tables slot (PENDING PDR-12)"
+    },
+    {
+      "id": "bay-practice",
+      "why": "AI is a room, labelled, never the front door",
+      "text": "AI"
+    },
+    {
+      "id": "bay-practice-go",
+      "why": "practice reachable",
+      "minSize": {
+        "desktop": [
+          44,
+          44
+        ],
+        "mobile": [
+          44,
+          44
+        ]
+      }
+    },
+    {
+      "id": "bay-me",
+      "why": "standing (UF-09 fields)",
+      "viewports": [
+        "desktop"
+      ]
+    },
+    {
+      "id": "tab-bar",
+      "why": "mobile hubs at the thumb",
+      "viewports": [
+        "mobile"
+      ],
+      "zone": {
+        "mobile": [
+          0,
+          0.9,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "treasury-counter",
+      "pending": "GE-004",
+      "why": "persistent treasury",
+      "viewports": [
+        "desktop"
+      ]
+    },
+    {
+      "id": "division-bar",
+      "pending": "PDR-13",
+      "why": "division progress",
+      "viewports": [
+        "desktop"
+      ]
+    },
+    {
+      "id": "rival-record",
+      "why": "rec 5",
+      "text": "1–0"
+    },
+    {
+      "id": "bay-cabinet",
+      "pending": "DEC collection",
+      "viewports": [
+        "desktop"
+      ],
+      "why": "rec 4: the cabinet of traded items"
+    },
+    {
+      "id": "bay-streak",
+      "pending": "DEC streak",
+      "viewports": [
+        "desktop"
+      ],
+      "why": "rec 7: a daily reason to return, not an energy meter"
+    },
+    {
+      "id": "streak-counter",
+      "pending": "DEC streak",
+      "viewports": [
+        "desktop"
+      ],
+      "why": "rec 7"
+    }
+  ],
+  "noOverlap": [
+    [
+      "bay-table",
+      "bay-letters"
+    ],
+    [
+      "bay-letters",
+      "event-rail"
+    ],
+    [
+      "bay-table",
+      "event-rail"
+    ],
+    [
+      "hub-bar",
+      "bay-table"
+    ],
+    [
+      "bay-me",
+      "bay-letters"
+    ],
+    [
+      "bay-letters",
+      "bay-me"
+    ],
+    [
+      "event-rail",
+      "bay-me"
+    ]
+  ],
+  "forbidden": {
+    "text": [
+      "SOON",
+      "Loading",
+      "Coming soon"
+    ],
+    "why": "no bare 'SOON' labels — a slot that is not live yet still says what it will be and when"
+  },
   "timeline": [
-    { "id": "standing-glow", "at": 300, "action": "class", "target": "bay-me", "cls": "glow" },
-    { "id": "letter-lands", "at": 800, "action": "show", "target": "bay-letter" },
-    { "id": "monthly-pin", "at": 1400, "action": "fill", "target": "monthly-bar", "to": 80, "pending": "PDR-11" }
+    {
+      "id": "letter-lands",
+      "at": 500,
+      "action": "show",
+      "target": "bay-letter",
+      "sfx": "letter"
+    },
+    {
+      "id": "monthly-pin",
+      "at": 1200,
+      "action": "fill",
+      "target": "monthly-bar",
+      "to": 80,
+      "pending": "PDR-11"
+    }
   ]
 }
