@@ -1202,3 +1202,21 @@ friend-match two-browser 5/5 on main — W2's single batch failure
 classified ENVIRONMENTAL (transient dev-server class), no action.
 Both journeys now fully GREEN except the SH4 result VISUAL cell,
 which is fixed in code and pending the founder's review.
+
+## D-91 — Golden v4 landed; W2 queue reopened (2026-09-26)
+
+The design session's v4 update committed: measured visual audit
+(VISUAL-AUDIT.md — 10 visual + 10 stickiness changes), re-composed
+golden pages with area-budget contracts (minSize/minArea — G-2..G-4
+cannot pass with a thin rail), painted world assets (scene-wharf4/
+table-fp4), sfx.json manifest, and new tasks G-1b (painted world +
+skin tokens) + G-1c (sound-cue hook + mute + haptics, placeholders).
+W2 queue: G-1b → G-1c → G-2 re-check vs v4 → G-3 → G-4.
+
+## PDR-6 — PRODUCT DECISIONS REQUIRED (golden v4 pending layers)
+
+The v4 handoff marks these as needing a founder DEC before the app
+builds them (currently data-pending layers): the cabinet/collection
+(GE-004, docs/14) · the daily lantern streak (docs/14, D-16) · the
+earlier treasury, divisions, confetti, Bay live values. No tasks
+until ruled.
