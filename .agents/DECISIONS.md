@@ -1220,3 +1220,14 @@ builds them (currently data-pending layers): the cabinet/collection
 (GE-004, docs/14) · the daily lantern streak (docs/14, D-16) · the
 earlier treasury, divisions, confetti, Bay live values. No tasks
 until ruled.
+
+## D-92 — Deploy seam defined (2026-09-26)
+
+Deploy-config loop = sixth (Railway env, Clerk/Supabase fixes,
+smoke); W2 = golden queue only (G-1b→G-4); railway.json merged on
+main. Live-symptom root causes (sixth, evidence-based): CREATE
+ACCOUNT empty page = Clerk instance pinned to a Vercel-INTERNAL
+hostname (auto-created by the Vercel integration) — instance domain
+must become public (regenerates the publishable key → Vercel env
+update needed); PLAY error = API down (health 000) on Supabase
+credential failure (P1000). Both fixes are founder dashboard actions.
