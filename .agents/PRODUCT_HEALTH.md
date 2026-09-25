@@ -35,7 +35,7 @@ Profile/training update → Play Again/Bay
 | AI match start | G | G | G | G | G | G |
 | AI table talk (per AI_BEHAVIOR_CONTRACT) | G | G | G | G | G | G (BB-257 re-walk) |
 | AI result | G | G | G | G | G | G |
-| Profile/training update | Y | Y | R | N | N | Y (engine merged BB-258; result-screen seam = BB-262 W2) |
+| Profile/training update | G | G | G | G | G | G (BB-266 re-walk) |
 | Play Again / back to Bay | G | G | G | G | G | G |
 
 ## QA walk evidence (2026-09-24, base `644ff28`+; spec `.agents/qa/tools/specs/qa-journeys.spec.ts` 2/2 PASS + mobile entry probe PASS)
@@ -57,8 +57,12 @@ Profile/training update → Play Again/Bay
   (BB-254 follow-up), observed not re-litigated.
 
 ## Current RED items (upstream-first repair order)
-1. **Profile/training update after AI match** — nothing surfaces the
-   IN-3/IN-6 progress post-match → BB-258 (W3, after BB-257).
+1. ~~Profile/training update~~ — RESOLVED: BB-266 merged; QA re-walked
+   (2026-09-24): the AI result renders the full progress surface on a
+   real payload — training history (BAND · matches · band transition),
+   personal records (best surplus / fastest close / longest hold), this
+   match's skill observations, and AI mastery (deals · streak). Row
+   flipped GREEN.
 2. ~~AI table talk WIRING~~ — RESOLVED: BB-257 merged, QA re-walked
    (2026-09-24): live match vs The Wall persisted one talk line
    ("Before I answer, tell me: is that your best position?" — an exact

@@ -1192,3 +1192,13 @@ unchanged). Cross-territory note: the progress endpoint is W2-authored
 in apps/api (grandfathered, W1 review at leisure). Gate: tc 0, unit
 316, lint 0, ai-routes 6/6. Matrix: profile row stays YELLOW until
 QA's re-walk (founder's K rule: GREEN only after independent QA).
+
+## D-90 — Profile row GREEN; Journey B fully lit (2026-09-24)
+
+QA re-walk: the AI result renders the complete progress surface on a
+real payload (training history, records, skill observations, AI
+mastery) — profile/training row GREEN with evidence. Flake triage:
+friend-match two-browser 5/5 on main — W2's single batch failure
+classified ENVIRONMENTAL (transient dev-server class), no action.
+Both journeys now fully GREEN except the SH4 result VISUAL cell,
+which is fixed in code and pending the founder's review.
