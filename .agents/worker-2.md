@@ -401,3 +401,23 @@ the join-route cap was a real gap (grandfathered W2 API endpoint with
 the W1-review flag noted). Profile row stays YELLOW until QA re-walks.
 Standing down — G-3/G-4 resume when the design session lands the
 final golden pages.
+
+---
+
+UPDATE: **LIVE-DEPLOYMENT REPAIR (founder-directed, D-91)** — the
+alpha deploy was broken three ways; diagnosis evidence-backed:
+(1) Vercel: newer projects (zcm2/test0292800/m7oo/test02928/
+bounty-bay) all set Root Directory "." → "No Next.js version
+detected"; the working project (bounty-bay-test02928-oaeo, root
+apps/web) serves 200. (2) Railway: the api service never deployed
+(latestDeployment null, zero env vars) → 404 Application not found.
+(3) Auth: production refuses to boot without CLERK_JWT_PUBLIC_KEY;
+web needs NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY — neither configured.
+
+Approved by the founder ("do it all"): Railway production env set
+(DATABASE_URL=${{Postgres.DATABASE_URL}}, NODE_ENV, BB_ENV,
+BB_RELEASE, CORS_ORIGIN, SOCKET_CORS_ORIGINS); railway.json added
+(api start command + /health healthcheck) — needs the founder to
+flip the service's Settings → "Config as Code" toggle so pushes
+build instead of SKIP; Clerk keys pending the founder's key file;
+then migrations via `railway shell` + db:deploy.
