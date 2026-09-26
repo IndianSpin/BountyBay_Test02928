@@ -5,7 +5,7 @@
     "buildCommand": "pnpm install --frozen-lockfile"
   },
   "deploy": {
-    "startCommand": "pnpm --filter api start",
+    "startCommand": "API_PORT=$PORT pnpm --filter api start",
     "healthcheckPath": "/health",
     "healthcheckTimeout": 120,
     "restartPolicyType": "ON_FAILURE",
